@@ -39,6 +39,7 @@ class Session
 
     /**
      * @param $name
+     *
      * @return mixed
      */
     public static function getOption($name)
@@ -49,6 +50,7 @@ class Session
     /**
      * @param $func
      * @param string $namespace
+     *
      * @return mixed
      */
     public static function useSession($func, $namespace = "pimcore_admin")
@@ -114,6 +116,7 @@ class Session
      * Start session and get an attribute bag
      *
      * @param string $namespace
+     *
      * @return AttributeBagInterface
      */
     public static function get($namespace = "pimcore_admin")
@@ -123,6 +126,7 @@ class Session
 
     /**
      * @param string $namespace
+     *
      * @return AttributeBagInterface
      */
     public static function getReadOnly($namespace = "pimcore_admin")

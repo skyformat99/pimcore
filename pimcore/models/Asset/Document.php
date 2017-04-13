@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Asset
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -17,15 +18,14 @@
 namespace Pimcore\Model\Asset;
 
 use Pimcore\Cache;
-use Pimcore\Model;
 use Pimcore\Logger;
+use Pimcore\Model;
 
 /**
  * @method \Pimcore\Model\Asset\Dao getDao()
  */
 class Document extends Model\Asset
 {
-
     /**
      * @var string
      */
@@ -56,6 +56,7 @@ class Document extends Model\Asset
      * @todo: Shouldnt' this always return an int?
      *
      * @param null $path
+     *
      * @return int|null
      */
     protected function readPageCount($path = null)
@@ -104,6 +105,7 @@ class Document extends Model\Asset
      * @param $thumbnailName
      * @param int $page
      * @param bool $deferred $deferred deferred means that the image will be generated on-the-fly (details see below)
+     *
      * @return mixed|string
      */
     public function getImageThumbnail($thumbnailName, $page = 1, $deferred = false)
@@ -119,6 +121,7 @@ class Document extends Model\Asset
 
     /**
      * @param null $page
+     *
      * @return mixed|null
      */
     public function getText($page = null)

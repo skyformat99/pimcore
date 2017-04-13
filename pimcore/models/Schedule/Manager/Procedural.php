@@ -10,18 +10,18 @@
  *
  * @category   Pimcore
  * @package    Schedule
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Schedule\Manager;
 
-use Pimcore\Model;
 use Pimcore\Logger;
+use Pimcore\Model;
 
 class Procedural
 {
-
     /**
      * @var array
      */
@@ -52,6 +52,7 @@ class Procedural
 
     /**
      * @param $validJobs
+     *
      * @return $this
      */
     public function setValidJobs($validJobs)
@@ -66,6 +67,7 @@ class Procedural
     /**
      * @param Model\Schedule\Maintenance\Job $job
      * @param bool $force
+     *
      * @return bool
      */
     public function registerJob(Model\Schedule\Maintenance\Job $job, $force = false)
@@ -89,9 +91,6 @@ class Procedural
         return false;
     }
 
-    /**
-     *
-     */
     public function run()
     {
         $this->setLastExecution();
@@ -110,9 +109,6 @@ class Procedural
         }
     }
 
-    /**
-     *
-     */
     public function setLastExecution()
     {
         Model\Tool\Lock::lock($this->_pidFileName);
@@ -132,7 +128,7 @@ class Procedural
     }
 
     /**
-     * @param boolean $force
+     * @param bool $force
      */
     public function setForce($force)
     {
@@ -140,7 +136,7 @@ class Procedural
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getForce()
     {

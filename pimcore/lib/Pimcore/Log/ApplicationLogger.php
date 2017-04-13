@@ -51,7 +51,8 @@ class ApplicationLogger implements LoggerInterface
 
     /**
      * @param string $component
-     * @param boolean $initDbHandler
+     * @param bool $initDbHandler
+     *
      * @return ApplicationLogger
      */
     public static function getInstance($component = "default", $initDbHandler = false)
@@ -69,7 +70,6 @@ class ApplicationLogger implements LoggerInterface
         }
 
         $logger->setComponent($component);
-
 
         return $logger;
     }
@@ -99,6 +99,7 @@ class ApplicationLogger implements LoggerInterface
 
     /**
      * @deprecated
+     *
      * @param string $component
      */
     public function setComponent($component)
@@ -108,6 +109,7 @@ class ApplicationLogger implements LoggerInterface
 
     /**
      * @deprecated
+     *
      * @param \Pimcore\Log\FileObject | string $fileObject
      */
     public function setFileObject($fileObject)
@@ -117,6 +119,7 @@ class ApplicationLogger implements LoggerInterface
 
     /**
      * @deprecated
+     *
      * @param \\Pimcore\Model\Object\AbstractObject | \Pimcore\Model\Document | \Pimcore\Model\Asset | int $relatedObject
      */
     public function setRelatedObject($relatedObject)
@@ -138,6 +141,7 @@ class ApplicationLogger implements LoggerInterface
      * @param mixed $level
      * @param string $message
      * @param array $context
+     *
      * @return null
      */
     public function log($level, $message, array $context = [])
@@ -367,13 +371,13 @@ class ApplicationLogger implements LoggerInterface
         $this->log($level, $message, $context);
     }
 
-    /**
-     * @param $message
-     * @param $exceptionObject
-     * @param string $priority
-     * @param null $relatedObject
-     * @param null $component
-     */
+     /**
+      * @param $message
+      * @param $exceptionObject
+      * @param string $priority
+      * @param null $relatedObject
+      * @param null $component
+      */
      public function logException($message, $exceptionObject, $priority = "alert", $relatedObject = null, $component = null)
      {
          if (is_null($priority)) {

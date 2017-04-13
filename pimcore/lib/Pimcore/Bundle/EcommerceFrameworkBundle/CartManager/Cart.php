@@ -19,7 +19,6 @@ use Pimcore\Logger;
 
 class Cart extends AbstractCart implements ICart
 {
-
     /**
      * @return string
      */
@@ -70,7 +69,6 @@ class Cart extends AbstractCart implements ICart
         $this->getDao()->delete();
     }
 
-
     /**
      * @param callable $value_compare_func
      *
@@ -94,6 +92,7 @@ class Cart extends AbstractCart implements ICart
 
     /**
      * @param int $id
+     *
      * @return Cart
      */
     public static function getById($id)
@@ -114,7 +113,6 @@ class Cart extends AbstractCart implements ICart
 
                 $dataList = new CartCheckoutData\Listing();
                 $dataList->setCondition("cartId = " . $dataList->quote($cart->getId()));
-
 
                 foreach ($dataList->getCartCheckoutDataItems() as $data) {
                     $cart->setCheckoutData($data->getKey(), $data->getData());
@@ -156,9 +154,9 @@ class Cart extends AbstractCart implements ICart
         return $this->items;
     }
 
-
     /**
      * @param bool|false $countSubItems
+     *
      * @return int
      */
     public function getItemCount($countSubItems = false)
@@ -195,7 +193,9 @@ class Cart extends AbstractCart implements ICart
 
     /**
      * @static
+     *
      * @param int $userId
+     *
      * @return array
      */
     public static function getAllCartsForUser($userId)

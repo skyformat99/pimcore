@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -20,7 +21,6 @@ use Pimcore\Model;
 
 class QuantityValue extends Model\Object\ClassDefinition\Data
 {
-
     /**
      * Static type of this element
      *
@@ -76,7 +76,7 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
     public $phpdocType = "Pimcore\\Model\\Object\\Data\\QuantityValue";
 
     /**
-     * @return integer
+     * @return int
      */
     public function getWidth()
     {
@@ -84,7 +84,7 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @param integer $width
+     * @param int $width
      */
     public function setWidth($width)
     {
@@ -92,17 +92,17 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getDefaultValue()
     {
         if ($this->defaultValue !== null) {
-            return (double) $this->defaultValue;
+            return (float) $this->defaultValue;
         }
     }
 
     /**
-     * @param integer $defaultValue
+     * @param int $defaultValue
      */
     public function setDefaultValue($defaultValue)
     {
@@ -143,14 +143,13 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
         $this->defaultUnit = $defaultUnit;
     }
 
-
-
-
     /**
      * @see Object_Class_Data::getDataForResource
+     *
      * @param float $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return float
      */
     public function getDataForResource($data, $object = null, $params = [])
@@ -170,9 +169,11 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object_Class_Data::getDataFromResource
+     *
      * @param float $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return float
      */
     public function getDataFromResource($data, $object = null, $params = [])
@@ -186,9 +187,11 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object_Class_Data::getDataForQueryResource
+     *
      * @param float $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return float
      */
     public function getDataForQueryResource($data, $object = null, $params = [])
@@ -198,9 +201,11 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object_Class_Data::getDataForEditmode
+     *
      * @param float $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return float
      */
     public function getDataForEditmode($data, $object = null, $params = [])
@@ -217,9 +222,11 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object_Class_Data::getDataFromEditmode
+     *
      * @param float $data
      * @param Model\Object\Concrete $object
      * @param mixed $params
+     *
      * @return float
      */
     public function getDataFromEditmode($data, $object = null, $params = [])
@@ -241,9 +248,11 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object_Class_Data::getVersionPreview
+     *
      * @param float $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return float
      */
     public function getVersionPreview($data, $object = null, $params = [])
@@ -267,7 +276,8 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
      * Checks if data is valid for current data field
      *
      * @param mixed $data
-     * @param boolean $omitMandatoryCheck
+     * @param bool $omitMandatoryCheck
+     *
      * @throws \Exception
      */
     public function checkValidity($data, $omitMandatoryCheck = false)
@@ -292,9 +302,12 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
 
     /**
      * converts object data to a simple string value or CSV Export
+     *
      * @abstract
+     *
      * @param Model\Object\AbstractObject $object
      * @param array $params
+     *
      * @return string
      */
     public function getForCsvExport($object, $params = [])
@@ -308,13 +321,14 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
         }
     }
 
-
     /**
      * fills object field data values from CSV Import String
+     *
      * @param string $importValue
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
-     * @return double
+     *
+     * @return float
      */
     public function getFromCsvImport($importValue, $object = null, $params = [])
     {
@@ -322,7 +336,7 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
 
         $value = null;
         if ($values[0] && $values[1]) {
-            $number = (double) str_replace(",", ".", $values[0]);
+            $number = (float) str_replace(",", ".", $values[0]);
             $value = new  \Pimcore\Model\Object\Data\QuantityValue($number, $values[1]);
         }
 
@@ -331,9 +345,11 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
 
     /**
      * display the quantity value field data in the grid
+     *
      * @param $data
      * @param null $object
      * @param array $params
+     *
      * @return array
      */
     public function getDataForGrid($data, $object = null, $params = [])
@@ -357,8 +373,10 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
 
     /**
      * converts data to be exposed via webservices
+     *
      * @param string $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function getForWebserviceExport($object, $params = [])
@@ -378,11 +396,14 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
 
     /**
      * converts data to be imported via webservices
+     *
      * @param mixed $value
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
      * @param $idMapper
+     *
      * @return mixed
+     *
      * @throws \Exception
      */
     public function getFromWebserviceImport($value, $object = null, $params = [], $idMapper = null)
@@ -410,11 +431,11 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
         }
     }
 
-
     /** Encode value for packing it into a single column.
      * @param mixed $value
      * @param Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function marshal($value, $object = null, $params = [])
@@ -449,6 +470,7 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
      * @param mixed $value
      * @param Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function unmarshal($value, $object = null, $params = [])
@@ -468,7 +490,6 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
         }
     }
 
-
     public function configureOptions()
     {
         if (!$this->validUnits) {
@@ -476,7 +497,7 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
             $units = $list->getUnits();
             if (is_array($units)) {
                 $this->validUnits = [];
-                /** @var  $unit Model\Object\QuantityValue\Unit */
+                /** @var $unit Model\Object\QuantityValue\Unit */
                 foreach ($units as $unit) {
                     $this->validUnits[] = $unit->getId();
                 }
@@ -486,6 +507,7 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
 
     /**
      * @param $data
+     *
      * @return static
      */
     public static function __set_state($data)

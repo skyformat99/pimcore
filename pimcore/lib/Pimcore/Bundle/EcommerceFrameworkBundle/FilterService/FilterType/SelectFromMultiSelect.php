@@ -75,7 +75,6 @@ class SelectFromMultiSelect extends AbstractFilterType
 
         $currentFilter[$field] = $value;
 
-
         if (!empty($value)) {
             $value =  "%" . IWorker::MULTISELECT_DELIMITER  . $value .  IWorker::MULTISELECT_DELIMITER . "%";
             if ($isPrecondition) {

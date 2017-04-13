@@ -10,14 +10,15 @@
  *
  * @category   Pimcore
  * @package    User
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\User\Permission;
 
-use Pimcore\Model;
 use Pimcore\Logger;
+use Pimcore\Model;
 
 /**
  * @method \Pimcore\Model\User\Permission\Definition\Dao getDao()
@@ -49,6 +50,7 @@ class Definition extends Model\AbstractModel
 
     /**
      * @param $key
+     *
      * @return $this
      */
     public function setKey($key)
@@ -60,7 +62,9 @@ class Definition extends Model\AbstractModel
 
     /**
      * @param $permission
+     *
      * @return mixed
+     *
      * @throws \Exception
      */
     public static function getByKey($permission)
@@ -79,7 +83,9 @@ class Definition extends Model\AbstractModel
 
     /**
      * @param $permission
+     *
      * @return mixed|static
+     *
      * @throws \Exception
      */
     public static function create($permission)

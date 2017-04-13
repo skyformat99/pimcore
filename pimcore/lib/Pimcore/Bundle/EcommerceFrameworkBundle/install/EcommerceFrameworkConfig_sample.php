@@ -50,7 +50,7 @@ return [
                     /* you also can use external files for additional configuration */
                     /* "expensiveShipping" =>[ "file" => "\\eommerce\\cartmanager-expensiveShipping.php ] */
                 ],
-                
+
             ]
         ],
         "pricesystems" => [
@@ -266,7 +266,7 @@ return [
         ],
         "productindex" => [
             /* to disable default tenant, add parameter  "disableDefaultTenant"=>true  to productindex element  */
-            
+
             /* add columns for general fulltext search index of productlist - they must be part of the column configuration below  */
             "generalSearchColumns" => [
                 /* column definition for product index */
@@ -695,7 +695,7 @@ return [
                 ]
             ]
         ],
-        
+
         /*  tracking manager - define which trackers (e.g. Google Analytics Universal Ecommerce) are active and should
      be called when you track something via TrackingManager */
         "trackingmanager" => [
@@ -710,7 +710,7 @@ return [
                 ]
             ]
         ],
-        
+
         /* pimcore Ecommerce Framework Menu */
         "pimcore" => [
             "menu" => [

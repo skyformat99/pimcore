@@ -35,6 +35,7 @@ class ClassController extends AbstractRestController
      * @param int $id
      *
      * @return JsonResponse
+     *
      * @throws ResponseException
      */
     public function classAction($id)
@@ -93,6 +94,7 @@ class ClassController extends AbstractRestController
      * @param string $id
      *
      * @return JsonResponse
+     *
      * @throws ResponseException
      */
     public function objectBrickAction($id)
@@ -152,6 +154,7 @@ class ClassController extends AbstractRestController
      * @param string $id
      *
      * @return JsonResponse
+     *
      * @throws ResponseException
      */
     public function fieldCollectionAction($id)
@@ -313,7 +316,7 @@ class ClassController extends AbstractRestController
         $items = $list->getList();
 
         $relations = [];
-        /** @var  $item Object\Classificationstore\CollectionGroupRelation */
+        /** @var $item Object\Classificationstore\CollectionGroupRelation */
         foreach ($items as $item) {
             $relations[] = $item->getObjectVars();
         }

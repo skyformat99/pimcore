@@ -16,7 +16,6 @@ namespace Pimcore\Bundle\EcommerceFrameworkBundle\CartManager\CartCheckoutData;
 
 class Listing extends \Pimcore\Model\Listing\AbstractListing
 {
-
     /**
      * @var array
      */
@@ -48,6 +47,7 @@ class Listing extends \Pimcore\Model\Listing\AbstractListing
 
     /**
      * @param array $cartCheckoutDataItems
+     *
      * @return void
      */
     public function setCartCheckoutDataItems($cartCheckoutDataItems)

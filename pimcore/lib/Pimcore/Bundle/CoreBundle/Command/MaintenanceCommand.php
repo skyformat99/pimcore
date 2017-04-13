@@ -17,11 +17,11 @@ namespace Pimcore\Bundle\CoreBundle\Command;
 use Pimcore\Console\AbstractCommand;
 use Pimcore\Event\System\MaintenanceEvent;
 use Pimcore\Event\SystemEvents;
+use Pimcore\Logger;
+use Pimcore\Model\Schedule;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Pimcore\Model\Schedule;
-use Pimcore\Logger;
 
 class MaintenanceCommand extends AbstractCommand
 {

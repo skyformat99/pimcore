@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Document
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -23,7 +24,6 @@ use Pimcore\Model;
  */
 class Embed extends Model\Document\Tag
 {
-
     /**
      * @var string
      */
@@ -31,6 +31,7 @@ class Embed extends Model\Document\Tag
 
     /**
      * @see TagInterface::getType
+     *
      * @return string
      */
     public function getType()
@@ -40,6 +41,7 @@ class Embed extends Model\Document\Tag
 
     /**
      * @see TagInterface::getData
+     *
      * @return mixed
      */
     public function getData()
@@ -49,9 +51,6 @@ class Embed extends Model\Document\Tag
         ];
     }
 
-    /**
-     *
-     */
     public function getDataForResource()
     {
         return [
@@ -61,6 +60,7 @@ class Embed extends Model\Document\Tag
 
     /**
      * @see TagInterface::frontend
+     *
      * @return string
      */
     public function frontend()
@@ -108,7 +108,9 @@ class Embed extends Model\Document\Tag
 
     /**
      * @see TagInterface::setDataFromResource
+     *
      * @param mixed $data
+     *
      * @return $this
      */
     public function setDataFromResource($data)
@@ -124,7 +126,9 @@ class Embed extends Model\Document\Tag
 
     /**
      * @see TagInterface::setDataFromEditmode
+     *
      * @param mixed $data
+     *
      * @return $this
      */
     public function setDataFromEditmode($data)
@@ -137,7 +141,7 @@ class Embed extends Model\Document\Tag
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isEmpty()
     {
@@ -153,6 +157,7 @@ class Embed extends Model\Document\Tag
      * @param $document
      * @param mixed $params
      * @param null $idMapper
+     *
      * @throws \Exception
      */
     public function getFromWebserviceImport($wsElement, $document = null, $params = [], $idMapper = null)

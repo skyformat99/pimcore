@@ -64,6 +64,7 @@ class Requirements
 
     /**
      * @param Connection $db
+     *
      * @return Check[]
      */
     public static function checkMysql(Connection $db = null)
@@ -207,7 +208,6 @@ class Requirements
             "state" => $queryCheck ? Check::STATE_OK : Check::STATE_ERROR
         ]);
 
-
         // create view
         $queryCheck = true;
         try {
@@ -233,7 +233,6 @@ class Requirements
             "name" => "SELECT (from view)",
             "state" => $queryCheck ? Check::STATE_OK : Check::STATE_ERROR
         ]);
-
 
         // delete
         $queryCheck = true;
@@ -327,7 +326,6 @@ class Requirements
             "name" => "Composer",
             "state" => Update::isComposerAvailable() ? Check::STATE_OK : Check::STATE_ERROR
         ]);
-
 
         // FFMPEG BIN
         try {
@@ -601,7 +599,9 @@ class Requirements
     /**
      * @param string $base
      * @param array $data
+     *
      * @return array
+     *
      * @throws \Exception
      */
     protected static function rscandir($base = '', &$data = [])

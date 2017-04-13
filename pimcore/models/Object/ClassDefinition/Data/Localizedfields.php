@@ -10,13 +10,13 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Object\ClassDefinition\Data;
 
-use Pimcore\Cache\Runtime;
 use Pimcore\Logger;
 use Pimcore\Model;
 use Pimcore\Model\Element;
@@ -34,7 +34,6 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
      */
     public $fieldtype = "localizedfields";
 
-
     /**
      * Type for the generated phpdoc
      *
@@ -46,7 +45,6 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
      * @var array
      */
     public $childs = [];
-
 
     /**
      * @var string
@@ -69,22 +67,22 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
     public $title;
 
     /**
-     * @var integer
+     * @var int
      */
     public $width;
 
     /**
-     * @var integer
+     * @var int
      */
     public $height;
 
     /**
-     * @var integer
+     * @var int
      */
     public $maxTabs;
 
     /**
-     * @var integer
+     * @var int
      */
     public $labelWidth;
 
@@ -95,6 +93,7 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
 
     /**
      * contains further localized field definitions if there are more than one localized fields in on class
+     *
      * @var array
      */
     protected $referencedFields = [];
@@ -104,12 +103,13 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
      */
     public $fieldDefinitionsCache;
 
-
     /**
      * @see Object\ClassDefinition\Data::getDataForEditmode
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForEditmode($data, $object = null, $params = [])
@@ -146,6 +146,7 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
      * @param $fieldData
      * @param $metaData
      * @param int $level
+     *
      * @return array
      */
     private function doGetDataForEditMode($data, $object, &$fieldData, &$metaData, $level = 1)
@@ -168,7 +169,6 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
                 }
             }
         }
-
 
         if ($inheritanceAllowed) {
             // check if there is a parent with the same type
@@ -209,9 +209,11 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Model\Object\ClassDefinition\Data::getDataFromEditmode
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataFromEditmode($data, $object = null, $params = [])
@@ -241,6 +243,7 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
      * @param $data
      * @param null $object
      * @param mixed $params
+     *
      * @return \stdClass
      */
     public function getDataForGrid($data, $object = null, $params = [])
@@ -259,9 +262,11 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object\ClassDefinition\Data::getVersionPreview
+     *
      * @param string $data
      * @param null|Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getVersionPreview($data, $object = null, $params = [])
@@ -273,9 +278,12 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
 
     /**
      * converts object data to a simple string value or CSV Export
+     *
      * @abstract
+     *
      * @param Object\AbstractObject $object
      * @param array $params
+     *
      * @return string
      */
     public function getForCsvExport($object, $params = [])
@@ -287,6 +295,7 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
      * @param string $importValue
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return null
      */
     public function getFromCsvImport($importValue, $object = null, $params = [])
@@ -297,6 +306,7 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
     /**
      * @param $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForSearchIndex($object, $params = [])
@@ -320,6 +330,7 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
     /**
      * @param Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function getForWebserviceExport($object, $params = [])
@@ -365,7 +376,7 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
                     $el->name = $fd->getName();
                     $el->type = $fd->getFieldType();
                     $el->value = $fd->getForWebserviceExport($object, $params);
-                    if ($el->value ==  null && self::$dropNullValues) {
+                    if ($el->value == null && self::$dropNullValues) {
                         continue;
                     }
                     $el->language = $language;
@@ -384,7 +395,9 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
      * @param null $object
      * @param mixed $params
      * @param null $idMapper
+     *
      * @return mixed|null|Object\Localizedfield
+     *
      * @throws \Exception
      */
     public function getFromWebserviceImport($value, $object = null, $params = [], $idMapper = null)
@@ -408,7 +421,6 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
             if ($object instanceof Object\Concrete) {
                 $localizedFields->setObject($object);
             }
-
 
             $user = Tool\Admin::getCurrentUser();
 
@@ -462,7 +474,6 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
         }
     }
 
-
     /**
      * @return array
      */
@@ -473,6 +484,7 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
 
     /**
      * @param array $children
+     *
      * @return $this
      */
     public function setChildren($children)
@@ -484,7 +496,7 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function hasChildren()
     {
@@ -531,6 +543,7 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
     /**
      * @param mixed $data
      * @param array $blockedKeys
+     *
      * @return $this
      */
     public function setValues($data = [], $blockedKeys = [])
@@ -568,6 +581,7 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
     /**
      * @param $object
      * @param array $params
+     *
      * @return Object\Localizedfield
      */
     public function load($object, $params = [])
@@ -603,6 +617,7 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
 
     /**
      * This method is called in Object|Class::save() and is used to create the database table for the localized data
+     *
      * @param $class
      * @param array $params
      */
@@ -624,7 +639,9 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
     /**
      * @param $container
      * @param array $params
+     *
      * @return Object\Localizedfield
+     *
      * @throws \Exception
      */
     public function preGetData($container, $params = [])
@@ -648,7 +665,6 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
             }
             $lf->setObject($object);
 
-
             $container->localizedfields = $lf;
         }
 
@@ -657,6 +673,7 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
 
     /**
      * @param $class
+     *
      * @return string
      */
     public function getGetterCode($class)
@@ -677,6 +694,7 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
 
     /**
      * @param $class
+     *
      * @return string
      */
     public function getSetterCode($class)
@@ -697,6 +715,7 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
 
     /**
      * @param $name
+     *
      * @return mixed
      */
     public function getFielddefinition($name)
@@ -731,6 +750,7 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
     /**
      * @param null $def
      * @param array $fields
+     *
      * @return array
      */
     public function doGetFieldDefinitions($def = null, $fields = [])
@@ -760,12 +780,12 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
         return $fields;
     }
 
-
     /**
      * This is a dummy and is mostly implemented by relation types
      *
      * @param mixed $data
      * @param array $tags
+     *
      * @return array
      */
     public function getCacheTags($data, $tags = [])
@@ -787,6 +807,7 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
 
     /**
      * @param $data
+     *
      * @return array
      */
     public function resolveDependencies($data)
@@ -808,6 +829,7 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
 
     /**
      * @param $height
+     *
      * @return $this
      */
     public function setHeight($height)
@@ -827,6 +849,7 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
 
     /**
      * @param $layout
+     *
      * @return $this
      */
     public function setLayout($layout)
@@ -846,6 +869,7 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
 
     /**
      * @param string $name
+     *
      * @return $this|void
      */
     public function setName($name)
@@ -865,6 +889,7 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
 
     /**
      * @param $region
+     *
      * @return $this
      */
     public function setRegion($region)
@@ -884,6 +909,7 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
 
     /**
      * @param string $title
+     *
      * @return $this|void
      */
     public function setTitle($title)
@@ -903,6 +929,7 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
 
     /**
      * @param $width
+     *
      * @return $this
      */
     public function setWidth($width)
@@ -924,7 +951,8 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
      * Checks if data is valid for current data field
      *
      * @param mixed $data
-     * @param boolean $omitMandatoryCheck
+     * @param bool $omitMandatoryCheck
+     *
      * @throws \Exception
      */
     public function checkValidity($data, $omitMandatoryCheck = false)
@@ -951,6 +979,7 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
     /**
      * @param Object\Localizedfield|mixed $localizedObject
      * @param array $languages
+     *
      * @return array
      */
     protected function getDataForValidity($localizedObject, array $languages)
@@ -974,11 +1003,11 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
         return $data;
     }
 
-
     /** See parent class.
      * @param mixed $data
      * @param null $object
      * @param mixed $params
+     *
      * @return array|null
      */
     public function getDiffDataForEditmode($data, $object = null, $params = [])
@@ -1028,9 +1057,9 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
      * @param $data
      * @param null $object
      * @param mixed $params
+     *
      * @return null|\Pimcore_Date
      */
-
     public function getDiffDataFromEditmode($data, $object = null, $params = [])
     {
         $localFields = $this->getDataFromObjectParam($object, $params);
@@ -1083,6 +1112,7 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
     /** True if change is allowed in edit mode.
      * @param string $object
      * @param mixed $params
+     *
      * @return bool
      */
     public function isDiffChangeAllowed($object, $params = [])
@@ -1112,9 +1142,11 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
      *  "object" => array(...),
      *  "asset" => array(...)
      * )
+     *
      * @param mixed $object
      * @param array $idMapping
      * @param array $params
+     *
      * @return Model\Element\ElementInterface
      */
     public function rewriteIds($object, $idMapping, $params = [])
@@ -1145,6 +1177,7 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
 
     /**
      * @param mixed $hideLabelsWhenTabsReached
+     *
      * @return $this
      */
     public function setHideLabelsWhenTabsReached($hideLabelsWhenTabsReached)
@@ -1190,6 +1223,7 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
      * @param mixed $value
      * @param Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function marshal($value, $object = null, $params = [])
@@ -1227,6 +1261,7 @@ class Localizedfields extends Model\Object\ClassDefinition\Data
      * @param mixed $value
      * @param Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function unmarshal($value, $object = null, $params = [])

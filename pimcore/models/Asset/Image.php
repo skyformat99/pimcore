@@ -10,21 +10,21 @@
  *
  * @category   Pimcore
  * @package    Asset
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Asset;
 
-use Pimcore\Model;
 use Pimcore\Logger;
+use Pimcore\Model;
 
 /**
  * @method \Pimcore\Model\Asset\Dao getDao()
  */
 class Image extends Model\Asset
 {
-
     /**
      * @var string
      */
@@ -97,9 +97,11 @@ class Image extends Model\Asset
         }
     }
 
-     /**
+    /**
      * Legacy method for backwards compatibility. Use getThumbnail($config)->getConfig() instead.
+     *
      * @param mixed $config
+     *
      * @return Image\Thumbnail|bool
      */
     public function getThumbnailConfig($config)
@@ -111,8 +113,10 @@ class Image extends Model\Asset
 
     /**
      * Returns a path to a given thumbnail or an thumbnail configuration.
+     *
      * @param null $config
      * @param bool $deferred
+     *
      * @return Image\Thumbnail
      */
     public function getThumbnail($config = null, $deferred = true)
@@ -122,7 +126,9 @@ class Image extends Model\Asset
 
     /**
      * @static
+     *
      * @throws \Exception
+     *
      * @return null|\Pimcore\Image\Adapter
      */
     public static function getImageTransformInstance()
@@ -167,7 +173,9 @@ class Image extends Model\Asset
     /**
      * @param null $path
      * @param bool $force
+     *
      * @return array
+     *
      * @throws \Exception
      */
     public function getDimensions($path = null, $force = false)
@@ -341,7 +349,6 @@ class Image extends Model\Asset
 
         return $isAnimated;
     }
-
 
     /**
      * @return array

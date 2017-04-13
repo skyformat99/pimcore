@@ -16,7 +16,6 @@ namespace Pimcore\Model\Tool\CustomReport\Adapter;
 
 class Analytics extends AbstractAdapter
 {
-
     /**
      * @param $filters
      * @param $sort
@@ -26,7 +25,9 @@ class Analytics extends AbstractAdapter
      * @param null $fields
      * @param null $drillDownFilters
      * @param null $fullConfig
+     *
      * @return array
+     *
      * @throws \Exception
      */
     public function getData($filters, $sort, $dir, $offset, $limit, $fields = null, $drillDownFilters = null, $fullConfig = null)
@@ -46,7 +47,6 @@ class Analytics extends AbstractAdapter
             $this->config->maxResults = $limit;
         }
 
-
         $results = $this->getDataHelper($fields, $drillDownFilters);
         $data = $this->extractData($results);
 
@@ -55,7 +55,9 @@ class Analytics extends AbstractAdapter
 
     /**
      * @param $configuration
+     *
      * @return array|mixed
+     *
      * @throws \Exception
      */
     public function getColumns($configuration)
@@ -118,7 +120,9 @@ class Analytics extends AbstractAdapter
      * @param null $fields
      * @param null $drillDownFilters
      * @param bool $useDimensionHandling
+     *
      * @return mixed
+     *
      * @throws \Exception
      */
     protected function getDataHelper($fields = null, $drillDownFilters = null, $useDimensionHandling = true)
@@ -172,7 +176,6 @@ class Analytics extends AbstractAdapter
         $configuration->startDate = $this->calcDate($configuration->startDate, $configuration->relativeStartDate);
         $configuration->endDate = $this->calcDate($configuration->endDate, $configuration->relativeEndDate);
 
-
         if (!$configuration->startDate) {
             throw new \Exception("no start date given");
         }
@@ -186,6 +189,7 @@ class Analytics extends AbstractAdapter
 
     /**
      * @param $results
+     *
      * @return array
      */
     protected function extractData($results)
@@ -208,6 +212,7 @@ class Analytics extends AbstractAdapter
     /**
      * @param $configuration
      * @param $fields
+     *
      * @return mixed
      */
     protected function handleFields($configuration, $fields)
@@ -219,7 +224,6 @@ class Analytics extends AbstractAdapter
             }
         }
         $configuration->metric = implode(',', $metrics);
-
 
         $dimensions = $configuration->dimension;
         foreach ($dimensions as $key => $dimension) {
@@ -234,6 +238,7 @@ class Analytics extends AbstractAdapter
 
     /**
      * @param $configuration
+     *
      * @return mixed
      */
     protected function handleDimensions($configuration)
@@ -258,6 +263,7 @@ class Analytics extends AbstractAdapter
     /**
      * @param $date
      * @param $relativeDate
+     *
      * @return float|int|string
      */
     protected function calcDate($date, $relativeDate)
@@ -293,14 +299,16 @@ class Analytics extends AbstractAdapter
             }
         }
 
-        return $date/1000;
+        return $date / 1000;
     }
 
     /**
      * @param $filters
      * @param $field
      * @param $drillDownFilters
+     *
      * @return array|mixed
+     *
      * @throws \Exception
      */
     public function getAvailableOptions($filters, $field, $drillDownFilters)

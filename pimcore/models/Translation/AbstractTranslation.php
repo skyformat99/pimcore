@@ -10,22 +10,22 @@
  *
  * @category   Pimcore
  * @package    Translation
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Translation;
 
+use Pimcore\File;
 use Pimcore\Model;
 use Pimcore\Tool;
-use Pimcore\File;
 
 /**
  * @method \Pimcore\Model\Translation\AbstractTranslation\Dao getDao()
  */
 abstract class AbstractTranslation extends Model\AbstractModel implements TranslationInterface
 {
-
     /**
      * @var string
      */
@@ -37,12 +37,12 @@ abstract class AbstractTranslation extends Model\AbstractModel implements Transl
     public $translations;
 
     /**
-     * @var integer
+     * @var int
      */
     public $creationDate;
 
     /**
-     * @var integer
+     * @var int
      */
     public $modificationDate;
 
@@ -56,6 +56,7 @@ abstract class AbstractTranslation extends Model\AbstractModel implements Transl
 
     /**
      * @param $key
+     *
      * @return $this
      */
     public function setKey($key)
@@ -75,6 +76,7 @@ abstract class AbstractTranslation extends Model\AbstractModel implements Transl
 
     /**
      * @param $translations
+     *
      * @return $this
      */
     public function setTranslations($translations)
@@ -85,7 +87,8 @@ abstract class AbstractTranslation extends Model\AbstractModel implements Transl
     }
 
     /**
-     * @return integer
+     * @return int
+     *
      * @deprecated use getCreationDate or getModificationDate instead
      */
     public function getDate()
@@ -95,6 +98,7 @@ abstract class AbstractTranslation extends Model\AbstractModel implements Transl
 
     /**
      * @param $date
+     *
      * @return $this
      */
     public function setDate($date)
@@ -114,6 +118,7 @@ abstract class AbstractTranslation extends Model\AbstractModel implements Transl
 
     /**
      * @param $date
+     *
      * @return $this
      */
     public function setCreationDate($date)
@@ -133,6 +138,7 @@ abstract class AbstractTranslation extends Model\AbstractModel implements Transl
 
     /**
      * @param $date
+     *
      * @return $this
      */
     public function setModificationDate($date)
@@ -141,7 +147,6 @@ abstract class AbstractTranslation extends Model\AbstractModel implements Transl
 
         return $this;
     }
-
 
     /**
      * @param string $language
@@ -154,6 +159,7 @@ abstract class AbstractTranslation extends Model\AbstractModel implements Transl
 
     /**
      * @param  $language
+     *
      * @return array
      */
     public function getTranslation($language)
@@ -168,7 +174,9 @@ abstract class AbstractTranslation extends Model\AbstractModel implements Transl
 
     /**
      * @static
+     *
      * @param $key
+     *
      * @return string
      */
     protected static function getValidTranslationKey($key)
@@ -180,7 +188,9 @@ abstract class AbstractTranslation extends Model\AbstractModel implements Transl
      * @param $id
      * @param bool $create
      * @param bool $returnIdIfEmpty
+     *
      * @return static
+     *
      * @throws \Exception
      * @throws \Exception
      */
@@ -236,11 +246,14 @@ abstract class AbstractTranslation extends Model\AbstractModel implements Transl
      * Static Helper to get the translation of the current locale
      *
      * @static
+     *
      * @param $id - translation key
      * @param bool $create - creates an empty translation entry if the key doesn't exists
      * @param bool $returnIdIfEmpty - returns $id if no translation is available
      * @param string $language
+     *
      * @return string
+     *
      * @throws \Exception
      */
     public static function getByKeyLocalized($id, $create = false, $returnIdIfEmpty = false, $language = null)
@@ -255,10 +268,6 @@ abstract class AbstractTranslation extends Model\AbstractModel implements Transl
         return self::getByKey($id, $create, $returnIdIfEmpty)->getTranslation($language);
     }
 
-
-    /**
-     *
-     */
     public function save()
     {
         if (!$this->getCreationDate()) {
@@ -277,10 +286,13 @@ abstract class AbstractTranslation extends Model\AbstractModel implements Transl
      * The CSV file has to have the same format as an Pimcore translation-export-file
      *
      * @static
+     *
      * @param $file - path to the csv file
      * @param bool $replaceExistingTranslations
      * @param array $languages
+     *
      * @return mixed
+     *
      * @throws \Exception
      */
     public static function importTranslationsFromFile($file, $replaceExistingTranslations = true, $languages = null)
@@ -383,7 +395,6 @@ abstract class AbstractTranslation extends Model\AbstractModel implements Transl
 
         return $delta;
     }
-
 
     /**
      * @param $data

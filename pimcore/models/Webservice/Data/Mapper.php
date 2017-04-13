@@ -10,22 +10,24 @@
  *
  * @category   Pimcore
  * @package    Webservice
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Webservice\Data;
 
-use Pimcore\Tool;
 use Pimcore\Model;
+use Pimcore\Tool;
 
 abstract class Mapper
 {
-
     /**
      * @param $object
      * @param $type
+     *
      * @return null|string
+     *
      * @throws \Exception
      */
     public static function findWebserviceClass($object, $type)
@@ -75,7 +77,9 @@ abstract class Mapper
      * @param $apiclass
      * @param $type
      * @param null $options
+     *
      * @return array|string
+     *
      * @throws \Exception
      */
     public static function map($object, $apiclass, $type, $options = null)
@@ -106,6 +110,7 @@ abstract class Mapper
 
     /**
      * @param $el
+     *
      * @return \stdClass
      */
     public static function toObject($el)

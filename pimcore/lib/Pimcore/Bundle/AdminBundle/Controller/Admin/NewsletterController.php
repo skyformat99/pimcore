@@ -15,11 +15,11 @@
 namespace Pimcore\Bundle\AdminBundle\Controller\Admin;
 
 use Pimcore\Event\AdminEvents;
-use Pimcore\Model\Element;
+use Pimcore\Logger;
 use Pimcore\Model\Document;
+use Pimcore\Model\Element;
 use Pimcore\Model\Tool;
 use Pimcore\Model\Tool\Newsletter;
-use Pimcore\Logger;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,7 +32,9 @@ class NewsletterController extends DocumentControllerBase
 {
     /**
      * @Route("/get-data-by-id")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getDataByIdAction(Request $request)
@@ -63,7 +65,6 @@ class NewsletterController extends DocumentControllerBase
         $this->addTranslationsData($email);
         $this->minimizeProperties($email);
 
-
         //Hook for modifying return value - e.g. for changing permissions based on object data
         //data need to wrapped into a container in order to pass parameter to event listeners by reference so that they can change the values
         $data = object2array($email);
@@ -83,8 +84,11 @@ class NewsletterController extends DocumentControllerBase
 
     /**
      * @Route("/save")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
+     *
      * @throws \Exception
      */
     public function saveAction(Request $request)
@@ -106,7 +110,6 @@ class NewsletterController extends DocumentControllerBase
                 if (($request->get("task") == "publish" && $page->isAllowed("publish")) or ($request->get("task") == "unpublish" && $page->isAllowed("unpublish"))) {
                     $this->setValuesToDocument($request, $page);
 
-
                     try {
                         $page->save();
                         $this->saveToSession($page);
@@ -120,7 +123,6 @@ class NewsletterController extends DocumentControllerBase
                 } else {
                     if ($page->isAllowed("save")) {
                         $this->setValuesToDocument($request, $page);
-
 
                         try {
                             $page->saveVersion();
@@ -162,7 +164,9 @@ class NewsletterController extends DocumentControllerBase
 
     /**
      * @Route("/checksql")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function checksqlAction(Request $request)
@@ -192,7 +196,9 @@ class NewsletterController extends DocumentControllerBase
 
     /**
      * @Route("/get-available-classes")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getAvailableClassesAction(Request $request)
@@ -220,7 +226,9 @@ class NewsletterController extends DocumentControllerBase
 
     /**
      * @Route("/get-available-reports")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getAvailableReportsAction(Request $request)
@@ -254,7 +262,9 @@ class NewsletterController extends DocumentControllerBase
 
     /**
      * @Route("/get-send-status")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getSendStatusAction(Request $request)
@@ -270,7 +280,9 @@ class NewsletterController extends DocumentControllerBase
 
     /**
      * @Route("/stop-send")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function stopSendAction(Request $request)
@@ -285,7 +297,9 @@ class NewsletterController extends DocumentControllerBase
 
     /**
      * @Route("/send")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function sendAction(Request $request)
@@ -311,10 +325,11 @@ class NewsletterController extends DocumentControllerBase
         return $this->json(["success" => true]);
     }
 
-
     /**
      * @Route("/send-test")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function sendTestAction(Request $request)

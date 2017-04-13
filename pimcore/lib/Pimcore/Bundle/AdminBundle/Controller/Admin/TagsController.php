@@ -27,7 +27,9 @@ class TagsController extends AdminController
 {
     /**
      * @Route("/add")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function addAction(Request $request)
@@ -42,8 +44,11 @@ class TagsController extends AdminController
 
     /**
      * @Route("/delete")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
+     *
      * @throws \Exception
      */
     public function deleteAction(Request $request)
@@ -60,8 +65,11 @@ class TagsController extends AdminController
 
     /**
      * @Route("/update")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
+     *
      * @throws \Exception
      */
     public function updateAction(Request $request)
@@ -86,7 +94,9 @@ class TagsController extends AdminController
 
     /**
      * @Route("/tree-get-children-by-id")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function treeGetChildrenByIdAction(Request $request)
@@ -125,6 +135,7 @@ class TagsController extends AdminController
      * @param $showSelection
      * @param $assignedTagIds
      * @param bool $loadChildren
+     *
      * @return array
      */
     protected function convertTagToArray(Tag $tag, $showSelection, $assignedTagIds, $loadChildren = false)
@@ -156,7 +167,9 @@ class TagsController extends AdminController
 
     /**
      * @Route("/load-tags-for-element")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function loadTagsForElementAction(Request $request)
@@ -178,7 +191,9 @@ class TagsController extends AdminController
 
     /**
      * @Route("/add-tag-to-element")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function addTagToElementAction(Request $request)
@@ -199,7 +214,9 @@ class TagsController extends AdminController
 
     /**
      * @Route("/remove-tag-from-element")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function removeTagFromElementAction(Request $request)
@@ -220,7 +237,9 @@ class TagsController extends AdminController
 
     /**
      * @Route("/get-batch-assignment-jobs")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getBatchAssignmentJobsAction(Request $request)
@@ -263,6 +282,7 @@ class TagsController extends AdminController
 
     /**
      * @param \Pimcore\Model\Object\AbstractObject $object
+     *
      * @return mixed
      */
     private function getSubObjectIds(\Pimcore\Model\Object\AbstractObject $object)
@@ -286,6 +306,7 @@ class TagsController extends AdminController
 
     /**
      * @param \Pimcore\Model\Asset $asset
+     *
      * @return mixed
      */
     private function getSubAssetIds(\Pimcore\Model\Asset $asset)
@@ -309,6 +330,7 @@ class TagsController extends AdminController
 
     /**
      * @param \Pimcore\Model\Document $document
+     *
      * @return mixed
      */
     private function getSubDocumentIds(\Pimcore\Model\Document $document)
@@ -332,7 +354,9 @@ class TagsController extends AdminController
 
     /**
      * @Route("/do-batch-assignment")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function doBatchAssignmentAction(Request $request)

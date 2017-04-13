@@ -25,6 +25,7 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
 
     /**
      * Default value for the mapping of custom attributes
+     *
      * @var bool
      */
     protected $storeCustomAttributes = true;
@@ -37,12 +38,14 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
     /**
      * index name of elastic search must be lower case
      * the index name is an alias to indexname-versionnumber
+     *
      * @var string
      */
     protected $indexName;
 
     /**
      * The Version number of the Index (we increas the Version number if the mapping cant be changed (reindexing process))
+     *
      * @var int
      */
     protected $indexVersion = 0;
@@ -51,7 +54,6 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
      * @var \Pimcore\Bundle\EcommerceFrameworkBundle\IndexService\Config\ElasticSearch
      */
     protected $tenantConfig;
-
 
     public function __construct(\Pimcore\Bundle\EcommerceFrameworkBundle\IndexService\Config\ElasticSearch $tenantConfig)
     {
@@ -62,7 +64,8 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
 
     /**
      * should custom attributes be stored separately
-     * @return boolean
+     *
+     * @return bool
      */
     public function getStoreCustomAttributes()
     {
@@ -72,7 +75,7 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
     /**
      * Do store custom attributes
      *
-     * @param boolean $storeCustomAttributes
+     * @param bool $storeCustomAttributes
      */
     public function setStoreCustomAttributes($storeCustomAttributes)
     {
@@ -100,6 +103,7 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
 
     /**
      * the versioned index-name
+     *
      * @return string
      */
     public function getIndexNameVersion()
@@ -144,8 +148,6 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
 
         return $this->elasticSearchClient;
     }
-
-
 
     /**
      * creates or updates necessary index structures (like database tables and so on)
@@ -206,7 +208,6 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
             //index didn't exist -> reset index queue to make sure all products get reindexed
             $this->resetIndexingQueue();
 
-
             //create alias for new index if alias doesn't exist so far
             $aliasExists = $esClient->indices()->existsAlias(['name' => $this->indexName]);
             if (!$aliasExists) {
@@ -224,7 +225,6 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
                 $result = $esClient->indices()->updateAliases($params);
             }
         }
-
 
         foreach ([IProductList::PRODUCT_TYPE_VARIANT, IProductList::PRODUCT_TYPE_OBJECT] as $mappingType) {
             $params = $this->getMappingParams($mappingType);
@@ -265,7 +265,6 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
             $systemAttributesMapping[$name] = ["type" => $type, "store" => true, "index" => "not_analyzed"];
         }
         $mappingAttributes['system'] = ['type' => 'object', 'dynamic' => false, 'properties' => $systemAttributesMapping];
-
 
         //add custom defined attributes and relation attributes
         $customAttributesMapping = [];
@@ -330,7 +329,6 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
         return $mappingAttributes;
     }
 
-
     public function getSystemAttributes($includeTypes = false)
     {
         $systemAttributes = [
@@ -358,6 +356,7 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
      * deletes given element from index
      *
      * @param IIndexable $object
+     *
      * @return void
      */
     public function deleteFromIndex(IIndexable $object)
@@ -421,6 +420,7 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
      * updates given element in index
      *
      * @param IIndexable $object
+     *
      * @return void
      */
     public function updateIndex(IIndexable $object)
@@ -443,7 +443,6 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
 
         $this->fillupPreparationQueue($object);
     }
-
 
     protected $bulkIndexData = [];
 
@@ -482,7 +481,6 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
             $indexSystemData['categoryIds'] = array_values(array_filter(explode(",", $indexSystemData['categoryIds'])));
             $indexSystemData['parentCategoryIds'] = array_values(array_filter(explode(",", $indexSystemData['parentCategoryIds'])));
 
-
             //add relation attributes
             foreach ($data['relations'] as $relation) {
                 $indexRelationData[$relation['fieldname']][] = $relation['dest'];
@@ -508,13 +506,13 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
      * which should not be stored in the store data
      *
      * @param $data
+     *
      * @return mixed
      */
     protected function doPreIndexDataModification($data)
     {
         return $data;
     }
-
 
     /**
      * actually sending data to elastic search
@@ -554,6 +552,7 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
      * first run processUpdateIndexQueue of trait and then commit updated entries if there are some
      *
      * @param int $limit
+     *
      * @return int number of entries processed
      */
     public function processUpdateIndexQueue($limit = 100)
@@ -567,7 +566,6 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
         return $entriesUpdated;
     }
 
-
     /**
      * returns product list implementation valid and configured for this worker/tenant
      *
@@ -578,7 +576,6 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
         return new \Pimcore\Bundle\EcommerceFrameworkBundle\IndexService\ProductList\DefaultElasticSearch($this->tenantConfig);
     }
 
-
     protected function getStoreTableName()
     {
         return self::STORE_TABLE_NAME;
@@ -588,7 +585,6 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
     {
         return self::MOCKUP_CACHE_PREFIX;
     }
-
 
     /**
      * starts reindex mode for index
@@ -721,13 +717,13 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
         }
     }
 
-
     /**
      * Checks if given data is array and returns converted data suitable for search backend.
      *
      * return array in this case
      *
      * @param $data
+     *
      * @return string
      */
     protected function convertArray($data)

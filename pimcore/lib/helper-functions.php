@@ -14,6 +14,7 @@
 
 /**
  * @param string $file
+ *
  * @return array
  */
 function xmlToArray($file)
@@ -29,6 +30,7 @@ function xmlToArray($file)
  * @param $source
  * @param null $level
  * @param null $target
+ *
  * @return bool|null|string
  */
 function gzcompressfile($source, $level=null, $target = null)
@@ -48,7 +50,7 @@ function gzcompressfile($source, $level=null, $target = null)
 
     if ($fp_out && $fp_in) {
         while (!feof($fp_in)) {
-            gzwrite($fp_out, fread($fp_in, 1024*512));
+            gzwrite($fp_out, fread($fp_in, 1024 * 512));
         }
 
         fclose($fp_in);
@@ -66,6 +68,7 @@ function gzcompressfile($source, $level=null, $target = null)
 
 /**
  * @param $string
+ *
  * @return bool
  */
 function is_json($string)
@@ -73,7 +76,7 @@ function is_json($string)
     if (is_string($string)) {
         json_decode($string);
 
-        return (json_last_error() == JSON_ERROR_NONE);
+        return json_last_error() == JSON_ERROR_NONE;
     } else {
         return false;
     }
@@ -81,6 +84,7 @@ function is_json($string)
 
 /**
  * @param $path
+ *
  * @return int
  */
 function foldersize($path)
@@ -90,7 +94,7 @@ function foldersize($path)
     $cleanPath = rtrim($path, '/'). '/';
 
     foreach ($files as $t) {
-        if ($t!="." && $t!="..") {
+        if ($t != "." && $t != "..") {
             $currentFile = $cleanPath . $t;
             if (is_dir($currentFile)) {
                 $size = foldersize($currentFile);
@@ -108,6 +112,7 @@ function foldersize($path)
 /**
  * @param $string
  * @param $values
+ *
  * @return mixed
  */
 function replace_pcre_backreferences($string, $values)
@@ -126,6 +131,7 @@ function replace_pcre_backreferences($string, $values)
 
 /**
  * @param  $array
+ *
  * @return array
  */
 function array_htmlspecialchars($array)
@@ -145,6 +151,7 @@ function array_htmlspecialchars($array)
 
 /**
  * @param  $node
+ *
  * @return array
  */
 function object2array($node)
@@ -157,6 +164,7 @@ function object2array($node)
 
 /**
  * @param  $args
+ *
  * @return false|string
  */
 function array_urlencode($args)
@@ -170,7 +178,9 @@ function array_urlencode($args)
 
 /**
  * same as  array_urlencode but no urlencode()
+ *
  * @param  $args
+ *
  * @return false|string
  */
 function array_toquerystring($args)
@@ -210,7 +220,9 @@ function urlencode_ignore_slash($var)
 
 /**
  * @deprecated
+ *
  * @param  $filename
+ *
  * @return bool
  */
 function is_includeable($filename)
@@ -220,6 +232,7 @@ function is_includeable($filename)
 
 /**
  * @param  $val
+ *
  * @return int|string
  */
 function return_bytes($val)
@@ -238,10 +251,10 @@ function return_bytes($val)
     return $val;
 }
 
-
 /**
  * @param  $bytes
  * @param int $precision
+ *
  * @return string
  */
 function formatBytes($bytes, $precision = 2)
@@ -257,9 +270,9 @@ function formatBytes($bytes, $precision = 2)
     return round($bytes, $precision) . ' ' . $units[$pow];
 }
 
-
 /**
  * @param  $str
+ *
  * @return float|int
  */
 function filesize2bytes($str)
@@ -288,6 +301,7 @@ function filesize2bytes($str)
 /**
  * @param string $base
  * @param array $data
+ *
  * @return array
  */
 function rscandir($base = '', &$data = [])
@@ -315,7 +329,7 @@ function rscandir($base = '', &$data = [])
  * @param string $delimiter
  * @param string $string
  * @param string $limit
- * @param boolean $useArrayFilter
+ * @param bool $useArrayFilter
  *
  * @return array
  */
@@ -336,10 +350,10 @@ function explode_and_trim($delimiter, $string = '', $limit = '', $useArrayFilter
     return $exploded;
 }
 
-
 /**
  * @param $directory
  * @param bool $empty
+ *
  * @return bool
  */
 function recursiveDelete($directory, $empty = true)
@@ -386,6 +400,7 @@ function recursiveDelete($directory, $empty = true)
 /**
  * @param $source
  * @param $destination
+ *
  * @return bool
  */
 function recursiveCopy($source, $destination)
@@ -415,9 +430,6 @@ function recursiveCopy($source, $destination)
     return true;
 }
 
-/**
- *
- */
 function p_r()
 {
     foreach (func_get_args() as $var) {
@@ -431,6 +443,7 @@ function p_r()
  * @param  $errfile
  * @param  $errline
  * @param  $errcontext
+ *
  * @return bool
  */
 function pimcore_error_handler($errno, $errstr, $errfile, $errline, $errcontext)
@@ -446,6 +459,7 @@ function pimcore_error_handler($errno, $errstr, $errfile, $errline, $errcontext)
  * @param $array
  * @param string $prefix
  * @param string $suffix
+ *
  * @return mixed
  */
 function wrapArrayElements($array, $prefix = "'", $suffix = "'")
@@ -461,6 +475,7 @@ function wrapArrayElements($array, $prefix = "'", $suffix = "'")
  * Checks if an array is associative
  *
  * @param array $arr
+ *
  * @return bool
  */
 function isAssocArray(array $arr)
@@ -470,7 +485,9 @@ function isAssocArray(array $arr)
 
 /**
  * this is an alternative for realpath() which isn't able to handle symlinks correctly
+ *
  * @param $filename
+ *
  * @return string
  */
 function resolvePath($filename)
@@ -502,13 +519,14 @@ function resolvePath($filename)
 
 /**
  * @param Closure $closure
+ *
  * @return string
  */
 function closureHash(Closure $closure)
 {
     $ref  = new ReflectionFunction($closure);
     $file = new SplFileObject($ref->getFileName());
-    $file->seek($ref->getStartLine()-1);
+    $file->seek($ref->getStartLine() - 1);
     $content = '';
     while ($file->key() < $ref->getEndLine()) {
         $content .= $file->current();
@@ -525,6 +543,7 @@ function closureHash(Closure $closure)
 
 /** Checks if the given directory is empty
  * @param $dir
+ *
  * @return bool|null
  */
 function is_dir_empty($dir)
@@ -545,6 +564,7 @@ function is_dir_empty($dir)
 /**
  * @param $var
  * @param string $indent
+ *
  * @return mixed|string
  */
 function var_export_pretty($var, $indent="")
@@ -571,6 +591,7 @@ function var_export_pretty($var, $indent="")
 
 /**
  * @param $contents
+ *
  * @return string
  */
 function to_php_data_file_format($contents)

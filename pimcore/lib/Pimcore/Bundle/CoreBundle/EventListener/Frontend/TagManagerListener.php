@@ -87,7 +87,6 @@ class TagManagerListener extends AbstractFrontendListener
         $content = $response->getContent();
         $requestParams = array_merge($_GET, $_POST);
 
-
         foreach ($tags as $tag) {
             $method = strtolower($tag->getHttpMethod());
             $pattern = $tag->getUrlPattern();

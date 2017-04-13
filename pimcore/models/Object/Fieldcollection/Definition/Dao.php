@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object\Fieldcollection
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -33,6 +34,7 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * @param Object\ClassDefinition $class
+     *
      * @return string
      */
     public function getTableName(Object\ClassDefinition $class)
@@ -42,13 +44,13 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * @param Object\ClassDefinition $class
+     *
      * @return string
      */
     public function getLocalizedTableName(Object\ClassDefinition $class)
     {
         return "object_collection_" . $this->model->getKey() . "_localized_" . $class->getId();
     }
-
 
     /**
      * @param Object\ClassDefinition $class
@@ -84,8 +86,6 @@ class Dao extends Model\Dao\AbstractDao
 
         foreach ($this->model->getFieldDefinitions() as $value) {
             $key = $value->getName();
-
-
 
             if (is_array($value->getColumnType())) {
                 // if a datafield requires more than one field

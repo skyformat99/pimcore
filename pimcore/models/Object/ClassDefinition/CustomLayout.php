@@ -10,25 +10,25 @@
  *
  * @category   Pimcore
  * @package    Object
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Object\ClassDefinition;
 
+use Pimcore\Cache;
 use Pimcore\Event\Model\Object\CustomLayoutEvent;
 use Pimcore\Event\ObjectCustomLayoutEvents;
+use Pimcore\Logger;
 use Pimcore\Model;
 use Pimcore\Model\Object;
-use Pimcore\Cache;
-use Pimcore\Logger;
 
 /**
  * @method \Pimcore\Model\Object\ClassDefinition\CustomLayout\Dao getDao()
  */
 class CustomLayout extends Model\AbstractModel
 {
-
     /**
      * @var int
      */
@@ -81,7 +81,9 @@ class CustomLayout extends Model\AbstractModel
 
     /**
      * @param $id
+     *
      * @return mixed|null|CustomLayout
+     *
      * @throws \Exception
      */
     public static function getById($id)
@@ -144,6 +146,7 @@ class CustomLayout extends Model\AbstractModel
 
     /**
      * @param array $values
+     *
      * @return CustomLayout
      */
     public static function create($values = [])
@@ -166,7 +169,6 @@ class CustomLayout extends Model\AbstractModel
         }
 
         $this->setModificationDate(time());
-
 
         // create directory if not exists
         if (!is_dir(PIMCORE_CUSTOMLAYOUT_DIRECTORY)) {
@@ -198,7 +200,6 @@ class CustomLayout extends Model\AbstractModel
 
         $this->getDao()->delete();
     }
-
 
     /**
      * @return int
@@ -250,6 +251,7 @@ class CustomLayout extends Model\AbstractModel
 
     /**
      * @param int $id
+     *
      * @return $this
      */
     public function setId($id)
@@ -261,6 +263,7 @@ class CustomLayout extends Model\AbstractModel
 
     /**
      * @param string $name
+     *
      * @return $this
      */
     public function setName($name)
@@ -280,6 +283,7 @@ class CustomLayout extends Model\AbstractModel
 
     /**
      * @param int $default
+     *
      * @return $this
      */
     public function setDefault($default)
@@ -289,10 +293,9 @@ class CustomLayout extends Model\AbstractModel
         return $this;
     }
 
-
-
     /**
      * @param int $creationDate
+     *
      * @return $this
      */
     public function setCreationDate($creationDate)
@@ -304,6 +307,7 @@ class CustomLayout extends Model\AbstractModel
 
     /**
      * @param int $modificationDate
+     *
      * @return $this
      */
     public function setModificationDate($modificationDate)
@@ -315,6 +319,7 @@ class CustomLayout extends Model\AbstractModel
 
     /**
      * @param int $userOwner
+     *
      * @return $this
      */
     public function setUserOwner($userOwner)
@@ -326,6 +331,7 @@ class CustomLayout extends Model\AbstractModel
 
     /**
      * @param int $userModification
+     *
      * @return $this
      */
     public function setUserModification($userModification)
@@ -335,9 +341,9 @@ class CustomLayout extends Model\AbstractModel
         return $this;
     }
 
-
     /**
      * @param string $description
+     *
      * @return $this
      */
     public function setDescription($description)

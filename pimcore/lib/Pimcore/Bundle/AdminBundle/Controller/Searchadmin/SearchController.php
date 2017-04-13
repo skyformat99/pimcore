@@ -33,7 +33,9 @@ class SearchController extends AdminController
 {
     /**
      * @Route("/find")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      *
      * @todo: $forbiddenConditions could be undefined
@@ -96,7 +98,6 @@ class SearchController extends AdminController
             }
         }
 
-
         //exclude forbidden documents
         if (in_array("document", $types)) {
             if (!$user->isAllowed("documents")) {
@@ -131,7 +132,6 @@ class SearchController extends AdminController
             $conditionParts[] = "(" . implode(" AND ", $forbiddenConditions) . ")";
         }
 
-
         if (!empty($query)) {
             $queryCondition = "( MATCH (`data`,`properties`) AGAINST (" . $db->quote($query) . " IN BOOLEAN MODE) )";
 
@@ -143,7 +143,6 @@ class SearchController extends AdminController
 
             $conditionParts[] = $queryCondition;
         }
-
 
         //For objects - handling of bricks
         $fields = [];
@@ -191,7 +190,7 @@ class SearchController extends AdminController
                 ? Object\Service::getFilterCondition($this->encodeJson($unlocalizedFieldsFilters), $class)
                 : null;
             $localizedConditionFilters = count($localizedFieldsFilters)
-                ?  Object\Service::getFilterCondition($this->encodeJson($localizedFieldsFilters), $class)
+                ? Object\Service::getFilterCondition($this->encodeJson($localizedFieldsFilters), $class)
                 : null;
 
             $join = "";
@@ -243,13 +242,12 @@ class SearchController extends AdminController
             $conditionParts[] = "( subtype IN (" . implode(",", $conditionClassnameParts) . ") )";
         }
 
-
         //filtering for tags
         $tagIds = $allParams["tagIds"];
         if ($tagIds) {
             foreach ($tagIds as $tagId) {
                 foreach ($types as $type) {
-                    if ($allParams["considerChildTags"] =="true") {
+                    if ($allParams["considerChildTags"] == "true") {
                         $tag = Element\Tag::getById($tagId);
                         if ($tag) {
                             $tagPath = $tag->getFullIdPath();
@@ -262,12 +260,10 @@ class SearchController extends AdminController
             }
         }
 
-
         if (count($conditionParts) > 0) {
             $condition = implode(" AND ", $conditionParts);
             $searcherList->setCondition($condition);
         }
-
 
         $searcherList->setOffset($offset);
         $searcherList->setLimit($limit);
@@ -292,8 +288,6 @@ class SearchController extends AdminController
         if ($sortingSettings['order']) {
             $searcherList->setOrder($sortingSettings['order']);
         }
-
-
 
         $beforeListLoadEvent = new GenericEvent($this, [
             "list" => $searcherList
@@ -330,7 +324,6 @@ class SearchController extends AdminController
         }
 
         $result = ["data" => $elements, "success" => true, "total" => $totalMatches];
-
 
         $afterListLoadEvent = new GenericEvent($this, [
             "list" => $result

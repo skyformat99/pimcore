@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -20,7 +21,6 @@ use Pimcore\Model\Asset;
 
 class Hotspotimage
 {
-
     /**
      * @var Asset\Image
      */
@@ -76,6 +76,7 @@ class Hotspotimage
 
     /**
      * @param $hotspots
+     *
      * @return $this
      */
     public function setHotspots($hotspots)
@@ -95,6 +96,7 @@ class Hotspotimage
 
     /**
      * @param $marker
+     *
      * @return $this
      */
     public function setMarker($marker)
@@ -130,6 +132,7 @@ class Hotspotimage
 
     /**
      * @param $image
+     *
      * @return $this
      */
     public function setImage($image)
@@ -150,6 +153,7 @@ class Hotspotimage
     /**
      * @param null $thumbnailName
      * @param bool $deferred
+     *
      * @return Asset\Image\Thumbnail|string
      */
     public function getThumbnail($thumbnailName = null, $deferred = true)

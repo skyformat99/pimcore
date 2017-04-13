@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -21,7 +22,7 @@ use Pimcore\Model\Object\QuantityValue\Unit;
 class QuantityValue
 {
     /**
-     * @var double | string
+     * @var float | string
      */
     public $value;
 
@@ -37,6 +38,7 @@ class QuantityValue
 
     /**
      * QuantityValue constructor.
+     *
      * @param null $value
      * @param null $unitId
      */
@@ -50,7 +52,6 @@ class QuantityValue
             $this->unit = Unit::getById($this->unitId);
         }
     }
-
 
     /**
      * @param  $unitId
@@ -90,7 +91,7 @@ class QuantityValue
     }
 
     /**
-     * @return double
+     * @return float
      */
     public function getValue()
     {
@@ -99,6 +100,7 @@ class QuantityValue
 
     /**
      * @return string
+     *
      * @throws \Exception
      */
     public function __toString()

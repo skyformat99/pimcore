@@ -48,6 +48,7 @@ class TargetingListener extends AbstractFrontendListener
 
     /**
      * Targeting constructor.
+     *
      * @param DocumentResolver $documentResolver
      */
     public function __construct(DocumentResolver $documentResolver)
@@ -177,7 +178,6 @@ class TargetingListener extends AbstractFrontendListener
                 }
                 $dataPush["personas"] = $activePersonas;
 
-
                 if ($document) {
                     // @TODO: cache this
                     $list = new Model\Tool\Targeting\Rule\Listing();
@@ -233,8 +233,10 @@ class TargetingListener extends AbstractFrontendListener
 
     /**
      * Checks if the passed List of Personas and List of Targets use geopoints as condition
+     *
      * @param $personas
      * @param $targets
+     *
      * @return bool
      */
     private function checkPersonasAndTargetGroupForGeoIPRequirement($personas, $targets)

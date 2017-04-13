@@ -14,7 +14,6 @@
 
 namespace Pimcore\Bundle\CoreBundle\EventListener\Frontend;
 
-use Pimcore\Bundle\CoreBundle\EventListener\AbstractResponseInjectionListener;
 use Pimcore\Bundle\CoreBundle\EventListener\Traits\ResponseInjectionTrait;
 use Pimcore\Service\Request\PimcoreContextResolver;
 use Pimcore\Tool;

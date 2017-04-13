@@ -64,8 +64,7 @@ return [
     "Alternative view" => [
         "icon" => "/pimcore/static6/img/flat-color-icons/biohazard.svg",
         "toolbar" => [
-            "file" => 1
-            ,
+            "file" => 1,
             "extras" => [
                 "hidden" => false,
                 "items" => [

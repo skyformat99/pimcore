@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -22,10 +23,11 @@ use Pimcore\Model\Webservice;
 
 class Service
 {
-
     /**
      * @static
+     *
      * @param  Object\ClassDefinition $class
+     *
      * @return string
      */
     public static function generateClassDefinitionJson($class)
@@ -51,6 +53,7 @@ class Service
      * @param $class
      * @param $json
      * @param bool $throwException
+     *
      * @return bool
      */
     public static function importClassDefinitionFromJson($class, $json, $throwException = false)
@@ -92,6 +95,7 @@ class Service
 
     /**
      * @param $fieldCollection
+     *
      * @return string
      */
     public static function generateFieldCollectionJson($fieldCollection)
@@ -108,6 +112,7 @@ class Service
      * @param $fieldCollection
      * @param $json
      * @param bool $throwException
+     *
      * @return bool
      */
     public static function importFieldCollectionFromJson($fieldCollection, $json, $throwException = false)
@@ -127,6 +132,7 @@ class Service
 
     /**
      * @param $objectBrick
+     *
      * @return string
      */
     public static function generateObjectBrickJson($objectBrick)
@@ -154,6 +160,7 @@ class Service
      * @param $objectBrick
      * @param $json
      * @param bool $throwException
+     *
      * @return bool
      */
     public static function importObjectBrickFromJson($objectBrick, $json, $throwException = false)
@@ -194,7 +201,9 @@ class Service
     /**
      * @param $array
      * @param bool $throwException
+     *
      * @return bool
+     *
      * @throws \Exception
      */
     public static function generateLayoutTreeFromArray($array, $throwException = false)
@@ -277,6 +286,7 @@ class Service
      * @param $type
      * @param $default
      * @param $null
+     *
      * @return bool
      */
     public static function skipColumn($tableDefinitions, $table, $colName, $type, $default, $null)

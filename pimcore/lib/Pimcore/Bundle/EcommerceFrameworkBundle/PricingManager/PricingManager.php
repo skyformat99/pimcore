@@ -27,7 +27,6 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
  */
 class PricingManager implements IPricingManager
 {
-
     /**
      * @var Config
      */
@@ -52,7 +51,6 @@ class PricingManager implements IPricingManager
         $this->containerSession = $containerSession;
     }
 
-
     /**
      * @param \Pimcore\Bundle\EcommerceFrameworkBundle\PriceSystem\IPriceInfo $priceInfo
      *
@@ -66,7 +64,6 @@ class PricingManager implements IPricingManager
 
         // create new price info with pricing rules
         $priceInfoWithRules = $this->getPriceInfo($priceInfo);
-
 
         // add all valid rules to the price info
         foreach ($this->getValidRules() as $rule) {
@@ -108,7 +105,6 @@ class PricingManager implements IPricingManager
         }
         $env->setCategories(array_values($categories));
 
-
         //clean up discount pricing modificators in cart price calculator
         $priceCalculator = $cart->getPriceCalculator();
         $priceModificators = $priceCalculator->getModificators();
@@ -119,7 +115,6 @@ class PricingManager implements IPricingManager
                 }
             }
         }
-
 
         // execute all valid rules
         foreach ($this->getValidRules() as $rule) {
@@ -142,7 +137,6 @@ class PricingManager implements IPricingManager
 
         return $this;
     }
-
 
     /**
      * @return IRule[]
@@ -173,6 +167,7 @@ class PricingManager implements IPricingManager
 
     /**
      * Factory
+     *
      * @return IRule
      */
     public function getRule()
@@ -186,6 +181,7 @@ class PricingManager implements IPricingManager
      * @param string $type
      *
      * @return ICondition
+     *
      * @throws InvalidConfigException
      */
     public function getCondition($type)
@@ -200,6 +196,7 @@ class PricingManager implements IPricingManager
 
     /**
      * Factory
+     *
      * @param $type
      *
      * @return IAction
@@ -215,6 +212,7 @@ class PricingManager implements IPricingManager
      * @param \Pimcore\Bundle\EcommerceFrameworkBundle\PriceSystem\IPriceInfo $priceInfo
      *
      * @return IPriceInfo
+     *
      * @throws \Pimcore\Bundle\EcommerceFrameworkBundle\Exception\InvalidConfigException
      */
     public function getPriceInfo(\Pimcore\Bundle\EcommerceFrameworkBundle\PriceSystem\IPriceInfo $priceInfo)
@@ -228,14 +226,12 @@ class PricingManager implements IPricingManager
             throw new \Pimcore\Bundle\EcommerceFrameworkBundle\Exception\InvalidConfigException(sprintf('getPriceInfo class "%s" not found.', $class));
         }
 
-
         // create environment
         $environment = $this->getEnvironment();
         $environment->setProduct($priceInfo->getProduct());
         if (method_exists($priceInfo->getProduct(), "getCategories")) {
             $environment->setCategories((array)$priceInfo->getProduct()->getCategories());
         }
-
 
         $priceInfoWithRules = new $class($priceInfo, $environment);
         $environment->setPriceInfo($priceInfoWithRules);

@@ -15,9 +15,9 @@
 namespace Pimcore\Bundle\AdminBundle\Controller\Admin;
 
 use Pimcore\Event\AdminEvents;
-use Pimcore\Model\Element;
-use Pimcore\Model\Document;
 use Pimcore\Logger;
+use Pimcore\Model\Document;
+use Pimcore\Model\Element;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,10 +28,11 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class SnippetController extends DocumentControllerBase
 {
-
     /**
      * @Route("/get-data-by-id")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getDataByIdAction(Request $request)
@@ -85,8 +86,11 @@ class SnippetController extends DocumentControllerBase
 
     /**
      * @Route("/save")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
+     *
      * @throws \Exception
      */
     public function saveAction(Request $request)
@@ -104,7 +108,6 @@ class SnippetController extends DocumentControllerBase
                 if ($request->get("task") == "publish") {
                     $snippet->setPublished(true);
                 }
-
 
                 if (($request->get("task") == "publish" && $snippet->isAllowed("publish")) or ($request->get("task") == "unpublish" && $snippet->isAllowed("unpublish"))) {
                     $this->setValuesToDocument($request, $snippet);

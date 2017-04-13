@@ -11,23 +11,18 @@
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
-
-use Pimcore\Config;
 use Pimcore\Cache;
-use Pimcore\Controller;
-use Pimcore\Tool;
-use Pimcore\File;
+use Pimcore\Config;
 use Pimcore\Db;
-use Pimcore\ExtensionManager;
-use Pimcore\Model\User;
-use Pimcore\Model;
+use Pimcore\File;
 use Pimcore\Logger;
+use Pimcore\Model;
+use Pimcore\Tool;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 class Pimcore
 {
-
     /**
      * @var bool
      */
@@ -50,6 +45,7 @@ class Pimcore
 
     /**
      * @static
+     *
      * @return \Pimcore\Config\Config|null
      */
     public static function initConfiguration()
@@ -95,6 +91,7 @@ class Pimcore
 
     /**
      * @static
+     *
      * @return bool
      */
     public static function inDebugMode()
@@ -126,6 +123,7 @@ class Pimcore
 
     /**
      * switches pimcore into the admin mode - there you can access also unpublished elements, ....
+     *
      * @static
      */
     public static function setAdminMode()
@@ -135,6 +133,7 @@ class Pimcore
 
     /**
      * switches back to the non admin mode, where unpublished elements are invisible
+     *
      * @static
      */
     public static function unsetAdminMode()
@@ -144,7 +143,9 @@ class Pimcore
 
     /**
      * check if the process is currently in admin mode or not
+     *
      * @static
+     *
      * @return bool
      */
     public static function inAdmin()
@@ -232,7 +233,6 @@ class Pimcore
         self::$globallyProtectedItems = array_merge(self::$globallyProtectedItems, $keepItems);
     }
 
-
     /** Items to be deleted.
      * @param $deleteItems
      */
@@ -245,7 +245,7 @@ class Pimcore
         if (is_array($deleteItems) && is_array(self::$globallyProtectedItems)) {
             foreach ($deleteItems as $item) {
                 $key = array_search($item, self::$globallyProtectedItems);
-                if ($key!==false) {
+                if ($key !== false) {
                     unset(self::$globallyProtectedItems[$key]);
                 }
             }
@@ -254,7 +254,9 @@ class Pimcore
 
     /**
      * Forces a garbage collection.
+     *
      * @static
+     *
      * @param array $keepItems
      */
     public static function collectGarbage($keepItems = [])
@@ -301,6 +303,7 @@ class Pimcore
 
     /**
      * this method is called with register_shutdown_function() and writes all data queued into the cache
+     *
      * @static
      */
     public static function shutdown()
@@ -359,7 +362,9 @@ class Pimcore
     /**
      * @param $name
      * @param $arguments
+     *
      * @return mixed
+     *
      * @throws Exception
      */
     public static function __callStatic($name, $arguments)

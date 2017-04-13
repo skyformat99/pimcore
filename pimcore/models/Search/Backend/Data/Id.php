@@ -18,7 +18,6 @@ use Pimcore\Model\Element;
 
 class Id
 {
-
     /**
      * @var int
      */

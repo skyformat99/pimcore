@@ -41,6 +41,7 @@ class PortalController extends AdminController implements EventedControllerInter
 
     /**
      * @param Request $request
+     *
      * @return mixed
      */
     protected function getCurrentConfiguration(Request $request)
@@ -59,7 +60,9 @@ class PortalController extends AdminController implements EventedControllerInter
 
     /**
      * @Route("/dashboard-list")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function dashboardListAction(Request $request)
@@ -78,7 +81,9 @@ class PortalController extends AdminController implements EventedControllerInter
 
     /**
      * @Route("/create-dashboard")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function createDashboardAction(Request $request)
@@ -101,7 +106,9 @@ class PortalController extends AdminController implements EventedControllerInter
 
     /**
      * @Route("/delete-dashboard")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function deleteDashboardAction(Request $request)
@@ -114,7 +121,9 @@ class PortalController extends AdminController implements EventedControllerInter
 
     /**
      * @Route("/get-configuration")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getConfigurationAction(Request $request)
@@ -124,7 +133,9 @@ class PortalController extends AdminController implements EventedControllerInter
 
     /**
      * @Route("/remove-widget")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function removeWidgetAction(Request $request)
@@ -150,7 +161,9 @@ class PortalController extends AdminController implements EventedControllerInter
 
     /**
      * @Route("/add-widget")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function addWidgetAction(Request $request)
@@ -164,7 +177,7 @@ class PortalController extends AdminController implements EventedControllerInter
             }
         }
 
-        $nextId = $nextId+1;
+        $nextId = $nextId + 1;
         $config["positions"][0][] = ["id" => $nextId, "type" => $request->get("type"), "config" => null];
 
         $this->saveConfiguration($request, $config);
@@ -174,7 +187,9 @@ class PortalController extends AdminController implements EventedControllerInter
 
     /**
      * @Route("/reorder-widget")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function reorderWidgetAction(Request $request)
@@ -202,10 +217,11 @@ class PortalController extends AdminController implements EventedControllerInter
         return $this->json(["success" => true]);
     }
 
-
     /**
      * @Route("/update-portlet-config")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function updatePortletConfigAction(Request $request)
@@ -228,10 +244,11 @@ class PortalController extends AdminController implements EventedControllerInter
         return $this->json(["success" => true]);
     }
 
-
     /**
      * @Route("/portlet-feed")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function portletFeedAction(Request $request)
@@ -299,7 +316,9 @@ class PortalController extends AdminController implements EventedControllerInter
 
     /**
      * @Route("/portlet-modified-documents")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function portletModifiedDocumentsAction(Request $request)
@@ -309,7 +328,6 @@ class PortalController extends AdminController implements EventedControllerInter
             "order" => "DESC",
             "orderKey" => "modificationDate"
         ]);
-
 
         $response = [];
         $response["documents"] = [];
@@ -329,7 +347,9 @@ class PortalController extends AdminController implements EventedControllerInter
 
     /**
      * @Route("/portlet-modified-assets")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function portletModifiedAssetsAction(Request $request)
@@ -339,7 +359,6 @@ class PortalController extends AdminController implements EventedControllerInter
             "order" => "DESC",
             "orderKey" => "modificationDate"
         ]);
-
 
         $response = [];
         $response["assets"] = [];
@@ -359,7 +378,9 @@ class PortalController extends AdminController implements EventedControllerInter
 
     /**
      * @Route("/portlet-modified-objects")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function portletModifiedObjectsAction(Request $request)
@@ -370,7 +391,6 @@ class PortalController extends AdminController implements EventedControllerInter
             "orderKey" => "o_modificationDate",
             "condition" => "o_userModification = '".$this->getUser()->getId()."'"
         ]);
-
 
         $response = [];
         $response["objects"] = [];
@@ -389,7 +409,9 @@ class PortalController extends AdminController implements EventedControllerInter
 
     /**
      * @Route("/portlet-modification-statistics")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function portletModificationStatisticsAction(Request $request)
@@ -401,9 +423,9 @@ class PortalController extends AdminController implements EventedControllerInter
 
         $data = [];
 
-        for ($i=0; $i<$days; $i++) {
+        for ($i=0; $i < $days; $i++) {
             // documents
-            $end = $startDate - ($i*86400);
+            $end = $startDate - ($i * 86400);
             $start = $end - 86399;
 
             $o = $db->fetchOne("SELECT COUNT(*) AS count FROM objects WHERE o_modificationDate > ".$start . " AND o_modificationDate < ".$end);
@@ -429,7 +451,9 @@ class PortalController extends AdminController implements EventedControllerInter
 
     /**
      * @Route("/portlet-analytics-sites")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function portletAnalyticsSitesAction(Request $request)

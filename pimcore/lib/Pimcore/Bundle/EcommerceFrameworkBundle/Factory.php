@@ -38,7 +38,6 @@ use Pimcore\Config\Config;
 
 class Factory
 {
-
     /**
      * framework configuration file
      */
@@ -104,7 +103,6 @@ class Factory
      */
     private $paymentManager;
 
-
     /**
      * @var IVoucherService
      */
@@ -123,7 +121,7 @@ class Factory
     public static function getInstance()
     {
         if (self::$instance === null) {
-            self::$instance = new Factory();
+            self::$instance = new self();
             self::$instance->init();
         }
 
@@ -134,6 +132,7 @@ class Factory
      * creates new factory instance and optionally resets environment too
      *
      * @param bool|true $keepEnvironment
+     *
      * @return Factory
      */
     public static function resetInstance($keepEnvironment = true)
@@ -144,7 +143,7 @@ class Factory
             $environment = null;
         }
 
-        self::$instance = new Factory($environment);
+        self::$instance = new self($environment);
         self::$instance->init();
 
         return self::$instance;
@@ -227,6 +226,7 @@ class Factory
      * Configure tracking manager
      *
      * @param Config $config
+     *
      * @throws InvalidConfigException
      */
     private function configureTrackingManager(Config $config)
@@ -250,6 +250,7 @@ class Factory
      * Get tracking manager
      *
      * @return TrackingManager
+     *
      * @throws UnsupportedException
      */
     public function getTrackingManager()
@@ -297,6 +298,7 @@ class Factory
             }
         }
     }
+
     private function configureAvailabilitySystem($config)
     {
         if (empty($config->ecommerceframework->availablitysystems)) {
@@ -335,7 +337,6 @@ class Factory
         }
     }
 
-
     private function configureCheckoutManager($config)
     {
         if (empty($config->ecommerceframework->checkoutmanager->class)) {
@@ -368,7 +369,6 @@ class Factory
         }
     }
 
-
     private function configureOfferToolService($config)
     {
         if (!empty($config->ecommerceframework->offertool->class)) {
@@ -383,7 +383,6 @@ class Factory
             }
         }
     }
-
 
     /**
      * @param Config $config
@@ -404,7 +403,6 @@ class Factory
         }
     }
 
-
     /**
      * @param Config $config
      *
@@ -424,7 +422,6 @@ class Factory
         }
     }
 
-
     public function getCartManager()
     {
         return $this->cartManager;
@@ -432,8 +429,10 @@ class Factory
 
     /**
      * @throws InvalidConfigException
+     *
      * @param ICart $cart
      * @param string $name optional name of checkout manager, in case there are more than one configured
+     *
      * @return ICheckoutManager
      */
     public function getCheckoutManager(ICart $cart, $name = null)
@@ -460,6 +459,7 @@ class Factory
 
     /**
      * @param string $checkoutManagerName
+     *
      * @return ICommitOrderProcessor
      */
     public function getCommitOrderProcessor($checkoutManagerName = null)
@@ -493,7 +493,9 @@ class Factory
 
     /**
      * @throws UnsupportedException
+     *
      * @param null $name
+     *
      * @return IPriceSystem
      */
     public function getPriceSystem($name = null)
@@ -508,9 +510,12 @@ class Factory
             throw new UnsupportedException("priceSystem " . $name . " is not supported, check configuration!");
         }
     }
+
     /**
      * @throws UnsupportedException
+     *
      * @param null $name
+     *
      * @return IAvailabilitySystem
      */
     public function getAvailabilitySystem($name = null)
@@ -525,7 +530,6 @@ class Factory
             throw new UnsupportedException("availabilitySystem " . $name . " is not supported, check configuration!");
         }
     }
-
 
     /**
      * @var IndexService
@@ -544,7 +548,6 @@ class Factory
         return $this->indexService;
     }
 
-
     /**
      * @return string[]
      */
@@ -558,7 +561,6 @@ class Factory
 
         return $this->allTenants;
     }
-
 
     /**
      * @return FilterService
@@ -576,14 +578,11 @@ class Factory
         return new FilterService($filterTypes, $translator, $renderer);
     }
 
-
-
     public function saveState()
     {
         $this->cartManager->save();
         $this->environment->save();
     }
-
 
     /**
      * @return IPricingManager
@@ -610,7 +609,6 @@ class Factory
         return $this->offerToolService;
     }
 
-
     /**
      * @return IPaymentManager
      */
@@ -618,7 +616,6 @@ class Factory
     {
         return $this->paymentManager;
     }
-
 
     /**
      * @return IOrderManager
@@ -628,9 +625,9 @@ class Factory
         return $this->orderManager;
     }
 
-
     /**
      * @return IVoucherService
+     *
      * @throws InvalidConfigException
      */
     public function getVoucherService()
@@ -645,10 +642,11 @@ class Factory
         return $this->voucherService;
     }
 
-
     /**
      * @param AbstractVoucherTokenType $configuration
+     *
      * @return ITokenManager
+     *
      * @throws InvalidConfigException
      */
     public function getTokenManager(AbstractVoucherTokenType $configuration)

@@ -14,12 +14,11 @@
 
 namespace Pimcore\Bundle\EcommerceFrameworkBundle\CoreExtensions\ClassDefinition;
 
-use \Pimcore\Bundle\EcommerceFrameworkBundle\CoreExtensions\ObjectData;
+use Pimcore\Bundle\EcommerceFrameworkBundle\CoreExtensions\ObjectData;
 use Pimcore\Model\Object\ClassDefinition\Data;
 
 class IndexFieldSelection extends Data
 {
-
     /**
      * Static type of this element
      *
@@ -62,8 +61,6 @@ class IndexFieldSelection extends Data
     public $filterGroups = "";
     public $predefinedPreSelectOptions = [];
 
-
-
     public function __construct()
     {
     }
@@ -89,7 +86,7 @@ class IndexFieldSelection extends Data
     }
 
     /**
-     * @param boolean $multiPreSelect
+     * @param bool $multiPreSelect
      */
     public function setMultiPreSelect($multiPreSelect)
     {
@@ -97,7 +94,7 @@ class IndexFieldSelection extends Data
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getMultiPreSelect()
     {
@@ -120,12 +117,13 @@ class IndexFieldSelection extends Data
         return $this->predefinedPreSelectOptions;
     }
 
-
     /**
      * @see Object_Class_Data::getDataForResource
+     *
      * @param float $data
      * @param null|\Pimcore\Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return array
      */
     public function getDataForResource($data, $object = null, $params = [])
@@ -147,9 +145,11 @@ class IndexFieldSelection extends Data
 
     /**
      * @see Object_Class_Data::getDataFromResource
+     *
      * @param float $data
      * @param null|\Pimcore\Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function getDataFromResource($data, $object = null, $params = [])
@@ -163,9 +163,11 @@ class IndexFieldSelection extends Data
 
     /**
      * @see Object_Class_Data::getDataForQueryResource
+     *
      * @param float $data
      * @param null|\Pimcore\Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return array
      */
     public function getDataForQueryResource($data, $object = null, $params = [])
@@ -175,9 +177,11 @@ class IndexFieldSelection extends Data
 
     /**
      * @see Object_Class_Data::getDataForEditmode
+     *
      * @param float $data
      * @param null|\Pimcore\Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function getDataForEditmode($data, $object = null, $params = [])
@@ -195,9 +199,11 @@ class IndexFieldSelection extends Data
 
     /**
      * @see Object_Class_Data::getDataFromEditmode
+     *
      * @param float $data
      * @param null|\Pimcore\Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function getDataFromEditmode($data, $object = null, $params = [])
@@ -215,9 +221,11 @@ class IndexFieldSelection extends Data
 
     /**
      * @see Object_Class_Data::getVersionPreview
+     *
      * @param float $data
      * @param null|\Pimcore\Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return float
      */
     public function getVersionPreview($data, $object = null, $params = [])
@@ -233,7 +241,8 @@ class IndexFieldSelection extends Data
      * Checks if data is valid for current data field
      *
      * @param mixed $data
-     * @param boolean $omitMandatoryCheck
+     * @param bool $omitMandatoryCheck
+     *
      * @throws \Exception
      */
     public function checkValidity($data, $omitMandatoryCheck = false)
@@ -246,9 +255,12 @@ class IndexFieldSelection extends Data
 
     /**
      * converts object data to a simple string value or CSV Export
+     *
      * @abstract
+     *
      * @param \Pimcore\Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getForCsvExport($object, $params = [])
@@ -267,12 +279,13 @@ class IndexFieldSelection extends Data
         }
     }
 
-
     /**
      * fills object field data values from CSV Import String
+     *
      * @param string $importValue
      * @param null|\Pimcore\Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return ObjectData\IndexFieldSelection
      */
     public function getFromCsvImport($importValue, $object = null, $params = [])
@@ -288,11 +301,12 @@ class IndexFieldSelection extends Data
         return $value;
     }
 
-
     /**
      * converts data to be exposed via webservices
+     *
      * @param string $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function getForWebserviceExport($object, $params = [])
@@ -313,9 +327,11 @@ class IndexFieldSelection extends Data
 
     /**
      * converts data to be imported via webservices
+     *
      * @param mixed $value
      * @param mixed $relatedObject
      * @param mixed $params
+     *
      * @return mixed
      */
     public function getFromWebserviceImport($value, $relatedObject = null, $params = [], $idMapper = null)
@@ -329,10 +345,10 @@ class IndexFieldSelection extends Data
         }
     }
 
-
     /** True if change is allowed in edit mode.
      * @param string $object
      * @param mixed $params
+     *
      * @return bool
      */
     public function isDiffChangeAllowed($object, $params = [])

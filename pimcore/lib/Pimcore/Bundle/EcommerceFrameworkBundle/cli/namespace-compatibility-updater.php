@@ -11,8 +11,6 @@
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
-
-
 $workingDirectory = getcwd();
 chdir(__DIR__);
 include_once("../../../../../config/startup_cli.php");

@@ -10,17 +10,18 @@
  *
  * @category   Pimcore
  * @package    Document
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Document\Tag;
 
+use Pimcore\Logger;
 use Pimcore\Model;
 use Pimcore\Model\Asset;
-use Pimcore\Model\Element;
 use Pimcore\Model\Document;
-use Pimcore\Logger;
+use Pimcore\Model\Element;
 
 /**
  * @method \Pimcore\Model\Document\Tag\Dao getDao()
@@ -49,6 +50,7 @@ class Pdf extends Model\Document\Tag
 
     /**
      * @see Document\Tag\TagInterface::getType
+     *
      * @return string
      */
     public function getType()
@@ -58,6 +60,7 @@ class Pdf extends Model\Document\Tag
 
     /**
      * @see Document\Tag\TagInterface::getData
+     *
      * @return mixed
      */
     public function getData()
@@ -153,6 +156,7 @@ class Pdf extends Model\Document\Tag
     /**
      * @param $ownerDocument
      * @param array $tags
+     *
      * @return array|mixed
      */
     public function getCacheTags($ownerDocument, $tags = [])
@@ -188,10 +192,8 @@ class Pdf extends Model\Document\Tag
             $tags = $getMetaDataCacheTags($this->hotspots, $tags);
         }
 
-
         return $tags;
     }
-
 
     /**
      * @return array
@@ -262,7 +264,9 @@ class Pdf extends Model\Document\Tag
 
     /**
      * @see Document\Tag\TagInterface::setDataFromResource
+     *
      * @param mixed $data
+     *
      * @return $this
      */
     public function setDataFromResource($data)
@@ -305,7 +309,6 @@ class Pdf extends Model\Document\Tag
             $data["hotspots"] = $rewritePath($data["hotspots"]);
         }
 
-
         $this->id = $data["id"];
         $this->hotspots = $data["hotspots"];
         $this->texts = $data["texts"];
@@ -324,7 +327,9 @@ class Pdf extends Model\Document\Tag
 
     /**
      * @see Document\Tag\TagInterface::setDataFromEditmode
+     *
      * @param mixed $data
+     *
      * @return $this
      */
     public function setDataFromEditmode($data)
@@ -450,7 +455,7 @@ class Pdf extends Model\Document\Tag
                 return $data;
             };
 
-            for ($i=1; $i <=$pageCount; $i++) {
+            for ($i=1; $i <= $pageCount; $i++) {
                 $pageData = [
                     "thumbnail" => (string) $asset->getImageThumbnail([
                         "width" => 200,
@@ -515,13 +520,14 @@ HTML;
 
     /**
      * @param string $message
+     *
      * @return string
      */
     public function getErrorCode($message = "")
     {
         $width = $this->getWidth();
         if (strpos($this->getWidth(), "%") === false) {
-            $width = ($this->getWidth()-1) . "px";
+            $width = ($this->getWidth() - 1) . "px";
         }
 
         // only display error message in debug mode
@@ -531,7 +537,7 @@ HTML;
 
         $code = '
         <div id="pimcore_pdf_' . $this->getName() . '" class="pimcore_tag_pdf">
-            <div class="pimcore_tag_video_error" style="text-align:center; width: ' . $width . '; height: ' . ($this->getHeight()-1) . 'px; border:1px solid #000; background: url(/pimcore/static6/img/filetype-not-supported.png) no-repeat center center #fff;">
+            <div class="pimcore_tag_video_error" style="text-align:center; width: ' . $width . '; height: ' . ($this->getHeight() - 1) . 'px; border:1px solid #000; background: url(/pimcore/static6/img/filetype-not-supported.png) no-repeat center center #fff;">
                 ' . $message . '
             </div>
         </div>';
@@ -540,7 +546,7 @@ HTML;
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isEmpty()
     {
@@ -556,6 +562,7 @@ HTML;
      * @param $document
      * @param mixed $params
      * @param null $idMapper
+     *
      * @throws \Exception
      */
     public function getFromWebserviceImport($wsElement, $document = null, $params = [], $idMapper = null)
@@ -599,6 +606,7 @@ HTML;
 
     /**
      * @param $page
+     *
      * @return mixed|null
      */
     public function getText($page)
@@ -632,6 +640,7 @@ HTML;
 
     /**
      * @param $page
+     *
      * @return mixed
      */
     public function getChapter($page)
@@ -659,6 +668,7 @@ HTML;
 
     /**
      * @param $page
+     *
      * @return mixed
      */
     public function getHotspot($page)
@@ -694,6 +704,7 @@ HTML;
      *  "object" => array(...),
      *  "asset" => array(...)
      * )
+     *
      * @param array $idMapping
      */
     public function rewriteIds($idMapping)

@@ -10,21 +10,21 @@
  *
  * @category   Pimcore
  * @package    Tool
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Tool\Tag;
 
-use Pimcore\Model;
 use Pimcore\Cache;
+use Pimcore\Model;
 
 /**
  * @method \Pimcore\Model\Tool\Tag\Config\Dao getDao()
  */
 class Config extends Model\AbstractModel
 {
-
     /**
      * @var array
      */
@@ -81,10 +81,11 @@ class Config extends Model\AbstractModel
      */
     public $creationDate;
 
-
     /**
      * @param $name
+     *
      * @return Config
+     *
      * @throws \Exception
      */
     public static function getByName($name)
@@ -99,7 +100,6 @@ class Config extends Model\AbstractModel
         return $tag;
     }
 
-
     /**
      * Delete from Database
      */
@@ -113,6 +113,7 @@ class Config extends Model\AbstractModel
 
     /**
      * @param $parameters
+     *
      * @return bool
      */
     public function addItem($parameters)
@@ -125,6 +126,7 @@ class Config extends Model\AbstractModel
     /**
      * @param $position
      * @param $parameters
+     *
      * @return bool
      */
     public function addItemAt($position, $parameters)
@@ -141,6 +143,7 @@ class Config extends Model\AbstractModel
 
     /**
      * @param $description
+     *
      * @return $this
      */
     public function setDescription($description)
@@ -160,6 +163,7 @@ class Config extends Model\AbstractModel
 
     /**
      * @param $items
+     *
      * @return $this
      */
     public function setItems($items)
@@ -179,6 +183,7 @@ class Config extends Model\AbstractModel
 
     /**
      * @param $name
+     *
      * @return $this
      */
     public function setName($name)
@@ -198,6 +203,7 @@ class Config extends Model\AbstractModel
 
     /**
      * @param $httpMethod
+     *
      * @return $this
      */
     public function setHttpMethod($httpMethod)
@@ -217,6 +223,7 @@ class Config extends Model\AbstractModel
 
     /**
      * @param $urlPattern
+     *
      * @return $this
      */
     public function setUrlPattern($urlPattern)
@@ -252,6 +259,7 @@ class Config extends Model\AbstractModel
 
     /**
      * @param $params
+     *
      * @return $this
      */
     public function setParams($params)
@@ -271,6 +279,7 @@ class Config extends Model\AbstractModel
 
     /**
      * @param $textPattern
+     *
      * @return $this
      */
     public function setTextPattern($textPattern)

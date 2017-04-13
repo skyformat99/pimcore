@@ -41,7 +41,6 @@ class NumberRangeSelection extends \Pimcore\Bundle\EcommerceFrameworkBundle\Filt
             $counts[$row['from'] . "_" . $row['to']] = 0;
         }
 
-
         foreach ($groupByValues as $groupByValue) {
             if ($groupByValue['label']) {
                 $value = floatval($groupByValue['label']);
@@ -68,7 +67,6 @@ class NumberRangeSelection extends \Pimcore\Bundle\EcommerceFrameworkBundle\Filt
         if ($currentFilter[$filterDefinition->getField()]['from'] || $currentFilter[$filterDefinition->getField()]['to']) {
             $currentValue = implode($currentFilter[$filterDefinition->getField()], "-");
         }
-
 
         return $this->render($script, [
             "hideFilter" => $filterDefinition->getRequiredFilterField() && empty($currentFilter[$filterDefinition->getRequiredFilterField()]),
@@ -100,7 +98,6 @@ class NumberRangeSelection extends \Pimcore\Bundle\EcommerceFrameworkBundle\Filt
         }
 
         $currentFilter[$field] = $value;
-
 
         if ($value['from'] || $value['to']) {
             $v = [];

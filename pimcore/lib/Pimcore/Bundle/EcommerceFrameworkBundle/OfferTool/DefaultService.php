@@ -29,6 +29,7 @@ class DefaultService implements IService
     /**
      * @param \Pimcore\Bundle\EcommerceFrameworkBundle\CartManager\ICart $cart
      * @param \Pimcore\Bundle\EcommerceFrameworkBundle\CartManager\ICartItem[] $excludeItems
+     *
      * @return \Pimcore\Bundle\EcommerceFrameworkBundle\OfferTool\AbstractOffer
      */
     public function createNewOfferFromCart(\Pimcore\Bundle\EcommerceFrameworkBundle\CartManager\ICart $cart, array $excludeItems = [])
@@ -75,6 +76,7 @@ class DefaultService implements IService
 
     /**
      * @return \Pimcore\Bundle\EcommerceFrameworkBundle\OfferTool\AbstractOffer
+     *
      * @throws \Exception
      */
     protected function getNewOfferObject($tempOfferNumber)
@@ -98,6 +100,7 @@ class DefaultService implements IService
 
     /**
      * @return \Pimcore\Bundle\EcommerceFrameworkBundle\OfferTool\AbstractOfferItem
+     *
      * @throws \Exception
      */
     public function getNewOfferItemObject()
@@ -112,6 +115,7 @@ class DefaultService implements IService
     /**
      * @param \Pimcore\Bundle\EcommerceFrameworkBundle\CartManager\ICartItem $item
      * @param $parent
+     *
      * @return \Pimcore\Bundle\EcommerceFrameworkBundle\OfferTool\AbstractOfferItem
      */
     protected function createOfferItem(\Pimcore\Bundle\EcommerceFrameworkBundle\CartManager\ICartItem $item, $parent)
@@ -183,7 +187,6 @@ class DefaultService implements IService
             $offerItem->setFinalTotalPrice($price);
         }
 
-
         //Delete all subitems and add them as new items
         $offerSubItems = $offerItem->getSubItems();
         foreach ($offerSubItems as $i) {
@@ -213,6 +216,7 @@ class DefaultService implements IService
      * can be used e.g. for adding vat, ...
      *
      * @param $price
+     *
      * @return mixed
      */
     protected function priceTransformationHook($price)
@@ -235,7 +239,6 @@ class DefaultService implements IService
     public function updateOfferFromCart(\Pimcore\Bundle\EcommerceFrameworkBundle\OfferTool\AbstractOffer $offer, \Pimcore\Bundle\EcommerceFrameworkBundle\CartManager\ICart $cart, array $excludeItems = [], $save = true)
     {
         $excludedItemKeys = $this->getExcludedItemKeys($excludeItems);
-
 
         if ($cart->getId() != $offer->getCartId()) {
             throw new \Exception("Cart does not match to the offer given, update is not possible");

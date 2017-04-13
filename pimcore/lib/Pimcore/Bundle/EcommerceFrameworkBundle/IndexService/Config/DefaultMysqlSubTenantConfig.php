@@ -24,7 +24,6 @@ use Pimcore\Bundle\EcommerceFrameworkBundle\Model\IIndexable;
  */
 class DefaultMysqlSubTenantConfig extends DefaultMysql
 {
-
     // NOTE: this works only with a single-column primary key
 
     public function getTablename()
@@ -41,8 +40,6 @@ class DefaultMysqlSubTenantConfig extends DefaultMysql
     {
         return "ecommerceframework_productindex_tenant_relations";
     }
-
-
 
     public function getJoins()
     {
@@ -76,6 +73,7 @@ class DefaultMysqlSubTenantConfig extends DefaultMysql
      *
      * @param IIndexable $object
      * @param null $subObjectId
+     *
      * @return mixed $subTenantData
      */
     public function prepareSubTenantEntries(IIndexable $object, $subObjectId = null)

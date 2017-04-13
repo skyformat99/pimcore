@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    User
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -23,9 +24,9 @@ use Pimcore\Model;
  */
 class Dao extends Model\Listing\Dao\AbstractDao
 {
-
     /**
      * Loads a list of users for the specified parameters, returns an array of User elements
+     *
      * @return array
      */
     public function load()
@@ -53,7 +54,7 @@ class Dao extends Model\Listing\Dao\AbstractDao
     {
         $condition = parent::getCondition();
         if (!empty($condition)) {
-            $condition.=" AND ";
+            $condition .= " AND ";
         } else {
             $condition = " WHERE ";
         }

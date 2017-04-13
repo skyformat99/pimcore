@@ -10,22 +10,22 @@
  *
  * @category   Pimcore
  * @package    Object
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Object\Classificationstore;
 
+use Pimcore\Logger;
 use Pimcore\Model;
 use Pimcore\Model\Object;
-use Pimcore\Logger;
 
 /**
  * @property \Pimcore\Model\Object\Classificationstore $model
  */
 class Dao extends Model\Dao\AbstractDao
 {
-
     /**
      * @var null
      */
@@ -47,10 +47,6 @@ class Dao extends Model\Dao\AbstractDao
         return "object_classificationstore_groups_" . $this->model->getClass()->getId();
     }
 
-
-    /**
-     *
-     */
     public function save()
     {
         $object = $this->model->object;
@@ -63,7 +59,6 @@ class Dao extends Model\Dao\AbstractDao
         $items = $this->model->getItems();
 
         $collectionMapping = $this->model->getGroupCollectionMappings();
-
 
         foreach ($items as $groupId => $group) {
             foreach ($group as $keyId => $keyData) {
@@ -98,7 +93,6 @@ class Dao extends Model\Dao\AbstractDao
             }
         }
 
-
         $groupsTable = $this->getGroupsTableName();
 
         $this->db->delete($groupsTable, ["o_id" => $objectId, "fieldname" => $fieldname]);
@@ -118,9 +112,6 @@ class Dao extends Model\Dao\AbstractDao
         }
     }
 
-    /**
-     *
-     */
     public function delete()
     {
         $object = $this->model->object;
@@ -133,12 +124,9 @@ class Dao extends Model\Dao\AbstractDao
         $this->db->delete($groupsTable, ["o_id" => $objectId]);
     }
 
-    /**
-     *
-     */
     public function load()
     {
-        /** @var  $classificationStore Object\Classificationstore */
+        /** @var $classificationStore Object\Classificationstore */
         $classificationStore = $this->model;
         $object = $this->model->getObject();
         $dataTableName = $this->getDataTableName();
@@ -173,7 +161,6 @@ class Dao extends Model\Dao\AbstractDao
 
             $value = $fd->getDataFromResource($value, $object);
 
-
             $language = $item["language"];
             $classificationStore->setLocalizedKeyValue($groupId, $keyId, $value, $language);
         }
@@ -193,9 +180,6 @@ class Dao extends Model\Dao\AbstractDao
         $classificationStore->setGroupCollectionMappings($groupCollectionMapping);
     }
 
-    /**
-     *
-     */
     public function createUpdateTable()
     {
         $groupsTable = $this->getGroupsTableName();

@@ -15,9 +15,9 @@
 namespace Pimcore\Bundle\AdminBundle\Controller\Admin;
 
 use Pimcore\Event\AdminEvents;
+use Pimcore\Logger;
 use Pimcore\Model\Document;
 use Pimcore\Model\Element;
-use Pimcore\Logger;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,10 +28,11 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class HardlinkController extends DocumentControllerBase
 {
-
     /**
      * @Route("/get-data-by-id")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getDataByIdAction(Request $request)
@@ -79,8 +80,11 @@ class HardlinkController extends DocumentControllerBase
 
     /**
      * @Route("/save")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
+     *
      * @throws \Exception
      */
     public function saveAction(Request $request)

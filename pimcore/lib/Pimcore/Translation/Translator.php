@@ -213,7 +213,9 @@ class Translator implements TranslatorInterface, TranslatorBagInterface
      * @param string $translated
      * @param string $domain
      * @param string $locale
+     *
      * @return string
+     *
      * @throws \Exception
      */
     protected function checkForEmptyTranslation($id, $translated, $domain, $locale)
@@ -277,6 +279,7 @@ class Translator implements TranslatorInterface, TranslatorBagInterface
 
     /**
      * @param $domain
+     *
      * @return string
      */
     protected function getBackendForDomain($domain)

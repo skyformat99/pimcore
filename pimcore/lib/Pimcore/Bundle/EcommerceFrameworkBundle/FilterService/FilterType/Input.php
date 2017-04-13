@@ -54,7 +54,6 @@ class Input extends AbstractFilterType
         $value = trim($value);
         $currentFilter[$field] = $value;
 
-
         if (!empty($value)) {
             if ($isPrecondition) {
                 $productList->addCondition("TRIM(`" . $field . "`) LIKE " . $productList->quote("%" . $value . "%"), "PRECONDITION_" . $field);

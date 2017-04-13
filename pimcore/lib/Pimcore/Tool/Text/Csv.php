@@ -20,7 +20,9 @@ class Csv
 {
     /**
      * @param $data
+     *
      * @return \stdClass
+     *
      * @throws \Exception
      */
     public function detect($data)
@@ -55,6 +57,7 @@ class Csv
 
     /**
      * @param $data
+     *
      * @return string
      */
     protected function guessLinefeed($data)
@@ -82,6 +85,7 @@ class Csv
 
     /**
      * @param $data
+     *
      * @return array
      */
     protected function guessQuoteAndDelim($data)
@@ -124,6 +128,7 @@ class Csv
      * @param $data
      * @param $linefeed
      * @param $quotechar
+     *
      * @return bool|string
      */
     protected function guessDelim($data, $linefeed, $quotechar)
@@ -221,6 +226,7 @@ class Csv
 
     /**
      * @param $array
+     *
      * @return float
      */
     protected function deviation($array)

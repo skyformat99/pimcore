@@ -15,12 +15,12 @@
 namespace Pimcore\Bundle\CoreBundle\Command;
 
 use Pimcore\Console\AbstractCommand;
+use Pimcore\Model\User;
 use Pimcore\Tool\Authentication;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Pimcore\Model\User;
 use Symfony\Component\Console\Question\Question;
 
 class ResetPasswordCommand extends AbstractCommand

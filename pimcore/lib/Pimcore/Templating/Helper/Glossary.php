@@ -63,9 +63,6 @@ class Glossary extends Helper implements LoggerAwareInterface
         ob_start();
     }
 
-    /**
-     *
-     */
     public function stop()
     {
         $contents = ob_get_clean();
@@ -103,7 +100,6 @@ class Glossary extends Helper implements LoggerAwareInterface
                 "placeholder" => []
             ];
 
-
             // get initial document out of the front controller (requested document, if it was a "document" request)
             $currentDocument = $this->documentResolverService->getDocument();
 
@@ -118,7 +114,6 @@ class Glossary extends Helper implements LoggerAwareInterface
                 if ($currentDocument instanceof Document && $currentDocument->getFullPath() == rtrim($entry["linkTarget"], " /")) {
                     continue;
                 }
-
 
                 $tmpData["search"][] = $entry["search"];
                 $tmpData["replace"][] = $entry["replace"];
@@ -187,7 +182,6 @@ class Glossary extends Helper implements LoggerAwareInterface
         } catch (\Exception $e) {
         }
 
-
         if (!$data = CacheManger::load($cacheKey)) {
             $list = new \Pimcore\Model\Glossary\Listing();
             $list->setCondition("(language = ? OR language IS NULL OR language = '') AND (site = ? OR site IS NULL OR site = '')", [$locale, $siteId]);
@@ -206,6 +200,7 @@ class Glossary extends Helper implements LoggerAwareInterface
 
     /**
      * @param $data
+     *
      * @return array
      */
     protected function prepareData($data)

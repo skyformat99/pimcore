@@ -32,7 +32,6 @@ class Discount implements IDiscount
      */
     protected $rule = null;
 
-
     /**
      * @param IRule $rule
      */
@@ -40,7 +39,6 @@ class Discount implements IDiscount
     {
         $this->rule = $rule;
     }
-
 
     /**
      * modificator name

@@ -10,20 +10,20 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Object\ClassDefinition\Data;
 
-use Pimcore\Model;
-use Pimcore\Model\Object;
-use Pimcore\Model\Element;
 use Pimcore\Db;
+use Pimcore\Model;
+use Pimcore\Model\Element;
+use Pimcore\Model\Object;
 
 class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
 {
-
     /**
      * @var
      */
@@ -55,9 +55,11 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
 
     /**
      * @see Object\ClassDefinition\Data::getDataForResource
+     *
      * @param array $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return array
      */
     public function getDataForResource($data, $object = null, $params = [])
@@ -80,7 +82,7 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
             }
 
             return $return;
-        } elseif (is_array($data) and count($data)===0) {
+        } elseif (is_array($data) and count($data) === 0) {
             //give empty array if data was not null
             return [];
         } else {
@@ -91,9 +93,11 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
 
     /**
      * @see Object\ClassDefinition\Data::getDataFromResource
+     *
      * @param array $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return array
      */
     public function getDataFromResource($data, $object = null, $params = [])
@@ -130,6 +134,7 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
      * @param $data
      * @param null $object
      * @param mixed $params
+     *
      * @throws \Exception
      */
     public function getDataForQueryResource($data, $object = null, $params = [])
@@ -158,12 +163,13 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
         }
     }
 
-
     /**
      * @see Object\ClassDefinition\Data::getDataForEditmode
+     *
      * @param array $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return array
      */
     public function getDataForEditmode($data, $object = null, $params = [])
@@ -194,9 +200,11 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
 
     /**
      * @see Model\Object\ClassDefinition\Data::getDataFromEditmode
+     *
      * @param array $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return array
      */
     public function getDataFromEditmode($data, $object = null, $params = [])
@@ -235,6 +243,7 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
      * @param $data
      * @param null $object
      * @param array $params
+     *
      * @return array
      */
     public function getDataForGrid($data, $object = null, $params = [])
@@ -254,9 +263,11 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
 
     /**
      * @see Object\ClassDefinition\Data::getVersionPreview
+     *
      * @param array $data
      * @param null|Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getVersionPreview($data, $object = null, $params = [])
@@ -275,7 +286,8 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
      * Checks if data is valid for current data field
      *
      * @param mixed $data
-     * @param boolean $omitMandatoryCheck
+     * @param bool $omitMandatoryCheck
+     *
      * @throws \Exception
      */
     public function checkValidity($data, $omitMandatoryCheck = false)
@@ -305,9 +317,12 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
 
     /**
      * converts object data to a simple string value or CSV Export
+     *
      * @abstract
+     *
      * @param Object\AbstractObject $object
      * @param array $params
+     *
      * @return string
      */
     public function getForCsvExport($object, $params = [])
@@ -332,6 +347,7 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
      * @param $importValue
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return array|mixed
      */
     public function getFromCsvImport($importValue, $object = null, $params = [])
@@ -355,12 +371,12 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
         return $value;
     }
 
-
     /**
      * This is a dummy and is mostly implemented by relation types
      *
      * @param mixed $data
      * @param array $tags
+     *
      * @return array
      */
     public function getCacheTags($data, $tags = [])
@@ -385,6 +401,7 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
 
     /**
      * @param $data
+     *
      * @return array
      */
     public function resolveDependencies($data)
@@ -409,6 +426,7 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
     /**
      * @param Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return array|mixed|null
      */
     public function getForWebserviceExport($object, $params = [])
@@ -437,13 +455,14 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
         }
     }
 
-
     /**
      * @param mixed $value
      * @param null $object
      * @param mixed $params
      * @param null $idMapper
+     *
      * @return array|mixed
+     *
      * @throws \Exception
      */
     public function getFromWebserviceImport($value, $object = null, $params = [], $idMapper = null)
@@ -493,7 +512,6 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
 
         return $objects;
     }
-
 
     /**
      * @param Element\AbstractElement $object
@@ -568,6 +586,7 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
     /**
      * @param $object
      * @param array $params
+     *
      * @return array|mixed|null
      */
     public function preGetData($object, $params = [])
@@ -634,6 +653,7 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
 
     /**
      * @param $allowedClassId
+     *
      * @return $this
      */
     public function setAllowedClassId($allowedClassId)
@@ -653,6 +673,7 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
 
     /**
      * @param $visibleFields
+     *
      * @return $this
      */
     public function setVisibleFields($visibleFields)
@@ -679,6 +700,7 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
 
     /**
      * @param $columns
+     *
      * @return $this
      */
     public function setColumns($columns)
@@ -723,6 +745,7 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
     /**
      * @param $a
      * @param $b
+     *
      * @return int
      */
     public function sort($a, $b)
@@ -758,9 +781,11 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
      *  "object" => array(...),
      *  "asset" => array(...)
      * )
+     *
      * @param mixed $object
      * @param array $idMapping
      * @param array $params
+     *
      * @return Element\ElementInterface
      */
     public function rewriteIds($object, $idMapping, $params = [])
@@ -859,13 +884,14 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
      * @param mixed $value
      * @param Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function marshal($value, $object = null, $params = [])
     {
         if (is_array($value)) {
             $result = [];
-            /** @var  $elementMetadata Object\Data\ObjectMetadata */
+            /** @var $elementMetadata Object\Data\ObjectMetadata */
             foreach ($value as $elementMetadata) {
                 $element = $elementMetadata->getElement();
 
@@ -891,6 +917,7 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
      * @param mixed $value
      * @param Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function unmarshal($value, $object = null, $params = [])

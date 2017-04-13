@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Translation
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -23,9 +24,9 @@ use Pimcore\Model;
  */
 abstract class Dao extends Model\Dao\AbstractDao implements Dao\DaoInterface
 {
-
     /**
      * @param $key
+     *
      * @throws \Exception
      */
     public function getByKey($key)
@@ -42,7 +43,6 @@ abstract class Dao extends Model\Dao\AbstractDao implements Dao\DaoInterface
             throw new \Exception("Translation-Key -->'" . $key . "'<-- not found");
         }
     }
-
 
     /**
      * Save object to database
@@ -64,7 +64,6 @@ abstract class Dao extends Model\Dao\AbstractDao implements Dao\DaoInterface
 
         $this->model->clearDependentCache();
     }
-
 
     /**
      * Deletes object from database

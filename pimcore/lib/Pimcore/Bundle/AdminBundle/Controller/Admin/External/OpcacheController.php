@@ -24,10 +24,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class OpcacheController extends AdminController implements EventedControllerInterface
 {
-
     /**
      * @Route("/external_opcache")
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function indexAction(Request $request)

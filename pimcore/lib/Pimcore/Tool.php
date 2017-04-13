@@ -19,7 +19,6 @@ use Symfony\Component\DependencyInjection\Container;
 
 class Tool
 {
-
     /**
      * @var array
      */
@@ -39,6 +38,7 @@ class Tool
      * returns a valid cache key/tag string
      *
      * @param string $key
+     *
      * @return string
      */
     public static function getValidCacheKey($key)
@@ -48,7 +48,9 @@ class Tool
 
     /**
      * @static
+     *
      * @param  $path
+     *
      * @return bool
      */
     public static function isValidPath($path)
@@ -63,7 +65,9 @@ class Tool
      * configured at all, false otherwise.
      *
      * @static
+     *
      * @param  string $language
+     *
      * @return bool
      */
     public static function isValidLanguage($language)
@@ -89,6 +93,7 @@ class Tool
      * An empty array is returned if no languages are configured.
      *
      * @static
+     *
      * @return string[]
      */
     public static function getValidLanguages()
@@ -116,6 +121,7 @@ class Tool
 
     /**
      * @param $language
+     *
      * @return array
      */
     public static function getFallbackLanguagesFor($language)
@@ -159,6 +165,7 @@ class Tool
 
     /**
      * @return array|mixed
+     *
      * @throws \Exception
      */
     public static function getSupportedLocales()
@@ -196,6 +203,7 @@ class Tool
 
     /**
      * @param $language
+     *
      * @return string
      */
     public static function getLanguageFlagFile($language)
@@ -255,6 +263,7 @@ class Tool
 
     /**
      * @static
+     *
      * @return array
      */
     public static function getRoutingDefaults()
@@ -284,9 +293,9 @@ class Tool
         }
     }
 
-
     /**
      * @static
+     *
      * @return bool
      */
     public static function isFrontend()
@@ -357,6 +366,7 @@ class Tool
 
     /**
      * @static
+     *
      * @return bool
      */
     public static function useFrontendOutputFilters()
@@ -376,12 +386,12 @@ class Tool
             return false;
         }
 
-
         return true;
     }
 
     /**
      * @static
+     *
      * @return string
      */
     public static function getHostname()
@@ -452,9 +462,9 @@ class Tool
         return $protocol . "://" . $hostname . $port;
     }
 
-
     /**
      * @static
+     *
      * @return array|bool
      */
     public static function getCustomViewConfig()
@@ -487,7 +497,9 @@ class Tool
      * @param null $recipients
      * @param null $subject
      * @param null $charset
+     *
      * @return Mail
+     *
      * @throws \Exception
      */
     public static function getMail($recipients = null, $subject = null, $charset = null)
@@ -512,13 +524,13 @@ class Tool
         return $mail;
     }
 
-
-
     /**
      * @static
+     *
      * @param $url
      * @param array $paramsGet
      * @param array $paramsPost
+     *
      * @return bool|string
      */
     public static function getHttpData($url, $paramsGet = [], $paramsPost = [])
@@ -563,6 +575,7 @@ class Tool
      * @deprecated Use Request::getClientIp() instead
      *
      * @static
+     *
      * @return mixed
      */
     public static function getClientIp()
@@ -589,7 +602,7 @@ class Tool
     public static function getAnonymizedClientIp()
     {
         $ip = self::getClientIp();
-        $aip = substr($ip, 0, strrpos($ip, ".")+1);
+        $aip = substr($ip, 0, strrpos($ip, ".") + 1);
         $aip .= "255";
 
         return $aip;
@@ -629,7 +642,9 @@ class Tool
 
     /**
      * @static
+     *
      * @param $class
+     *
      * @return bool
      */
     public static function classExists($class)
@@ -639,7 +654,9 @@ class Tool
 
     /**
      * @static
+     *
      * @param $class
+     *
      * @return bool
      */
     public static function interfaceExists($class)
@@ -650,6 +667,7 @@ class Tool
     /**
      * @param $class
      * @param $type
+     *
      * @return bool
      */
     protected static function classInterfaceExists($class, $type)
@@ -702,11 +720,12 @@ class Tool
         die($message);
     }
 
-
     /**
      * @param $name
      * @param $arguments
+     *
      * @return mixed
+     *
      * @throws \Exception
      */
     public static function __callStatic($name, $arguments)

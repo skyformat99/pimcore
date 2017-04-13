@@ -26,7 +26,9 @@ class DeliveryDate extends AbstractStep implements ICheckoutStep
 
     /**
      * commits step and sets delivered data
+     *
      * @param  $data
+     *
      * @return bool
      */
     public function commit($data)

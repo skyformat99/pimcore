@@ -19,10 +19,11 @@ use Pimcore\Model\Site;
 
 class Frontend
 {
-
     /**
      * Returns the Website-Config
+     *
      * @return \Pimcore\Config\Config
+     *
      * @deprecated
      */
     public static function getWebsiteConfig()
@@ -32,7 +33,9 @@ class Frontend
 
     /**
      * @param Site $site
+     *
      * @return string
+     *
      * @throws \Exception
      */
     public static function getSiteKey(Site $site = null)
@@ -46,7 +49,6 @@ class Frontend
             }
         }
 
-
         if ($site) {
             $siteKey = "site_" . $site->getId();
         } else {
@@ -59,6 +61,7 @@ class Frontend
     /**
      * @param Site $site
      * @param Document $document
+     *
      * @return bool
      */
     public static function isDocumentInSite($site, $document)
@@ -76,6 +79,7 @@ class Frontend
 
     /**
      * @param Document $document
+     *
      * @return bool
      */
     public static function isDocumentInCurrentSite($document)
@@ -92,6 +96,7 @@ class Frontend
 
     /**
      * @param Document $document
+     *
      * @return Site
      */
     public static function getSiteForDocument($document)

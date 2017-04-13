@@ -87,6 +87,7 @@ abstract class AdminController extends Controller implements AdminControllerInte
      * @param mixed $data       The data to be encoded
      * @param array $context    Context to pass to serializer when using serializer component
      * @param int $options      Options passed to json_encode
+     *
      * @return string
      */
     protected function encodeJson($data, array $context = [], $options = JsonResponse::DEFAULT_ENCODING_OPTIONS)

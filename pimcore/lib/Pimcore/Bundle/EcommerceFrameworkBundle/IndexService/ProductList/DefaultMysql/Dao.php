@@ -19,7 +19,6 @@ use Pimcore\Bundle\EcommerceFrameworkBundle\IndexService\ProductList\IProductLis
 
 class Dao
 {
-
     /**
      * @var \Pimcore\Db\Connection
      */
@@ -47,7 +46,6 @@ class Dao
 
         $this->logger = $logger;
     }
-
 
     public function load($condition, $orderBy = null, $limit = null, $offset = null)
     {
@@ -294,9 +292,9 @@ class Dao
         return 'MATCH (' . implode(",", $columnNames) . ') AGAINST (' . $this->db->quote($searchstring) . ' IN BOOLEAN MODE)';
     }
 
-
     /**
      * get the record count for the last select query
+     *
      * @return int
      */
     public function getLastRecordCount()

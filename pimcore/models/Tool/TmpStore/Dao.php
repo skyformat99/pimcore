@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Tool
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -23,12 +24,12 @@ use Pimcore\Model;
  */
 class Dao extends Model\Dao\AbstractDao
 {
-
     /**
      * @param $id
      * @param $data
      * @param $tag
      * @param $lifetime
+     *
      * @return bool
      */
     public function add($id, $data, $tag, $lifetime)
@@ -45,7 +46,7 @@ class Dao extends Model\Dao\AbstractDao
                 "data" => $data,
                 "tag" => $tag,
                 "date" => time(),
-                "expiryDate" => (time()+$lifetime),
+                "expiryDate" => (time() + $lifetime),
                 "serialized" => (int) $serialized
             ]);
 
@@ -65,6 +66,7 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * @param $id
+     *
      * @return bool
      */
     public function getById($id)
@@ -84,9 +86,6 @@ class Dao extends Model\Dao\AbstractDao
         return false;
     }
 
-    /**
-     *
-     */
     public function cleanup()
     {
         $this->db->deleteWhere("tmp_store", "expiryDate < " . time());
@@ -94,6 +93,7 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * @param $tag
+     *
      * @return array
      */
     public function getIdsByTag($tag)

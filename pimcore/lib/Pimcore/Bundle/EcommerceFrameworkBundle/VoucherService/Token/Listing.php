@@ -23,6 +23,7 @@ class Listing extends \Pimcore\Model\Listing\AbstractListing implements \Zend_Pa
 
     /**
      * @param  $key
+     *
      * @return bool
      */
     public function isValidOrderKey($key)
@@ -37,6 +38,7 @@ class Listing extends \Pimcore\Model\Listing\AbstractListing implements \Zend_Pa
     /**
      * @param $seriesId
      * @param array $filter
+     *
      * @throws \Exception
      */
     public function setFilterConditions($seriesId, $filter = [])
@@ -167,7 +169,6 @@ class Listing extends \Pimcore\Model\Listing\AbstractListing implements \Zend_Pa
         return $codes;
     }
 
-
     public static function getCountByUsages($usages = 1, $seriesId = null)
     {
         $query = 'SELECT COUNT(*) as count FROM ' . \Pimcore\Bundle\EcommerceFrameworkBundle\VoucherService\Token\Dao::TABLE_NAME . " WHERE usages >= ? ";
@@ -218,6 +219,7 @@ class Listing extends \Pimcore\Model\Listing\AbstractListing implements \Zend_Pa
     /**
      * @param $length
      * @param null|string $seriesId
+     *
      * @return null|string
      */
     public static function getCountByLength($length, $seriesId = null)
@@ -245,6 +247,7 @@ class Listing extends \Pimcore\Model\Listing\AbstractListing implements \Zend_Pa
      * reservations.
      *
      * @param string $seriesId
+     *
      * @return bool
      */
     public static function cleanUpAllTokens($seriesId)
@@ -256,6 +259,7 @@ class Listing extends \Pimcore\Model\Listing\AbstractListing implements \Zend_Pa
      * @param string $seriesId
      * @param array $filter
      * @param int $maxUsages
+     *
      * @return bool
      */
     public static function cleanUpTokens($seriesId, $filter = [], $maxUsages = 1)
@@ -266,7 +270,6 @@ class Listing extends \Pimcore\Model\Listing\AbstractListing implements \Zend_Pa
                         JOIN " . \Pimcore\Bundle\EcommerceFrameworkBundle\VoucherService\Reservation\Dao::TABLE_NAME . " AS r
                         ON t.token = r.token
                         WHERE t.voucherSeriesId = ?";
-
 
         $tokensQuery = "DELETE t FROM " . \Pimcore\Bundle\EcommerceFrameworkBundle\VoucherService\Token\Dao::TABLE_NAME . " AS t WHERE t.voucherSeriesId = ?";
         $params[] = $seriesId;
@@ -310,9 +313,9 @@ class Listing extends \Pimcore\Model\Listing\AbstractListing implements \Zend_Pa
         }
     }
 
-
     /**
      * @param $codes
+     *
      * @return bool
      */
     public static function tokensExist($codes)
@@ -349,7 +352,6 @@ class Listing extends \Pimcore\Model\Listing\AbstractListing implements \Zend_Pa
     {
         $this->tokens = $tokens;
     }
-
 
     /**
      * @return \Pimcore\Model\Object\Listing|AdapterInterface
@@ -406,7 +408,9 @@ class Listing extends \Pimcore\Model\Listing\AbstractListing implements \Zend_Pa
     /**
      * (PHP 5 &gt;= 5.0.0)<br/>
      * Rewind the Iterator to the first element
+     *
      * @link http://php.net/manual/en/iterator.rewind.php
+     *
      * @return void Any returned value is ignored.
      */
     public function rewind()
@@ -418,8 +422,9 @@ class Listing extends \Pimcore\Model\Listing\AbstractListing implements \Zend_Pa
     /**
      * Returns an collection of items for a page.
      *
-     * @param  integer $offset Page offset
-     * @param  integer $itemCountPerPage Number of items per page
+     * @param  int $offset Page offset
+     * @param  int $itemCountPerPage Number of items per page
+     *
      * @return array
      */
     public function getItems($offset, $itemCountPerPage)
@@ -433,7 +438,9 @@ class Listing extends \Pimcore\Model\Listing\AbstractListing implements \Zend_Pa
     /**
      * (PHP 5 &gt;= 5.1.0)<br/>
      * Count elements of an object
+     *
      * @link http://php.net/manual/en/countable.count.php
+     *
      * @return int The custom count as an integer.
      * </p>
      * <p>

@@ -9,10 +9,12 @@
 class PDFreactor
 {
     public $url;
+
     public function __construct($url = "http://localhost:9423/service/rest")
     {
         $this->url = $url;
     }
+
     public function convert($config)
     {
         $url = $this->url ."/convert.json";
@@ -42,6 +44,7 @@ class PDFreactor
 
         return json_decode($result);
     }
+
     public function convertAsBinary($config)
     {
         $url = $this->url ."/convert.bin";
@@ -68,6 +71,7 @@ class PDFreactor
 
         return $result;
     }
+
     public function convertAsync($config)
     {
         $documentId = null;
@@ -106,6 +110,7 @@ class PDFreactor
 
         return $documentId;
     }
+
     public function getProgress($documentId)
     {
         if (is_null($documentId)) {
@@ -134,6 +139,7 @@ class PDFreactor
 
         return json_decode($result);
     }
+
     public function getDocument($documentId)
     {
         if (is_null($documentId)) {
@@ -162,6 +168,7 @@ class PDFreactor
 
         return json_decode($result);
     }
+
     public function getDocumentAsBinary($documentId)
     {
         if (is_null($documentId)) {
@@ -190,6 +197,7 @@ class PDFreactor
 
         return $result;
     }
+
     public function deleteDocument($documentId)
     {
         if (is_null($documentId)) {
@@ -216,6 +224,7 @@ class PDFreactor
             throw new Exception('PDFreactor Web Service error. Please check your Configuration.');
         }
     }
+
     public function getVersion()
     {
         $url = $this->url ."/version.json";
@@ -241,6 +250,7 @@ class PDFreactor
 
         return json_decode($result);
     }
+
     public function getStatus()
     {
         $url = $this->url ."/document.json";
@@ -266,6 +276,7 @@ class PDFreactor
             throw new Exception('PDFreactor Web Service error. Please check your Configuration.');
         }
     }
+
     public function getDocumentUrl($documentId)
     {
         if (!is_null($documentId)) {
@@ -274,6 +285,7 @@ class PDFreactor
 
         return null;
     }
+
     public function getProgressUrl($documentId)
     {
         if (!is_null($documentId)) {
@@ -282,6 +294,7 @@ class PDFreactor
 
         return null;
     }
+
     const VERSION = 0;
 }
 abstract class Cleanup

@@ -16,7 +16,6 @@ namespace Pimcore;
 
 class File
 {
-
     /**
      * @var int
      */
@@ -34,7 +33,9 @@ class File
 
     /**
      * @static
+     *
      * @param  $name
+     *
      * @return string
      */
     public static function getFileExtension($name)
@@ -51,8 +52,10 @@ class File
 
     /**
      * @static
+     *
      * @param  $tmpFilename
      * @param null $language
+     *
      * @return string
      */
     public static function getValidFilename($tmpFilename, $language = null)
@@ -70,7 +73,9 @@ class File
 
     /**
      * @static
+     *
      * @param  $filename
+     *
      * @return bool
      */
     public static function isIncludeable($filename)
@@ -115,6 +120,7 @@ class File
     /**
      * @param $path
      * @param $data
+     *
      * @return int
      */
     public static function put($path, $data)
@@ -123,7 +129,7 @@ class File
             self::mkdir(dirname($path));
         }
 
-        $return = file_put_contents($path, $data, null, File::getContext());
+        $return = file_put_contents($path, $data, null, self::getContext());
         @chmod($path, self::$defaultMode);
 
         return $return;
@@ -146,6 +152,7 @@ class File
      * @param $path
      * @param null $mode
      * @param bool $recursive
+     *
      * @return bool
      */
     public static function mkdir($path, $mode = null, $recursive = true)
@@ -162,6 +169,7 @@ class File
     /**
      * @param $oldPath
      * @param $newPath
+     *
      * @return bool
      */
     public static function rename($oldPath, $newPath)

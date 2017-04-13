@@ -10,15 +10,16 @@
  *
  * @category   Pimcore
  * @package    Object\Objectbrick
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Object\Objectbrick;
 
+use Pimcore\File;
 use Pimcore\Model;
 use Pimcore\Model\Object;
-use Pimcore\File;
 
 /**
  * @method \Pimcore\Model\Object\Objectbrick\Definition\Dao getDao()
@@ -39,6 +40,7 @@ class Definition extends Model\Object\Fieldcollection\Definition
 
     /**
      * @param $classDefinitions
+     *
      * @return $this
      */
     public function setClassDefinitions($classDefinitions)
@@ -58,8 +60,11 @@ class Definition extends Model\Object\Fieldcollection\Definition
 
     /**
      * @static
+     *
      * @throws \Exception
+     *
      * @param $key
+     *
      * @return mixed
      */
     public static function getByKey($key)
@@ -202,7 +207,6 @@ class Definition extends Model\Object\Fieldcollection\Definition
                     $path = $this->getContainerClassFolder($class->getName());
                     @unlink($path . "/" . ucfirst($cl['fieldname'] . ".php"));
 
-
                     foreach ($class->getFieldDefinitions() as $fieldDef) {
                         if ($fieldDef instanceof Object\ClassDefinition\Data\Objectbricks) {
                             $allowedTypes = $fieldDef->getAllowedTypes();
@@ -302,7 +306,6 @@ class Definition extends Model\Object\Fieldcollection\Definition
             }
         }
 
-
         foreach ($containerDefinition as $classId => $cd) {
             $class = Object\ClassDefinition::getById($classId);
 
@@ -373,6 +376,7 @@ class Definition extends Model\Object\Fieldcollection\Definition
     /**
      * @param $classname
      * @param $fieldname
+     *
      * @return string
      */
     private function getContainerClassName($classname, $fieldname)
@@ -383,6 +387,7 @@ class Definition extends Model\Object\Fieldcollection\Definition
     /**
      * @param $classname
      * @param $fieldname
+     *
      * @return string
      */
     private function getContainerNamespace($classname, $fieldname)
@@ -392,6 +397,7 @@ class Definition extends Model\Object\Fieldcollection\Definition
 
     /**
      * @param $classname
+     *
      * @return string
      */
     private function getContainerClassFolder($classname)
@@ -416,7 +422,6 @@ class Definition extends Model\Object\Fieldcollection\Definition
                     $class = Object\ClassDefinition::getById($cl['classname']);
                     $this->getDao()->delete($class);
                     $processedClasses[$cl['classname']] = true;
-
 
                     foreach ($class->getFieldDefinitions() as $fieldDef) {
                         if ($fieldDef instanceof Object\ClassDefinition\Data\Objectbricks) {

@@ -15,10 +15,9 @@
 namespace Pimcore\Bundle\AdminBundle\Controller\Admin;
 
 use Pimcore\Bundle\AdminBundle\Controller\AdminController;
-use Pimcore\Tool;
-use Pimcore\File;
 use Pimcore\Db;
-use Pimcore\Model\Translation;
+use Pimcore\File;
+use Pimcore\Tool;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -32,10 +31,11 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class MiscController extends AdminController
 {
-
     /**
      * @Route("/get-available-templates")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getAvailableTemplatesAction(Request $request)
@@ -60,7 +60,9 @@ class MiscController extends AdminController
 
     /**
      * @Route("/get-available-actions")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getAvailableActionsAction(Request $request)
@@ -89,7 +91,9 @@ class MiscController extends AdminController
 
     /**
      * @Route("/get-available-controllers")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getAvailableControllersAction(Request $request)
@@ -106,7 +110,6 @@ class MiscController extends AdminController
             $controllers[] = ["name" => $name];
         }
 
-
         return $this->json([
             "data" => $controllers
         ]);
@@ -114,7 +117,9 @@ class MiscController extends AdminController
 
     /**
      * @Route("/get-available-modules")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getAvailableModulesAction(Request $request)
@@ -132,6 +137,7 @@ class MiscController extends AdminController
 
     /**
      * @param string $bundle
+     *
      * @return \ReflectionClass
      */
     protected function getBundleReflector($bundle)
@@ -149,6 +155,7 @@ class MiscController extends AdminController
 
     /**
      * @param string $bundle
+     *
      * @return \ReflectionClass[]
      */
     protected function getControllers($bundle)
@@ -184,6 +191,7 @@ class MiscController extends AdminController
     /**
      * @param string $bundle
      * @param string $controller
+     *
      * @return \ReflectionMethod[]
      */
     protected function getControllerActions($bundle, $controller)
@@ -227,7 +235,9 @@ class MiscController extends AdminController
 
     /**
      * @Route("/json-translations-system")
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function jsonTranslationsSystemAction(Request $request)
@@ -256,7 +266,9 @@ class MiscController extends AdminController
 
     /**
      * @Route("/script-proxy")
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function scriptProxyAction(Request $request)
@@ -297,7 +309,9 @@ class MiscController extends AdminController
 
     /**
      * @Route("/admin-css")
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function adminCssAction(Request $request)
@@ -313,7 +327,9 @@ class MiscController extends AdminController
 
     /**
      * @Route("/ping")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function pingAction(Request $request)
@@ -327,7 +343,9 @@ class MiscController extends AdminController
 
     /**
      * @Route("/available-languages")
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function availableLanguagesAction(Request $request)
@@ -341,7 +359,9 @@ class MiscController extends AdminController
 
     /**
      * @Route("/get-valid-filename")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getValidFilenameAction(Request $request)
@@ -355,7 +375,9 @@ class MiscController extends AdminController
 
     /**
      * @Route("/fileexplorer-tree")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function fileexplorerTreeAction(Request $request)
@@ -402,7 +424,9 @@ class MiscController extends AdminController
 
     /**
      * @Route("/fileexplorer-content")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function fileexplorerContentAction(Request $request)
@@ -430,7 +454,9 @@ class MiscController extends AdminController
 
     /**
      * @Route("/fileexplorer-content-save")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function fileexplorerContentSaveAction(Request $request)
@@ -455,8 +481,11 @@ class MiscController extends AdminController
 
     /**
      * @Route("/fileexplorer-add")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
+     *
      * @throws \Exception
      */
     public function fileexplorerAddAction(Request $request)
@@ -488,8 +517,11 @@ class MiscController extends AdminController
 
     /**
      * @Route("/fileexplorer-add-folder")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
+     *
      * @throws \Exception
      */
     public function fileexplorerAddFolderAction(Request $request)
@@ -521,7 +553,9 @@ class MiscController extends AdminController
 
     /**
      * @Route("/fileexplorer-delete")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function fileexplorerDeleteAction(Request $request)
@@ -544,7 +578,9 @@ class MiscController extends AdminController
     /**
      * @param Request $request
      * @param string $paramName
+     *
      * @return mixed|string
+     *
      * @throws \Exception
      */
     private function getFileexplorerPath(Request $request, $paramName = 'node')
@@ -561,7 +597,9 @@ class MiscController extends AdminController
 
     /**
      * @Route("/maintenance")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function maintenanceAction(Request $request)
@@ -583,7 +621,9 @@ class MiscController extends AdminController
 
     /**
      * @Route("/http-error-log")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function httpErrorLogAction(Request $request)
@@ -633,7 +673,9 @@ class MiscController extends AdminController
 
     /**
      * @Route("/http-error-log-flush")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function httpErrorLogFlushAction(Request $request)
@@ -650,7 +692,9 @@ class MiscController extends AdminController
 
     /**
      * @Route("/http-error-log-detail")
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function httpErrorLogDetailAction(Request $request)
@@ -673,7 +717,9 @@ class MiscController extends AdminController
 
     /**
      * @Route("/country-list")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function countryListAction(Request $request)
@@ -696,7 +742,9 @@ class MiscController extends AdminController
 
     /**
      * @Route("/language-list")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function languageListAction(Request $request)
@@ -715,8 +763,11 @@ class MiscController extends AdminController
 
     /**
      * @Route("/phpinfo")
+     *
      * @param Request $request
+     *
      * @throws \Exception
+     *
      * @return Response
      */
     public function phpinfoAction(Request $request)
@@ -732,10 +783,11 @@ class MiscController extends AdminController
         return new Response($content);
     }
 
-
     /**
      * @Route("/get-language-flag")
+     *
      * @param Request $request
+     *
      * @return BinaryFileResponse
      */
     public function getLanguageFlagAction(Request $request)
@@ -749,7 +801,9 @@ class MiscController extends AdminController
 
     /**
      * @Route("/test")
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function testAction(Request $request)

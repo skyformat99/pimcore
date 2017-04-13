@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -27,7 +28,6 @@ use Pimcore\Tool;
  */
 class Dao extends Model\Object\Listing\Dao
 {
-
     /**
      * @var bool
      */
@@ -43,15 +43,16 @@ class Dao extends Model\Object\Listing\Dao
      */
     protected $totalCount = 0;
 
-    /** @var  Callback function */
+    /** @var Callback function */
     protected $onCreateQueryCallback;
-
 
     /**
      * get select query
+     *
      * @param bool|false $forceNew
      *
      * @return QueryBuilder
+     *
      * @throws \Exception
      */
     public function getQuery($forceNew = false)
@@ -93,6 +94,7 @@ class Dao extends Model\Object\Listing\Dao
 
     /**
      * @return array
+     *
      * @throws
      */
     public function loadIdList()
@@ -106,7 +108,9 @@ class Dao extends Model\Object\Listing\Dao
 
     /**
      * @param $e
+     *
      * @return array
+     *
      * @throws
      * @throws \Exception
      */
@@ -132,6 +136,7 @@ class Dao extends Model\Object\Listing\Dao
 
     /**
      * @return string
+     *
      * @throws \Exception
      * @throws \Exception
      */
@@ -174,10 +179,10 @@ class Dao extends Model\Object\Listing\Dao
         return $this->tableName;
     }
 
-
     /**
      * @param string $defaultString
      * @param string $column
+     *
      * @return string
      */
     protected function getSelectPart($defaultString = "", $column = "oo_id")
@@ -190,7 +195,6 @@ class Dao extends Model\Object\Listing\Dao
 
         return $selectPart;
     }
-
 
     /**
      * @param QueryBuilder $select
@@ -211,7 +215,6 @@ class Dao extends Model\Object\Listing\Dao
                     $name .= "~" . $fc['fieldname'];
                 }
 
-
                 // set join condition
                 $condition = <<<CONDITION
 1
@@ -224,14 +227,12 @@ CONDITION;
 CONDITION;
                 }
 
-
                 // add join
                 $select->joinLeft(
                     [ $name => $table ], $condition, ''
                 );
             }
         }
-
 
         // add brick's
         $objectbricks = $this->model->getObjectbricks();
@@ -241,7 +242,6 @@ CONDITION;
                 // join info
                 $table = 'object_brick_query_' . $ob . '_' . $this->model->getClassId();
                 $name = $ob;
-
 
                 // add join
                 $select->joinLeft(
@@ -253,7 +253,6 @@ CONDITION
                 );
             }
         }
-
 
         return $this;
     }

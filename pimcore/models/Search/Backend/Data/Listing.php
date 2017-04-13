@@ -19,7 +19,6 @@ namespace Pimcore\Model\Search\Backend\Data;
  */
 class Listing extends \Pimcore\Model\Listing\AbstractListing
 {
-
     /**
      * @var array
      */
@@ -51,6 +50,7 @@ class Listing extends \Pimcore\Model\Listing\AbstractListing
 
     /**
      * @param $entries
+     *
      * @return $this
      */
     public function setEntries($entries)
@@ -70,7 +70,8 @@ class Listing extends \Pimcore\Model\Listing\AbstractListing
 
     /**
      * @param string $key
-     * @return boolean
+     *
+     * @return bool
      */
     public function isValidOrderKey($key)
     {

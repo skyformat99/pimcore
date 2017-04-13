@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Document
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -17,20 +18,19 @@
 namespace Pimcore\Model\Document\Tag;
 
 use Pimcore\Model;
-use Pimcore\Tool\Serialize;
 use Pimcore\Model\Asset;
 use Pimcore\Model\Element;
+use Pimcore\Tool\Serialize;
 
 /**
  * @method \Pimcore\Model\Document\Tag\Dao getDao()
  */
 class Image extends Model\Document\Tag
 {
-
     /**
      * ID of the referenced image
      *
-     * @var integer
+     * @var int
      */
     public $id;
 
@@ -85,6 +85,7 @@ class Image extends Model\Document\Tag
 
     /**
      * @see TagInterface::getType
+     *
      * @return string
      */
     public function getType()
@@ -94,6 +95,7 @@ class Image extends Model\Document\Tag
 
     /**
      * @see TagInterface::getData
+     *
      * @return mixed
      */
     public function getData()
@@ -111,9 +113,6 @@ class Image extends Model\Document\Tag
         ];
     }
 
-    /**
-     *
-     */
     public function getDataForResource()
     {
         return [
@@ -182,6 +181,7 @@ class Image extends Model\Document\Tag
 
     /**
      * @see TagInterface::frontend
+     *
      * @return string
      */
     public function frontend()
@@ -245,6 +245,7 @@ class Image extends Model\Document\Tag
 
     /**
      * @param mixed $data
+     *
      * @return $this
      */
     public function setDataFromResource($data)
@@ -252,7 +253,6 @@ class Image extends Model\Document\Tag
         if (strlen($data) > 2) {
             $data = Serialize::unserialize($data);
         }
-
 
         $rewritePath = function ($data) {
             if (!is_array($data)) {
@@ -296,6 +296,7 @@ class Image extends Model\Document\Tag
 
     /**
      * @param mixed $data
+     *
      * @return $this
      */
     public function setDataFromEditmode($data)
@@ -394,6 +395,7 @@ class Image extends Model\Document\Tag
 
     /**
      * @param Asset\Image $image
+     *
      * @return Model\Document\Tag\Image
      */
     public function setImage($image)
@@ -409,6 +411,7 @@ class Image extends Model\Document\Tag
 
     /**
      * @param int $id
+     *
      * @return Model\Document\Tag\Image
      */
     public function setId($id)
@@ -429,6 +432,7 @@ class Image extends Model\Document\Tag
     /**
      * @param $conf
      * @param bool $deferred
+     *
      * @return Asset\Image\Thumbnail|string
      */
     public function getThumbnail($conf, $deferred = true)
@@ -450,6 +454,7 @@ class Image extends Model\Document\Tag
 
     /**
      * @param $thumbConfig
+     *
      * @return mixed
      */
     protected function applyCustomCropping($thumbConfig)
@@ -472,7 +477,7 @@ class Image extends Model\Document\Tag
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isEmpty()
     {
@@ -484,11 +489,12 @@ class Image extends Model\Document\Tag
         return true;
     }
 
-
     /**
      * @param $ownerDocument
      * @param array $tags
+     *
      * @return array|mixed
+     *
      * @internal param array $blockedTags
      */
     public function getCacheTags($ownerDocument, $tags = [])
@@ -578,13 +584,15 @@ class Image extends Model\Document\Tag
      * @param null $document
      * @param mixed $params
      * @param null $idMapper
+     *
      * @return Model\Webservice\Data\Document\Element|void
+     *
      * @throws \Exception
      */
     public function getFromWebserviceImport($wsElement, $document = null, $params = [], $idMapper = null)
     {
         $data = $wsElement->value;
-        if ($data->id !==null) {
+        if ($data->id !== null) {
             $this->alt = $data->alt;
             $this->id = $data->id;
 
@@ -613,6 +621,7 @@ class Image extends Model\Document\Tag
 
     /**
      * @param $cropHeight
+     *
      * @return $this
      */
     public function setCropHeight($cropHeight)
@@ -632,6 +641,7 @@ class Image extends Model\Document\Tag
 
     /**
      * @param $cropLeft
+     *
      * @return $this
      */
     public function setCropLeft($cropLeft)
@@ -651,6 +661,7 @@ class Image extends Model\Document\Tag
 
     /**
      * @param $cropPercent
+     *
      * @return $this
      */
     public function setCropPercent($cropPercent)
@@ -661,7 +672,7 @@ class Image extends Model\Document\Tag
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getCropPercent()
     {
@@ -670,6 +681,7 @@ class Image extends Model\Document\Tag
 
     /**
      * @param $cropTop
+     *
      * @return $this
      */
     public function setCropTop($cropTop)
@@ -689,6 +701,7 @@ class Image extends Model\Document\Tag
 
     /**
      * @param $cropWidth
+     *
      * @return $this
      */
     public function setCropWidth($cropWidth)
@@ -748,6 +761,7 @@ class Image extends Model\Document\Tag
      *  "object" => array(...),
      *  "asset" => array(...)
      * )
+     *
      * @param array $idMapping
      */
     public function rewriteIds($idMapping)
@@ -763,9 +777,6 @@ class Image extends Model\Document\Tag
         }
     }
 
-    /**
-     *
-     */
     public function __sleep()
     {
         $finalVars = [];

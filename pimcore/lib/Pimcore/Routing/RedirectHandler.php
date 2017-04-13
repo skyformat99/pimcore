@@ -79,7 +79,6 @@ class RedirectHandler implements LoggerAwareInterface
      * @param Request $request
      * @param Config\Config $config
      * @param string $matchUri
-     *
      * @param Site|null $sourceSite
      *
      * @return null|Response

@@ -15,10 +15,9 @@
 namespace Pimcore\Bundle\CoreBundle\Command;
 
 use Pimcore\Console\AbstractCommand;
+use Pimcore\File;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Pimcore\Model\Asset;
-use Pimcore\File;
 
 class InternalUnicodeCldrLanguageTerritoryGeneratorCommand extends AbstractCommand
 {

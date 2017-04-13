@@ -10,35 +10,36 @@
  *
  * @category   Pimcore
  * @package    Asset
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Asset\WebDAV;
 
-use Sabre\DAV;
+use Pimcore\Logger;
 use Pimcore\Model\Asset;
 use Pimcore\Model\Element;
-use Pimcore\Logger;
+use Sabre\DAV;
 
 class Tree extends DAV\Tree
 {
-
     /**
      * Moves a file/directory
      *
      * @param string $sourcePath
      * @param string $destinationPath
+     *
      * @return null
      */
     public function move($sourcePath, $destinationPath)
     {
         $nameParts = explode("/", $sourcePath);
-        $nameParts[count($nameParts)-1] = Element\Service::getValidKey($nameParts[count($nameParts)-1], "asset");
+        $nameParts[count($nameParts) - 1] = Element\Service::getValidKey($nameParts[count($nameParts) - 1], "asset");
         $sourcePath = implode("/", $nameParts);
 
         $nameParts = explode("/", $destinationPath);
-        $nameParts[count($nameParts)-1] = Element\Service::getValidKey($nameParts[count($nameParts)-1], "asset");
+        $nameParts[count($nameParts) - 1] = Element\Service::getValidKey($nameParts[count($nameParts) - 1], "asset");
         $destinationPath = implode("/", $nameParts);
 
         try {

@@ -15,13 +15,12 @@
 namespace Pimcore\Document\Adapter;
 
 use Pimcore\Document\Adapter;
-use Pimcore\Tool\Console;
 use Pimcore\File;
 use Pimcore\Logger;
+use Pimcore\Tool\Console;
 
 class Ghostscript extends Adapter
 {
-
     /**
      * @var string
      */
@@ -47,6 +46,7 @@ class Ghostscript extends Adapter
 
     /**
      * @param string $fileType
+     *
      * @return bool
      */
     public function isFileTypeSupported($fileType)
@@ -62,6 +62,7 @@ class Ghostscript extends Adapter
 
     /**
      * @return mixed
+     *
      * @throws \Exception
      */
     public static function getGhostscriptCli()
@@ -69,9 +70,9 @@ class Ghostscript extends Adapter
         return \Pimcore\Tool\Console::getExecutable("gs", true);
     }
 
-
     /**
      * @return mixed
+     *
      * @throws \Exception
      */
     public static function getPdftotextCli()
@@ -81,7 +82,9 @@ class Ghostscript extends Adapter
 
     /**
      * @param $path
+     *
      * @return $this
+     *
      * @throws \Exception
      */
     public function load($path)
@@ -107,7 +110,9 @@ class Ghostscript extends Adapter
 
     /**
      * @param null $path
+     *
      * @return null|string
+     *
      * @throws \Exception
      */
     public function getPdf($path = null)
@@ -131,6 +136,7 @@ class Ghostscript extends Adapter
 
     /**
      * @return string
+     *
      * @throws \Exception
      */
     public function getPageCount()
@@ -149,6 +155,7 @@ class Ghostscript extends Adapter
      * @param $path
      * @param int $page
      * @param int $resolution
+     *
      * @return $this|bool
      */
     public function saveImage($path, $page = 1, $resolution = 200)
@@ -177,6 +184,7 @@ class Ghostscript extends Adapter
     /**
      * @param null $page
      * @param null $path
+     *
      * @return bool|string
      */
     public function getText($page = null, $path = null)

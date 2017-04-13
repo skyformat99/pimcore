@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Document
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -23,7 +24,6 @@ use Pimcore\Model;
  */
 class Textarea extends Model\Document\Tag
 {
-
     /**
      * Contains the text
      *
@@ -31,9 +31,9 @@ class Textarea extends Model\Document\Tag
      */
     public $text;
 
-
     /**
      * @see TagInterface::getType
+     *
      * @return string
      */
     public function getType()
@@ -43,6 +43,7 @@ class Textarea extends Model\Document\Tag
 
     /**
      * @see TagInterface::getData
+     *
      * @return mixed
      */
     public function getData()
@@ -52,6 +53,7 @@ class Textarea extends Model\Document\Tag
 
     /**
      * @see TagInterface::frontend
+     *
      * @return string
      */
     public function frontend()
@@ -70,9 +72,6 @@ class Textarea extends Model\Document\Tag
         return $text;
     }
 
-    /**
-     *
-     */
     public function getDataEditmode()
     {
         return htmlentities($this->text);
@@ -80,7 +79,9 @@ class Textarea extends Model\Document\Tag
 
     /**
      * @see TagInterface::setDataFromResource
+     *
      * @param mixed $data
+     *
      * @return $this
      */
     public function setDataFromResource($data)
@@ -92,7 +93,9 @@ class Textarea extends Model\Document\Tag
 
     /**
      * @see TagInterface::setDataFromEditmode
+     *
      * @param mixed $data
+     *
      * @return $this
      */
     public function setDataFromEditmode($data)
@@ -103,9 +106,8 @@ class Textarea extends Model\Document\Tag
         return $this;
     }
 
-
     /**
-     * @return boolean
+     * @return bool
      */
     public function isEmpty()
     {
@@ -117,6 +119,7 @@ class Textarea extends Model\Document\Tag
      * @param $document
      * @param mixed $params
      * @param null $idMapper
+     *
      * @throws \Exception
      */
     public function getFromWebserviceImport($wsElement, $document = null, $params = [], $idMapper = null)

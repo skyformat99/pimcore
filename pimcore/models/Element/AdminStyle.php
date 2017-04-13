@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Element
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -42,6 +43,7 @@ class AdminStyle
 
     /**
      * AdminStyle constructor.
+     *
      * @param Model\Object\Concrete $element
      */
     public function __construct($element)
@@ -67,6 +69,7 @@ class AdminStyle
 
     /**
      * @param $elementCssClass
+     *
      * @return $this
      */
     public function setElementCssClass($elementCssClass)
@@ -86,6 +89,7 @@ class AdminStyle
 
     /**
      * @param $elementIcon
+     *
      * @return $this
      */
     public function setElementIcon($elementIcon)
@@ -105,6 +109,7 @@ class AdminStyle
 
     /**
      * @param $elementIconClass
+     *
      * @return $this
      */
     public function setElementIconClass($elementIconClass)

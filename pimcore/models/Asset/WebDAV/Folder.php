@@ -10,21 +10,21 @@
  *
  * @category   Pimcore
  * @package    Asset
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Asset\WebDAV;
 
-use Sabre\DAV;
-use Pimcore\Tool\Admin as AdminTool;
+use Pimcore\Logger;
 use Pimcore\Model\Asset;
 use Pimcore\Model\Element;
-use Pimcore\Logger;
+use Pimcore\Tool\Admin as AdminTool;
+use Sabre\DAV;
 
 class Folder extends DAV\Collection
 {
-
     /**
      * @var Asset
      */
@@ -66,13 +66,15 @@ class Folder extends DAV\Collection
 
     /**
      * @param string $name
+     *
      * @return DAV\INode|void
+     *
      * @throws DAV\Exception\NotFound
      */
     public function getChild($name)
     {
         $nameParts = explode("/", $name);
-        $name = Element\Service::getValidKey($nameParts[count($nameParts)-1], "asset");
+        $name = Element\Service::getValidKey($nameParts[count($nameParts) - 1], "asset");
 
         if (is_string($name)) {
             $parentPath = $this->asset->getRealFullPath();
@@ -108,7 +110,9 @@ class Folder extends DAV\Collection
     /**
      * @param string $name
      * @param null $data
+     *
      * @return null|string|void
+     *
      * @throws DAV\Exception\Forbidden
      */
     public function createFile($name, $data = null)
@@ -134,6 +138,7 @@ class Folder extends DAV\Collection
 
     /**
      * @param string $name
+     *
      * @throws DAV\Exception\Forbidden
      */
     public function createDirectory($name)
@@ -167,7 +172,9 @@ class Folder extends DAV\Collection
 
     /**
      * @param string $name
+     *
      * @return $this|void
+     *
      * @throws DAV\Exception\Forbidden
      * @throws \Exception
      */
@@ -184,7 +191,7 @@ class Folder extends DAV\Collection
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getLastModified()
     {

@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Document
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -26,6 +27,7 @@ class Area extends Model\Document\Tag
 {
     /**
      * @see Model\Document\Tag\TagInterface::getType
+     *
      * @return string
      */
     public function getType()
@@ -35,6 +37,7 @@ class Area extends Model\Document\Tag
 
     /**
      * @see Model\Document\Tag\TagInterface::getData
+     *
      * @return mixed
      */
     public function getData()
@@ -77,7 +80,6 @@ class Area extends Model\Document\Tag
                 <div id="pimcore_editable_' . $this->getName() . '" class="' . $class . '">
             ';
         }
-
 
         $this->frontend();
 
@@ -155,7 +157,9 @@ class Area extends Model\Document\Tag
 
     /**
      * @see Model\Document\Tag\TagInterface::setDataFromResource
+     *
      * @param mixed $data
+     *
      * @return $this
      */
     public function setDataFromResource($data)
@@ -165,7 +169,9 @@ class Area extends Model\Document\Tag
 
     /**
      * @see Model\Document\Tag\TagInterface::setDataFromEditmode
+     *
      * @param mixed $data
+     *
      * @return $this
      */
     public function setDataFromEditmode($data)

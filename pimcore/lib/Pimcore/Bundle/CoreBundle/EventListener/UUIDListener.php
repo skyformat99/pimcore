@@ -25,7 +25,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class UUIDListener implements EventSubscriberInterface
 {
-
     /**
      * @inheritDoc
      */
@@ -90,6 +89,7 @@ class UUIDListener implements EventSubscriberInterface
 
     /**
      * @param Event $event
+     *
      * @return null|\Pimcore\Model\Element\ElementInterface|\Pimcore\Model\Object\ClassDefinition
      */
     protected function extractElement(Event $event)

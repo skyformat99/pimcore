@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Metadata
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -23,10 +24,6 @@ use Pimcore\Model;
  */
 class Dao extends Model\Dao\PhpArrayTable
 {
-
-    /**
-     *
-     */
     public function configure()
     {
         parent::configure();
@@ -35,6 +32,7 @@ class Dao extends Model\Dao\PhpArrayTable
 
     /**
      * @param null $id
+     *
      * @throws \Exception
      */
     public function getById($id = null)
@@ -52,10 +50,10 @@ class Dao extends Model\Dao\PhpArrayTable
         }
     }
 
-
     /**
      * @param null $name
      * @param null $language
+     *
      * @throws \Exception
      */
     public function getByNameAndLanguage($name = null, $language = null)

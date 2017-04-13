@@ -10,29 +10,29 @@
  *
  * @category   Pimcore
  * @package    Document
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Document\Tag;
 
+use Pimcore\Logger;
 use Pimcore\Model;
+use Pimcore\Model\Asset;
 use Pimcore\Model\Document;
 use Pimcore\Model\Element;
-use Pimcore\Model\Asset;
 use Pimcore\Model\Object;
-use Pimcore\Logger;
 
 /**
  * @method \Pimcore\Model\Document\Tag\Dao getDao()
  */
 class Href extends Model\Document\Tag
 {
-
     /**
      * ID of the source object
      *
-     * @var integer
+     * @var int
      */
     public $id;
 
@@ -59,6 +59,7 @@ class Href extends Model\Document\Tag
 
     /**
      * @see Document\Tag\TagInterface::getType
+     *
      * @return string
      */
     public function getType()
@@ -70,6 +71,7 @@ class Href extends Model\Document\Tag
 
     /**
      * @see Document\Tag\TagInterface::getData
+     *
      * @return mixed
      */
     public function getData()
@@ -104,6 +106,7 @@ class Href extends Model\Document\Tag
 
     /**
      * @see Document\Tag\TagInterface::frontend
+     *
      * @return string
      */
     public function frontend()
@@ -124,7 +127,9 @@ class Href extends Model\Document\Tag
 
     /**
      * @see Document\Tag\TagInterface::setDataFromResource
+     *
      * @param mixed $data
+     *
      * @return $this
      */
     public function setDataFromResource($data)
@@ -144,7 +149,9 @@ class Href extends Model\Document\Tag
 
     /**
      * @see Document\Tag\TagInterface::setDataFromEditmode
+     *
      * @param mixed $data
+     *
      * @return $this
      */
     public function setDataFromEditmode($data)
@@ -210,7 +217,7 @@ class Href extends Model\Document\Tag
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isEmpty()
     {
@@ -248,12 +255,13 @@ class Href extends Model\Document\Tag
      * @param $document
      * @param mixed $params
      * @param null $idMapper
+     *
      * @throws \Exception
      */
     public function getFromWebserviceImport($wsElement, $document = null, $params = [], $idMapper = null)
     {
         $data = $wsElement->value;
-        if ($data->id !==null) {
+        if ($data->id !== null) {
             $this->type = $data->type;
             $this->subtype = $data->subtype;
             $this->id = $data->id;
@@ -265,7 +273,6 @@ class Href extends Model\Document\Tag
             if ($idMapper) {
                 $this->id = $idMapper->getMappedId($this->type, $data->id);
             }
-
 
             if ($this->type == "asset") {
                 $this->element = Asset::getById($this->id);
@@ -303,7 +310,6 @@ class Href extends Model\Document\Tag
             }
         }
     }
-
 
     /**
      * @return bool
@@ -355,6 +361,7 @@ class Href extends Model\Document\Tag
 
     /**
      * @param int $id
+     *
      * @return Document\Tag\Href
      */
     public function setId($id)
@@ -374,6 +381,7 @@ class Href extends Model\Document\Tag
 
     /**
      * @param string $subtype
+     *
      * @return Document\Tag\Href
      */
     public function setSubtype($subtype)
@@ -401,6 +409,7 @@ class Href extends Model\Document\Tag
      *  "object" => array(...),
      *  "asset" => array(...)
      * )
+     *
      * @param array $idMapping
      */
     public function rewriteIds($idMapping)

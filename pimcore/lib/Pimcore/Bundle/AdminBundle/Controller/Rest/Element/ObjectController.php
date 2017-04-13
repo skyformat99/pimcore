@@ -94,6 +94,7 @@ class ObjectController extends AbstractElementController
      * @param int|null $id
      *
      * @return JsonResponse
+     *
      * @throws ResponseException
      */
     public function getAction(Request $request, $id = null)
@@ -361,6 +362,7 @@ class ObjectController extends AbstractElementController
      * @param int|null $id
      *
      * @return JsonResponse
+     *
      * @throws ResponseException
      */
     public function deleteAction(Request $request, $id = null)
@@ -430,6 +432,7 @@ class ObjectController extends AbstractElementController
      * @param int $id
      *
      * @return JsonResponse
+     *
      * @throws ResponseException
      */
     public function objectMetaAction($id)
@@ -526,6 +529,7 @@ class ObjectController extends AbstractElementController
 
     /**
      * @param int $id
+     *
      * @return Object\AbstractObject
      *
      * @throws ResponseException

@@ -137,7 +137,6 @@ class DefaultFactFinder extends AbstractMockupCacheWorker implements IWorker, IB
             }
         }
 
-
         foreach ($columnsToAdd as $c => $type) {
             $this->dbexec('ALTER TABLE `' . $this->getStoreTableName() . '` ADD `' . $c . '` ' . $type . ';');
         }
@@ -154,7 +153,6 @@ class DefaultFactFinder extends AbstractMockupCacheWorker implements IWorker, IB
     {
         // TODO: Implement deleteFromIndex() method.
     }
-
 
     /**
      * prepare data for index creation and store is in store table
@@ -247,7 +245,6 @@ class DefaultFactFinder extends AbstractMockupCacheWorker implements IWorker, IB
         $this->doCleanupOldZombieData($object, $subObjectIds);
     }
 
-
     /**
      * updates given element in index
      *
@@ -267,11 +264,11 @@ class DefaultFactFinder extends AbstractMockupCacheWorker implements IWorker, IB
         $this->fillupPreparationQueue($object);
     }
 
-
     /**
      * first run processUpdateIndexQueue of trait and then commit updated entries if there are some
      *
      * @param int $limit
+     *
      * @return int number of entries processed
      */
     public function processUpdateIndexQueue($limit = 200)
@@ -285,18 +282,16 @@ class DefaultFactFinder extends AbstractMockupCacheWorker implements IWorker, IB
         return $entriesUpdated;
     }
 
-
-
     /**
      * returns product list implementation valid and configured for this worker/tenant
      *d
+     *
      * @return mixed
      */
     public function getProductList()
     {
         return new \Pimcore\Bundle\EcommerceFrameworkBundle\IndexService\ProductList\DefaultFactFinder($this->getTenantConfig());
     }
-
 
     /**
      * only prepare data for updating index
@@ -308,9 +303,9 @@ class DefaultFactFinder extends AbstractMockupCacheWorker implements IWorker, IB
     {
     }
 
-
     /**
      * @param int $objectId
+     *
      * @todo
      */
     protected function doDeleteFromIndex($subObjectId, IIndexable $object = null)

@@ -10,31 +10,30 @@
  *
  * @category   Pimcore
  * @package    Object\Objectbrick
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Object\Objectbrick\Data;
 
+use Pimcore\Logger;
 use Pimcore\Model;
 use Pimcore\Model\Object;
-use Pimcore\Logger;
 
 /**
  * @property \Pimcore\Model\Object\Objectbrick\Data\AbstractData $model
  */
 class Dao extends Model\Dao\AbstractDao
 {
-
-
     /**
      * @var Object\Concrete\Dao\InheritanceHelper
      */
     protected $inheritanceHelper = null;
 
-
     /**
      * @param Object\Concrete $object
+     *
      * @throws \Exception
      */
     public function save(Object\Concrete $object)
@@ -45,7 +44,6 @@ class Dao extends Model\Dao\AbstractDao
 
         $storetable = $this->model->getDefinition()->getTableName($object->getClass(), false);
         $querytable = $this->model->getDefinition()->getTableName($object->getClass(), true);
-
 
         $this->inheritanceHelper = new Object\Concrete\Dao\InheritanceHelper($object->getClassId(), "o_id", $storetable, $querytable);
 
@@ -86,7 +84,6 @@ class Dao extends Model\Dao\AbstractDao
         }
 
         $this->db->insertOrUpdate($storetable, $data);
-
 
         // get data for query table
         // $tableName = $this->model->getDefinition()->getTableName($object->getClass(), true);
@@ -260,17 +257,16 @@ class Dao extends Model\Dao\AbstractDao
             }
         }
 
-
         $this->inheritanceHelper->doDelete($object->getId());
 
         $this->inheritanceHelper->resetFieldsToCheck();
     }
 
-
     /**
      * @param string $field
      * @param $forOwner
      * @param $remoteClassId
+     *
      * @return array
      */
     public function getRelationData($field, $forOwner, $remoteClassId)
@@ -281,7 +277,6 @@ class Dao extends Model\Dao\AbstractDao
         } else {
             $classId = $this->model->getObject()->getClassId();
         }
-
 
         $params = [$field, $id, $field, $id, $field, $id];
 

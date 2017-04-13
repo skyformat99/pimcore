@@ -29,6 +29,7 @@ class HybridAuth
 
     /**
      * @return mixed|null
+     *
      * @throws \Exception
      */
     public static function getConfiguration()
@@ -64,6 +65,7 @@ class HybridAuth
     /**
      * @param string $provider
      * @param array|null $params
+     *
      * @return \Hybrid_Provider_Adapter
      */
     public static function authenticate($provider, $params = null)
@@ -83,9 +85,6 @@ class HybridAuth
         return $adapter;
     }
 
-    /**
-     *
-     */
     public static function process()
     {
         self::init();

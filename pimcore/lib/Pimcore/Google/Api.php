@@ -19,10 +19,6 @@ use Pimcore\Model\Tool\TmpStore;
 
 class Api
 {
-
-    /**
-     *
-     */
     const ANALYTICS_API_URL = 'https://www.googleapis.com/analytics/v3/';
 
     /**
@@ -45,6 +41,7 @@ class Api
 
     /**
      * @param string $type
+     *
      * @return bool
      */
     public static function isConfigured($type = "service")
@@ -86,6 +83,7 @@ class Api
 
     /**
      * @param string $type
+     *
      * @return \Google_Client
      */
     public static function getClient($type = "service")
@@ -99,6 +97,7 @@ class Api
 
     /**
      * @param null $scope
+     *
      * @return bool|\Google_Client
      */
     public static function getServiceClient($scope = null)
@@ -134,7 +133,7 @@ class Api
         $tokenId =  "google-api.token." . $hash;
         if ($tokenData = TmpStore::get($tokenId)) {
             $tokenInfo = json_decode($tokenData->getData(), true);
-            if (($tokenInfo["created"] + $tokenInfo["expires_in"]) > (time()-900)) {
+            if (($tokenInfo["created"] + $tokenInfo["expires_in"]) > (time() - 900)) {
                 $token = $tokenData->getData();
             }
         }
@@ -189,6 +188,7 @@ class Api
 
     /**
      * @return mixed
+     *
      * @throws \Exception
      * @throws \Exception
      */
@@ -202,7 +202,9 @@ class Api
 
     /**
      * @param $type
+     *
      * @return array
+     *
      * @throws \Exception
      */
     protected static function getAnalyticsMetadataByType($type)
@@ -214,7 +216,7 @@ class Api
         foreach ($data['items'] as $item) {
             if ($item['attributes']['type'] == $type) {
                 if (strpos($item['id'], 'XX') !== false) {
-                    for ($i = 1; $i<=5; $i++) {
+                    for ($i = 1; $i <= 5; $i++) {
                         $name = str_replace('1', $i, str_replace('01', $i, $translator->trans($item['attributes']['uiName'], [], "admin")));
 
                         if (in_array($item['id'], ['ga:dimensionXX', 'ga:metricXX'])) {

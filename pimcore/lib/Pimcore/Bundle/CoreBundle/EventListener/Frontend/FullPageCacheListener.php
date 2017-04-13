@@ -51,6 +51,7 @@ class FullPageCacheListener extends AbstractFrontendListener
 
     /**
      * @param null $reason
+     *
      * @return bool
      */
     public function disable($reason = null)
@@ -84,6 +85,7 @@ class FullPageCacheListener extends AbstractFrontendListener
 
     /**
      * @param $lifetime
+     *
      * @return $this
      */
     public function setLifetime($lifetime)
@@ -101,17 +103,11 @@ class FullPageCacheListener extends AbstractFrontendListener
         return $this->lifetime;
     }
 
-    /**
-     *
-     */
     public function disableExpireHeader()
     {
         $this->addExpireHeader = false;
     }
 
-    /**
-     *
-     */
     public function enableExpireHeader()
     {
         $this->addExpireHeader = true;
@@ -119,6 +115,7 @@ class FullPageCacheListener extends AbstractFrontendListener
 
     /**
      * @param GetResponseEvent $event
+     *
      * @return mixed
      */
     public function onKernelRequest(GetResponseEvent $event)
@@ -245,7 +242,7 @@ class FullPageCacheListener extends AbstractFrontendListener
             $response = $cacheItem;
             $response->headers->set("X-Pimcore-Output-Cache-Tag", $cacheKey, true);
             $cacheItemDate = strtotime($response->headers->get("X-Pimcore-Cache-Date"));
-            $response->headers->set("Age", (time()-$cacheItemDate));
+            $response->headers->set("Age", (time() - $cacheItemDate));
 
             $event->setResponse($response);
         }
@@ -253,6 +250,7 @@ class FullPageCacheListener extends AbstractFrontendListener
 
     /**
      * @param KernelEvent $event
+     *
      * @return bool|void
      */
     public function onKernelResponse(KernelEvent $event)

@@ -29,10 +29,11 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class QrcodeController extends ReportsControllerBase implements EventedControllerInterface
 {
-
     /**
      * @Route("/tree")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function treeAction(Request $request)
@@ -54,7 +55,9 @@ class QrcodeController extends ReportsControllerBase implements EventedControlle
 
     /**
      * @Route("/add")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function addAction(Request $request)
@@ -76,7 +79,9 @@ class QrcodeController extends ReportsControllerBase implements EventedControlle
 
     /**
      * @Route("/delete")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function deleteAction(Request $request)
@@ -87,10 +92,11 @@ class QrcodeController extends ReportsControllerBase implements EventedControlle
         return $this->json(["success" => true]);
     }
 
-
     /**
      * @Route("/get")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getAction(Request $request)
@@ -102,7 +108,9 @@ class QrcodeController extends ReportsControllerBase implements EventedControlle
 
     /**
      * @Route("/update")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function updateAction(Request $request)
@@ -124,7 +132,9 @@ class QrcodeController extends ReportsControllerBase implements EventedControlle
 
     /**
      * @Route("/code")
+     *
      * @param Request $request
+     *
      * @return BinaryFileResponse
      */
     public function codeAction(Request $request)
@@ -170,10 +180,8 @@ class QrcodeController extends ReportsControllerBase implements EventedControlle
             $response->setContentDisposition("attachment", 'qrcode-' . $request->get("name", "preview") . '.png');
         }
 
-
         $response->deleteFileAfterSend(true);
         $response->headers->set("Content-Type", "image/png");
-
 
         return $response;
     }

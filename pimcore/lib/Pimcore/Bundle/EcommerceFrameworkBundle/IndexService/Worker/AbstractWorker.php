@@ -27,7 +27,6 @@ abstract class AbstractWorker implements IWorker
 
     protected $db;
 
-
     /**
      * @var \Pimcore\Bundle\EcommerceFrameworkBundle\IndexService\Config\IConfig
      */
@@ -84,7 +83,6 @@ abstract class AbstractWorker implements IWorker
             $this->filterGroups['system'] = array_diff($this->getSystemAttributes(), ["categoryIds"]);
             $this->filterGroups['category'] = ["categoryIds"];
 
-
             if ($this->columnConfig) {
                 foreach ($this->columnConfig as $column) {
                     if ($column->filtergroup) {
@@ -121,15 +119,16 @@ abstract class AbstractWorker implements IWorker
      *
      * @param $subObjectId
      * @param IIndexable $object - might be empty (when object doesn't exist any more in pimcore
+     *
      * @return mixed
      */
     abstract protected function doDeleteFromIndex($subObjectId, IIndexable $object = null);
-
 
     /**
      * Checks if given data is array and returns converted data suitable for search backend. For mysql it is a string with special delimiter.
      *
      * @param $data
+     *
      * @return string
      */
     protected function convertArray($data)

@@ -14,21 +14,20 @@
 
 namespace Pimcore\WorkflowManagement\Workflow;
 
+use Pimcore\Logger;
+use Pimcore\Model\Asset;
+use Pimcore\Model\Document;
 use Pimcore\Model\Element\AbstractElement;
 use Pimcore\Model\Element\Service;
 use Pimcore\Model\Object;
 use Pimcore\Model\Object\Concrete as ConcreteObject;
-use Pimcore\Model\Document;
-use Pimcore\Model\Asset;
-use Pimcore\Logger;
 use Pimcore\WorkflowManagement\Workflow;
 
 class Config
 {
-
-
     /**
      * @param bool $forceReload
+     *
      * @return array|null
      */
     public static function getWorkflowManagementConfig($forceReload = false)
@@ -61,6 +60,7 @@ class Config
 
     /**
      * @static
+     *
      * @param array $config
      */
     public static function setWorkflowManagementConfig($config)
@@ -68,11 +68,11 @@ class Config
         \Pimcore\Cache\Runtime::set("pimcore_config_workflowmanagement", $config);
     }
 
-
     /**
      * gets workflow config for element. always returns first valid workflow config
      *
      * @param AbstractElement $element
+     *
      * @return array
      */
     public static function getElementWorkflowConfig(AbstractElement $element)
@@ -142,7 +142,6 @@ class Config
 
         return null;
     }
-
 
 //    /**
 //     * @param $classId

@@ -10,13 +10,13 @@
  *
  * @category   Pimcore
  * @package    Object
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Object;
 
-use Pimcore\Cache\Runtime;
 use Pimcore\Model;
 use Pimcore\Tool;
 
@@ -49,7 +49,7 @@ class Localizedfield extends Model\AbstractModel
      */
     public $class;
 
-    /** @var mixed  */
+    /** @var mixed */
     public $context;
 
     /**
@@ -58,7 +58,7 @@ class Localizedfield extends Model\AbstractModel
     private static $strictMode;
 
     /**
-     * @param boolean $getFallbackValues
+     * @param bool $getFallbackValues
      */
     public static function setGetFallbackValues($getFallbackValues)
     {
@@ -66,7 +66,7 @@ class Localizedfield extends Model\AbstractModel
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public static function getGetFallbackValues()
     {
@@ -74,7 +74,7 @@ class Localizedfield extends Model\AbstractModel
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public static function isStrictMode()
     {
@@ -82,16 +82,15 @@ class Localizedfield extends Model\AbstractModel
     }
 
     /**
-     * @param boolean $strictMode
+     * @param bool $strictMode
      */
     public static function setStrictMode($strictMode)
     {
         self::$strictMode = $strictMode;
     }
 
-
     /**
-     * @return boolean
+     * @return bool
      */
     public static function doGetFallbackValues()
     {
@@ -118,6 +117,7 @@ class Localizedfield extends Model\AbstractModel
 
     /**
      * @param  array $items
+     *
      * @return $this
      */
     public function setItems($items)
@@ -137,7 +137,9 @@ class Localizedfield extends Model\AbstractModel
 
     /**
      * @param Concrete $object
+     *
      * @return $this
+     *
      * @throws \Exception
      */
     public function setObject($object)
@@ -160,6 +162,7 @@ class Localizedfield extends Model\AbstractModel
 
     /**
      * @param Model\Object\ClassDefinition $class
+     *
      * @return $this
      */
     public function setClass(ClassDefinition $class)
@@ -183,7 +186,9 @@ class Localizedfield extends Model\AbstractModel
 
     /**
      * @throws \Exception
+     *
      * @param null $language
+     *
      * @return string
      */
     public function getLanguage($language = null)
@@ -207,6 +212,7 @@ class Localizedfield extends Model\AbstractModel
 
     /**
      * @param $language
+     *
      * @return bool
      */
     public function languageExists($language)
@@ -218,6 +224,7 @@ class Localizedfield extends Model\AbstractModel
      * @param $name
      * @param null $language
      * @param bool $ignoreFallbackLanguage
+     *
      * @return mixed
      */
     public function getLocalizedValue($name, $language = null, $ignoreFallbackLanguage = false)
@@ -249,7 +256,6 @@ class Localizedfield extends Model\AbstractModel
             }
         }
 
-
         // check for inherited value
         $doGetInheritedValues = AbstractObject::doGetInheritedValues();
         if ($fieldDefinition->isEmpty($data) && $doGetInheritedValues) {
@@ -269,7 +275,7 @@ class Localizedfield extends Model\AbstractModel
                             $method = "getLocalizedfields";
                             if (method_exists($parent, $method)) {
                                 $localizedFields = $parent->getLocalizedFields();
-                                if ($localizedFields instanceof Localizedfield) {
+                                if ($localizedFields instanceof self) {
                                     if ($localizedFields->object->getId() != $this->object->getId()) {
                                         $data = $localizedFields->getLocalizedValue($name, $language, true);
                                     }
@@ -309,7 +315,9 @@ class Localizedfield extends Model\AbstractModel
      * @param $name
      * @param $value
      * @param null $language
+     *
      * @return $this
+     *
      * @throws \Exception
      */
     public function setLocalizedValue($name, $value, $language = null)
@@ -344,9 +352,6 @@ class Localizedfield extends Model\AbstractModel
             $fieldDefinition = $localizedFieldDefinition->getFieldDefinition($name);
         }
 
-
-
-
         if (method_exists($fieldDefinition, "preSetData")) {
             $value =  $fieldDefinition->preSetData($this, $value, [
                 "language" => $language,
@@ -367,7 +372,7 @@ class Localizedfield extends Model\AbstractModel
         return ["items", "context"];
     }
 
-        /**
+    /**
      * @return mixed
      */
     public function getContext()

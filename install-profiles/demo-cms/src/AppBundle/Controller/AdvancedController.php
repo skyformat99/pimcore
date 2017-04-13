@@ -12,7 +12,6 @@ use Zend\Paginator\Paginator;
 
 class AdvancedController extends AbstractController
 {
-
     public function indexAction()
     {
         $list = new Document\Listing();
@@ -161,7 +160,7 @@ class AdvancedController extends AbstractController
 
     public function sitemapAction(Request $request)
     {
-        $this->view->doc = $this->document->getProperty("mainNavStartNode");;
+        $this->view->doc = $this->document->getProperty("mainNavStartNode");
     }
 
     public function sitemapPartialAction(Request $request)
@@ -196,8 +195,5 @@ class AdvancedController extends AbstractController
         $list->setCondition("path like ?", $parentFolder->getFullpath() . "%");
 
         $this->view->list = $list;
-
-
     }
-
 }

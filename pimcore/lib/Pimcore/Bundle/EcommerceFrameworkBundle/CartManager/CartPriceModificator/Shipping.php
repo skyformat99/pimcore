@@ -58,6 +58,7 @@ class Shipping implements IShipping
     /**
      * @param IPrice $currentSubTotal
      * @param ICart $cart
+     *
      * @return IModificatedPrice
      */
     public function modify(IPrice $currentSubTotal, ICart $cart)

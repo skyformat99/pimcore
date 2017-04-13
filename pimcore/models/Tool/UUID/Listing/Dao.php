@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Tool
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -24,7 +25,6 @@ use Pimcore\Model\Tool\UUID;
  */
 class Dao extends Model\Listing\Dao\AbstractDao
 {
-
     /**
      * Loads a list of Email_Log for the specified parameters, returns an array of Email_Log elements
      *
@@ -44,7 +44,7 @@ class Dao extends Model\Listing\Dao\AbstractDao
     /**
      * Returns the total amount of Email_Log entries
      *
-     * @return integer
+     * @return int
      */
     public function getTotalCount()
     {

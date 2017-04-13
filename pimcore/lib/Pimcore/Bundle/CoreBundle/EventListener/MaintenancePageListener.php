@@ -36,6 +36,7 @@ class MaintenancePageListener
 
     /**
      * CookiePolicyNotice constructor.
+     *
      * @param Kernel $kernel
      */
     public function __construct(Kernel $kernel)

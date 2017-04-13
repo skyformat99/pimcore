@@ -16,7 +16,6 @@ namespace Pimcore\Bundle\EcommerceFrameworkBundle;
 
 use Pimcore\Bundle\EcommerceFrameworkBundle\Model\Currency;
 use Pimcore\Bundle\EcommerceFrameworkBundle\Tools\SessionConfigurator;
-use Pimcore\Cache\Runtime;
 use Pimcore\Service\Locale;
 use Pimcore\Tool;
 use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface;
@@ -48,7 +47,6 @@ class Environment implements IEnvironment
      * @var bool
      */
     protected $useGuestCart = false;
-
 
     protected $currentAssortmentTenant = null;
     protected $currentAssortmentSubTenant = null;
@@ -87,7 +85,6 @@ class Environment implements IEnvironment
 
         $this->loadFromSession();
 
-
         $this->defaultCurrency = new Currency((string)$config->defaultCurrency);
     }
 
@@ -97,7 +94,7 @@ class Environment implements IEnvironment
             $this->session = $this->buildSession();
 
             $this->customItems = $this->session->get(self::SESSION_KEY_CUSTOM_ITEMS);
-            if ($this->customItems==null) {
+            if ($this->customItems == null) {
                 $this->customItems=[];
             }
 
@@ -166,7 +163,6 @@ class Environment implements IEnvironment
         return $this;
     }
 
-
     /**
      * @return bool
      */
@@ -175,12 +171,10 @@ class Environment implements IEnvironment
         return $this->getCurrentUserId() !== self::USER_ID_NOT_SET;
     }
 
-
     public function removeCustomItem($key)
     {
         unset($this->customItems[$key]);
     }
-
 
     public function clearEnvironment()
     {
@@ -216,6 +210,7 @@ class Environment implements IEnvironment
      * use setCurrentAssortmentTenant instead
      *
      * @param string $currentTenant
+     *
      * @return mixed|void
      */
     public function setCurrentTenant($currentTenant)
@@ -241,13 +236,13 @@ class Environment implements IEnvironment
      * use setCurrentAssortmentSubTenant instead
      *
      * @param mixed $currentSubTenant
+     *
      * @return mixed|void
      */
     public function setCurrentSubTenant($currentSubTenant)
     {
         $this->setCurrentAssortmentSubTenant($currentSubTenant);
     }
-
 
     /**
      * @deprecated
@@ -270,7 +265,7 @@ class Environment implements IEnvironment
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getUseGuestCart()
     {
@@ -278,7 +273,7 @@ class Environment implements IEnvironment
     }
 
     /**
-     * @param boolean $useGuestCart
+     * @param bool $useGuestCart
      */
     public function setUseGuestCart($useGuestCart)
     {
@@ -289,6 +284,7 @@ class Environment implements IEnvironment
      * sets current assortment tenant which is used for indexing and product lists
      *
      * @param $tenant string
+     *
      * @return mixed
      */
     public function setCurrentAssortmentTenant($tenant)
@@ -310,6 +306,7 @@ class Environment implements IEnvironment
      * sets current assortment sub tenant which is used for indexing and product lists
      *
      * @param $subTenant mixed
+     *
      * @return mixed
      */
     public function setCurrentAssortmentSubTenant($subTenant)

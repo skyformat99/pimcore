@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -27,7 +28,6 @@ class User extends Model\Object\ClassDefinition\Data\Select
      */
     public $fieldtype = "user";
 
-
     /**
      * @return User
      */
@@ -44,9 +44,11 @@ class User extends Model\Object\ClassDefinition\Data\Select
 
     /**
      * @see Model\Object\ClassDefinition\Data::getDataFromResource
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataFromResource($data, $object = null, $params = [])
@@ -66,6 +68,7 @@ class User extends Model\Object\ClassDefinition\Data\Select
      * @param string $data
      * @param null $object
      * @param mixed $params
+     *
      * @return null|string
      */
     public function getDataForResource($data, $object = null, $params = [])
@@ -82,10 +85,6 @@ class User extends Model\Object\ClassDefinition\Data\Select
         return $data;
     }
 
-
-    /**
-     *
-     */
     public function configureOptions()
     {
         $list = new Model\User\Listing();
@@ -113,12 +112,12 @@ class User extends Model\Object\ClassDefinition\Data\Select
         $this->setOptions($options);
     }
 
-
     /**
      * Checks if data is valid for current data field
      *
      * @param mixed $data
-     * @param boolean $omitMandatoryCheck
+     * @param bool $omitMandatoryCheck
+     *
      * @throws \Exception
      */
     public function checkValidity($data, $omitMandatoryCheck = false)
@@ -138,6 +137,7 @@ class User extends Model\Object\ClassDefinition\Data\Select
     /**
      * @param $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForSearchIndex($object, $params = [])
@@ -147,6 +147,7 @@ class User extends Model\Object\ClassDefinition\Data\Select
 
     /**
      * @param $data
+     *
      * @return static
      */
     public static function __set_state($data)

@@ -31,7 +31,9 @@ class IndexController extends AdminController implements EventedControllerInterf
 {
     /**
      * @Route("/check-debug-mode")
+     *
      * @param Request $request
+     *
      * @return \Pimcore\Bundle\AdminBundle\HttpFoundation\JsonResponse
      */
     public function checkDebugModeAction(Request $request)
@@ -45,7 +47,9 @@ class IndexController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/check-composer-installed")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function checkComposerInstalledAction(Request $request)
@@ -57,7 +61,9 @@ class IndexController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/check-file-permissions")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function checkFilePermissionsAction(Request $request)
@@ -69,7 +75,9 @@ class IndexController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/get-available-updates")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getAvailableUpdatesAction(Request $request)
@@ -81,7 +89,9 @@ class IndexController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/get-jobs")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getJobsAction(Request $request)
@@ -93,7 +103,9 @@ class IndexController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/job-parallel")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function jobParallelAction(Request $request)
@@ -107,7 +119,9 @@ class IndexController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/job-procedural")
+     *
      * @param Request $request
+     *
      * @return mixed
      */
     public function jobProceduralAction(Request $request)

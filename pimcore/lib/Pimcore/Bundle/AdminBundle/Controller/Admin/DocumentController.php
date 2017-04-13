@@ -38,7 +38,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class DocumentController extends ElementControllerBase implements EventedControllerInterface
 {
-
     /**
      * @var Document\Service
      */
@@ -46,14 +45,15 @@ class DocumentController extends ElementControllerBase implements EventedControl
 
     /**
      * @Route("/get-data-by-id")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getDataByIdAction(Request $request)
     {
         $document = Document::getById($request->get("id"));
         $document = clone $document;
-
 
         //Hook for modifying return value - e.g. for changing permissions based on object data
         //data need to wrapped into a container in order to pass parameter to event listeners by reference so that they can change the values
@@ -74,7 +74,9 @@ class DocumentController extends ElementControllerBase implements EventedControl
 
     /**
      * @Route("/tree-get-childs-by-id")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function treeGetChildsByIdAction(Request $request)
@@ -140,7 +142,9 @@ class DocumentController extends ElementControllerBase implements EventedControl
 
     /**
      * @Route("/add")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function addAction(Request $request)
@@ -283,7 +287,9 @@ class DocumentController extends ElementControllerBase implements EventedControl
 
     /**
      * @Route("/delete")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function deleteAction(Request $request)
@@ -328,7 +334,9 @@ class DocumentController extends ElementControllerBase implements EventedControl
 
     /**
      * @Route("/delete-info")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function deleteInfoAction(Request $request)
@@ -404,8 +412,11 @@ class DocumentController extends ElementControllerBase implements EventedControl
 
     /**
      * @Route("/update")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
+     *
      * @throws \Exception
      */
     public function updateAction(Request $request)
@@ -520,7 +531,9 @@ class DocumentController extends ElementControllerBase implements EventedControl
 
     /**
      * @Route("/doc-types")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function docTypesAction(Request $request)
@@ -577,7 +590,9 @@ class DocumentController extends ElementControllerBase implements EventedControl
 
     /**
      * @Route("/get-doc-types")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getDocTypesAction(Request $request)
@@ -597,7 +612,6 @@ class DocumentController extends ElementControllerBase implements EventedControl
         }
         $list->load();
 
-
         $docTypes = [];
         foreach ($list->getDocTypes() as $type) {
             $docTypes[] = $type;
@@ -608,7 +622,9 @@ class DocumentController extends ElementControllerBase implements EventedControl
 
     /**
      * @Route("/version-to-session")
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function versionToSessionAction(Request $request)
@@ -626,7 +642,9 @@ class DocumentController extends ElementControllerBase implements EventedControl
 
     /**
      * @Route("/publish-version")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function publishVersionAction(Request $request)
@@ -655,7 +673,9 @@ class DocumentController extends ElementControllerBase implements EventedControl
 
     /**
      * @Route("/update-site")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function updateSiteAction(Request $request)
@@ -684,7 +704,9 @@ class DocumentController extends ElementControllerBase implements EventedControl
 
     /**
      * @Route("/remove-site")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function removeSiteAction(Request $request)
@@ -697,7 +719,9 @@ class DocumentController extends ElementControllerBase implements EventedControl
 
     /**
      * @Route("/copy-info")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function copyInfoAction(Request $request)
@@ -726,7 +750,6 @@ class DocumentController extends ElementControllerBase implements EventedControl
                 ]
             ]];
 
-
             $childIds = [];
             if ($document->hasChildren()) {
                 // get amount of childs
@@ -752,7 +775,6 @@ class DocumentController extends ElementControllerBase implements EventedControl
                     }
                 }
             }
-
 
             // add id-rewrite steps
             if ($request->get("type") == "recursive-update-references") {
@@ -782,7 +804,6 @@ class DocumentController extends ElementControllerBase implements EventedControl
             ]];
         }
 
-
         return $this->json([
             "pastejobs" => $pasteJobs
         ]);
@@ -790,7 +811,9 @@ class DocumentController extends ElementControllerBase implements EventedControl
 
     /**
      * @Route("/copy-rewrite-ids")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function copyRewriteIdsAction(Request $request)
@@ -833,7 +856,9 @@ class DocumentController extends ElementControllerBase implements EventedControl
 
     /**
      * @Route("/copy")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function copyAction(Request $request)
@@ -853,7 +878,6 @@ class DocumentController extends ElementControllerBase implements EventedControl
             } else {
                 $targetParent = Document::getById($request->get("targetParentId"));
             }
-
 
             $targetPath = preg_replace("@^" . $sourceParent->getRealFullPath() . "@", $targetParent . "/", $source->getRealPath());
             $target = Document::getByPath($targetPath);
@@ -897,6 +921,7 @@ class DocumentController extends ElementControllerBase implements EventedControl
 
     /**
      * @Route("/diff-versions/from/{from}/to/{to}", requirements={"from": "\d+", "to": "\d+"})
+     *
      * @param Request $request
      * @param int $from
      * @param int $to
@@ -940,9 +965,8 @@ class DocumentController extends ElementControllerBase implements EventedControl
             $result[0]->clear();
             $result[0]->destroy();
 
-
             $viewParams["image"] = base64_encode(file_get_contents($diffFile));
-            ;
+
             unlink($diffFile);
         } else {
             $viewParams["image1"] = base64_encode(file_get_contents($fromFile));
@@ -963,6 +987,7 @@ class DocumentController extends ElementControllerBase implements EventedControl
 
     /**
      * @param $element Document
+     *
      * @return array
      */
     protected function getTreeNodeConfig($element)
@@ -1070,7 +1095,9 @@ class DocumentController extends ElementControllerBase implements EventedControl
 
     /**
      * @Route("/get-id-for-path")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getIdForPathAction(Request $request)
@@ -1085,14 +1112,15 @@ class DocumentController extends ElementControllerBase implements EventedControl
         }
     }
 
-
     /**
      * SEO PANEL
      */
 
     /**
      * @Route("/seopanel-tree-root")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function seopanelTreeRootAction(Request $request)
@@ -1109,10 +1137,11 @@ class DocumentController extends ElementControllerBase implements EventedControl
         return $this->json(["success" => false, "message" => "missing_permission"]);
     }
 
-
     /**
      * @Route("/seopanel-tree")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function seopanelTreeAction(Request $request)
@@ -1146,10 +1175,11 @@ class DocumentController extends ElementControllerBase implements EventedControl
         return $this->json($documents);
     }
 
-
     /**
      * @Route("/convert")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function convertAction(Request $request)
@@ -1187,7 +1217,9 @@ class DocumentController extends ElementControllerBase implements EventedControl
 
     /**
      * @Route("/translation-determine-parent")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function translationDetermineParentAction(Request $request)
@@ -1206,7 +1238,6 @@ class DocumentController extends ElementControllerBase implements EventedControl
             }
         }
 
-
         return $this->json([
             "success" => $success,
             "targetPath" => $targetPath
@@ -1215,7 +1246,9 @@ class DocumentController extends ElementControllerBase implements EventedControl
 
     /**
      * @Route("/translation-add")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function translationAddAction(Request $request)
@@ -1235,7 +1268,9 @@ class DocumentController extends ElementControllerBase implements EventedControl
 
     /**
      * @Route("/translation-check-language")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function translationCheckLanguageAction(Request $request)
@@ -1260,6 +1295,7 @@ class DocumentController extends ElementControllerBase implements EventedControl
     /**
      * @param Request $request
      * @param $document
+     *
      * @return array
      */
     private function getSeoNodeConfig(Request $request, $document)

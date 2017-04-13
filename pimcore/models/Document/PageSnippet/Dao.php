@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Document
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -25,7 +26,6 @@ use Pimcore\Model\Version;
  */
 abstract class Dao extends Model\Document\Dao
 {
-
     /**
      * Delete all elements containing the content (tags) from the database
      */
@@ -79,10 +79,11 @@ abstract class Dao extends Model\Document\Dao
         return $versions;
     }
 
-
     /**
      * Get latest available version, using $force always returns a version no matter if it is the same as the published one
+     *
      * @param bool $force
+     *
      * @return array
      */
     public function getLatestVersion($force = false)
@@ -97,7 +98,6 @@ abstract class Dao extends Model\Document\Dao
 
         return;
     }
-
 
     /**
      * Delete the object from database

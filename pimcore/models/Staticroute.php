@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Staticroute
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -25,9 +26,8 @@ use Symfony\Component\EventDispatcher\GenericEvent;
  */
 class Staticroute extends AbstractModel
 {
-
     /**
-     * @var integer
+     * @var int
      */
     public $id;
 
@@ -77,7 +77,7 @@ class Staticroute extends AbstractModel
     public $siteId;
 
     /**
-     * @var integer
+     * @var int
      */
     public $priority = 1;
 
@@ -87,18 +87,19 @@ class Staticroute extends AbstractModel
     public $legacy = false;
 
     /**
-     * @var integer
+     * @var int
      */
     public $creationDate;
 
     /**
-     * @var integer
+     * @var int
      */
     public $modificationDate;
 
     /**
      * Associative array filled on match() that holds matched path values
      * for given variable names.
+     *
      * @var array
      */
     public $_values = [];
@@ -119,6 +120,7 @@ class Staticroute extends AbstractModel
 
     /**
      * @static
+     *
      * @param $route
      */
     public static function setCurrentRoute($route)
@@ -128,6 +130,7 @@ class Staticroute extends AbstractModel
 
     /**
      * @static
+     *
      * @return Staticroute
      */
     public static function getCurrentRoute()
@@ -136,7 +139,8 @@ class Staticroute extends AbstractModel
     }
 
     /**
-     * @param integer $id
+     * @param int $id
+     *
      * @return Staticroute
      */
     public static function getById($id)
@@ -167,6 +171,7 @@ class Staticroute extends AbstractModel
     /**
      * @param string $name
      * @param null $siteId
+     *
      * @return Staticroute
      */
     public static function getByName($name, $siteId = null)
@@ -230,7 +235,7 @@ class Staticroute extends AbstractModel
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -286,7 +291,8 @@ class Staticroute extends AbstractModel
     }
 
     /**
-     * @param integer $id
+     * @param int $id
+     *
      * @return $this
      */
     public function setId($id)
@@ -298,6 +304,7 @@ class Staticroute extends AbstractModel
 
     /**
      * @param string $pattern
+     *
      * @return $this
      */
     public function setPattern($pattern)
@@ -309,6 +316,7 @@ class Staticroute extends AbstractModel
 
     /**
      * @param string $module
+     *
      * @return $this
      */
     public function setModule($module)
@@ -318,9 +326,9 @@ class Staticroute extends AbstractModel
         return $this;
     }
 
-
     /**
      * @param string $controller
+     *
      * @return $this
      */
     public function setController($controller)
@@ -332,6 +340,7 @@ class Staticroute extends AbstractModel
 
     /**
      * @param string $action
+     *
      * @return $this
      */
     public function setAction($action)
@@ -343,6 +352,7 @@ class Staticroute extends AbstractModel
 
     /**
      * @param string $variables
+     *
      * @return $this
      */
     public function setVariables($variables)
@@ -354,6 +364,7 @@ class Staticroute extends AbstractModel
 
     /**
      * @param string $defaults
+     *
      * @return $this
      */
     public function setDefaults($defaults)
@@ -364,7 +375,8 @@ class Staticroute extends AbstractModel
     }
 
     /**
-     * @param integer $priority
+     * @param int $priority
+     *
      * @return $this
      */
     public function setPriority($priority)
@@ -375,7 +387,7 @@ class Staticroute extends AbstractModel
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getPriority()
     {
@@ -400,6 +412,7 @@ class Staticroute extends AbstractModel
 
     /**
      * @param string $name
+     *
      * @return $this
      */
     public function setName($name)
@@ -419,6 +432,7 @@ class Staticroute extends AbstractModel
 
     /**
      * @param string $reverse
+     *
      * @return $this
      */
     public function setReverse($reverse)
@@ -438,6 +452,7 @@ class Staticroute extends AbstractModel
 
     /**
      * @param int|array $siteId
+     *
      * @return $this
      */
     public function setSiteId($siteId)
@@ -466,7 +481,6 @@ class Staticroute extends AbstractModel
             }
         }
 
-
         $this->siteId = $result;
 
         return $this;
@@ -488,6 +502,7 @@ class Staticroute extends AbstractModel
      * @param array $urlOptions
      * @param bool $reset
      * @param bool $encode
+     *
      * @return mixed|string
      */
     public function assemble(array $urlOptions = [], $reset=false, $encode=true)
@@ -503,7 +518,6 @@ class Staticroute extends AbstractModel
                 unset($blockedRequestParams[$pos]);
             }
         }
-
 
         if ($reset) {
             $requestParameters = [];
@@ -585,7 +599,6 @@ class Staticroute extends AbstractModel
             }
         }
 
-
         // remove optional parts
         $url = preg_replace("/\{([^\}]+)?%[^\}]+\}/", "", $url);
         $url = str_replace(["{", "}"], "", $url);
@@ -618,7 +631,9 @@ class Staticroute extends AbstractModel
     /**
      * @param string $path
      * @param array $params
+     *
      * @return array|bool
+     *
      * @throws \Exception
      */
     public function match($path, $params = [])
@@ -709,6 +724,7 @@ class Staticroute extends AbstractModel
 
     /**
      * @param $modificationDate
+     *
      * @return $this
      */
     public function setModificationDate($modificationDate)
@@ -728,6 +744,7 @@ class Staticroute extends AbstractModel
 
     /**
      * @param $creationDate
+     *
      * @return $this
      */
     public function setCreationDate($creationDate)

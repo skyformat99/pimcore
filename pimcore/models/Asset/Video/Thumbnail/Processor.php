@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Asset
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -17,10 +18,10 @@
 namespace Pimcore\Model\Asset\Video\Thumbnail;
 
 use Pimcore\File;
-use Pimcore\Tool\Console;
+use Pimcore\Logger;
 use Pimcore\Model;
 use Pimcore\Model\Tool\TmpStore;
-use Pimcore\Logger;
+use Pimcore\Tool\Console;
 
 class Processor
 {
@@ -62,7 +63,9 @@ class Processor
      * @param Model\Asset\Video $asset
      * @param $config
      * @param array $onlyFormats
+     *
      * @return Processor
+     *
      * @throws \Exception
      */
     public static function process(Model\Asset\Video $asset, $config, $onlyFormats = [])
@@ -240,9 +243,6 @@ class Processor
         TmpStore::delete($instance->getJobStoreId());
     }
 
-    /**
-     *
-     */
     public function convert()
     {
         $this->save();
@@ -261,6 +261,7 @@ class Processor
 
     /**
      * @param $processId
+     *
      * @return string
      */
     protected function getJobStoreId($processId = null)
@@ -274,6 +275,7 @@ class Processor
 
     /**
      * @param $processId
+     *
      * @return $this
      */
     public function setProcessId($processId)
@@ -293,6 +295,7 @@ class Processor
 
     /**
      * @param $assetId
+     *
      * @return $this
      */
     public function setAssetId($assetId)
@@ -312,6 +315,7 @@ class Processor
 
     /**
      * @param $config
+     *
      * @return $this
      */
     public function setConfig($config)
@@ -331,6 +335,7 @@ class Processor
 
     /**
      * @param $queue
+     *
      * @return $this
      */
     public function setQueue($queue)

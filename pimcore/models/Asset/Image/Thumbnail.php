@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Asset
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -23,7 +24,6 @@ use Symfony\Component\EventDispatcher\GenericEvent;
 
 class Thumbnail
 {
-
     /**
      * @var \Pimcore\Model\Asset\Image
      */
@@ -93,6 +93,7 @@ class Thumbnail
 
     /**
      * @param bool $deferredAllowed
+     *
      * @return mixed|string
      */
     public function getPath($deferredAllowed = true)
@@ -113,6 +114,7 @@ class Thumbnail
 
     /**
      * @param bool $deferredAllowed
+     *
      * @return mixed|string
      */
     public function getFileSystemPath($deferredAllowed = false)
@@ -157,9 +159,6 @@ class Thumbnail
         ]));
     }
 
-    /**
-     *
-     */
     public function reset()
     {
         $this->filesystemPath = null;
@@ -173,8 +172,9 @@ class Thumbnail
      * Get the public path to the thumbnail image.
      * This method is here for backwards compatility.
      * Up to Pimcore 1.4.8 a thumbnail was returned as a path to an image.
+     *
      * @return string Public path to thumbnail image.
-    */
+     */
     public function __toString()
     {
         return $this->getPath(true);
@@ -182,7 +182,7 @@ class Thumbnail
 
     /**
      * @return int Width of the generated thumbnail image.
-    */
+     */
     public function getWidth()
     {
         if (!$this->width) {
@@ -194,8 +194,9 @@ class Thumbnail
 
     /**
      * Get the width of the generated thumbnail image in pixels.
+     *
      * @return int Height of the generated thumbnail image.
-    */
+     */
     public function getHeight()
     {
         if (!$this->height) {
@@ -207,7 +208,7 @@ class Thumbnail
 
     /**
      * @return int real Width of the generated thumbnail image. (when using high resolution option)
-    */
+     */
     public function getRealWidth()
     {
         if (!$this->realWidth) {
@@ -219,8 +220,9 @@ class Thumbnail
 
     /**
      * Get the real width of the generated thumbnail image in pixels. (when using high resolution option)
+     *
      * @return int Height of the generated thumbnail image.
-    */
+     */
     public function getRealHeight()
     {
         if (!$this->realHeight) {
@@ -278,8 +280,9 @@ class Thumbnail
 
     /**
      * Get the height of the generated thumbnail image in pixels.
+     *
      * @return string HTTP Mime Type of the generated thumbnail image.
-    */
+     */
     public function getMimeType()
     {
         if (!$this->mimetype) {
@@ -346,14 +349,16 @@ class Thumbnail
     }
 
     /**
-    * Get generated HTML for displaying the thumbnail image in a HTML document. (XHTML compatible).
-    * Attributes can be added as a parameter. Attributes containing illigal characters are ignored.
-    * Width and Height attribute can be overridden. SRC-attribute not.
-    * Values of attributes are escaped.
-    * @param array $options Custom configurations and HTML attributes.
-    * @param array $removeAttributes Listof key-value pairs of HTML attributes that should be removed
-    * @return string IMG-element with at least the attributes src, width, height, alt.
-    */
+     * Get generated HTML for displaying the thumbnail image in a HTML document. (XHTML compatible).
+     * Attributes can be added as a parameter. Attributes containing illigal characters are ignored.
+     * Width and Height attribute can be overridden. SRC-attribute not.
+     * Values of attributes are escaped.
+     *
+     * @param array $options Custom configurations and HTML attributes.
+     * @param array $removeAttributes Listof key-value pairs of HTML attributes that should be removed
+     *
+     * @return string IMG-element with at least the attributes src, width, height, alt.
+     */
     public function getHTML($options = [], $removeAttributes = [])
     {
         $image = $this->getAsset();
@@ -539,7 +544,9 @@ class Thumbnail
     /**
      * @param string $name
      * @param int $highRes
+     *
      * @return Thumbnail
+     *
      * @throws \Exception
      */
     public function getMedia($name, $highRes = 1)
@@ -562,7 +569,7 @@ class Thumbnail
 
     /**
      * @return \Pimcore\Model\Asset\Image The original image from which this thumbnail is generated.
-    */
+     */
     public function getAsset()
     {
         return $this->asset;
@@ -570,6 +577,7 @@ class Thumbnail
 
     /**
      * Get thumbnail image configuration.
+     *
      * @return Thumbnail\Config
      */
     public function getConfig()
@@ -579,7 +587,9 @@ class Thumbnail
 
     /**
      * @param string $type
+     *
      * @return null|string
+     *
      * @throws \Exception
      */
     public function getChecksum($type = "md5")
@@ -600,9 +610,11 @@ class Thumbnail
 
     /**
      * Get a thumbnail image configuration.
+     *
      * @param mixed $selector Name, array or object describing a thumbnail configuration.
+     *
      * @return Thumbnail\Config
-    */
+     */
     protected function createConfig($selector)
     {
         return Thumbnail\Config::getByAutoDetect($selector);
@@ -618,6 +630,7 @@ class Thumbnail
 
     /**
      * Enables, when set to true, dispatchLoopShutdown of Pimcore_Controller_Plugin_Thumbnail
+     *
      * @param bool $flag
      */
     public static function setPictureElementInUse($flag)
@@ -626,7 +639,7 @@ class Thumbnail
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public static function getEmbedPicturePolyfill()
     {
@@ -634,7 +647,7 @@ class Thumbnail
     }
 
     /**
-     * @param boolean $embedPicturePolyfill
+     * @param bool $embedPicturePolyfill
      */
     public static function setEmbedPicturePolyfill($embedPicturePolyfill)
     {

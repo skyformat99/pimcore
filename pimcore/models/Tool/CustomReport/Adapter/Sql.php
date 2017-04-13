@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Pimcore
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -20,7 +21,6 @@ use Pimcore\Db;
 
 class Sql extends AbstractAdapter
 {
-
     /**
      * @param $filters
      * @param $sort
@@ -29,6 +29,7 @@ class Sql extends AbstractAdapter
      * @param $limit
      * @param null $fields
      * @param null $drillDownFilters
+     *
      * @return array
      */
     public function getData($filters, $sort, $dir, $offset, $limit, $fields = null, $drillDownFilters = null)
@@ -58,7 +59,9 @@ class Sql extends AbstractAdapter
 
     /**
      * @param $configuration
+     *
      * @return array|mixed|null
+     *
      * @throws \Exception
      */
     public function getColumns($configuration)
@@ -89,6 +92,7 @@ class Sql extends AbstractAdapter
      * @param bool $ignoreSelectAndGroupBy
      * @param null $drillDownFilters
      * @param null $selectField
+     *
      * @return string
      */
     protected function buildQueryString($config, $ignoreSelectAndGroupBy = false, $drillDownFilters = null, $selectField = null)
@@ -155,6 +159,7 @@ class Sql extends AbstractAdapter
      * @param bool $ignoreSelectAndGroupBy
      * @param null $drillDownFilters
      * @param null $selectField
+     *
      * @return array
      */
     protected function getBaseQuery($filters, $fields, $ignoreSelectAndGroupBy = false, $drillDownFilters = null, $selectField = null)
@@ -213,7 +218,6 @@ class Sql extends AbstractAdapter
             return;
         }
 
-
         return [
             "data" => $data,
             "count" => $total
@@ -224,6 +228,7 @@ class Sql extends AbstractAdapter
      * @param $filters
      * @param $field
      * @param $drillDownFilters
+     *
      * @return array|mixed
      */
     public function getAvailableOptions($filters, $field, $drillDownFilters)

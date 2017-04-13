@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Document
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -23,10 +24,6 @@ use Pimcore\Model;
  */
 class Dao extends Model\Dao\PhpArrayTable
 {
-
-    /**
-     *
-     */
     public function configure()
     {
         parent::configure();
@@ -35,7 +32,9 @@ class Dao extends Model\Dao\PhpArrayTable
 
     /**
      * Get the data for the object from database for the given id
+     *
      * @param null $id
+     *
      * @throws \Exception
      */
     public function getById($id = null)

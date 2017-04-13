@@ -26,10 +26,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class RecyclebinController extends AdminController implements EventedControllerInterface
 {
-
     /**
      * @Route("/recyclebin/list")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function listAction(Request $request)
@@ -54,7 +55,6 @@ class RecyclebinController extends AdminController implements EventedControllerI
                 $list->setOrderKey($sortingSettings['orderKey']);
                 $list->setOrder($sortingSettings['order']);
             }
-
 
             $conditionFilters = [];
 
@@ -131,7 +131,9 @@ class RecyclebinController extends AdminController implements EventedControllerI
 
     /**
      * @Route("/recyclebin/restore")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function restoreAction(Request $request)
@@ -144,7 +146,9 @@ class RecyclebinController extends AdminController implements EventedControllerI
 
     /**
      * @Route("/recyclebin/flush")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function flushAction()
@@ -157,7 +161,9 @@ class RecyclebinController extends AdminController implements EventedControllerI
 
     /**
      * @Route("/recyclebin/add")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function addAction(Request $request)

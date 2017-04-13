@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Document
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -23,7 +24,6 @@ use Pimcore\Model;
  */
 class Multiselect extends Model\Document\Tag
 {
-
     /**
      * Contains the current selected values
      *
@@ -33,6 +33,7 @@ class Multiselect extends Model\Document\Tag
 
     /**
      * @see TagInterface::getType
+     *
      * @return string
      */
     public function getType()
@@ -42,6 +43,7 @@ class Multiselect extends Model\Document\Tag
 
     /**
      * @see TagInterface::getData
+     *
      * @return mixed
      */
     public function getData()
@@ -51,6 +53,7 @@ class Multiselect extends Model\Document\Tag
 
     /**
      * @see TagInterface::frontend
+     *
      * @return string
      */
     public function frontend()
@@ -68,7 +71,9 @@ class Multiselect extends Model\Document\Tag
 
     /**
      * @see TagInterface::setDataFromResource
+     *
      * @param mixed $data
+     *
      * @return $this
      */
     public function setDataFromResource($data)
@@ -80,7 +85,9 @@ class Multiselect extends Model\Document\Tag
 
     /**
      * @see TagInterface::setDataFromEditmode
+     *
      * @param mixed $data
+     *
      * @return $this
      */
     public function setDataFromEditmode($data)
@@ -97,7 +104,7 @@ class Multiselect extends Model\Document\Tag
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isEmpty()
     {
@@ -109,6 +116,7 @@ class Multiselect extends Model\Document\Tag
      * @param $document
      * @param mixed $params
      * @param null $idMapper
+     *
      * @throws \Exception
      */
     public function getFromWebserviceImport($wsElement, $document = null, $params = [], $idMapper = null)

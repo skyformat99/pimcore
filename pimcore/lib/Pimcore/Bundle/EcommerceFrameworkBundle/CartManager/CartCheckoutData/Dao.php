@@ -39,8 +39,10 @@ class Dao extends \Pimcore\Model\Dao\AbstractDao
 
     /**
      * @throws \Exception
+     *
      * @param  string $key
      * @param  int $cartId
+     *
      * @return void
      */
     public function getByKeyCartId($key, $cartId)

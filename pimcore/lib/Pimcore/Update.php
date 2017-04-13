@@ -14,13 +14,10 @@
 
 namespace Pimcore;
 
-use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
-use Pimcore\Logger;
 
 class Update
 {
-
     /**
      * @var string
      */
@@ -59,7 +56,9 @@ class Update
 
     /**
      * @param null $currentRev
+     *
      * @return array
+     *
      * @throws \Exception
      */
     public static function getAvailableUpdates($currentRev = null)
@@ -115,6 +114,7 @@ class Update
     /**
      * @param $toRevision
      * @param null $currentRev
+     *
      * @return array
      */
     public static function getJobs($toRevision, $currentRev = null)
@@ -147,7 +147,6 @@ class Update
                 }
             }
         }
-
 
         if (isset($xml->download)) {
             foreach ($xml->download as $download) {
@@ -210,6 +209,7 @@ class Update
     /**
      * @param $revision
      * @param $url
+     *
      * @throws \Exception
      */
     public static function downloadData($revision, $url)
@@ -324,13 +324,13 @@ class Update
             self::executeScript($revision, "update");
         }
 
-
         self::clearOPCaches();
     }
 
     /**
      * @param $revision
      * @param $type
+     *
      * @return array
      */
     public static function executeScript($revision, $type)
@@ -386,9 +386,6 @@ class Update
         }
     }
 
-    /**
-     *
-     */
     public static function clearOPCaches()
     {
         if (function_exists("opcache_reset")) {
@@ -396,9 +393,6 @@ class Update
         }
     }
 
-    /**
-     *
-     */
     public static function cleanup()
     {
 
@@ -461,9 +455,6 @@ class Update
         ];
     }
 
-    /**
-     *
-     */
     public static function invalidateComposerAutoloadClassmap()
     {
 
@@ -495,9 +486,6 @@ class Update
         return (bool) \Pimcore\Tool\Console::getExecutable("composer");
     }
 
-    /**
-     *
-     */
     public static function updateMaxmindDb()
     {
         $downloadUrl = "http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz";
@@ -511,7 +499,7 @@ class Update
         }
 
         // update if file is older than 30 days, or if it is the first tuesday of the month
-        if ($filemtime < (time()-30*86400) || (date("m/d/Y") == date("m/d/Y", $firstTuesdayOfMonth) && $filemtime < time()-86400)) {
+        if ($filemtime < (time() - 30 * 86400) || (date("m/d/Y") == date("m/d/Y", $firstTuesdayOfMonth) && $filemtime < time() - 86400)) {
             $data = Tool::getHttpData($downloadUrl);
             if (strlen($data) > 1000000) {
                 File::put($geoDbFileGz, $data);

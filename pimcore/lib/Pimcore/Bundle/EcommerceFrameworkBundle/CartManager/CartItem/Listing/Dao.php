@@ -16,7 +16,6 @@ namespace Pimcore\Bundle\EcommerceFrameworkBundle\CartManager\CartItem\Listing;
 
 class Dao extends \Pimcore\Model\Listing\Dao\AbstractDao
 {
-
     /**
      * @var string
      */
@@ -50,7 +49,6 @@ class Dao extends \Pimcore\Model\Listing\Dao\AbstractDao
     {
         return (int)$this->db->fetchOne("SELECT SUM(count) FROM `" . \Pimcore\Bundle\EcommerceFrameworkBundle\CartManager\CartItem\Dao::TABLE_NAME . "`" . $this->getCondition());
     }
-
 
     /**
      * @param string $className

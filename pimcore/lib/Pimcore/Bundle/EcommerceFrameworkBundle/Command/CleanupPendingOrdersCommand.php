@@ -32,6 +32,7 @@ class CleanupPendingOrdersCommand extends AbstractCommand
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
+     *
      * @throws InvalidConfigException
      */
     protected function execute(InputInterface $input, OutputInterface $output)

@@ -136,7 +136,6 @@ class GeneralTest extends ModelTestCase
         */
     }
 
-
     /**
      * Tests the following scenario:
      *

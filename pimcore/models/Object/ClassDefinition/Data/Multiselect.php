@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -21,7 +22,6 @@ use Pimcore\Model\Object;
 
 class Multiselect extends Model\Object\ClassDefinition\Data
 {
-
     /**
      * Static type of this element
      *
@@ -37,12 +37,12 @@ class Multiselect extends Model\Object\ClassDefinition\Data
     public $options;
 
     /**
-     * @var integer
+     * @var int
      */
     public $width;
 
     /**
-     * @var integer
+     * @var int
      */
     public $height;
 
@@ -82,6 +82,7 @@ class Multiselect extends Model\Object\ClassDefinition\Data
 
     /**
      * @param array $options
+     *
      * @return $this
      */
     public function setOptions($options)
@@ -92,7 +93,7 @@ class Multiselect extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getWidth()
     {
@@ -101,6 +102,7 @@ class Multiselect extends Model\Object\ClassDefinition\Data
 
     /**
      * @param array $width
+     *
      * @return $this
      */
     public function setWidth($width)
@@ -111,7 +113,7 @@ class Multiselect extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getHeight()
     {
@@ -120,6 +122,7 @@ class Multiselect extends Model\Object\ClassDefinition\Data
 
     /**
      * @param array $height
+     *
      * @return $this
      */
     public function setHeight($height)
@@ -131,6 +134,7 @@ class Multiselect extends Model\Object\ClassDefinition\Data
 
     /**
      * @param $maxItems
+     *
      * @return $this
      */
     public function setMaxItems($maxItems)
@@ -150,9 +154,11 @@ class Multiselect extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object\ClassDefinition\Data::getDataForResource
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForResource($data, $object = null, $params = [])
@@ -164,9 +170,11 @@ class Multiselect extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object\ClassDefinition\Data::getDataFromResource
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataFromResource($data, $object = null, $params = [])
@@ -180,9 +188,11 @@ class Multiselect extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object\ClassDefinition\Data::getDataForQueryResource
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForQueryResource($data, $object = null, $params = [])
@@ -194,12 +204,13 @@ class Multiselect extends Model\Object\ClassDefinition\Data
         return;
     }
 
-
     /**
      * @see Object\ClassDefinition\Data::getDataForEditmode
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForEditmode($data, $object = null, $params = [])
@@ -211,9 +222,11 @@ class Multiselect extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Model\Object\ClassDefinition\Data::getDataFromEditmode
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataFromEditmode($data, $object = null, $params = [])
@@ -223,9 +236,11 @@ class Multiselect extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object\ClassDefinition\Data::getVersionPreview
+     *
      * @param string $data
      * @param null|Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getVersionPreview($data, $object = null, $params = [])
@@ -239,7 +254,8 @@ class Multiselect extends Model\Object\ClassDefinition\Data
      * Checks if data is valid for current data field
      *
      * @param mixed $data
-     * @param boolean $omitMandatoryCheck
+     * @param bool $omitMandatoryCheck
+     *
      * @throws \Exception
      */
     public function checkValidity($data, $omitMandatoryCheck = false)
@@ -255,9 +271,12 @@ class Multiselect extends Model\Object\ClassDefinition\Data
 
     /**
      * converts object data to a simple string value or CSV Export
+     *
      * @abstract
+     *
      * @param Object\AbstractObject $object
      * @param array $params
+     *
      * @return string
      */
     public function getForCsvExport($object, $params = [])
@@ -274,6 +293,7 @@ class Multiselect extends Model\Object\ClassDefinition\Data
      * @param $importValue
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return array|mixed
      */
     public function getFromCsvImport($importValue, $object = null, $params = [])
@@ -284,6 +304,7 @@ class Multiselect extends Model\Object\ClassDefinition\Data
     /**
      * @param $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForSearchIndex($object, $params = [])
@@ -298,8 +319,10 @@ class Multiselect extends Model\Object\ClassDefinition\Data
 
     /**
      * returns sql query statement to filter according to this data types value(s)
+     *
      * @param  $value
      * @param  $operator
+     *
      * @return string
      */
     public function getFilterCondition($value, $operator)
@@ -311,9 +334,11 @@ class Multiselect extends Model\Object\ClassDefinition\Data
 
     /**
      * returns sql query statement to filter according to this data types value(s)
+     *
      * @param $value
      * @param $operator
      * @param array $params optional params used to change the behavior
+     *
      * @return string
      */
     public function getFilterConditionExt($value, $operator, $params = [])
@@ -329,6 +354,7 @@ class Multiselect extends Model\Object\ClassDefinition\Data
     /** True if change is allowed in edit mode.
      * @param string $object
      * @param mixed $params
+     *
      * @return bool
      */
     public function isDiffChangeAllowed($object, $params = [])
@@ -338,9 +364,11 @@ class Multiselect extends Model\Object\ClassDefinition\Data
 
     /** Generates a pretty version preview (similar to getVersionPreview) can be either html or
      * a image URL. See the ObjectMerger plugin documentation for details
+     *
      * @param $data
      * @param null $object
      * @param mixed $params
+     *
      * @return array|string
      */
     public function getDiffVersionPreview($data, $object = null, $params = [])

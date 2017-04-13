@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Asset
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -25,10 +26,8 @@ use Pimcore\Model;
  */
 class Dao extends Model\Listing\Dao\AbstractDao
 {
-
-    /** @var  Callback function */
+    /** @var Callback function */
     protected $onCreateQueryCallback;
-
 
     /**
      * Get the assets from database
@@ -57,6 +56,7 @@ class Dao extends Model\Listing\Dao\AbstractDao
 
     /**
      * @param $columns
+     *
      * @return \Pimcore\Db\ZendCompatibility\QueryBuilder
      */
     public function getQuery($columns)

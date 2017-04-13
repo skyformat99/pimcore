@@ -15,8 +15,8 @@
 namespace Pimcore\Bundle\CoreBundle\Command;
 
 use Pimcore\Console\AbstractCommand;
-use Pimcore\Model\Object\ClassDefinition;
 use Pimcore\Model\Object;
+use Pimcore\Model\Object\ClassDefinition;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -97,7 +97,6 @@ class ClassesRebuildCommand extends AbstractCommand
 
             $brickDefinition->save();
         }
-
 
         if ($output->isVerbose()) {
             $output->writeln("---------------------");

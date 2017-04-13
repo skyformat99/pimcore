@@ -37,7 +37,6 @@ class SelectCategory extends AbstractFilterType
             }
         }
 
-
         foreach ($rawValues as $v) {
             $explode = explode(",", $v['value']);
             foreach ($explode as $e) {
@@ -65,7 +64,6 @@ class SelectCategory extends AbstractFilterType
             "document" => $request->get("contentDocument"),
             "resultCount" => $productList->count()
         ];
-
 
         return $this->render($script, $parameterBag);
     }

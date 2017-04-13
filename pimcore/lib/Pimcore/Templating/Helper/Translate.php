@@ -19,7 +19,6 @@ use Symfony\Component\Templating\Helper\Helper;
 
 class Translate extends Helper
 {
-
     /**
      * @var \Pimcore\Translation\Translator
      */
@@ -34,7 +33,6 @@ class Translate extends Helper
     {
         $this->translator = $translator;
     }
-
 
     /**
      * Returns the canonical name of this helper.
@@ -51,6 +49,7 @@ class Translate extends Helper
      * @param array $parameters
      * @param null $domain
      * @param null $locale
+     *
      * @return string
      */
     public function __invoke($key, $parameters = [], $domain = null, $locale = null)

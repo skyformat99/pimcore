@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Element
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -23,9 +24,9 @@ use Pimcore\Model;
  */
 abstract class Dao extends Model\Dao\AbstractDao
 {
-
     /**
      * @return array
+     *
      * @throws \Exception
      */
     public function getParentIds()

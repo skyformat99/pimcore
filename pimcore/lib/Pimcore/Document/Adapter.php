@@ -25,6 +25,7 @@ abstract class Adapter
 
     /**
      * @param $path
+     *
      * @return string
      */
     protected function preparePath($path)
@@ -53,9 +54,6 @@ abstract class Adapter
         }
     }
 
-    /**
-     *
-     */
     public function __destruct()
     {
         $this->removeTmpFiles();

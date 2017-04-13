@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    User
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -23,9 +24,9 @@ use Pimcore\Model;
  */
 class Dao extends Model\User\AbstractUser\Dao
 {
-
     /**
      * @param $id
+     *
      * @throws \Exception
      */
     public function getById($id)
@@ -39,6 +40,7 @@ class Dao extends Model\User\AbstractUser\Dao
 
     /**
      * @param $name
+     *
      * @throws \Exception
      */
     public function getByName($name)
@@ -50,9 +52,6 @@ class Dao extends Model\User\AbstractUser\Dao
         }
     }
 
-    /**
-     *
-     */
     public function loadWorkspaces()
     {
         $types = ["asset", "document", "object"];
@@ -71,9 +70,6 @@ class Dao extends Model\User\AbstractUser\Dao
         }
     }
 
-    /**
-     *
-     */
     public function emptyWorkspaces()
     {
         $this->db->delete("users_workspaces_asset", ["userId" => $this->model->getId()]);

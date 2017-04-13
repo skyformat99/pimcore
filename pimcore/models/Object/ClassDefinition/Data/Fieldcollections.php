@@ -10,21 +10,21 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Object\ClassDefinition\Data;
 
+use Pimcore\Logger;
 use Pimcore\Model;
 use Pimcore\Model\Object;
 use Pimcore\Model\Webservice;
 use Pimcore\Tool\Cast;
-use Pimcore\Logger;
 
 class Fieldcollections extends Model\Object\ClassDefinition\Data
 {
-
     /**
      * Static type of this element
      *
@@ -45,7 +45,7 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
     public $allowedTypes = [];
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $lazyLoading;
 
@@ -55,27 +55,27 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
     public $maxItems;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $disallowAddRemove;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $disallowReorder;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $collapsed;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $collapsible;
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getLazyLoading()
     {
@@ -84,6 +84,7 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
 
     /**
      * @param  $lazyLoading
+     *
      * @return $this
      */
     public function setLazyLoading($lazyLoading)
@@ -95,9 +96,11 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object\ClassDefinition\Data::getDataForEditmode
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForEditmode($data, $object = null, $params = [])
@@ -139,7 +142,6 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
                     }
                 }
 
-
                 $editmodeData[] = [
                     "data" => $collectionData,
                     "type" => $item->getType(),
@@ -153,9 +155,11 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Model\Object\ClassDefinition\Data::getDataFromEditmode
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataFromEditmode($data, $object = null, $params = [])
@@ -208,9 +212,11 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object\ClassDefinition\Data::getVersionPreview
+     *
      * @param string $data
      * @param null|Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getVersionPreview($data, $object = null, $params = [])
@@ -220,9 +226,12 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
 
     /**
      * converts object data to a simple string value or CSV Export
+     *
      * @abstract
+     *
      * @param Object\AbstractObject $object
      * @param array $params
+     *
      * @return string
      */
     public function getForCsvExport($object, $params = [])
@@ -234,6 +243,7 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
      * @param string $importValue
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return null
      */
     public function getFromCsvImport($importValue, $object = null, $params = [])
@@ -244,6 +254,7 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
     /**
      * @param $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForSearchIndex($object, $params = [])
@@ -274,6 +285,7 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
     /**
      * @param $object
      * @param array $params
+     *
      * @throws \Exception
      */
     public function save($object, $params = [])
@@ -302,6 +314,7 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
     /**
      * @param $object
      * @param array $params
+     *
      * @return null|Object\Fieldcollection
      */
     public function load($object, $params = [])
@@ -339,6 +352,7 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
 
     /**
      * @param $allowedTypes
+     *
      * @return $this
      */
     public function setAllowedTypes($allowedTypes)
@@ -367,6 +381,7 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
     /**
      * @param Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function getForWebserviceExport($object, $params = [])
@@ -395,7 +410,7 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
                     $el->name = $fd->getName();
                     $el->type = $fd->getFieldType();
                     $el->value = $fd->getForWebserviceExport($item, $params);
-                    if ($el->value ==  null && self::$dropNullValues) {
+                    if ($el->value == null && self::$dropNullValues) {
                         continue;
                     }
 
@@ -413,8 +428,11 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
      * @param mixed $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return mixed|Object\Fieldcollection
+     *
      * @param $idMapper
+     *
      * @throws \Exception
      */
     public function getFromWebserviceImport($data, $object = null, $params = [], $idMapper = null)
@@ -475,6 +493,7 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
 
     /**
      * @param mixed $data
+     *
      * @return array
      */
     public function resolveDependencies($data)
@@ -508,6 +527,7 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
      *
      * @param mixed $data
      * @param array $tags
+     *
      * @return array
      */
     public function getCacheTags($data, $tags = [])
@@ -536,12 +556,12 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
         return $tags;
     }
 
-
     /**
      * Checks if data is valid for current data field
      *
      * @param mixed $data
-     * @param boolean $omitMandatoryCheck
+     * @param bool $omitMandatoryCheck
+     *
      * @throws \Exception
      */
     public function checkValidity($data, $omitMandatoryCheck = false)
@@ -571,7 +591,9 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
     /**
      * @param $object
      * @param array $params
+     *
      * @return null|Object\Fieldcollection
+     *
      * @throws \Exception
      */
     public function preGetData($object, $params = [])
@@ -597,6 +619,7 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
      * @param $object
      * @param $data
      * @param array $params
+     *
      * @return array
      */
     public function preSetData($object, $data, $params = [])
@@ -612,11 +635,11 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
         return $data;
     }
 
-
     /**
      * @param $data
      * @param Object\Concrete $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForGrid($data, $object = null, $params = [])
@@ -626,6 +649,7 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
 
     /**
      * @param $class
+     *
      * @return string
      */
     public function getGetterCode($class)
@@ -658,6 +682,7 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
 
     /**
      * @param $maxItems
+     *
      * @return $this
      */
     public function setMaxItems($maxItems)
@@ -678,6 +703,7 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
     /** True if change is allowed in edit mode.
      * @param string $object
      * @param mixed $params
+     *
      * @return bool
      */
     public function isDiffChangeAllowed($object, $params = [])
@@ -685,12 +711,13 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
         return true;
     }
 
-
     /** Generates a pretty version preview (similar to getVersionPreview) can be either html or
      * a image URL. See the ObjectMerger plugin documentation for details
+     *
      * @param $data
      * @param null $object
      * @param mixed $params
+     *
      * @return array|string
      */
     public function getDiffVersionPreview($data, $object = null, $params = [])
@@ -734,6 +761,7 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
      * @param $data
      * @param null $object
      * @param array $params
+     *
      * @return mixed
      */
     public function getDiffDataFromEditmode($data, $object = null, $params = [])
@@ -754,9 +782,11 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
      *  "object" => array(...),
      *  "asset" => array(...)
      * )
+     *
      * @param mixed $object
      * @param array $idMapping
      * @param array $params
+     *
      * @return Model\Element\ElementInterface
      */
     public function rewriteIds($object, $idMapping, $params = [])
@@ -800,6 +830,7 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
 
     /**
      * This method is called in Object|Class::save() and is used to create the database table for the localized data
+     *
      * @param $class
      * @param array $params
      */
@@ -825,7 +856,7 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @param boolean $disallowAddRemove
+     * @param bool $disallowAddRemove
      */
     public function setDisallowAddRemove($disallowAddRemove)
     {
@@ -833,7 +864,7 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getDisallowAddRemove()
     {
@@ -841,7 +872,7 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @param boolean $disallowReorder
+     * @param bool $disallowReorder
      */
     public function setDisallowReorder($disallowReorder)
     {
@@ -849,7 +880,7 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getDisallowReorder()
     {
@@ -857,7 +888,7 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isCollapsed()
     {
@@ -865,7 +896,7 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @param boolean $collapsed
+     * @param bool $collapsed
      */
     public function setCollapsed($collapsed)
     {
@@ -873,7 +904,7 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isCollapsible()
     {
@@ -881,7 +912,7 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @param boolean $collapsible
+     * @param bool $collapsible
      */
     public function setCollapsible($collapsible)
     {
@@ -895,7 +926,7 @@ class Fieldcollections extends Model\Object\ClassDefinition\Data
     public static function collectCalculatedValueItems($container, &$list = [])
     {
         if (is_array($container)) {
-            /** @var  $childDef Object\ClassDefinition\Data */
+            /** @var $childDef Object\ClassDefinition\Data */
             foreach ($container as $childDef) {
                 if ($childDef instanceof Model\Object\ClassDefinition\Data\CalculatedValue) {
                     $list[] = $childDef;

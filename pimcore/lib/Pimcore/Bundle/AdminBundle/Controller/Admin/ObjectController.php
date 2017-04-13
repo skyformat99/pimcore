@@ -44,7 +44,9 @@ class ObjectController extends ElementControllerBase implements EventedControlle
 
     /**
      * @Route("/tree-get-childs-by-id")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function treeGetChildsByIdAction(Request $request)
@@ -72,7 +74,6 @@ class ObjectController extends ElementControllerBase implements EventedControlle
                 $limit = 100000000;
             }
             $offset = intval($request->get("start"));
-
 
             $childsList = new Object\Listing();
             $condition = "objects.o_parentId = '" . $object->getId() . "'";
@@ -107,7 +108,6 @@ class ObjectController extends ElementControllerBase implements EventedControlle
                                                  )";
             }
 
-
             $childsList->setCondition($condition);
             $childsList->setLimit($limit);
             $childsList->setOffset($offset);
@@ -140,7 +140,6 @@ class ObjectController extends ElementControllerBase implements EventedControlle
         \Pimcore::getEventDispatcher()->dispatch(AdminEvents::OBJECT_TREE_GET_CHILDREN_BY_ID_PRE_SEND_DATA, $event);
         $objects = $event->getArgument("objects");
 
-
         if ($request->get("limit")) {
             return $this->json([
                 "offset" => $offset,
@@ -156,6 +155,7 @@ class ObjectController extends ElementControllerBase implements EventedControlle
 
     /**
      * @param Object\AbstractObject $element
+     *
      * @return array
      */
     protected function getTreeNodeConfig($element)
@@ -201,7 +201,6 @@ class ObjectController extends ElementControllerBase implements EventedControlle
             $tmpObject["published"] = $child->isPublished();
             $tmpObject["className"] = $child->getClass()->getName();
 
-
             if (!$child->isPublished()) {
                 $tmpObject["cls"] .= "pimcore_unpublished ";
             }
@@ -224,10 +223,8 @@ class ObjectController extends ElementControllerBase implements EventedControlle
             $tmpObject["cls"] .= $child->getElementAdminStyle()->getElementCssClass() . " ";
         }
 
-
         $tmpObject["expanded"] = !$hasChildren;
         $tmpObject["permissions"] = $child->getUserPermissions();
-
 
         if ($child->isLocked()) {
             $tmpObject["cls"] .= "pimcore_treenode_locked ";
@@ -248,7 +245,9 @@ class ObjectController extends ElementControllerBase implements EventedControlle
 
     /**
      * @Route("/get-id-path-paging-info")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getIdPathPagingInfoAction(Request $request)
@@ -297,7 +296,9 @@ class ObjectController extends ElementControllerBase implements EventedControlle
 
     /**
      * @Route("/get")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getAction(Request $request)
@@ -360,7 +361,6 @@ class ObjectController extends ElementControllerBase implements EventedControlle
                 $objectData["general"]["iconCls"] = $object->getElementAdminStyle()->getElementIconClass();
             }
 
-
             if ($object instanceof Object\Concrete) {
                 $objectData["lazyLoadedFields"] = $object->getLazyLoadedFields();
             }
@@ -412,7 +412,6 @@ class ObjectController extends ElementControllerBase implements EventedControlle
 
             $objectData = $this->filterLocalizedFields($object, $objectData);
             Object\Service::enrichLayoutDefinition($objectData["layout"], $object);
-
 
             //Hook for modifying return value - e.g. for changing permissions based on object data
             //data need to wrapped into a container in order to pass parameter to event listeners by reference so that they can change the values
@@ -537,7 +536,6 @@ class ObjectController extends ElementControllerBase implements EventedControlle
                 }
             }
 
-
             if ($fielddefinition->isEmpty($fieldData) && !empty($parent)) {
                 $this->getDataForField($parent, $key, $fielddefinition, $objectFromVersion, $level + 1);
             } else {
@@ -559,6 +557,7 @@ class ObjectController extends ElementControllerBase implements EventedControlle
     /**
      * @param $object
      * @param $key
+     *
      * @return mixed
      */
     private function getParentValue($object, $key)
@@ -581,6 +580,7 @@ class ObjectController extends ElementControllerBase implements EventedControlle
 
     /**
      * @param Object\ClassDefinition\Data $fielddefinition
+     *
      * @return bool
      */
     private function isInheritableField(Object\ClassDefinition\Data $fielddefinition)
@@ -596,6 +596,7 @@ class ObjectController extends ElementControllerBase implements EventedControlle
 
     /**
      * @Route("/lock")
+     *
      * @param Request $request
      */
     public function lockAction(Request $request)
@@ -637,6 +638,7 @@ class ObjectController extends ElementControllerBase implements EventedControlle
     /**
      * @param Object\AbstractObject $object
      * @param $objectData
+     *
      * @return mixed
      */
     public function filterLocalizedFields(Object\AbstractObject $object, $objectData)
@@ -672,7 +674,9 @@ class ObjectController extends ElementControllerBase implements EventedControlle
 
     /**
      * @Route("/get-folder")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getFolderAction(Request $request)
@@ -731,6 +735,7 @@ class ObjectController extends ElementControllerBase implements EventedControlle
 
     /**
      * @param $classes
+     *
      * @return array
      */
     protected function prepareChildClasses($classes)
@@ -748,7 +753,9 @@ class ObjectController extends ElementControllerBase implements EventedControlle
 
     /**
      * @Route("/add")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function addAction(Request $request)
@@ -821,7 +828,9 @@ class ObjectController extends ElementControllerBase implements EventedControlle
 
     /**
      * @Route("/add-folder")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function addFolderAction(Request $request)
@@ -860,7 +869,9 @@ class ObjectController extends ElementControllerBase implements EventedControlle
 
     /**
      * @Route("/delete")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function deleteAction(Request $request)
@@ -902,7 +913,9 @@ class ObjectController extends ElementControllerBase implements EventedControlle
 
     /**
      * @Route("/delete-info")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function deleteInfoAction(Request $request)
@@ -927,7 +940,6 @@ class ObjectController extends ElementControllerBase implements EventedControlle
                 Logger::err("failed to access object with id: " . $id);
                 continue;
             }
-
 
             // check for children
             if ($object instanceof Object\AbstractObject) {
@@ -997,8 +1009,11 @@ class ObjectController extends ElementControllerBase implements EventedControlle
 
     /**
      * @Route("/update")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
+     *
      * @throws \Exception
      */
     public function updateAction(Request $request)
@@ -1019,7 +1034,6 @@ class ObjectController extends ElementControllerBase implements EventedControlle
                 return $this->json(["success" => false, "message" => "You can't relocate if there's a newer not published version"]);
             }
         }
-
 
         $values = $this->decodeJson($request->get("values"));
 
@@ -1094,8 +1108,11 @@ class ObjectController extends ElementControllerBase implements EventedControlle
 
     /**
      * @Route("/save")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
+     *
      * @throws \Exception
      */
     public function saveAction(Request $request)
@@ -1161,7 +1178,6 @@ class ObjectController extends ElementControllerBase implements EventedControlle
             }
 
             $object = $this->assignPropertiesFromEditmode($request, $object);
-
 
             // scheduled tasks
             if ($request->get("scheduler")) {
@@ -1239,6 +1255,7 @@ class ObjectController extends ElementControllerBase implements EventedControlle
      * @param Object\Concrete $object
      * @param $originalModificationDate
      * @param $data
+     *
      * @return JsonResponse
      */
     public function performFieldcollectionModificationCheck(Request $request, Object\Concrete $object, $originalModificationDate, $data)
@@ -1251,7 +1268,7 @@ class ObjectController extends ElementControllerBase implements EventedControlle
                     if (isset($data[$fd->getName()])) {
                         $allowedTypes = $fd->getAllowedTypes();
                         foreach ($allowedTypes as $type) {
-                            /** @var  $fdDef Object\Fieldcollection\Definition */
+                            /** @var $fdDef Object\Fieldcollection\Definition */
                             $fdDef = Object\Fieldcollection\Definition::getByKey($type);
                             $childDefinitions = $fdDef->getFieldDefinitions();
                             foreach ($childDefinitions as $childDef) {
@@ -1268,7 +1285,9 @@ class ObjectController extends ElementControllerBase implements EventedControlle
 
     /**
      * @Route("/save-folder")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function saveFolderAction(Request $request)
@@ -1300,6 +1319,7 @@ class ObjectController extends ElementControllerBase implements EventedControlle
     /**
      * @param Request $request
      * @param $object
+     *
      * @return mixed
      */
     protected function assignPropertiesFromEditmode(Request $request, $object)
@@ -1318,7 +1338,6 @@ class ObjectController extends ElementControllerBase implements EventedControlle
             if (is_array($propertiesData)) {
                 foreach ($propertiesData as $propertyName => $propertyData) {
                     $value = $propertyData["data"];
-
 
                     try {
                         $property = new Model\Property();
@@ -1342,7 +1361,9 @@ class ObjectController extends ElementControllerBase implements EventedControlle
 
     /**
      * @Route("/publish-version")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function publishVersionAction(Request $request)
@@ -1374,9 +1395,12 @@ class ObjectController extends ElementControllerBase implements EventedControlle
 
     /**
      * @Route("/preview-version")
+     *
      * @param Request $request
      * @TemplatePhp()
+     *
      * @throws \Exception
+     *
      * @return array
      */
     public function previewVersionAction(Request $request)
@@ -1407,7 +1431,9 @@ class ObjectController extends ElementControllerBase implements EventedControlle
      * @param Request $request
      * @param from
      * @param to
+     *
      * @return array
+     *
      * @throws \Exception
      */
     public function diffVersionsAction(Request $request, $from, $to)
@@ -1441,7 +1467,9 @@ class ObjectController extends ElementControllerBase implements EventedControlle
 
     /**
      * @Route("/grid-proxy")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function gridProxyAction(Request $request)
@@ -1496,7 +1524,7 @@ class ObjectController extends ElementControllerBase implements EventedControlle
 
                                 $getter = "get" . ucfirst($field);
                                 if (method_exists($object, $getter)) {
-                                    /** @var  $classificationStoreData Object\Classificationstore */
+                                    /** @var $classificationStoreData Object\Classificationstore */
                                     $classificationStoreData = $object->$getter();
                                     $classificationStoreData->setLocalizedKeyValue($groupId, $keyid, $value, $requestedLanguage);
                                 }
@@ -1541,7 +1569,6 @@ class ObjectController extends ElementControllerBase implements EventedControlle
                     }
 
                     $object->setValues($objectData);
-
 
                     $object->save();
 
@@ -1598,7 +1625,6 @@ class ObjectController extends ElementControllerBase implements EventedControlle
                 $start = $request->get("start");
             }
 
-
             $sortingSettings = \Pimcore\Admin\Helper\QueryParams::extractSortingSettings(array_merge($request->request->all(), $request->query->all()));
 
             $doNotQuote = false;
@@ -1642,8 +1668,6 @@ class ObjectController extends ElementControllerBase implements EventedControlle
                                                  )";
             }
 
-
-
             $featureJoins = [];
             $featureFilters = false;
 
@@ -1669,7 +1693,6 @@ class ObjectController extends ElementControllerBase implements EventedControlle
             $list->setCondition(implode(" AND ", $conditionFilters));
             $list->setLimit($limit);
             $list->setOffset($start);
-
 
             if (isset($sortingSettings["isFeature"]) && $sortingSettings["isFeature"]) {
                 $orderKey = "cskey_" . $sortingSettings["fieldname"] . "_" . $sortingSettings["groupId"]. "_" . $sortingSettings["keyId"];
@@ -1702,7 +1725,9 @@ class ObjectController extends ElementControllerBase implements EventedControlle
 
     /**
      * @Route("/copy-info")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function copyInfoAction(Request $request)
@@ -1779,7 +1804,6 @@ class ObjectController extends ElementControllerBase implements EventedControlle
             ]];
         }
 
-
         return $this->json([
             "pastejobs" => $pasteJobs
         ]);
@@ -1787,7 +1811,9 @@ class ObjectController extends ElementControllerBase implements EventedControlle
 
     /**
      * @Route("/copy-rewrite-ids")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function copyRewriteIdsAction(Request $request)
@@ -1813,7 +1839,6 @@ class ObjectController extends ElementControllerBase implements EventedControlle
         $object->setUserModification($this->getUser()->getId());
         $object->save();
 
-
         // write the store back to the session
         Tool\Session::useSession(function (AttributeBagInterface $session) use ($transactionId, $idStore) {
             $session->set($transactionId, $idStore);
@@ -1827,7 +1852,9 @@ class ObjectController extends ElementControllerBase implements EventedControlle
 
     /**
      * @Route("/copy")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function copyAction(Request $request)
@@ -1895,7 +1922,9 @@ class ObjectController extends ElementControllerBase implements EventedControlle
 
     /**
      * @Route("/preview")
+     *
      * @param Request $request
+     *
      * @return Response|RedirectResponse
      */
     public function previewAction(Request $request)
@@ -1962,7 +1991,6 @@ class ObjectController extends ElementControllerBase implements EventedControlle
             }
         }
 
-
         foreach ($toAdd as $id) {
             $owner = Object::getById($id);
             //TODO: lock ?!
@@ -1981,6 +2009,7 @@ class ObjectController extends ElementControllerBase implements EventedControlle
     /**
      * @param  array $relations
      * @param  array $value
+     *
      * @return array
      */
     protected function detectDeletedRemoteOwnerRelations($relations, $value)
@@ -2003,6 +2032,7 @@ class ObjectController extends ElementControllerBase implements EventedControlle
     /**
      * @param  array $relations
      * @param  array $value
+     *
      * @return array
      */
     protected function detectAddedRemoteOwnerRelations($relations, $value)
@@ -2024,6 +2054,7 @@ class ObjectController extends ElementControllerBase implements EventedControlle
 
     /**
      * @param  Object\Concrete $object
+     *
      * @return Object\Concrete
      */
     protected function getLatestVersion(Object\Concrete $object)

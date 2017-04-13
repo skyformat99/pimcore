@@ -20,14 +20,13 @@ use Pimcore\Bundle\EcommerceFrameworkBundle\Factory;
 use Pimcore\Bundle\EcommerceFrameworkBundle\Model\ICheckoutable;
 use Pimcore\Bundle\EcommerceFrameworkBundle\Tools\Config\HelperContainer;
 use Pimcore\Logger;
-use \Pimcore\Tool;
+use Pimcore\Tool;
 
 /**
  * Class MultiCartManager
  */
 class MultiCartManager implements ICartManager
 {
-
     /**
      * @var ICart[]
      */
@@ -40,6 +39,7 @@ class MultiCartManager implements ICartManager
 
     /**
      * @param $config
+     *
      * @throws InvalidConfigException
      */
     public function __construct($config)
@@ -53,6 +53,7 @@ class MultiCartManager implements ICartManager
      * checks configuration and if specified classes exist
      *
      * @param $config
+     *
      * @throws InvalidConfigException
      */
     protected function checkConfig($config)
@@ -113,9 +114,6 @@ class MultiCartManager implements ICartManager
         }
     }
 
-    /**
-     *
-     */
     protected function initSavedCarts()
     {
         $env = Factory::getInstance()->getEnvironment();
@@ -155,7 +153,9 @@ class MultiCartManager implements ICartManager
      * @param array $params
      * @param array $subProducts
      * @param null $comment
+     *
      * @return null|string
+     *
      * @throws InvalidConfigException
      */
     public function addToCart(ICheckoutable $product, $count, $key = null, $itemKey = null, $replace = false, $params = [], $subProducts = [], $comment = null)
@@ -171,7 +171,6 @@ class MultiCartManager implements ICartManager
         return $itemKey;
     }
 
-
     /**
      * @return void
      */
@@ -183,9 +182,9 @@ class MultiCartManager implements ICartManager
         }
     }
 
-
     /**
      * @param null $key
+     *
      * @throws InvalidConfigException
      */
     public function deleteCart($key = null)
@@ -197,7 +196,9 @@ class MultiCartManager implements ICartManager
 
     /**
      * @param array $param
+     *
      * @return int|string
+     *
      * @throws InvalidConfigException
      */
     public function createCart($param)
@@ -228,6 +229,7 @@ class MultiCartManager implements ICartManager
 
     /**
      * @param null $key
+     *
      * @throws InvalidConfigException
      */
     public function clearCart($key = null)
@@ -244,7 +246,9 @@ class MultiCartManager implements ICartManager
 
     /**
      * @param null $key
+     *
      * @return ICart
+     *
      * @throws InvalidConfigException
      */
     public function getCart($key = null)
@@ -259,6 +263,7 @@ class MultiCartManager implements ICartManager
 
     /**
      * @param string $name
+     *
      * @return null|ICart
      */
     public function getCartByName($name)
@@ -273,7 +278,6 @@ class MultiCartManager implements ICartManager
         return null;
     }
 
-
     /**
      * @return ICart[]
      */
@@ -287,6 +291,7 @@ class MultiCartManager implements ICartManager
     /**
      * @param string $itemKey
      * @param null $key
+     *
      * @throws InvalidConfigException
      */
     public function removeFromCart($itemKey, $key = null)
@@ -302,7 +307,9 @@ class MultiCartManager implements ICartManager
      * @deprecated
      *
      * use getCartPriceCalculator instead
+     *
      * @param ICart $cart
+     *
      * @return ICartPriceCalculator
      */
     public function getCartPriceCalcuator(ICart $cart)
@@ -312,6 +319,7 @@ class MultiCartManager implements ICartManager
 
     /**
      * @param ICart $cart
+     *
      * @return ICartPriceCalculator
      */
     public function getCartPriceCalculator(ICart $cart)
@@ -319,10 +327,6 @@ class MultiCartManager implements ICartManager
         return new $this->config->pricecalculator->class($this->config->pricecalculator->config, $cart);
     }
 
-
-    /**
-     *
-     */
     public function reset()
     {
         $this->carts = [];

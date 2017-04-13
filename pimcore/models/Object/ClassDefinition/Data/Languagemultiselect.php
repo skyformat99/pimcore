@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -21,7 +22,6 @@ use Pimcore\Tool;
 
 class Languagemultiselect extends Model\Object\ClassDefinition\Data\Multiselect
 {
-
     /**
      * Static type of this element
      *
@@ -29,15 +29,11 @@ class Languagemultiselect extends Model\Object\ClassDefinition\Data\Multiselect
      */
     public $fieldtype = "languagemultiselect";
 
-
     /**
      * @var bool
      */
     public $onlySystemLanguages = false;
 
-    /**
-     *
-     */
     public function configureOptions()
     {
         $validLanguages = (array) Tool::getValidLanguages();
@@ -70,6 +66,7 @@ class Languagemultiselect extends Model\Object\ClassDefinition\Data\Multiselect
 
     /**
      * @param $value
+     *
      * @return $this
      */
     public function setOnlySystemLanguages($value)
@@ -81,6 +78,7 @@ class Languagemultiselect extends Model\Object\ClassDefinition\Data\Multiselect
 
     /**
      * @param $data
+     *
      * @return static
      */
     public static function __set_state($data)

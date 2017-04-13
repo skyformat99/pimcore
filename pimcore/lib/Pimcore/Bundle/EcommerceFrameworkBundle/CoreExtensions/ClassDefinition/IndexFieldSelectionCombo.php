@@ -22,7 +22,6 @@ use Pimcore\Model\Object\ClassDefinition\Data\Select;
 
 class IndexFieldSelectionCombo extends Select
 {
-
     /**
      * Static type of this element
      *
@@ -30,12 +29,9 @@ class IndexFieldSelectionCombo extends Select
      */
     public $fieldtype = "indexFieldSelectionCombo";
 
-
     public $specificPriceField = false;
     public $showAllFields = false;
     public $considerTenants = false;
-
-
 
     public function __construct()
     {

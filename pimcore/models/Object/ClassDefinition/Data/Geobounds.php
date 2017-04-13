@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -21,8 +22,6 @@ use Pimcore\Model\Object;
 
 class Geobounds extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
 {
-
-
     /**
      * Static type of this element
      *
@@ -61,12 +60,13 @@ class Geobounds extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
      */
     public $phpdocType = "\\Pimcore\\Model\\Object\\Data\\Geobounds";
 
-
     /**
      * @see Object\ClassDefinition\Data::getDataForResource
+     *
      * @param Object\Data\Geobounds $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForResource($data, $object = null, $params = [])
@@ -90,9 +90,11 @@ class Geobounds extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
 
     /**
      * @see Object\ClassDefinition\Data::getDataFromResource
+     *
      * @param array $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataFromResource($data, $object = null, $params = [])
@@ -109,9 +111,11 @@ class Geobounds extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
 
     /**
      * @see Object\ClassDefinition\Data::getDataForQueryResource
+     *
      * @param Object\Data\Geobounds $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForQueryResource($data, $object = null, $params = [])
@@ -121,9 +125,11 @@ class Geobounds extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
 
     /**
      * @see Object\ClassDefinition\Data::getDataForEditmode
+     *
      * @param Object\Data\Geobounds $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return array
      */
     public function getDataForEditmode($data, $object = null, $params = [])
@@ -144,6 +150,7 @@ class Geobounds extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
      * @param $data
      * @param null $object
      * @param array $params
+     *
      * @return array
      */
     public function getDataForGrid($data, $object = null, $params = [])
@@ -153,9 +160,11 @@ class Geobounds extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
 
     /**
      * @see Model\Object\ClassDefinition\Data::getDataFromEditmode
+     *
      * @param array $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return Object\Data\Geobounds
      */
     public function getDataFromEditmode($data, $object = null, $params = [])
@@ -172,9 +181,11 @@ class Geobounds extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
 
     /**
      * @see Object\ClassDefinition\Data::getVersionPreview
+     *
      * @param Object\Data\Geobounds $data
      * @param null|Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getVersionPreview($data, $object = null, $params = [])
@@ -186,13 +197,14 @@ class Geobounds extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
         return "";
     }
 
-
-
     /**
      * converts object data to a simple string value or CSV Export
+     *
      * @abstract
+     *
      * @param Object\AbstractObject $object
      * @param array $params
+     *
      * @return string
      */
     public function getForCsvExport($object, $params = [])
@@ -209,13 +221,14 @@ class Geobounds extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
      * @param string $importValue
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return null|Object\ClassDefinition\Data|Object\Data\Geobounds
      */
     public function getFromCsvImport($importValue, $object = null, $params = [])
     {
         $points = explode("|", $importValue);
         $value = null;
-        if (is_array($points) and count($points)==2) {
+        if (is_array($points) and count($points) == 2) {
             $northEast = explode(",", $points[0]);
             $southWest = explode(",", $points[1]);
             if ($northEast[0] && $northEast[1] && $southWest[0] && $southWest[1]) {
@@ -229,6 +242,7 @@ class Geobounds extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
     /**
      * @param $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForSearchIndex($object, $params = [])
@@ -238,8 +252,10 @@ class Geobounds extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
 
     /**
      * converts data to be exposed via webservices
+     *
      * @param string $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function getForWebserviceExport($object, $params = [])
@@ -262,7 +278,9 @@ class Geobounds extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
      * @param null $idMapper
+     *
      * @return mixed|void
+     *
      * @throws \Exception
      */
     public function getFromWebserviceImport($value, $object = null, $params = [], $idMapper = null)
@@ -285,6 +303,7 @@ class Geobounds extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
     /** True if change is allowed in edit mode.
      * @param string $object
      * @param mixed $params
+     *
      * @return bool
      */
     public function isDiffChangeAllowed($object, $params = [])
@@ -296,6 +315,7 @@ class Geobounds extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
      * @param mixed $value
      * @param Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function marshal($value, $object = null, $params = [])
@@ -312,6 +332,7 @@ class Geobounds extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
      * @param mixed $value
      * @param Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function unmarshal($value, $object = null, $params = [])

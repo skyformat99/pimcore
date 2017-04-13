@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Asset
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -18,15 +19,14 @@ namespace Pimcore\Model\Asset\Video;
 
 use Pimcore\Event\AssetEvents;
 use Pimcore\Event\FrontendEvents;
-use Pimcore\Model\Asset\Image;
-use Pimcore\Model;
 use Pimcore\File;
 use Pimcore\Logger;
+use Pimcore\Model;
+use Pimcore\Model\Asset\Image;
 use Symfony\Component\EventDispatcher\GenericEvent;
 
 class ImageThumbnail
 {
-
     /**
      * @var \Pimcore\Model\Asset\Video
      */
@@ -74,6 +74,7 @@ class ImageThumbnail
 
     /**
      * ImageThumbnail constructor.
+     *
      * @param $asset
      * @param null $config
      * @param null $timeOffset
@@ -118,9 +119,6 @@ class ImageThumbnail
         return $this->filesystemPath;
     }
 
-    /**
-     *
-     */
     public function generate()
     {
         $errorImage = PIMCORE_WEB_ROOT . '/pimcore/static6/img/filetype-not-supported.png';
@@ -201,9 +199,6 @@ class ImageThumbnail
         }
     }
 
-    /**
-     *
-     */
     public function reset()
     {
         $this->filesystemPath = null;
@@ -217,8 +212,9 @@ class ImageThumbnail
      * Get the public path to the thumbnail image.
      * This method is here for backwards compatility.
      * Up to Pimcore 1.4.8 a thumbnail was returned as a path to an image.
+     *
      * @return string Public path to thumbnail image.
-    */
+     */
     public function __toString()
     {
         return $this->getPath();
@@ -226,7 +222,7 @@ class ImageThumbnail
 
     /**
      * @return int Width of the generated thumbnail image.
-    */
+     */
     public function getWidth()
     {
         if (!$this->width) {
@@ -238,8 +234,9 @@ class ImageThumbnail
 
     /**
      * Get the width of the generated thumbnail image in pixels.
+     *
      * @return int Height of the generated thumbnail image.
-    */
+     */
     public function getHeight()
     {
         if (!$this->height) {
@@ -251,7 +248,7 @@ class ImageThumbnail
 
     /**
      * @return int real Width of the generated thumbnail image. (when using high resolution option)
-    */
+     */
     public function getRealWidth()
     {
         if (!$this->realWidth) {
@@ -263,8 +260,9 @@ class ImageThumbnail
 
     /**
      * Get the real width of the generated thumbnail image in pixels. (when using high resolution option)
+     *
      * @return int Height of the generated thumbnail image.
-    */
+     */
     public function getRealHeight()
     {
         if (!$this->realHeight) {
@@ -313,7 +311,7 @@ class ImageThumbnail
 
     /**
      * @return \Pimcore\Model\Asset\Image The original image from which this thumbnail is generated.
-    */
+     */
     public function getAsset()
     {
         return $this->asset;
@@ -321,6 +319,7 @@ class ImageThumbnail
 
     /**
      * Get thumbnail image configuration.
+     *
      * @return Image\Thumbnail\Config
      */
     public function getConfig()
@@ -330,6 +329,7 @@ class ImageThumbnail
 
     /**
      * @param $selector
+     *
      * @return bool|static
      */
     protected function createConfig($selector)

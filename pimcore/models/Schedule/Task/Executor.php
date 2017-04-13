@@ -10,24 +10,21 @@
  *
  * @category   Pimcore
  * @package    Schedule
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Schedule\Task;
 
-use Pimcore\Model\Document;
+use Pimcore\Logger;
 use Pimcore\Model\Asset;
+use Pimcore\Model\Document;
 use Pimcore\Model\Object;
 use Pimcore\Model\Version;
-use Pimcore\Logger;
 
 class Executor
 {
-
-    /**
-     *
-     */
     public static function execute()
     {
         $list = new Listing();

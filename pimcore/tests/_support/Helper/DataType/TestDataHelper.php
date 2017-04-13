@@ -888,6 +888,7 @@ class TestDataHelper extends Module
 
     /**
      * @param int $seed
+     *
      * @return Object\Data\StructuredTable
      */
     private function getStructuredTableData($seed = 1)
@@ -1240,6 +1241,7 @@ class TestDataHelper extends Module
 
     /**
      * @param ElementInterface[] $elements
+     *
      * @return array
      */
     private function getElementPaths(array $elements = [])

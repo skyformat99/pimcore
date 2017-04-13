@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Asset
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -27,7 +28,6 @@ use Pimcore\Model\Element;
  */
 class Service extends Model\Element\Service
 {
-
     /**
      * @var Model\User
      */
@@ -48,6 +48,7 @@ class Service extends Model\Element\Service
     /**
      * @param  Model\Asset $target
      * @param  Model\Asset $source
+     *
      * @return Model\Asset copied asset
      */
     public function copyRecursive($target, $source)
@@ -101,6 +102,7 @@ class Service extends Model\Element\Service
     /**
      * @param  Asset $target
      * @param  Asset $source
+     *
      * @return Asset copied asset
      */
     public function copyAsChild($target, $source)
@@ -138,7 +140,9 @@ class Service extends Model\Element\Service
     /**
      * @param $target
      * @param $source
+     *
      * @return mixed
+     *
      * @throws \Exception
      */
     public function copyContents($target, $source)
@@ -161,9 +165,9 @@ class Service extends Model\Element\Service
         return $target;
     }
 
-
     /**
      * @param  Asset $asset
+     *
      * @return $this
      */
     public static function gridAssetData($asset)
@@ -175,8 +179,10 @@ class Service extends Model\Element\Service
 
     /**
      * @static
+     *
      * @param $path
      * @param null $type
+     *
      * @return bool
      */
     public static function pathExists($path, $type = null)
@@ -199,7 +205,9 @@ class Service extends Model\Element\Service
 
     /**
      * @static
+     *
      * @param Element\ElementInterface $element
+     *
      * @return Element\ElementInterface
      */
     public static function loadAllFields(Element\ElementInterface $element)
@@ -219,8 +227,10 @@ class Service extends Model\Element\Service
      *  "object" => array(...),
      *  "asset" => array(...)
      * )
+     *
      * @param $asset
      * @param $rewriteConfig
+     *
      * @return Asset
      */
     public static function rewriteIds($asset, $rewriteConfig)
@@ -238,6 +248,7 @@ class Service extends Model\Element\Service
 
     /**
      * @param $metadata
+     *
      * @return array
      */
     public static function minimizeMetadata($metadata)
@@ -274,6 +285,7 @@ class Service extends Model\Element\Service
 
     /**
      * @param $metadata
+     *
      * @return array
      */
     public static function expandMetadataForEditmode($metadata)
@@ -321,7 +333,9 @@ class Service extends Model\Element\Service
     /**
      * @param $item \Pimcore\Model\Asset
      * @param int $nr
+     *
      * @return string
+     *
      * @throws \Exception
      */
     public static function getUniqueKey($item, $nr = 0)

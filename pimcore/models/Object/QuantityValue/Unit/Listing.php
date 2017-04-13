@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -23,7 +24,6 @@ use Pimcore\Model;
  */
 class Listing extends Model\Listing\AbstractListing
 {
-
     /**
      * @var array
      */
@@ -31,7 +31,8 @@ class Listing extends Model\Listing\AbstractListing
 
     /**
      * @param $key
-     * @return boolean
+     *
+     * @return bool
      */
     public function isValidOrderKey($key)
     {

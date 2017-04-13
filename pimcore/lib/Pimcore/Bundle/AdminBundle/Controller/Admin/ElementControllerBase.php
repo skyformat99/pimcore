@@ -22,9 +22,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ElementControllerBase extends AdminController
 {
-
     /**
      * @param $element
+     *
      * @return array
      */
     protected function getTreeNodeConfig($element)
@@ -34,7 +34,9 @@ class ElementControllerBase extends AdminController
 
     /**
      * @Route("/tree-get-root")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function treeGetRootAction(Request $request)

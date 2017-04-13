@@ -18,7 +18,6 @@ use Pimcore\Tool\Console;
 
 class HtmlToImage
 {
-
     /**
      * @return bool
      */
@@ -55,6 +54,7 @@ class HtmlToImage
      * @param $outputFile
      * @param int $screenWidth
      * @param string $format
+     *
      * @return bool
      */
     public static function convert($url, $outputFile, $screenWidth = 1200, $format = "png")
@@ -62,7 +62,6 @@ class HtmlToImage
 
         // add parameter pimcore_preview to prevent inclusion of google analytics code, cache, etc.
         $url .= (strpos($url, "?") ? "&" : "?") . "pimcore_preview=true";
-
 
         $arguments = " --width " . $screenWidth . " --format " . $format . " \"" . $url . "\" " . $outputFile;
 

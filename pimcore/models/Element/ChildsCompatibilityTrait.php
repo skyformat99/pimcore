@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Element
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -20,6 +21,7 @@ trait ChildsCompatibilityTrait
 {
     /**
      * @deprecated
+     *
      * @return mixed
      */
     public function getChilds()
@@ -31,6 +33,7 @@ trait ChildsCompatibilityTrait
 
     /**
      * @deprecated
+     *
      * @return mixed
      */
     public function setChilds()
@@ -42,6 +45,7 @@ trait ChildsCompatibilityTrait
 
     /**
      * @deprecated
+     *
      * @return mixed
      */
     public function hasChilds()

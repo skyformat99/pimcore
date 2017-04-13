@@ -27,7 +27,6 @@ use Pimcore\Logger;
  */
 abstract class AbstractBatchProcessingWorker extends AbstractWorker implements IBatchProcessingWorker
 {
-
     /**
      * @var \Pimcore\Bundle\EcommerceFrameworkBundle\IndexService\Config\AbstractConfig
      */
@@ -40,13 +39,11 @@ abstract class AbstractBatchProcessingWorker extends AbstractWorker implements I
      */
     abstract protected function getStoreTableName();
 
-
     /**
      * @param $objectId
      * @param null $data
      */
     abstract protected function doUpdateIndex($objectId, $data = null);
-
 
     /**
      * creates store table
@@ -112,7 +109,6 @@ abstract class AbstractBatchProcessingWorker extends AbstractWorker implements I
                     }
                 }
 
-
                 $tmpIds = [];
                 $workingCategory = $c;
                 while ($workingCategory) {
@@ -125,7 +121,7 @@ abstract class AbstractBatchProcessingWorker extends AbstractWorker implements I
                 $tmpIds = array_reverse($tmpIds);
                 $s = '';
                 foreach ($tmpIds as $id) {
-                    $s.= '/'.$id;
+                    $s .= '/'.$id;
                     $categoryIdPaths[] = $s;
                 }
             }
@@ -160,7 +156,6 @@ abstract class AbstractBatchProcessingWorker extends AbstractWorker implements I
             "inProductList" => $object->isActive(true),
             "tenant" => $this->name,
         ];
-
 
         return $data;
     }
@@ -248,7 +243,6 @@ abstract class AbstractBatchProcessingWorker extends AbstractWorker implements I
                 \Pimcore\Model\Object\AbstractObject::setGetInheritedValues($b);
                 \Pimcore\Model\Object\AbstractObject::setHideUnpublished($hidePublishedMemory);
 
-
                 $subTenantData = $this->tenantConfig->prepareSubTenantEntries($object, $subObjectId);
                 $jsonData = json_encode([
                     "data" => $data,
@@ -297,7 +291,6 @@ abstract class AbstractBatchProcessingWorker extends AbstractWorker implements I
         }
     }
 
-
     protected function getWorkerTimeout()
     {
         return 300;
@@ -330,6 +323,7 @@ abstract class AbstractBatchProcessingWorker extends AbstractWorker implements I
      * can be run in parallel since each thread marks the entries it is working on and only processes these entries
      *
      * @param int $limit
+     *
      * @return int number of entries
      */
     public function processPreparationQueue($limit = 200)
@@ -367,6 +361,7 @@ abstract class AbstractBatchProcessingWorker extends AbstractWorker implements I
      * can be run in parallel since each thread marks the entries it is working on and only processes these entries
      *
      * @param int $limit
+     *
      * @return int number of entries processed
      */
     public function processUpdateIndexQueue($limit = 200)

@@ -46,6 +46,7 @@ class Action extends Helper
      * @param $controller
      * @param $module
      * @param array $params
+     *
      * @return mixed
      */
     public function __invoke($action, $controller, $module = null, array $params = [])

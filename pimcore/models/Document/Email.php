@@ -10,15 +10,16 @@
  *
  * @category   Pimcore
  * @package    Document
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Document;
 
-use Pimcore\Model;
 use Egulias\EmailValidator\EmailValidator;
 use Egulias\EmailValidator\Validation\RFCValidation;
+use Pimcore\Model;
 
 /**
  * @method \Pimcore\Model\Document\Email\Dao getDao()
@@ -71,6 +72,7 @@ class Email extends Model\Document\PageSnippet
      * Contains the email subject
      *
      * @param string $subject
+     *
      * @return $this
      */
     public function setSubject($subject)
@@ -94,6 +96,7 @@ class Email extends Model\Document\PageSnippet
      * Sets the "to" receiver
      *
      * @param string $to
+     *
      * @return $this
      */
     public function setTo($to)
@@ -127,6 +130,7 @@ class Email extends Model\Document\PageSnippet
      * Helper to return receivers as array
      *
      * @param $key
+     *
      * @return array
      */
     protected function getAsArray($key)
@@ -148,7 +152,9 @@ class Email extends Model\Document\PageSnippet
      * Helper to validate a email address
      *
      * @static
+     *
      * @param $emailAddress
+     *
      * @return string | null - returns "null" if the email address is invalid otherwise the email address is returned
      */
     public static function validateEmailAddress($emailAddress)
@@ -167,6 +173,7 @@ class Email extends Model\Document\PageSnippet
      * Sets the "from" email address
      *
      * @param string $from
+     *
      * @return $this
      */
     public function setFrom($from)
@@ -202,6 +209,7 @@ class Email extends Model\Document\PageSnippet
      * Sets the carbon copy receivers (multiple receivers should be separated with a ",")
      *
      * @param string $cc
+     *
      * @return $this
      */
     public function setCc($cc)
@@ -235,6 +243,7 @@ class Email extends Model\Document\PageSnippet
      * Sets the blind carbon copy receivers (multiple receivers should be separated with a ",")
      *
      * @param string $bcc
+     *
      * @return $this
      */
     public function setBcc($bcc)

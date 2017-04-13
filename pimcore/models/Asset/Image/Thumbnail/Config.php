@@ -10,33 +10,33 @@
  *
  * @category   Pimcore
  * @package    Asset
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Asset\Image\Thumbnail;
 
-use Pimcore\Tool\Serialize;
-use Pimcore\Model;
 use Pimcore\Logger;
+use Pimcore\Model;
+use Pimcore\Tool\Serialize;
 
 /**
  * @method \Pimcore\Model\Asset\Image\Thumbnail\Config\Dao getDao()
  */
 class Config extends Model\AbstractModel
 {
-
     /**
      * format of array:
      * array(
-        array(
-            "method" => "myName",
-            "arguments" =>
-                array(
-                    "width" => 345,
-                    "height" => 200
-                )
-        )
+     array(
+     "method" => "myName",
+     "arguments" =>
+     array(
+     "width" => 345,
+     "height" => 200
+     )
+     )
      * )
      *
      * @var array
@@ -100,6 +100,7 @@ class Config extends Model\AbstractModel
 
     /**
      * @param $config
+     *
      * @return self|bool
      */
     public static function getByAutoDetect($config)
@@ -130,6 +131,7 @@ class Config extends Model\AbstractModel
 
     /**
      * @param $name
+     *
      * @return null|Config
      */
     public static function getByName($name)
@@ -209,6 +211,7 @@ class Config extends Model\AbstractModel
      * @param $name
      * @param $parameters
      * @param $media
+     *
      * @return bool
      */
     public function addItem($name, $parameters, $media = null)
@@ -234,6 +237,7 @@ class Config extends Model\AbstractModel
      * @param $name
      * @param $parameters
      * @param $media
+     *
      * @return bool
      */
     public function addItemAt($position, $name, $parameters, $media = null)
@@ -261,6 +265,7 @@ class Config extends Model\AbstractModel
 
     /**
      * @param $name
+     *
      * @return bool
      */
     public function selectMedia($name)
@@ -431,7 +436,9 @@ class Config extends Model\AbstractModel
 
     /**
      * @static
+     *
      * @param $config
+     *
      * @return self
      */
     public static function getByArrayConfig($config)
@@ -461,9 +468,12 @@ class Config extends Model\AbstractModel
 
     /**
      * This is just for compatibility, this method will be removed with the next major release
+     *
      * @depricated
      * @static
+     *
      * @param $config
+     *
      * @return self
      */
     public static function getByLegacyConfig($config)
@@ -544,9 +554,9 @@ class Config extends Model\AbstractModel
         return $pipe;
     }
 
-
     /**
      * @param $asset
+     *
      * @return array
      */
     public function getEstimatedDimensions($asset)
@@ -627,7 +637,6 @@ class Config extends Model\AbstractModel
         return $dimensions;
     }
 
-
     /**
      * @param string $colorspace
      */
@@ -677,7 +686,7 @@ class Config extends Model\AbstractModel
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isPreserveColor()
     {
@@ -685,7 +694,7 @@ class Config extends Model\AbstractModel
     }
 
     /**
-     * @param boolean $preserveColor
+     * @param bool $preserveColor
      */
     public function setPreserveColor($preserveColor)
     {
@@ -693,7 +702,7 @@ class Config extends Model\AbstractModel
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isPreserveMetaData()
     {
@@ -701,7 +710,7 @@ class Config extends Model\AbstractModel
     }
 
     /**
-     * @param boolean $preserveMetaData
+     * @param bool $preserveMetaData
      */
     public function setPreserveMetaData($preserveMetaData)
     {

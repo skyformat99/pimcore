@@ -97,7 +97,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->\n\n
 CODE;
 
-
                 $content = $response->getContent();
 
                 // search for the end <head> tag, and insert the google tag manager code before

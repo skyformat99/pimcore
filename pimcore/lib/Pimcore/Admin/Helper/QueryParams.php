@@ -16,9 +16,9 @@ namespace Pimcore\Admin\Helper;
 
 class QueryParams
 {
-
     /**
      * @param $params
+     *
      * @return array  [orderKey => null|string, order => null|string]
      */
     public static function extractSortingSettings($params)
@@ -56,6 +56,7 @@ class QueryParams
 
     /**
      * @param $param
+     *
      * @return int
      */
     public static function getRecordIdForGridRequest($param)
@@ -72,7 +73,9 @@ class QueryParams
      * @param array $matchExact
      * @param bool $returnString
      * @param array $callbacks
+     *
      * @return array|string
+     *
      * @throws \Exception
      */
     public static function getFilterCondition($filterString, $matchExact = ['id', 'o_id'], $returnString = true, $callbacks = [])

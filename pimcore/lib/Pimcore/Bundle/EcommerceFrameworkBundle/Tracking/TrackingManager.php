@@ -39,6 +39,7 @@ class TrackingManager implements ITrackingManager
 
     /**
      * @param Config $config
+     *
      * @throws InvalidConfigException
      */
     public function __construct(Config $config, EngineInterface $renderer)
@@ -51,6 +52,7 @@ class TrackingManager implements ITrackingManager
      * Process config and register configured trackers
      *
      * @param Config $config
+     *
      * @throws InvalidConfigException
      */
     protected function processConfig(Config $config)
@@ -66,6 +68,7 @@ class TrackingManager implements ITrackingManager
      * Used by processConfig to handle single config entry
      *
      * @param Config $cfg
+     *
      * @throws InvalidConfigException
      */
     protected function processConfigEntry(Config $cfg)
@@ -84,11 +87,14 @@ class TrackingManager implements ITrackingManager
             throw new InvalidConfigException(sprintf('Tracker class %s not an insance of ITracker.', $className));
         }
     }
+
     /**
      * Get an item builder instance, fall back to default implementation
      *
      * @param null $className
+     *
      * @return ITrackingItemBuilder
+     *
      * @throws InvalidConfigException
      */
     protected function getItemBuilder($className = null)
@@ -112,6 +118,7 @@ class TrackingManager implements ITrackingManager
      * Register a tracker
      *
      * @param ITracker $tracker
+     *
      * @return $this
      */
     public function registerTracker($name, ITracker $tracker)
@@ -132,7 +139,6 @@ class TrackingManager implements ITrackingManager
     {
         return $this->trackers;
     }
-
 
     /**
      * Ensure the dependency for enhanced e-commerce tracking "ec.js"
@@ -220,6 +226,7 @@ class TrackingManager implements ITrackingManager
      * Track start checkout with first step
      *
      * @implements ICheckoutComplete
+     *
      * @param ICart $cart
      */
     public function trackCheckout(ICart $cart)

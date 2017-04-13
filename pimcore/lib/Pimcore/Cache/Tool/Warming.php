@@ -15,17 +15,15 @@
 namespace Pimcore\Cache\Tool;
 
 use Pimcore\Cache;
-use Pimcore\Model\Listing\AbstractListing;
+use Pimcore\Logger;
+use Pimcore\Model\Asset;
 use Pimcore\Model\Document;
 use Pimcore\Model\Element;
+use Pimcore\Model\Listing\AbstractListing;
 use Pimcore\Model\Object;
-use Pimcore\Model\Asset;
-use Pimcore\Logger;
 
 class Warming
 {
-
-
     /**
      * @var int
      */
@@ -38,6 +36,7 @@ class Warming
 
     /**
      * @static
+     *
      * @param array $types
      */
     public static function documents($types = null)
@@ -54,6 +53,7 @@ class Warming
 
     /**
      * @static
+     *
      * @param array $types
      * @param null $classes
      */
@@ -76,6 +76,7 @@ class Warming
 
     /**
      * @static
+     *
      * @param array $types
      */
     public static function assets($types = null)
@@ -111,7 +112,7 @@ class Warming
 
         Logger::info("New list of elements queued for storing into the cache with " . $iterations . " iterations and " . $totalCount . " total items");
 
-        for ($i=0; $i<$iterations; $i++) {
+        for ($i=0; $i < $iterations; $i++) {
             Logger::info("Starting iteration " . $i . " with offset: " . (self::getPerIteration() * $i));
 
             $list->setLimit(self::getPerIteration());

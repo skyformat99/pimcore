@@ -14,18 +14,17 @@
 
 namespace Pimcore\Model\Search\Backend;
 
+use ForceUTF8\Encoding;
 use Pimcore\Event\Model\SearchBackendEvent;
 use Pimcore\Event\SearchBackendEvents;
+use Pimcore\Logger;
 use Pimcore\Model\Asset;
 use Pimcore\Model\Document;
-use Pimcore\Model\Object;
 use Pimcore\Model\Element;
-use Pimcore\Logger;
-use ForceUTF8\Encoding;
+use Pimcore\Model\Object;
 
 class Data extends \Pimcore\Model\AbstractModel
 {
-
     /**
      * @var Data\Id
      */
@@ -38,18 +37,21 @@ class Data extends \Pimcore\Model\AbstractModel
 
     /**
      * document | object | asset
+     *
      * @var string
      */
     public $maintype;
 
     /**
      * webresource type (e.g. page, snippet ...)
+     *
      * @var string
      */
     public $type;
 
     /**
      * currently only relevant for objects where it portrays the class name
+     *
      * @var string
      */
     public $subtype;
@@ -64,28 +66,28 @@ class Data extends \Pimcore\Model\AbstractModel
     /**
      * timestamp of creation date
      *
-     * @var integer
+     * @var int
      */
     public $creationDate;
 
     /**
      * timestamp of modification date
      *
-     * @var integer
+     * @var int
      */
     public $modificationDate;
 
     /**
      * User-ID of the owner
      *
-     * @var integer
+     * @var int
      */
     public $userOwner;
 
     /**
      * User-ID of the user last modified the element
      *
-     * @var integer
+     * @var int
      */
     public $userModification;
 
@@ -111,6 +113,7 @@ class Data extends \Pimcore\Model\AbstractModel
 
     /**
      * @return \Pimcore\Model\Dao\AbstractDao
+     *
      * @throws \Exception
      */
     public function getDao()
@@ -122,7 +125,6 @@ class Data extends \Pimcore\Model\AbstractModel
         return $this->dao;
     }
 
-
     /**
      * @return Data\Id
      */
@@ -133,6 +135,7 @@ class Data extends \Pimcore\Model\AbstractModel
 
     /**
      * @param $id
+     *
      * @return $this
      */
     public function setId($id)
@@ -152,6 +155,7 @@ class Data extends \Pimcore\Model\AbstractModel
 
     /**
      * @param  string $fullpath
+     *
      * @return $this
      */
     public function setFullPath($fullpath)
@@ -171,6 +175,7 @@ class Data extends \Pimcore\Model\AbstractModel
 
     /**
      * @param $type
+     *
      * @return $this
      */
     public function setType($type)
@@ -179,7 +184,6 @@ class Data extends \Pimcore\Model\AbstractModel
 
         return $this;
     }
-
 
     /**
      * @return string
@@ -191,6 +195,7 @@ class Data extends \Pimcore\Model\AbstractModel
 
     /**
      * @param $subtype
+     *
      * @return $this
      */
     public function setSubtype($subtype)
@@ -201,7 +206,7 @@ class Data extends \Pimcore\Model\AbstractModel
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getCreationDate()
     {
@@ -210,6 +215,7 @@ class Data extends \Pimcore\Model\AbstractModel
 
     /**
      * @param $creationDate
+     *
      * @return $this
      */
     public function setCreationDate($creationDate)
@@ -220,7 +226,7 @@ class Data extends \Pimcore\Model\AbstractModel
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getModificationDate()
     {
@@ -228,7 +234,8 @@ class Data extends \Pimcore\Model\AbstractModel
     }
 
     /**
-     * @param integer $modificationDate
+     * @param int $modificationDate
+     *
      * @return $this
      */
     public function setModificationDate($modificationDate)
@@ -239,7 +246,7 @@ class Data extends \Pimcore\Model\AbstractModel
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getUserModification()
     {
@@ -247,7 +254,8 @@ class Data extends \Pimcore\Model\AbstractModel
     }
 
     /**
-     * @param integer $userModification
+     * @param int $userModification
+     *
      * @return $this
      */
     public function setUserModification($userModification)
@@ -258,7 +266,7 @@ class Data extends \Pimcore\Model\AbstractModel
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getUserOwner()
     {
@@ -266,7 +274,8 @@ class Data extends \Pimcore\Model\AbstractModel
     }
 
     /**
-     * @param integer $userOwner
+     * @param int $userOwner
+     *
      * @return $this
      */
     public function setUserOwner($userOwner)
@@ -277,7 +286,7 @@ class Data extends \Pimcore\Model\AbstractModel
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isPublished()
     {
@@ -285,7 +294,7 @@ class Data extends \Pimcore\Model\AbstractModel
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getPublished()
     {
@@ -293,7 +302,8 @@ class Data extends \Pimcore\Model\AbstractModel
     }
 
     /**
-     * @param integer $published
+     * @param int $published
+     *
      * @return $this
      */
     public function setPublished($published)
@@ -313,6 +323,7 @@ class Data extends \Pimcore\Model\AbstractModel
 
     /**
      * @param  string $data
+     *
      * @return $this
      */
     public function setData($data)
@@ -323,8 +334,8 @@ class Data extends \Pimcore\Model\AbstractModel
     }
 
     /**
-    * @return string
-    */
+     * @return string
+     */
     public function getProperties()
     {
         return $this->properties;
@@ -332,6 +343,7 @@ class Data extends \Pimcore\Model\AbstractModel
 
     /**
      * @param  string $properties
+     *
      * @return $this
      */
     public function setProperties($properties)
@@ -343,6 +355,7 @@ class Data extends \Pimcore\Model\AbstractModel
 
     /**
      * @param $element
+     *
      * @return $this
      */
     public function setDataFromElement($element)
@@ -481,6 +494,7 @@ class Data extends \Pimcore\Model\AbstractModel
 
     /**
      * @param $data
+     *
      * @return mixed|string
      */
     protected function cleanupData($data)
@@ -507,6 +521,7 @@ class Data extends \Pimcore\Model\AbstractModel
 
     /**
      * @param $element
+     *
      * @return Data
      */
     public static function getForElement($element)
@@ -517,9 +532,6 @@ class Data extends \Pimcore\Model\AbstractModel
         return $data;
     }
 
-    /**
-     *
-     */
     public function delete()
     {
         $this->getDao()->delete();

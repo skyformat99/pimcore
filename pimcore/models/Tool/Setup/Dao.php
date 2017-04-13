@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Tool
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -23,9 +24,6 @@ use Pimcore\Model;
  */
 class Dao extends Model\Dao\AbstractDao
 {
-    /**
-     *
-     */
     public function database()
     {
         $mysqlInstallScript = file_get_contents(PIMCORE_PROJECT_ROOT . "/app/Resources/install/install.sql");
@@ -48,6 +46,7 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * @param $file
+     *
      * @throws \Exception
      */
     public function insertDump($file)
@@ -116,7 +115,6 @@ class Dao extends Model\Dao\AbstractDao
             "o_userModification" => 1
         ]);
 
-
         $this->db->insert("users", [
             "parentId" => 0,
             "name" => "system",
@@ -124,7 +122,6 @@ class Dao extends Model\Dao\AbstractDao
             "active" => 1
         ]);
         $this->db->update("users", ["id" => 0], ["name" => "system"]);
-
 
         $userPermissions = [
             ["key" => "application_logging"],

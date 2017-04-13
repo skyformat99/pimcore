@@ -19,12 +19,10 @@ use Pimcore\Logger;
 
 class CartItem extends AbstractCartItem implements ICartItem
 {
-
     /**
      * @var int
      */
     protected $sortIndex = 0;
-
 
     /**
      * @param int $sortIndex
@@ -42,7 +40,6 @@ class CartItem extends AbstractCartItem implements ICartItem
         return $this->sortIndex;
     }
 
-
     public function getCart()
     {
         if (empty($this->cart)) {
@@ -51,9 +48,6 @@ class CartItem extends AbstractCartItem implements ICartItem
 
         return $this->cart;
     }
-
-
-
 
     public function save()
     {

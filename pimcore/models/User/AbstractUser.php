@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    User
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -25,14 +26,13 @@ use Pimcore\Model;
  */
 class AbstractUser extends Model\AbstractModel
 {
-
     /**
-     * @var integer
+     * @var int
      */
     public $id;
 
     /**
-     * @var integer
+     * @var int
      */
     public $parentId;
 
@@ -47,7 +47,8 @@ class AbstractUser extends Model\AbstractModel
     public $type;
 
     /**
-     * @param integer $id
+     * @param int $id
+     *
      * @return AbstractUser
      */
     public static function getById($id)
@@ -76,6 +77,7 @@ class AbstractUser extends Model\AbstractModel
 
     /**
      * @param array $values
+     *
      * @return self
      */
     public static function create($values = [])
@@ -89,6 +91,7 @@ class AbstractUser extends Model\AbstractModel
 
     /**
      * @param string $name
+     *
      * @return self
      */
     public static function getByName($name)
@@ -104,7 +107,7 @@ class AbstractUser extends Model\AbstractModel
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -112,7 +115,8 @@ class AbstractUser extends Model\AbstractModel
     }
 
     /**
-     * @param integer $id
+     * @param int $id
+     *
      * @return $this
      */
     public function setId($id)
@@ -123,7 +127,7 @@ class AbstractUser extends Model\AbstractModel
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getParentId()
     {
@@ -131,7 +135,8 @@ class AbstractUser extends Model\AbstractModel
     }
 
     /**
-     * @param integer $parentId
+     * @param int $parentId
+     *
      * @return $this
      */
     public function setParentId($parentId)
@@ -151,6 +156,7 @@ class AbstractUser extends Model\AbstractModel
 
     /**
      * @param string $name
+     *
      * @return $this
      */
     public function setName($name)
@@ -170,6 +176,7 @@ class AbstractUser extends Model\AbstractModel
 
     /**
      * @return $this
+     *
      * @throws \Exception
      */
     public function save()
@@ -205,9 +212,6 @@ class AbstractUser extends Model\AbstractModel
         return $this;
     }
 
-    /**
-     *
-     */
     public function delete()
     {
         \Pimcore::getEventDispatcher()->dispatch(UserRoleEvents::PRE_DELETE, new UserRoleEvent($this));
@@ -232,6 +236,7 @@ class AbstractUser extends Model\AbstractModel
 
     /**
      * @param $type
+     *
      * @return $this
      */
     public function setType($type)

@@ -18,15 +18,14 @@ use Pimcore\Bundle\EcommerceFrameworkBundle\Factory;
 
 abstract class AbstractVoucherSeries extends \Pimcore\Model\Object\Concrete
 {
-
     /**
      * @return \Pimcore\Model\Object\Fieldcollection
      */
     abstract public function getTokenSettings();
 
-
     /**
      * @return bool|\Pimcore\Bundle\EcommerceFrameworkBundle\VoucherService\TokenManager\ITokenManager
+     *
      * @throws \Pimcore\Bundle\EcommerceFrameworkBundle\Exception\InvalidConfigException
      */
     public function getTokenManager()

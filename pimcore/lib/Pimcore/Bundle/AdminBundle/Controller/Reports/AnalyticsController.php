@@ -30,7 +30,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AnalyticsController extends ReportsControllerBase implements EventedControllerInterface
 {
-
     /**
      * @var \Google_Client
      */
@@ -38,7 +37,9 @@ class AnalyticsController extends ReportsControllerBase implements EventedContro
 
     /**
      * @Route("/deeplink")
+     *
      * @param Request $request
+     *
      * @return RedirectResponse
      */
     public function deeplinkAction(Request $request)
@@ -52,10 +53,11 @@ class AnalyticsController extends ReportsControllerBase implements EventedContro
         return $this->redirect($url);
     }
 
-
     /**
      * @Route("/get-profiles")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getProfilesAction(Request $request)
@@ -87,7 +89,6 @@ class AnalyticsController extends ReportsControllerBase implements EventedContro
                 }
             }
 
-
             return $this->json($data);
         } catch (\Exception $e) {
             return $this->json(false);
@@ -96,6 +97,7 @@ class AnalyticsController extends ReportsControllerBase implements EventedContro
 
     /**
      * @param Request $request
+     *
      * @return \Pimcore\Model\Site|void
      */
     private function getSite(Request $request)
@@ -113,6 +115,7 @@ class AnalyticsController extends ReportsControllerBase implements EventedContro
 
     /**
      * @param Request $request
+     *
      * @return mixed|string
      */
     protected function getFilterPath(Request $request)
@@ -136,16 +139,17 @@ class AnalyticsController extends ReportsControllerBase implements EventedContro
         return $request->get("path");
     }
 
-
     /**
      * @Route("/chartmetricdata")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function chartmetricdataAction(Request $request)
     {
         $config = Google\Analytics::getSiteConfig($this->getSite($request));
-        $startDate = date("Y-m-d", (time()-(86400*31)));
+        $startDate = date("Y-m-d", (time() - (86400 * 31)));
         $endDate = date("Y-m-d");
 
         if ($request->get("dateFrom") && $request->get("dateTo")) {
@@ -218,13 +222,15 @@ class AnalyticsController extends ReportsControllerBase implements EventedContro
 
     /**
      * @Route("/summary")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function summaryAction(Request $request)
     {
         $config = Google\Analytics::getSiteConfig($this->getSite($request));
-        $startDate = date("Y-m-d", (time()-(86400*31)));
+        $startDate = date("Y-m-d", (time() - (86400 * 31)));
         $endDate = date("Y-m-d");
 
         if ($request->get("dateFrom") && $request->get("dateTo")) {
@@ -232,11 +238,9 @@ class AnalyticsController extends ReportsControllerBase implements EventedContro
             $endDate = date("Y-m-d", strtotime($request->get("dateTo")));
         }
 
-
         if ($filterPath = $this->getFilterPath($request)) {
             $filters[] = "ga:pagePath==".$filterPath;
         }
-
 
         $opts = [
             "dimensions" => "ga:date"
@@ -266,7 +270,6 @@ class AnalyticsController extends ReportsControllerBase implements EventedContro
             }
         }
 
-
         $order = [
             "ga:pageviews"=> 0,
             "ga:uniquePageviews" => 1,
@@ -290,16 +293,17 @@ class AnalyticsController extends ReportsControllerBase implements EventedContro
         return $this->json(["data" => $outputData]);
     }
 
-
     /**
      * @Route("/source")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function sourceAction(Request $request)
     {
         $config = Google\Analytics::getSiteConfig($this->getSite($request));
-        $startDate = date("Y-m-d", (time()-(86400*31)));
+        $startDate = date("Y-m-d", (time() - (86400 * 31)));
         $endDate = date("Y-m-d");
 
         if ($request->get("dateFrom") && $request->get("dateTo")) {
@@ -343,13 +347,15 @@ class AnalyticsController extends ReportsControllerBase implements EventedContro
 
     /**
      * @Route("/data-explorer")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function dataExplorerAction(Request $request)
     {
         $config = Google\Analytics::getSiteConfig($this->getSite($request));
-        $startDate = date("Y-m-d", (time()-(86400*31)));
+        $startDate = date("Y-m-d", (time() - (86400 * 31)));
         $endDate = date("Y-m-d");
         $metric = "ga:pageviews";
         $dimension = "ga:date";
@@ -401,7 +407,7 @@ class AnalyticsController extends ReportsControllerBase implements EventedContro
         foreach ($result["rows"] as $row) {
             $data[] = [
                 "dimension" => $this->formatDimension($dimension, $row[0]),
-                "metric" => (double) $row[1]
+                "metric" => (float) $row[1]
             ];
         }
 
@@ -410,7 +416,9 @@ class AnalyticsController extends ReportsControllerBase implements EventedContro
 
     /**
      * @Route("/get-dimensions")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getDimensionsAction(Request $request)
@@ -420,7 +428,9 @@ class AnalyticsController extends ReportsControllerBase implements EventedContro
 
     /**
      * @Route("/get-metrics")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getMetricsAction(Request $request)
@@ -430,7 +440,9 @@ class AnalyticsController extends ReportsControllerBase implements EventedContro
 
     /**
      * @Route("/get-segments")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getSegmentsAction(Request $request)
@@ -452,6 +464,7 @@ class AnalyticsController extends ReportsControllerBase implements EventedContro
     /**
      * @param $type
      * @param $value
+     *
      * @return string
      */
     protected function formatDimension($type, $value)

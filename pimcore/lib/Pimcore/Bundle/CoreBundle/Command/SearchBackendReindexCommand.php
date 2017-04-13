@@ -15,10 +15,10 @@
 namespace Pimcore\Bundle\CoreBundle\Command;
 
 use Pimcore\Console\AbstractCommand;
+use Pimcore\Logger;
+use Pimcore\Model\Search;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Pimcore\Model\Search;
-use Pimcore\Logger;
 
 class SearchBackendReindexCommand extends AbstractCommand
 {
@@ -51,11 +51,11 @@ class SearchBackendReindexCommand extends AbstractCommand
 
             $elementsTotal = $list->getTotalCount();
 
-            for ($i=0; $i<(ceil($elementsTotal/$elementsPerLoop)); $i++) {
+            for ($i=0; $i < (ceil($elementsTotal / $elementsPerLoop)); $i++) {
                 $list->setLimit($elementsPerLoop);
-                $list->setOffset($i*$elementsPerLoop);
+                $list->setOffset($i * $elementsPerLoop);
 
-                $this->output->writeln("Processing " .$type . ": " . ($list->getOffset()+$elementsPerLoop) . "/" . $elementsTotal);
+                $this->output->writeln("Processing " .$type . ": " . ($list->getOffset() + $elementsPerLoop) . "/" . $elementsTotal);
 
                 $elements = $list->load();
                 foreach ($elements as $element) {

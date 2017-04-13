@@ -270,7 +270,6 @@ class LegacyClassMappingTool
         'OnlineShop\Framework\CartManager\CartPriceModificator\ICartPriceModificator' => 'OnlineShop_Framework_ICartPriceModificator',
     ];
 
-
     private static $symfonyMappingClasses = [
         'Pimcore\Bundle\EcommerceFrameworkBundle\CoreExtensions\ClassDefinition\IndexFieldSelection' => 'Pimcore\Model\Object\ClassDefinition\Data\IndexFieldSelection',
         'Pimcore\Bundle\EcommerceFrameworkBundle\CoreExtensions\ClassDefinition\IndexFieldSelectionCombo' => 'Pimcore\Model\Object\ClassDefinition\Data\IndexFieldSelectionCombo',
@@ -490,7 +489,6 @@ class LegacyClassMappingTool
         'Pimcore\Bundle\EcommerceFrameworkBundle\Factory' => 'OnlineShop\Framework\Factory',
     ];
 
-
     private static $symfonyMappingAbstractClasses = [
         'Pimcore\Bundle\EcommerceFrameworkBundle\Model\AbstractFilterDefinition' => 'OnlineShop\Framework\Model\AbstractFilterDefinition',
         'Pimcore\Bundle\EcommerceFrameworkBundle\Model\AbstractFilterDefinitionType' => 'OnlineShop\Framework\Model\AbstractFilterDefinitionType',
@@ -619,7 +617,6 @@ class LegacyClassMappingTool
         'Pimcore\Bundle\EcommerceFrameworkBundle\VoucherService\TokenManager\ITokenManager' => 'OnlineShop\Framework\VoucherService\TokenManager\ITokenManager',
     ];
 
-
     public static function loadMapping()
     {
         foreach (self::$symfonyMappingInterfaces as $newClass => $oldClass) {
@@ -707,7 +704,6 @@ class LegacyClassMappingTool
             }
         }
 
-
         $fileContent = "<?php \n";
         $fileContent .= '
 /**
@@ -730,7 +726,6 @@ class LegacyClassMappingTool
 /**
  * This file is only for IDE auto complete and deprecated visualization
  */' . "\n\n";
-
 
         ksort($generatedCode);
 

@@ -19,9 +19,8 @@ class SessionCartTest extends \Codeception\Test\Unit
     protected function _after()
     {
     }
- 
-    // tests
 
+    // tests
 
     public function testAddToCart()
     {

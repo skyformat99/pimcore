@@ -10,13 +10,14 @@
  *
  * @category   Pimcore
  * @package    Document
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Document;
 
-use \Pimcore\Model\Document;
+use Pimcore\Model\Document;
 use Pimcore\Model\Tool\TmpStore;
 use Pimcore\Web2Print\Processor;
 
@@ -103,7 +104,6 @@ abstract class PrintAbstract extends Document\PageSnippet
         return $this->lastGenerateMessage;
     }
 
-
     /**
      * @param $config
      */
@@ -114,6 +114,7 @@ abstract class PrintAbstract extends Document\PageSnippet
 
     /**
      * @param $params
+     *
      * @return string
      */
     public function renderDocument($params)

@@ -40,7 +40,6 @@ class OptimizedMysql extends AbstractMockupCacheWorker implements IBatchProcessi
         $this->mySqlHelper = new Helper\MySql($tenantConfig);
     }
 
-
     public function createOrUpdateIndexStructures()
     {
         $this->mySqlHelper->createOrUpdateIndexStructures();
@@ -127,7 +126,6 @@ class OptimizedMysql extends AbstractMockupCacheWorker implements IBatchProcessi
                     $this->db->insert($this->tenantConfig->getRelationTablename(), $rd);
                 }
 
-
                 //insert sub tenant data
                 $this->tenantConfig->updateSubTenantEntries($objectId, $data['subtenants'], $data['data']['o_id']);
 
@@ -161,8 +159,6 @@ class OptimizedMysql extends AbstractMockupCacheWorker implements IBatchProcessi
     {
         return self::MOCKUP_CACHE_PREFIX;
     }
-
-
 
     public function __destruct()
     {

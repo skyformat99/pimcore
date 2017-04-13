@@ -41,6 +41,7 @@ class StopWatch
 
     /**
      * @static
+     *
      * @param $label
      * @param string $component
      */
@@ -51,8 +52,10 @@ class StopWatch
 
     /**
      * @static
+     *
      * @param bool $html
      * @param string $component
+     *
      * @return string
      */
     public static function getTime($html = false, $component = 'default')
@@ -78,6 +81,7 @@ class StopWatch
 
     /**
      * @static
+     *
      * @param string $component
      * @param bool $html
      */
@@ -89,6 +93,7 @@ class StopWatch
     /**
      * @deprecated
      * @static
+     *
      * @return float
      */
     public static function microtime_float()

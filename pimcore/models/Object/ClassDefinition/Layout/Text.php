@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -21,7 +22,6 @@ use Pimcore\Tool;
 
 class Text extends Model\Object\ClassDefinition\Layout
 {
-
     /**
      * Static type of this element
      *
@@ -54,6 +54,7 @@ class Text extends Model\Object\ClassDefinition\Layout
 
     /**
      * @param $html
+     *
      * @return $this
      */
     public function setHtml($html)
@@ -62,7 +63,6 @@ class Text extends Model\Object\ClassDefinition\Layout
 
         return $this;
     }
-
 
     /**
      * @return mixed

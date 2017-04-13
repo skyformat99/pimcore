@@ -22,13 +22,14 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class ConfigController
+ *
  * @Route("/config")
  */
 class ConfigController extends AdminController
 {
-
     /**
      * @Route("/js-config")
+     *
      * @return string
      */
     public function jsConfigAction()
@@ -49,8 +50,8 @@ class ConfigController extends AdminController
 
         $javascript="pimcore.registerNS(\"pimcore.bundle.EcommerceFramework.bundle.config\");";
 
-        $javascript.= "pimcore.bundle.EcommerceFramework.bundle.config = ";
-        $javascript.= json_encode($params).";";
+        $javascript .= "pimcore.bundle.EcommerceFramework.bundle.config = ";
+        $javascript .= json_encode($params).";";
 
         $response = new Response($javascript);
         $response->headers->set('Content-Type', 'application/javascript');

@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    User
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -28,6 +29,7 @@ class Listing extends Listing\AbstractListing
 
     /**
      * Alias for $this->getItems()
+     *
      * @return array
      */
     public function getUsers()

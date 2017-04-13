@@ -22,8 +22,7 @@ namespace Pimcore\Bundle\EcommerceFrameworkBundle\PriceSystem;
  */
 abstract class CachingPriceSystem extends AbstractPriceSystem implements ICachingPriceSystem
 {
-
-    /** @var IPriceInfo[] $priceInfos  */
+    /** @var IPriceInfo[] $priceInfos */
     protected $priceInfos = [];
 
     public function loadPriceInfos($productEntries, $options)

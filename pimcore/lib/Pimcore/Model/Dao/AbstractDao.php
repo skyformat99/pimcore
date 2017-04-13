@@ -21,7 +21,6 @@ abstract class AbstractDao implements DaoInterface
 {
     use DaoTrait;
 
-
     const CACHEKEY = "system_resource_columns_";
 
     /**
@@ -29,33 +28,21 @@ abstract class AbstractDao implements DaoInterface
      */
     public $db;
 
-    /**
-     *
-     */
     public function configure()
     {
         $this->db = Db::get();
     }
 
-    /**
-     *
-     */
     public function beginTransaction()
     {
         $this->db->beginTransaction();
     }
 
-    /**
-     *
-     */
     public function commit()
     {
         $this->db->commit();
     }
 
-    /**
-     *
-     */
     public function rollBack()
     {
         $this->db->rollBack();
@@ -64,6 +51,7 @@ abstract class AbstractDao implements DaoInterface
     /**
      * @param string $table
      * @param bool $cache
+     *
      * @return array|mixed
      */
     public function getValidTableColumns($table, $cache = true)

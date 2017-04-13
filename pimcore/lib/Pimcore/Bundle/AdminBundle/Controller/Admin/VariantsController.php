@@ -27,7 +27,9 @@ class VariantsController extends AdminController
 {
     /**
      * @Route("/update-key")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function updateKeyAction(Request $request)
@@ -52,8 +54,11 @@ class VariantsController extends AdminController
 
     /**
      * @Route("/get-variants")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
+     *
      * @throws \Exception
      */
     public function getVariantsAction(Request $request)

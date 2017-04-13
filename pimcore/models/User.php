@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    User
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -55,12 +56,12 @@ class User extends User\UserRole
     public $language = "en";
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $admin = false;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $active = true;
 
@@ -129,6 +130,7 @@ class User extends User\UserRole
 
     /**
      * @param string $password
+     *
      * @return $this
      */
     public function setPassword($password)
@@ -142,7 +144,9 @@ class User extends User\UserRole
 
     /**
      * Alias for getName()
+     *
      * @deprecated
+     *
      * @return string
      */
     public function getUsername()
@@ -152,6 +156,7 @@ class User extends User\UserRole
 
     /**
      * @param $username
+     *
      * @return $this
      */
     public function setUsername($username)
@@ -172,6 +177,7 @@ class User extends User\UserRole
 
     /**
      * @param $firstname
+     *
      * @return $this
      */
     public function setFirstname($firstname)
@@ -192,6 +198,7 @@ class User extends User\UserRole
 
     /**
      * @param $lastname
+     *
      * @return $this
      */
     public function setLastname($lastname)
@@ -212,6 +219,7 @@ class User extends User\UserRole
 
     /**
      * @param $email
+     *
      * @return $this
      */
     public function setEmail($email)
@@ -231,6 +239,7 @@ class User extends User\UserRole
 
     /**
      * @param string $language
+     *
      * @return $this
      */
     public function setLanguage($language)
@@ -244,7 +253,8 @@ class User extends User\UserRole
 
     /**
      * @see getAdmin()
-     * @return boolean
+     *
+     * @return bool
      */
     public function isAdmin()
     {
@@ -252,7 +262,7 @@ class User extends User\UserRole
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getAdmin()
     {
@@ -260,7 +270,8 @@ class User extends User\UserRole
     }
 
     /**
-     * @param boolean $admin
+     * @param bool $admin
+     *
      * @return $this
      */
     public function setAdmin($admin)
@@ -271,7 +282,7 @@ class User extends User\UserRole
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getActive()
     {
@@ -279,7 +290,8 @@ class User extends User\UserRole
     }
 
     /**
-     * @param boolean $active
+     * @param bool $active
+     *
      * @return $this
      */
     public function setActive($active)
@@ -300,6 +312,7 @@ class User extends User\UserRole
     /**
      * @param string $key
      * @param string $type
+     *
      * @return bool
      */
     public function isAllowed($key, $type = "permission")
@@ -355,6 +368,7 @@ class User extends User\UserRole
     /**
      *
      * @param string $permissionName
+     *
      * @return array
      */
     public function getPermission($permissionName)
@@ -368,6 +382,7 @@ class User extends User\UserRole
 
     /**
      * @param $roles
+     *
      * @return $this
      */
     public function setRoles($roles)
@@ -397,6 +412,7 @@ class User extends User\UserRole
 
     /**
      * @param $welcomescreen
+     *
      * @return $this
      */
     public function setWelcomescreen($welcomescreen)
@@ -407,7 +423,7 @@ class User extends User\UserRole
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getWelcomescreen()
     {
@@ -416,6 +432,7 @@ class User extends User\UserRole
 
     /**
      * @param $closeWarning
+     *
      * @return $this
      */
     public function setCloseWarning($closeWarning)
@@ -426,7 +443,7 @@ class User extends User\UserRole
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getCloseWarning()
     {
@@ -435,6 +452,7 @@ class User extends User\UserRole
 
     /**
      * @param $memorizeTabs
+     *
      * @return $this
      */
     public function setMemorizeTabs($memorizeTabs)
@@ -445,7 +463,7 @@ class User extends User\UserRole
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getMemorizeTabs()
     {
@@ -454,6 +472,7 @@ class User extends User\UserRole
 
     /**
      * @param $allowDirtyClose
+     *
      * @return $this
      */
     public function setAllowDirtyClose($allowDirtyClose)
@@ -464,7 +483,7 @@ class User extends User\UserRole
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getAllowDirtyClose()
     {
@@ -473,6 +492,7 @@ class User extends User\UserRole
 
     /**
      * @param $apiKey
+     *
      * @throws \Exception
      */
     public function setApiKey($apiKey)
@@ -515,6 +535,7 @@ class User extends User\UserRole
     /**
      * @param null $width
      * @param null $height
+     *
      * @return string
      */
     public function getImage($width = null, $height = null)
@@ -684,7 +705,6 @@ class User extends User\UserRole
 
         return $this->mergedWebsiteTranslationLanguagesView;
     }
-
 
     /**
      * Returns array of languages allowed for viewing. If view languages are empty all languages are allowed.

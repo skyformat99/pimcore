@@ -24,7 +24,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ElementTagsListener implements EventSubscriberInterface
 {
-
     /**
      * @inheritDoc
      */

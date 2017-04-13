@@ -20,7 +20,6 @@ use Symfony\Component\Templating\Helper\Helper;
 
 class Cache extends Helper
 {
-
     /**
      * @var string
      */
@@ -51,7 +50,6 @@ class Cache extends Helper
         $this->editmodeResolver = $editmodeResolver;
     }
 
-
     /**
      * @inheritDoc
      */
@@ -60,11 +58,11 @@ class Cache extends Helper
         return 'cache';
     }
 
-
     /**
      * @param $name
      * @param null $lifetime
      * @param bool $force
+     *
      * @return mixed
      */
     public function __invoke($name, $lifetime = null, $force = false)
@@ -80,7 +78,6 @@ class Cache extends Helper
 
         return $this;
     }
-
 
     /**
      * @return bool

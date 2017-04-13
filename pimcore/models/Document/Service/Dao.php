@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Document
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -25,10 +26,10 @@ use Pimcore\Model\Site;
  */
 class Dao extends Model\Dao\AbstractDao
 {
-
     /**
      * @param Site $site
      * @param string $path
+     *
      * @return int
      */
     public function getDocumentIdByPrettyUrlInSite(Site $site, $path)
@@ -42,6 +43,7 @@ class Dao extends Model\Dao\AbstractDao
     /**
      * @param Site $site
      * @param Document $document
+     *
      * @return int
      */
     public function getDocumentIdFromHardlinkInSameSite(Site $site, Document $document)
@@ -53,6 +55,7 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * @param Document $document
+     *
      * @return int
      */
     public function getTranslationSourceId(Document $document)
@@ -67,6 +70,7 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * @param Document $document
+     *
      * @return array
      */
     public function getTranslations(Document $document)

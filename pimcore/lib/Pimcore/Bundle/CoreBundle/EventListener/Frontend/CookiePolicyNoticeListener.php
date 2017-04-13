@@ -46,6 +46,7 @@ class CookiePolicyNoticeListener extends AbstractFrontendListener
 
     /**
      * CookiePolicyNotice constructor.
+     *
      * @param Kernel $kernel
      */
     public function __construct(Kernel $kernel)
@@ -204,9 +205,9 @@ class CookiePolicyNoticeListener extends AbstractFrontendListener
         }
     }
 
-
     /**
      * @param string $locale
+     *
      * @return array
      */
     protected function getTranslations($locale)
@@ -299,7 +300,6 @@ class CookiePolicyNoticeListener extends AbstractFrontendListener
                 "ro" => "Am înțeles",
             ]
         ];
-
 
         $translations = [];
 

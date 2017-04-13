@@ -27,6 +27,7 @@ class Dao extends \Pimcore\Model\Dao\AbstractDao
 
     /**
      * @param $code
+     *
      * @return bool
      */
     public function getByCode($code)
@@ -68,10 +69,10 @@ class Dao extends \Pimcore\Model\Dao\AbstractDao
         }
     }
 
-
     /**
      * @param string $token
      * @param int $usages
+     *
      * @return bool
      */
     public static function isUsedToken($token, $usages = 1)
@@ -80,7 +81,6 @@ class Dao extends \Pimcore\Model\Dao\AbstractDao
 
         $query = "SELECT usages, seriesId FROM " . self::TABLE_NAME . " WHERE token = ? ";
         $params[] = $token;
-
 
         try {
             $usages['usages'] = $db->fetchOne($query, $params);

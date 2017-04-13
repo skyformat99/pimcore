@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Property
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -23,7 +24,6 @@ use Pimcore\Model;
  */
 class Dao extends Model\Dao\AbstractDao
 {
-
     /**
      * @return null
      */
@@ -55,7 +55,6 @@ class Dao extends Model\Dao\AbstractDao
                 $data = null;
             }
         }
-
 
         if (is_array($data) || is_object($data)) {
             $data = \Pimcore\Tool\Serialize::serialize($data);

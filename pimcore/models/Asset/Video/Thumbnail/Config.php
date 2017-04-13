@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Asset
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -23,18 +24,17 @@ use Pimcore\Model;
  */
 class Config extends Model\AbstractModel
 {
-
     /**
      * format of array:
      * array(
-        array(
-            "method" => "myName",
-            "arguments" =>
-                array(
-                    "width" => 345,
-                    "height" => 200
-                )
-        )
+     array(
+     "method" => "myName",
+     "arguments" =>
+     array(
+     "width" => 345,
+     "height" => 200
+     )
+     )
      * )
      *
      * @var array
@@ -73,6 +73,7 @@ class Config extends Model\AbstractModel
 
     /**
      * @param $name
+     *
      * @return null|Config
      */
     public static function getByName($name)
@@ -124,6 +125,7 @@ class Config extends Model\AbstractModel
     /**
      * @param  $name
      * @param  $parameters
+     *
      * @return bool
      */
     public function addItem($name, $parameters)
@@ -140,6 +142,7 @@ class Config extends Model\AbstractModel
      * @param $position
      * @param $name
      * @param $parameters
+     *
      * @return bool
      */
     public function addItemAt($position, $name, $parameters)
@@ -159,6 +162,7 @@ class Config extends Model\AbstractModel
 
     /**
      * @param $description
+     *
      * @return $this
      */
     public function setDescription($description)
@@ -178,6 +182,7 @@ class Config extends Model\AbstractModel
 
     /**
      * @param $items
+     *
      * @return $this
      */
     public function setItems($items)
@@ -197,6 +202,7 @@ class Config extends Model\AbstractModel
 
     /**
      * @param $name
+     *
      * @return $this
      */
     public function setName($name)
@@ -216,6 +222,7 @@ class Config extends Model\AbstractModel
 
     /**
      * @param $audioBitrate
+     *
      * @return $this
      */
     public function setAudioBitrate($audioBitrate)
@@ -235,6 +242,7 @@ class Config extends Model\AbstractModel
 
     /**
      * @param $videoBitrate
+     *
      * @return $this
      */
     public function setVideoBitrate($videoBitrate)

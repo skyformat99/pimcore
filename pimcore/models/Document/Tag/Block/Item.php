@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Document
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -47,7 +48,6 @@ class Item
         $this->suffixes = $suffixes;
     }
 
-
     /**
      * @param $name
      *
@@ -71,7 +71,6 @@ class Item
 
         return $element;
     }
-
 
     /**
      * @param $func

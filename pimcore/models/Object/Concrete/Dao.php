@@ -10,30 +10,27 @@
  *
  * @category   Pimcore
  * @package    Object
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Object\Concrete;
 
+use Pimcore\Logger;
 use Pimcore\Model;
 use Pimcore\Model\Object;
-use Pimcore\Logger;
 
 /**
  * @property \Pimcore\Model\Object\Concrete $model
  */
 class Dao extends Model\Object\AbstractObject\Dao
 {
-
     /**
      * @var Object\Concrete\Dao\InheritanceHelper
      */
     protected $inheritanceHelper = null;
 
-    /**
-     *
-     */
     public function init()
     {
         $this->inheritanceHelper = new Object\Concrete\Dao\InheritanceHelper($this->model->getClassId());
@@ -42,7 +39,7 @@ class Dao extends Model\Object\AbstractObject\Dao
     /**
      * Get the data for the object from database for the given id
      *
-     * @param integer $id
+     * @param int $id
      */
     public function getById($id)
     {
@@ -64,6 +61,7 @@ class Dao extends Model\Object\AbstractObject\Dao
 
     /**
      * @param  string $fieldName
+     *
      * @return array
      */
     public function getRelationIds($fieldName)
@@ -81,6 +79,7 @@ class Dao extends Model\Object\AbstractObject\Dao
      * @param string $field
      * @param $forOwner
      * @param $remoteClassId
+     *
      * @return array
      */
     public function getRelationData($field, $forOwner, $remoteClassId)
@@ -91,7 +90,6 @@ class Dao extends Model\Object\AbstractObject\Dao
         } else {
             $classId = $this->model->getClassId();
         }
-
 
         $params = [$field, $id, $field, $id, $field, $id];
 
@@ -134,7 +132,6 @@ class Dao extends Model\Object\AbstractObject\Dao
             return [];
         }
     }
-
 
     /**
      * Get the data-elements for the object from database for the given path
@@ -195,7 +192,6 @@ class Dao extends Model\Object\AbstractObject\Dao
             ]);
         }
 
-
         $inheritedValues = Object\AbstractObject::doGetInheritedValues();
         Object\AbstractObject::setGetInheritedValues(false);
 
@@ -222,7 +218,6 @@ class Dao extends Model\Object\AbstractObject\Dao
         }
 
         $this->db->insertOrUpdate("object_store_" . $this->model->getClassId(), $data);
-
 
         // get data for query table
         $data = [];
@@ -329,9 +324,6 @@ class Dao extends Model\Object\AbstractObject\Dao
         Object\AbstractObject::setGetInheritedValues($inheritedValues);
     }
 
-    /**
-     *
-     */
     public function saveChildData()
     {
         $this->inheritanceHelper->doUpdate($this->model->getId());
@@ -378,6 +370,7 @@ class Dao extends Model\Object\AbstractObject\Dao
 
     /**
      * Get latest available version, using $force always returns a version no matter if it is the same as the published one
+     *
      * @param bool $force
      *
      * @return Model\Version|null

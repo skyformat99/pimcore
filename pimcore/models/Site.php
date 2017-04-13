@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Site
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -29,9 +30,8 @@ class Site extends AbstractModel
      */
     protected static $currentSite;
 
-
     /**
-     * @var integer
+     * @var int
      */
     public $id;
 
@@ -43,7 +43,7 @@ class Site extends AbstractModel
     /**
      * Contains the ID to the Root-Document
      *
-     * @var integer
+     * @var int
      */
     public $rootId;
 
@@ -73,17 +73,18 @@ class Site extends AbstractModel
     public $redirectToMainDomain = false;
 
     /**
-     * @var integer
+     * @var int
      */
     public $creationDate;
 
     /**
-     * @var integer
+     * @var int
      */
     public $modificationDate;
 
     /**
-     * @param integer $id
+     * @param int $id
+     *
      * @return Site
      */
     public static function getById($id)
@@ -95,7 +96,8 @@ class Site extends AbstractModel
     }
 
     /**
-     * @param integer $id
+     * @param int $id
+     *
      * @return Site
      */
     public static function getByRootId($id)
@@ -108,7 +110,9 @@ class Site extends AbstractModel
 
     /**
      * @param $domain
+     *
      * @return mixed|Site|string
+     *
      * @throws \Exception
      */
     public static function getByDomain($domain)
@@ -143,9 +147,9 @@ class Site extends AbstractModel
         return $site;
     }
 
-
     /**
      * @param $mixed
+     *
      * @return Site
      */
     public static function getBy($mixed)
@@ -154,7 +158,7 @@ class Site extends AbstractModel
             $site = self::getById($mixed);
         } elseif (is_string($mixed)) {
             $site = self::getByDomain($mixed);
-        } elseif ($mixed instanceof Site) {
+        } elseif ($mixed instanceof self) {
             $site = $mixed;
         }
 
@@ -163,6 +167,7 @@ class Site extends AbstractModel
 
     /**
      * @param array $data
+     *
      * @return Site
      */
     public static function create($data)
@@ -177,6 +182,7 @@ class Site extends AbstractModel
      * returns true if the current process/request is inside a site
      *
      * @static
+     *
      * @return bool
      */
     public static function isSiteRequest()
@@ -190,6 +196,7 @@ class Site extends AbstractModel
 
     /**
      * @return Site
+     *
      * @throws \Exception
      */
     public static function getCurrentSite()
@@ -212,7 +219,7 @@ class Site extends AbstractModel
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -228,7 +235,7 @@ class Site extends AbstractModel
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getRootId()
     {
@@ -244,7 +251,8 @@ class Site extends AbstractModel
     }
 
     /**
-     * @param integer $id
+     * @param int $id
+     *
      * @return $this
      */
     public function setId($id)
@@ -256,6 +264,7 @@ class Site extends AbstractModel
 
     /**
      * @param mixed $domains
+     *
      * @return $this
      */
     public function setDomains($domains)
@@ -269,7 +278,8 @@ class Site extends AbstractModel
     }
 
     /**
-     * @param integer $rootId
+     * @param int $rootId
+     *
      * @return $this
      */
     public function setRootId($rootId)
@@ -284,6 +294,7 @@ class Site extends AbstractModel
 
     /**
      * @param Document\Page $rootDocument
+     *
      * @return $this
      */
     public function setRootDocument($rootDocument)
@@ -295,6 +306,7 @@ class Site extends AbstractModel
 
     /**
      * @param $path
+     *
      * @return $this
      */
     public function setRootPath($path)
@@ -349,7 +361,7 @@ class Site extends AbstractModel
     }
 
     /**
-     * @param boolean $redirectToMainDomain
+     * @param bool $redirectToMainDomain
      */
     public function setRedirectToMainDomain($redirectToMainDomain)
     {
@@ -357,7 +369,7 @@ class Site extends AbstractModel
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getRedirectToMainDomain()
     {
@@ -377,6 +389,7 @@ class Site extends AbstractModel
 
     /**
      * @param $modificationDate
+     *
      * @return $this
      */
     public function setModificationDate($modificationDate)
@@ -396,6 +409,7 @@ class Site extends AbstractModel
 
     /**
      * @param $creationDate
+     *
      * @return $this
      */
     public function setCreationDate($creationDate)

@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -24,7 +25,6 @@ use Pimcore\Model\Object;
  */
 class Dao extends Model\Listing\Dao\AbstractDao
 {
-
     /**
      * Loads a list of object-classes for the specicifies parameters, returns an array of Object|Class elements
      *

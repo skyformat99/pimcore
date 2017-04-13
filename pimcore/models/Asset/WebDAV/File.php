@@ -10,21 +10,21 @@
  *
  * @category   Pimcore
  * @package    Asset
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Asset\WebDAV;
 
-use Sabre\DAV;
-use Pimcore\Tool\Admin as AdminTool;
+use Pimcore\File as FileHelper;
 use Pimcore\Model\Asset;
 use Pimcore\Model\Element;
-use Pimcore\File as FileHelper;
+use Pimcore\Tool\Admin as AdminTool;
+use Sabre\DAV;
 
 class File extends DAV\File
 {
-
     /**
      * @var Asset
      */
@@ -48,7 +48,9 @@ class File extends DAV\File
 
     /**
      * @param string $name
+     *
      * @return $this|void
+     *
      * @throws DAV\Exception\Forbidden
      * @throws \Exception
      */
@@ -97,7 +99,7 @@ class File extends DAV\File
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getLastModified()
     {
@@ -106,6 +108,7 @@ class File extends DAV\File
 
     /**
      * @param resource $data
+     *
      * @throws DAV\Exception\Forbidden
      * @throws \Exception
      */
@@ -132,6 +135,7 @@ class File extends DAV\File
 
     /**
      * @return mixed|void
+     *
      * @throws DAV\Exception\Forbidden
      */
     public function get()
@@ -166,7 +170,7 @@ class File extends DAV\File
     /**
      * Get size of file in bytes
      *
-     * @return integer
+     * @return int
      */
     public function getSize()
     {

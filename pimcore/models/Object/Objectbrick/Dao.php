@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object\Objectbrick
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -24,9 +25,9 @@ use Pimcore\Model\Object;
  */
 class Dao extends Model\Object\Fieldcollection\Dao
 {
-
     /**
      * @param Object\Concrete $object
+     *
      * @return array
      */
     public function load(Object\Concrete $object)
@@ -93,6 +94,7 @@ class Dao extends Model\Object\Fieldcollection\Dao
 
     /**
      * @throws \Exception
+     *
      * @param Object\Concrete $object
      */
     public function delete(Object\Concrete $object)

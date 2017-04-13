@@ -10,23 +10,23 @@
  *
  * @category   Pimcore
  * @package    Document
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Document\Tag;
 
+use Pimcore\Logger;
 use Pimcore\Model;
 use Pimcore\Model\Asset;
 use Pimcore\Model\Document;
-use Pimcore\Logger;
 
 /**
  * @method \Pimcore\Model\Document\Tag\Dao getDao()
  */
 class Link extends Model\Document\Tag
 {
-
     /**
      * Contains the data for the link
      *
@@ -36,6 +36,7 @@ class Link extends Model\Document\Tag
 
     /**
      * @see Document\Tag\TagInterface::getType
+     *
      * @return string
      */
     public function getType()
@@ -45,6 +46,7 @@ class Link extends Model\Document\Tag
 
     /**
      * @see Document\Tag\TagInterface::getData
+     *
      * @return mixed
      */
     public function getData()
@@ -57,6 +59,7 @@ class Link extends Model\Document\Tag
 
     /**
      * @see Document\Tag\TagInterface::frontend
+     *
      * @return string
      */
     public function frontend()
@@ -134,7 +137,6 @@ class Link extends Model\Document\Tag
 
         return $sane;
     }
-
 
     /**
      * @return string
@@ -255,10 +257,11 @@ class Link extends Model\Document\Tag
         return $this->data["accesskey"];
     }
 
-
     /**
      * @see Document\Tag\TagInterface::setDataFromResource
+     *
      * @param mixed $data
+     *
      * @return $this
      */
     public function setDataFromResource($data)
@@ -273,7 +276,9 @@ class Link extends Model\Document\Tag
 
     /**
      * @see Document\Tag\TagInterface::setDataFromEditmode
+     *
      * @param mixed $data
+     *
      * @return $this
      */
     public function setDataFromEditmode($data)
@@ -306,11 +311,11 @@ class Link extends Model\Document\Tag
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isEmpty()
     {
-        return (strlen($this->getHref()) < 1);
+        return strlen($this->getHref()) < 1;
     }
 
     /**
@@ -352,6 +357,7 @@ class Link extends Model\Document\Tag
      * @param $document
      * @param mixed $params
      * @param null $idMapper
+     *
      * @throws \Exception
      */
     public function getFromWebserviceImport($wsElement, $document = null, $params = [], $idMapper = null)
@@ -398,13 +404,13 @@ class Link extends Model\Document\Tag
         }
     }
 
-
     /**
      * Returns the current tag's data for web service export
      *
      * @param $document
      * @param mixed $params
      * @abstract
+     *
      * @return array
      */
     public function getForWebserviceExport($document = null, $params = [])
@@ -433,7 +439,6 @@ class Link extends Model\Document\Tag
         return $el;
     }
 
-
     /**
      * Rewrites id from source to target, $idMapping contains
      * array(
@@ -444,6 +449,7 @@ class Link extends Model\Document\Tag
      *  "object" => array(...),
      *  "asset" => array(...)
      * )
+     *
      * @param array $idMapping
      */
     public function rewriteIds($idMapping)

@@ -24,7 +24,6 @@ use Pimcore\Bundle\EcommerceFrameworkBundle\Model\IIndexable;
  */
 class DefaultMysql extends AbstractConfig implements IMysqlConfig
 {
-
     /**
      * @return string
      */
@@ -67,6 +66,7 @@ class DefaultMysql extends AbstractConfig implements IMysqlConfig
 
     /**
      * @param IIndexable $object
+     *
      * @return bool
      */
     public function inIndex(IIndexable $object)
@@ -74,12 +74,12 @@ class DefaultMysql extends AbstractConfig implements IMysqlConfig
         return true;
     }
 
-
     /**
      * in case of subtenants returns a data structure containing all sub tenants
      *
      * @param IIndexable $object
      * @param null $subObjectId
+     *
      * @return mixed $subTenantData
      */
     public function prepareSubTenantEntries(IIndexable $object, $subObjectId = null)
@@ -93,6 +93,7 @@ class DefaultMysql extends AbstractConfig implements IMysqlConfig
      * @param mixed $objectId
      * @param mixed $subTenantData
      * @param mixed $subObjectId
+     *
      * @return void
      */
     public function updateSubTenantEntries($objectId, $subTenantData, $subObjectId = null)
@@ -104,6 +105,7 @@ class DefaultMysql extends AbstractConfig implements IMysqlConfig
      * returns column type for id
      *
      * @param $isPrimary
+     *
      * @return string
      */
     public function getIdColumnType($isPrimary)
@@ -114,7 +116,6 @@ class DefaultMysql extends AbstractConfig implements IMysqlConfig
             return "int(11) NOT NULL";
         }
     }
-
 
     /**
      * @var \Pimcore\Bundle\EcommerceFrameworkBundle\IndexService\Worker\DefaultMysql

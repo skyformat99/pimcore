@@ -10,24 +10,23 @@
  *
  * @category   Pimcore
  * @package    Webservice
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Webservice\Data\Object;
 
+use Pimcore\Logger;
 use Pimcore\Model;
 use Pimcore\Model\Webservice;
-use Pimcore\Logger;
 
 class Concrete extends Model\Webservice\Data\Object
 {
-
     /**
      * @var Webservice\Data\Object\Element[]
      */
     public $elements;
-
 
     /**
      * @var string
@@ -69,6 +68,7 @@ class Concrete extends Model\Webservice\Data\Object
      * @param $object
      * @param bool $disableMappingExceptions
      * @param null $idMapper
+     *
      * @throws \Exception
      */
     public function reverseMap($object, $disableMappingExceptions = false, $idMapper = null)

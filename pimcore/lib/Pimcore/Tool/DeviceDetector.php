@@ -16,7 +16,6 @@ namespace Pimcore\Tool;
 
 class DeviceDetector
 {
-
     /**
      * @var array
      */
@@ -59,6 +58,7 @@ class DeviceDetector
 
     /**
      * @param null $default
+     *
      * @return DeviceDetector
      */
     public static function getInstance($default = null)
@@ -148,9 +148,6 @@ class DeviceDetector
         return $this->getDevice();
     }
 
-    /**
-     *
-     */
     protected function determineDeviceType()
     {
         $this->setWasUsed(true);

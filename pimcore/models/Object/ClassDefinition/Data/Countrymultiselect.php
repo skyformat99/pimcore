@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -31,7 +32,6 @@ class Countrymultiselect extends Model\Object\ClassDefinition\Data\Multiselect
      * @var null
      */
     public $restrictTo = null;
-
 
     public function __construct()
     {

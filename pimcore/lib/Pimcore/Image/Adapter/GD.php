@@ -25,6 +25,7 @@ class GD extends Adapter
 
     /**
      * contains imageresource
+     *
      * @var mixed
      */
     protected $resource;
@@ -32,6 +33,7 @@ class GD extends Adapter
     /**
      * @param $imagePath
      * @param array $options
+     *
      * @return $this|self
      */
     public function load($imagePath, $options = [])
@@ -60,6 +62,7 @@ class GD extends Adapter
      * @param $path
      * @param null $format
      * @param null $quality
+     *
      * @return $this|mixed
      */
     public function save($path, $format = null, $quality = null)
@@ -139,6 +142,7 @@ class GD extends Adapter
     /**
      * @param $width
      * @param $height
+     *
      * @return resource
      */
     protected function createImage($width, $height)
@@ -156,6 +160,7 @@ class GD extends Adapter
     /**
      * @param  $width
      * @param  $height
+     *
      * @return self
      */
     public function resize($width, $height)
@@ -179,6 +184,7 @@ class GD extends Adapter
      * @param  $y
      * @param  $width
      * @param  $height
+     *
      * @return self
      */
     public function crop($x, $y, $width, $height)
@@ -203,11 +209,11 @@ class GD extends Adapter
         return $this;
     }
 
-
     /**
      * @param  $width
      * @param  $height
      * @param  bool $forceResize
+     *
      * @return self
      */
     public function frame($width, $height, $forceResize = false)
@@ -235,6 +241,7 @@ class GD extends Adapter
 
     /**
      * @param  $color
+     *
      * @return Adapter
      */
     public function setBackgroundColor($color)
@@ -262,6 +269,7 @@ class GD extends Adapter
     /**
      * @param $image
      * @param null|string $mode
+     *
      * @return $this
      */
     public function setBackgroundImage($image, $mode = null)
@@ -331,6 +339,7 @@ class GD extends Adapter
      * @param int $alpha
      * @param string $composite
      * @param string $origin
+     *
      * @return $this
      */
     public function addOverlay($image, $x = 0, $y = 0, $alpha = 100, $composite = "COMPOSITE_DEFAULT", $origin = 'top-left')
@@ -346,7 +355,6 @@ class GD extends Adapter
         }
         $alpha = round($alpha / 100, 1);
 
-
         if (is_file($image)) {
             list($oWidth, $oHeight) = getimagesize($image);
 
@@ -359,7 +367,7 @@ class GD extends Adapter
                 $y = $this->getHeight() - $oHeight - $y;
             } elseif ($origin == 'center') {
                 $x = round($this->getWidth() / 2) - round($oWidth / 2) + $x;
-                $y = round($this->getHeight() / 2) -round($oHeight / 2) + $y;
+                $y = round($this->getHeight() / 2) - round($oHeight / 2) + $y;
             }
 
             $overlay = imagecreatefromstring(file_get_contents($image));
@@ -374,6 +382,7 @@ class GD extends Adapter
 
     /**
      * @param string $mode
+     *
      * @return $this|self
      */
     public function mirror($mode)
@@ -393,13 +402,14 @@ class GD extends Adapter
 
     /**
      * @param $angle
+     *
      * @return $this|self
      */
     public function rotate($angle)
     {
         $this->preModify();
         $angle = 360 - $angle;
-        $this->resource = imagerotate($this->resource, $angle, imageColorAllocateAlpha($this->resource, 0, 0, 0, 127));
+        $this->resource = imagerotate($this->resource, $angle, imagecolorallocatealpha($this->resource, 0, 0, 0, 127));
 
         $this->setWidth(imagesx($this->resource));
         $this->setHeight(imagesy($this->resource));

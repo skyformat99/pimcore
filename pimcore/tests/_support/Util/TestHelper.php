@@ -2,18 +2,16 @@
 
 namespace Pimcore\Tests\Util;
 
-use Pimcore\Cache\Runtime;
 use Pimcore\Model\Asset;
 use Pimcore\Model\Document;
 use Pimcore\Model\Element\AbstractElement;
 use Pimcore\Model\Element\ElementInterface;
-use Pimcore\Model\Object as ObjectModel;
 use Pimcore\Model\Object\AbstractObject;
+use Pimcore\Model\Object as ObjectModel;
 use Pimcore\Model\Object\Concrete;
 use Pimcore\Model\Object\Unittest;
 use Pimcore\Model\Property;
 use Pimcore\Model\User;
-use Pimcore\Model\Webservice\Tool as WebserviceTool;
 use Pimcore\Tests\Helper\DataType\TestDataHelper;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
@@ -43,6 +41,7 @@ class TestHelper
 
     /**
      * @param  array $properties
+     *
      * @return array
      *
      * @throws \Exception
@@ -77,7 +76,6 @@ class TestHelper
 
         return $propertiesStringArray;
     }
-
 
     /**
      * @param Asset $asset
@@ -124,7 +122,6 @@ class TestHelper
     /**
      * @param  Asset $asset1
      * @param  Asset $asset2
-     *
      * @param bool $ignoreCopyDifferences
      * @param bool $id
      *
@@ -295,7 +292,6 @@ class TestHelper
                 foreach ($fd->getFieldDefinitions() as $nestedFd) {
                     $localeService->setLocale($language);
                     $lData[$language][$nestedFd->getName()] = self::getComparisonDataForField($nestedFd->getName(), $nestedFd, $object);
-                    ;
                 }
             }
 
@@ -775,6 +771,7 @@ class TestHelper
      * Resolve path to resource path
      *
      * @param string $path
+     *
      * @return string
      */
     public static function resolveFilePath($path)

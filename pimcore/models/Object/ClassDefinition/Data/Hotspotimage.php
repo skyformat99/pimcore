@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -17,15 +18,14 @@
 namespace Pimcore\Model\Object\ClassDefinition\Data;
 
 use Pimcore\Model;
-use Pimcore\Model\Object;
 use Pimcore\Model\Asset;
 use Pimcore\Model\Document;
 use Pimcore\Model\Element;
+use Pimcore\Model\Object;
 use Pimcore\Tool\Serialize;
 
 class Hotspotimage extends Model\Object\ClassDefinition\Data\Image
 {
-
     /**
      * Static type of this element
      *
@@ -53,7 +53,6 @@ class Hotspotimage extends Model\Object\ClassDefinition\Data\Image
      * @var string
      */
     public $phpdocType = "\\Pimcore\\Model\\Object\\Data\\Hotspotimage";
-
 
     /**
      * @var int
@@ -118,14 +117,14 @@ class Hotspotimage extends Model\Object\ClassDefinition\Data\Image
         $this->predefinedDataTemplates = $predefinedDataTemplates;
     }
 
-
-
     /**
      * @see Object\ClassDefinition\Data::getDataForResource
+     *
      * @param Object\Data\Hotspotimage $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
-     * @return integer|null
+     *
+     * @return int|null
      */
     public function getDataForResource($data, $object = null, $params = [])
     {
@@ -157,9 +156,11 @@ class Hotspotimage extends Model\Object\ClassDefinition\Data\Image
 
     /**
      * @see Object\ClassDefinition\Data::getDataFromResource
+     *
      * @param Object\Data\Hotspotimage $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return Asset
      */
     public function getDataFromResource($data, $object = null, $params = [])
@@ -215,10 +216,12 @@ class Hotspotimage extends Model\Object\ClassDefinition\Data\Image
 
     /**
      * @see Object\ClassDefinition\Data::getDataForQueryResource
+     *
      * @param Object\Data\Hotspotimage $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
-     * @return integer|null
+     *
+     * @return int|null
      */
     public function getDataForQueryResource($data, $object = null, $params = [])
     {
@@ -227,10 +230,12 @@ class Hotspotimage extends Model\Object\ClassDefinition\Data\Image
 
     /**
      * @see Object\ClassDefinition\Data::getDataForEditmode
+     *
      * @param Object\Data\Hotspotimage $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
-     * @return integer
+     *
+     * @return int
      */
     public function getDataForEditmode($data, $object = null, $params = [])
     {
@@ -277,9 +282,11 @@ class Hotspotimage extends Model\Object\ClassDefinition\Data\Image
 
     /**
      * @see Model\Object\ClassDefinition\Data::getDataFromEditmode
+     *
      * @param Object\Data\Hotspotimage $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return Asset
      */
     public function getDataFromEditmode($data, $object = null, $params = [])
@@ -312,15 +319,16 @@ class Hotspotimage extends Model\Object\ClassDefinition\Data\Image
             $data["hotspots"] = $rewritePath($data["hotspots"]);
         }
 
-
         return new Object\Data\Hotspotimage($data["image"], $data["hotspots"], $data["marker"], $data["crop"]);
     }
 
     /**
      * @see Object\ClassDefinition\Data::getVersionPreview
+     *
      * @param Asset\Image $data
      * @param null|Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getVersionPreview($data, $object = null, $params = [])
@@ -332,9 +340,12 @@ class Hotspotimage extends Model\Object\ClassDefinition\Data\Image
 
     /**
      * converts object data to a simple string value or CSV Export
+     *
      * @abstract
+     *
      * @param Object\AbstractObject $object
      * @param array $params
+     *
      * @return string
      */
     public function getForCsvExport($object, $params = [])
@@ -351,6 +362,7 @@ class Hotspotimage extends Model\Object\ClassDefinition\Data\Image
      * @param string $importValue
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return mixed|null|Object\ClassDefinition\Data
      */
     public function getFromCsvImport($importValue, $object = null, $params = [])
@@ -367,6 +379,7 @@ class Hotspotimage extends Model\Object\ClassDefinition\Data\Image
     /**
      * @param $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForSearchIndex($object, $params = [])
@@ -379,6 +392,7 @@ class Hotspotimage extends Model\Object\ClassDefinition\Data\Image
      *
      * @param mixed $data
      * @param array $tags
+     *
      * @return array
      */
     public function getCacheTags($data, $tags = [])
@@ -389,7 +403,6 @@ class Hotspotimage extends Model\Object\ClassDefinition\Data\Image
             if (!array_key_exists($data->getImage()->getCacheTag(), $tags)) {
                 $tags = $data->getImage()->getCacheTags($tags);
             }
-
 
             $getMetaDataCacheTags = function ($d, $tags) {
                 if (!is_array($d)) {
@@ -423,6 +436,7 @@ class Hotspotimage extends Model\Object\ClassDefinition\Data\Image
 
     /**
      * @param mixed $data
+     *
      * @return array
      */
     public function resolveDependencies($data)
@@ -463,11 +477,12 @@ class Hotspotimage extends Model\Object\ClassDefinition\Data\Image
         return $dependencies;
     }
 
-
     /**
      * converts data to be exposed via webservices
+     *
      * @param string $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function getForWebserviceExport($object, $params = [])
@@ -487,13 +502,14 @@ class Hotspotimage extends Model\Object\ClassDefinition\Data\Image
         return null;
     }
 
-
     /**
      * @param mixed $value
      * @param null $object
      * @param array $params
      * @param null $idMapper
+     *
      * @return null|Asset|Object\Data\Hotspotimage
+     *
      * @throws \Exception
      */
     public function getFromWebserviceImport($value, $object = null, $params = [], $idMapper = null)
@@ -511,9 +527,7 @@ class Hotspotimage extends Model\Object\ClassDefinition\Data\Image
         }
         $hotspotImage = $this->getDataFromResource($value);
 
-
         /** @var $hotspotImage Object\Data\Hotspotimage */
-
         if (!$hotspotImage) {
             return null;
         }
@@ -546,6 +560,7 @@ class Hotspotimage extends Model\Object\ClassDefinition\Data\Image
      * @param $data
      * @param null $object
      * @param mixed $params
+     *
      * @return null
      */
     public function getDataForGrid($data, $object = null, $params = [])
@@ -567,9 +582,11 @@ class Hotspotimage extends Model\Object\ClassDefinition\Data\Image
      *  "object" => array(...),
      *  "asset" => array(...)
      * )
+     *
      * @param mixed $object
      * @param array $idMapping
      * @param array $params
+     *
      * @return Element\ElementInterface
      */
     public function rewriteIds($object, $idMapping, $params = [])
@@ -586,7 +603,6 @@ class Hotspotimage extends Model\Object\ClassDefinition\Data\Image
                 $data->setCrop(null);
             }
 
-
             if ($data->getHotspots()) {
                 $data->setHotspots($this->rewriteIdsInDataEntries($data->getHotspots(), $idMapping));
             }
@@ -601,6 +617,7 @@ class Hotspotimage extends Model\Object\ClassDefinition\Data\Image
     /**
      * @param $dataArray
      * @param $idMapping
+     *
      * @return array
      */
     private function rewriteIdsInDataEntries($dataArray, $idMapping)
@@ -647,6 +664,7 @@ class Hotspotimage extends Model\Object\ClassDefinition\Data\Image
      * @param mixed $value
      * @param Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function marshal($value, $object = null, $params = [])
@@ -677,6 +695,7 @@ class Hotspotimage extends Model\Object\ClassDefinition\Data\Image
      * @param mixed $value
      * @param Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function unmarshal($value, $object = null, $params = [])

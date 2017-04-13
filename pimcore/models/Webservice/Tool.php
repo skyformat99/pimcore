@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Webservice
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -18,9 +19,9 @@ namespace Pimcore\Model\Webservice;
 
 class Tool
 {
-
     /**
      * @static
+     *
      * @return array
      */
     public static function createClassMappings()
@@ -64,6 +65,7 @@ class Tool
 
     /**
      * @param $data
+     *
      * @return array
      */
     public static function keyValueReverseMapping($data)

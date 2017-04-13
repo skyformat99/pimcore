@@ -24,6 +24,7 @@ final class WorkflowEvents
      *  - actionName | string | name of the action
      *
      * @Event("Pimcore\Event\Model\WorkflowEvent")
+     *
      * @var string
      */
     const PRE_ACTION = 'pimcore.workflowmanagement.preAction';
@@ -36,6 +37,7 @@ final class WorkflowEvents
      *  - actionName | string | name of the action
      *
      * @Event("Pimcore\Event\Model\WorkflowEvent")
+     *
      * @var string
      */
     const POST_ACTION = 'pimcore.workflowmanagement.postAction';
@@ -48,6 +50,7 @@ final class WorkflowEvents
      *  - actions | array | name of allowed actions
      *
      * @Event("Pimcore\Event\Model\WorkflowEvent")
+     *
      * @var string
      */
     const PRE_RETURN_AVAILABLE_ACTIONS = "pimcore.workflowmanagement.preReturnAvailableActions";
@@ -58,6 +61,7 @@ final class WorkflowEvents
      *  - data | array
      *
      * @Event("Pimcore\Event\Model\WorkflowEvent")
+     *
      * @var string
      */
     const ACTION_BEFORE = "pimcore.workflowmanagement.action.before";
@@ -68,6 +72,7 @@ final class WorkflowEvents
      *  - data | array
      *
      * @Event("Pimcore\Event\Model\WorkflowEvent")
+     *
      * @var string
      */
     const ACTION_SUCCESS = "pimcore.workflowmanagement.action.success";
@@ -79,6 +84,7 @@ final class WorkflowEvents
      *  - exception | \Exception
      *
      * @Event("Pimcore\Event\Model\WorkflowEvent")
+     *
      * @var string
      */
     const ACTION_FAILURE = "pimcore.workflowmanagement.action.failure";

@@ -15,8 +15,8 @@
 namespace Pimcore\Tool;
 
 use Pimcore\Config;
-use Symfony\Component\Process\Process;
 use Pimcore\Logger;
+use Symfony\Component\Process\Process;
 
 class Console
 {
@@ -37,6 +37,7 @@ class Console
 
     /**
      * @static
+     *
      * @return string "windows" or "unix"
      */
     public static function getSystemEnvironment()
@@ -55,7 +56,9 @@ class Console
     /**
      * @param $name
      * @param bool $throwException
+     *
      * @return bool|mixed|string
+     *
      * @throws \Exception
      */
     public static function getExecutable($name, $throwException = false)
@@ -137,9 +140,6 @@ class Console
         return false;
     }
 
-    /**
-     *
-     */
     protected static function setupComposer()
     {
         // composer needs either COMPOSER_HOME or HOME to be set
@@ -156,6 +156,7 @@ class Console
 
     /**
      * @param $process
+     *
      * @return bool
      */
     protected static function checkPngout($process)
@@ -169,6 +170,7 @@ class Console
 
     /**
      * @param $process
+     *
      * @return bool
      */
     protected static function checkCjpeg($process)
@@ -184,6 +186,7 @@ class Console
 
     /**
      * @param $process
+     *
      * @return bool
      */
     protected static function checkComposite($process)
@@ -193,6 +196,7 @@ class Console
 
     /**
      * @param $process
+     *
      * @return bool
      */
     protected static function checkConvert($process)
@@ -206,6 +210,7 @@ class Console
 
     /**
      * @param $process
+     *
      * @return bool
      */
     protected static function checkDummy($process)
@@ -215,6 +220,7 @@ class Console
 
     /**
      * @return mixed
+     *
      * @throws \Exception
      */
     public static function getPhpCli()
@@ -233,11 +239,12 @@ class Console
     /**
      * @param $script
      * @param $arguments
+     *
      * @return string
      */
     protected static function buildPhpScriptCmd($script, $arguments)
     {
-        $phpCli = Console::getPhpCli();
+        $phpCli = self::getPhpCli();
 
         $cmd = $phpCli . " " . $script;
 
@@ -257,12 +264,13 @@ class Console
      * @param $arguments
      * @param $outputFile
      * @param $timeout
+     *
      * @return string
      */
     public static function runPhpScript($script, $arguments = "", $outputFile = null, $timeout = null)
     {
         $cmd = self::buildPhpScriptCmd($script, $arguments);
-        $return = Console::exec($cmd, $outputFile, $timeout);
+        $return = self::exec($cmd, $outputFile, $timeout);
 
         return $return;
     }
@@ -271,12 +279,13 @@ class Console
      * @param $script
      * @param $arguments
      * @param $outputFile
+     *
      * @return string
      */
     public static function runPhpScriptInBackground($script, $arguments = "", $outputFile = null)
     {
         $cmd = self::buildPhpScriptCmd($script, $arguments);
-        $return = Console::execInBackground($cmd, $outputFile);
+        $return = self::execInBackground($cmd, $outputFile);
 
         return $return;
     }
@@ -285,6 +294,7 @@ class Console
      * @param $cmd
      * @param null $outputFile
      * @param null $timeout
+     *
      * @return string
      */
     public static function exec($cmd, $outputFile = null, $timeout = null)
@@ -328,8 +338,10 @@ class Console
 
     /**
      * @static
+     *
      * @param string $cmd
      * @param null|string $outputFile
+     *
      * @return int
      */
     public static function execInBackground($cmd, $outputFile = null)
@@ -345,8 +357,10 @@ class Console
 
     /**
      * @static
+     *
      * @param string $cmd
      * @param string $outputFile
+     *
      * @return int
      */
     protected static function execInBackgroundUnix($cmd, $outputFile)
@@ -387,8 +401,10 @@ class Console
 
     /**
      * @static
+     *
      * @param string $cmd
      * @param string $outputFile
+     *
      * @return int
      */
     protected static function execInBackgroundWindows($cmd, $outputFile)
@@ -410,7 +426,8 @@ class Console
     /**
      * Returns a hash with all options passed to a cli script
      *
-     * @param boolean $onlyFullNotationArgs
+     * @param bool $onlyFullNotationArgs
+     *
      * @return array
      */
     public static function getOptions($onlyFullNotationArgs = false)
@@ -435,6 +452,7 @@ class Console
      * @param $options
      * @param string $concatenator
      * @param string $arrayConcatenator
+     *
      * @return string
      */
     public static function getOptionString($options, $concatenator = '=', $arrayConcatenator = ',')
@@ -457,6 +475,7 @@ class Console
 
     /**
      * @param array $allowedUsers
+     *
      * @throws \Exception
      */
     public static function checkExecutingUser($allowedUsers = [])

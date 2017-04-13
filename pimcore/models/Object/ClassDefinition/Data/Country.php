@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -20,7 +21,6 @@ use Pimcore\Model;
 
 class Country extends Model\Object\ClassDefinition\Data\Select
 {
-
     /**
      * Static type of this element
      *
@@ -32,7 +32,6 @@ class Country extends Model\Object\ClassDefinition\Data\Select
      * @var null
      */
     public $restrictTo = null;
-
 
     public function __construct()
     {
@@ -60,6 +59,7 @@ class Country extends Model\Object\ClassDefinition\Data\Select
     /** True if change is allowed in edit mode.
      * @param string $object
      * @param mixed $params
+     *
      * @return bool
      */
     public function isDiffChangeAllowed($object, $params = [])

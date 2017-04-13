@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -26,6 +27,7 @@ class DefinitionCache
     /**
      * @param $id
      * @param string $type
+     *
      * @return mixed|KeyConfig
      */
     public static function get($id, $type = "key")
@@ -79,6 +81,7 @@ class DefinitionCache
 
     /**
      * @param $config
+     *
      * @return string
      */
     protected static function getType($config)

@@ -38,7 +38,6 @@ class ProductTaxManagementTest extends \Codeception\Test\Unit
         $taxClass->setTaxEntries($taxEntries);
         $taxClass->setTaxEntryCombinationType($combinationType);
 
-
         $config = new \stdClass();
 
         $priceSystem = Stub::construct(AttributePriceSystem::class, [$config], [
@@ -86,12 +85,10 @@ class ProductTaxManagementTest extends \Codeception\Test\Unit
         /**
          * @var $product AbstractProduct
          */
-
         $price = $product->getOSPrice();
         $this->assertEquals(100, round($price->getGrossAmount(), 2), "Get gross amount with tax 10% + 15% combine");
         $this->assertEquals(80, round($price->getNetAmount(), 2), "Get net amount 10% + 15% combine");
     }
-
 
     public function testPriceWithTaxEntriesOneAfterAnother()
     {
@@ -100,7 +97,6 @@ class ProductTaxManagementTest extends \Codeception\Test\Unit
         /**
          * @var $product AbstractProduct
          */
-
         $price = $product->getOSPrice();
         $this->assertEquals(100, round($price->getGrossAmount(), 2), "Get gross amount with tax 10% + 15% one-after-another");
         $this->assertEquals(79.05, round($price->getNetAmount(), 2), "Get net amount 10% + 15% one-after-another");

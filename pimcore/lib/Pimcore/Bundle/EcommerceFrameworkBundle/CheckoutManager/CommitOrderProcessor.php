@@ -50,6 +50,7 @@ class CommitOrderProcessor implements ICommitOrderProcessor
     /**
      * @param $paymentResponseParams
      * @param IPayment $paymentProvider
+     *
      * @return \Pimcore\Bundle\EcommerceFrameworkBundle\PaymentManager\Status|IStatus
      */
     protected function getPaymentStatus($paymentResponseParams, IPayment $paymentProvider)
@@ -73,7 +74,9 @@ class CommitOrderProcessor implements ICommitOrderProcessor
     /**
      * @param $paymentResponseParams
      * @param IPayment $paymentProvider
+     *
      * @return AbstractOrder
+     *
      * @throws \Exception
      */
     public function handlePaymentResponseAndCommitOrderPayment($paymentResponseParams, IPayment $paymentProvider)
@@ -95,7 +98,9 @@ class CommitOrderProcessor implements ICommitOrderProcessor
      *
      * @param array|IStatus $paymentResponseParams
      * @param IPayment $paymentProvider
+     *
      * @return null|AbstractOrder
+     *
      * @throws \Exception
      * @throws UnsupportedException
      */
@@ -133,7 +138,9 @@ class CommitOrderProcessor implements ICommitOrderProcessor
     /**
      * @param IStatus $paymentStatus
      * @param IPayment $paymentProvider
+     *
      * @return AbstractOrder
+     *
      * @throws \Exception
      * @throws UnsupportedException
      */
@@ -202,6 +209,7 @@ class CommitOrderProcessor implements ICommitOrderProcessor
      * @param AbstractOrder $order
      *
      * @return AbstractOrder
+     *
      * @throws \Exception
      */
     public function commitOrder(AbstractOrder $order)

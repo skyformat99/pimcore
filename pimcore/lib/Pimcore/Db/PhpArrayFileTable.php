@@ -40,6 +40,7 @@ class PhpArrayFileTable
 
     /**
      * @param $filePath
+     *
      * @return self
      */
     public static function get($filePath)
@@ -53,6 +54,7 @@ class PhpArrayFileTable
 
     /**
      * PhpArrayFileTable constructor.
+     *
      * @param string $filePath
      */
     public function __construct($filePath = null)
@@ -64,6 +66,7 @@ class PhpArrayFileTable
 
     /**
      * @param $filePath
+     *
      * @throws \Exception
      */
     public function setFilePath($filePath)
@@ -90,6 +93,7 @@ class PhpArrayFileTable
     /**
      * @param $data
      * @param string|int $id
+     *
      * @throws \Exception
      */
     public function insertOrUpdate($data, $id = null)
@@ -118,6 +122,7 @@ class PhpArrayFileTable
 
     /**
      * @param string|int $id
+     *
      * @return array|null
      */
     public function getById($id)
@@ -132,6 +137,7 @@ class PhpArrayFileTable
     /**
      * @param null $filter
      * @param null $order
+     *
      * @return array
      */
     public function fetchAll($filter = null, $order = null)
@@ -179,18 +185,12 @@ class PhpArrayFileTable
         return $this->lastInsertId;
     }
 
-    /**
-     *
-     */
     public function truncate()
     {
         $this->data = [];
         $this->save();
     }
 
-    /**
-     *
-     */
     protected function load()
     {
         if (file_exists($this->filePath)) {
@@ -201,9 +201,6 @@ class PhpArrayFileTable
         }
     }
 
-    /**
-     *
-     */
     protected function save()
     {
         $contents = to_php_data_file_format($this->data);

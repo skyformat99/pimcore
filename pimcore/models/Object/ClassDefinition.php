@@ -10,19 +10,20 @@
  *
  * @category   Pimcore
  * @package    Object
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Object;
 
+use Pimcore\Cache;
 use Pimcore\Event\Model\Object\ClassDefinitionEvent;
 use Pimcore\Event\ObjectClassDefinitionEvents;
+use Pimcore\File;
+use Pimcore\Logger;
 use Pimcore\Model;
 use Pimcore\Model\Object;
-use Pimcore\File;
-use Pimcore\Cache;
-use Pimcore\Logger;
 
 /**
  * @method \Pimcore\Model\Object\ClassDefinition\Dao getDao()
@@ -74,22 +75,22 @@ class ClassDefinition extends Model\AbstractModel
     public $parentClass;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $useTraits;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $allowInherit = false;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $allowVariants = false;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $showVariants = false;
 
@@ -138,10 +139,11 @@ class ClassDefinition extends Model\AbstractModel
         ]
     ];
 
-
     /**
      * @param $id
+     *
      * @return mixed|null|ClassDefinition
+     *
      * @throws \Exception
      */
     public static function getById($id)
@@ -183,6 +185,7 @@ class ClassDefinition extends Model\AbstractModel
 
     /**
      * @param string $name
+     *
      * @return self
      */
     public static function getByName($name)
@@ -204,6 +207,7 @@ class ClassDefinition extends Model\AbstractModel
 
     /**
      * @param array $values
+     *
      * @return self
      */
     public static function create($values = [])
@@ -225,7 +229,6 @@ class ClassDefinition extends Model\AbstractModel
         $this->setName($name);
         $this->save();
     }
-
 
     /**
      * @param $data
@@ -265,7 +268,6 @@ class ClassDefinition extends Model\AbstractModel
 
         $this->getDao()->save();
 
-
         $infoDocBlock = $this->getInfoDocBlock();
 
         // save definition as a php file
@@ -280,7 +282,6 @@ class ClassDefinition extends Model\AbstractModel
         unset($clone->fieldDefinitions);
 
         self::cleanupForExport($clone->layoutDefinitions);
-
 
         if ($saveDefinitionFile) {
             $exportedClass = var_export($clone, true);
@@ -349,7 +350,6 @@ class ClassDefinition extends Model\AbstractModel
 
         $cd .= "\n\n";
 
-
         $cd .= '/**' . "\n";
         $cd .= '* @param array $values' . "\n";
         $cd .= '* @return \\Pimcore\\Model\\Object\\' . ucfirst($this->getName()) . "\n";
@@ -402,7 +402,6 @@ class ClassDefinition extends Model\AbstractModel
             throw new \Exception("Cannot write class file in " . $classFile . " please check the rights on this directory");
         }
         File::put($classFile, $cd);
-
 
         // create list class
         $cd = '<?php ';
@@ -482,7 +481,6 @@ class ClassDefinition extends Model\AbstractModel
 
         $cd .= "*/ ";
 
-
         return $cd;
     }
 
@@ -490,6 +488,7 @@ class ClassDefinition extends Model\AbstractModel
      * @param $definition
      * @param $text
      * @param $level
+     *
      * @return string
      */
     protected function getInfoDocBlockForFields($definition, $text, $level)
@@ -497,7 +496,7 @@ class ClassDefinition extends Model\AbstractModel
         foreach ($definition->getFieldDefinitions() as $fd) {
             $text .= str_pad("", $level, "-") . " " . $fd->getName() . " [" . $fd->getFieldtype() . "]\n";
             if (method_exists($fd, "getFieldDefinitions")) {
-                $text = $this->getInfoDocBlockForFields($fd, $text, $level+1);
+                $text = $this->getInfoDocBlockForFields($fd, $text, $level + 1);
             }
         }
 
@@ -541,7 +540,7 @@ class ClassDefinition extends Model\AbstractModel
 
         $brickListing = new Object\Objectbrick\Definition\Listing();
         $brickListing = $brickListing->load();
-        /** @var  $brickDefinition Object\Objectbrick\Definition */
+        /** @var $brickDefinition Object\Objectbrick\Definition */
         foreach ($brickListing as $brickDefinition) {
             $modified = false;
 
@@ -577,9 +576,9 @@ class ClassDefinition extends Model\AbstractModel
         @unlink($this->getDefinitionFile());
     }
 
-
     /**
      * @param null $name
+     *
      * @return string
      */
     public function getDefinitionFile($name = null)
@@ -643,6 +642,7 @@ class ClassDefinition extends Model\AbstractModel
 
     /**
      * @param int $id
+     *
      * @return $this
      */
     public function setId($id)
@@ -654,6 +654,7 @@ class ClassDefinition extends Model\AbstractModel
 
     /**
      * @param string $name
+     *
      * @return $this
      */
     public function setName($name)
@@ -665,6 +666,7 @@ class ClassDefinition extends Model\AbstractModel
 
     /**
      * @param int $creationDate
+     *
      * @return $this
      */
     public function setCreationDate($creationDate)
@@ -676,6 +678,7 @@ class ClassDefinition extends Model\AbstractModel
 
     /**
      * @param int $modificationDate
+     *
      * @return $this
      */
     public function setModificationDate($modificationDate)
@@ -687,6 +690,7 @@ class ClassDefinition extends Model\AbstractModel
 
     /**
      * @param int $userOwner
+     *
      * @return $this
      */
     public function setUserOwner($userOwner)
@@ -698,6 +702,7 @@ class ClassDefinition extends Model\AbstractModel
 
     /**
      * @param int $userModification
+     *
      * @return $this
      */
     public function setUserModification($userModification)
@@ -725,6 +730,7 @@ class ClassDefinition extends Model\AbstractModel
 
     /**
      * @param array $fieldDefinitions
+     *
      * @return $this
      */
     public function setFieldDefinitions($fieldDefinitions)
@@ -737,6 +743,7 @@ class ClassDefinition extends Model\AbstractModel
     /**
      * @param string $key
      * @param Object\ClassDefinition\Data $data
+     *
      * @return $this
      */
     public function addFieldDefinition($key, $data)
@@ -748,7 +755,8 @@ class ClassDefinition extends Model\AbstractModel
 
     /**
      * @param $key
-     * @return Object\ClassDefinition\Data|boolean
+     *
+     * @return Object\ClassDefinition\Data|bool
      */
     public function getFieldDefinition($key)
     {
@@ -761,6 +769,7 @@ class ClassDefinition extends Model\AbstractModel
 
     /**
      * @param array $layoutDefinitions
+     *
      * @return $this
      */
     public function setLayoutDefinitions($layoutDefinitions)
@@ -807,10 +816,9 @@ class ClassDefinition extends Model\AbstractModel
         return $this->parent;
     }
 
-
-
     /**
      * @param mixed $parent
+     *
      * @return $this
      */
     public function setParent($parent)
@@ -838,6 +846,7 @@ class ClassDefinition extends Model\AbstractModel
 
     /**
      * @param string $useTraits
+     *
      * @return ClassDefinition
      */
     public function setUseTraits($useTraits)
@@ -848,7 +857,7 @@ class ClassDefinition extends Model\AbstractModel
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getAllowInherit()
     {
@@ -856,7 +865,7 @@ class ClassDefinition extends Model\AbstractModel
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getAllowVariants()
     {
@@ -865,6 +874,7 @@ class ClassDefinition extends Model\AbstractModel
 
     /**
      * @param string $parentClass
+     *
      * @return $this
      */
     public function setParentClass($parentClass)
@@ -875,7 +885,8 @@ class ClassDefinition extends Model\AbstractModel
     }
 
     /**
-     * @param boolean $allowInherit
+     * @param bool $allowInherit
+     *
      * @return $this
      */
     public function setAllowInherit($allowInherit)
@@ -886,7 +897,8 @@ class ClassDefinition extends Model\AbstractModel
     }
 
     /**
-     * @param boolean $allowVariants
+     * @param bool $allowVariants
+     *
      * @return $this
      */
     public function setAllowVariants($allowVariants)
@@ -906,6 +918,7 @@ class ClassDefinition extends Model\AbstractModel
 
     /**
      * @param $icon
+     *
      * @return $this
      */
     public function setIcon($icon)
@@ -925,6 +938,7 @@ class ClassDefinition extends Model\AbstractModel
 
     /**
      * @param $propertyVisibility
+     *
      * @return $this
      */
     public function setPropertyVisibility($propertyVisibility)
@@ -938,6 +952,7 @@ class ClassDefinition extends Model\AbstractModel
 
     /**
      * @param $previewUrl
+     *
      * @return $this
      */
     public function setPreviewUrl($previewUrl)
@@ -973,6 +988,7 @@ class ClassDefinition extends Model\AbstractModel
 
     /**
      * @param $description
+     *
      * @return $this
      */
     public function setDescription($description)
@@ -991,7 +1007,7 @@ class ClassDefinition extends Model\AbstractModel
     }
 
     /**
-     * @param boolean $showVariants
+     * @param bool $showVariants
      */
     public function setShowVariants($showVariants)
     {
@@ -999,7 +1015,7 @@ class ClassDefinition extends Model\AbstractModel
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getShowVariants()
     {

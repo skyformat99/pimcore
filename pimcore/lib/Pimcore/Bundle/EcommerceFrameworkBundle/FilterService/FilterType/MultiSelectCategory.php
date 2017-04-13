@@ -37,7 +37,6 @@ class MultiSelectCategory extends AbstractFilterType
             }
         }
 
-
         foreach ($rawValues as $v) {
             $explode = explode(",", $v['value']);
             foreach ($explode as $e) {
@@ -75,7 +74,6 @@ class MultiSelectCategory extends AbstractFilterType
 
         $currentFilter[$filterDefinition->getField()] = $value;
 
-
         $conditions = [];
         if (!empty($value)) {
             foreach ($value as $category) {
@@ -83,9 +81,7 @@ class MultiSelectCategory extends AbstractFilterType
                     $category = $category->getId();
                 }
 
-
                 $category = "%," . trim($category) . ",%";
-
 
                 $conditions[] = $filterDefinition->getField() . " LIKE " . $productList->quote($category);
             }

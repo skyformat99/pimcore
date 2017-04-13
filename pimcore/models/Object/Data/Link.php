@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -21,7 +22,6 @@ use Pimcore\Model\Document;
 
 class Link
 {
-
     /**
      * @var string
      */
@@ -102,6 +102,7 @@ class Link
 
     /**
      * @param $text
+     *
      * @return $this
      */
     public function setText($text)
@@ -121,6 +122,7 @@ class Link
 
     /**
      * @param $internalType
+     *
      * @return $this
      */
     public function setInternalType($internalType)
@@ -140,6 +142,7 @@ class Link
 
     /**
      * @param $internal
+     *
      * @return $this
      */
     public function setInternal($internal)
@@ -162,6 +165,7 @@ class Link
 
     /**
      * @param $direct
+     *
      * @return $this
      */
     public function setDirect($direct)
@@ -181,6 +185,7 @@ class Link
 
     /**
      * @param $linktype
+     *
      * @return $this
      */
     public function setLinktype($linktype)
@@ -200,6 +205,7 @@ class Link
 
     /**
      * @param $target
+     *
      * @return $this
      */
     public function setTarget($target)
@@ -219,6 +225,7 @@ class Link
 
     /**
      * @param $parameters
+     *
      * @return $this
      */
     public function setParameters($parameters)
@@ -238,6 +245,7 @@ class Link
 
     /**
      * @param $anchor
+     *
      * @return $this
      */
     public function setAnchor($anchor)
@@ -257,6 +265,7 @@ class Link
 
     /**
      * @param $title
+     *
      * @return $this
      */
     public function setTitle($title)
@@ -276,6 +285,7 @@ class Link
 
     /**
      * @param $accesskey
+     *
      * @return $this
      */
     public function setAccesskey($accesskey)
@@ -295,6 +305,7 @@ class Link
 
     /**
      * @param $rel
+     *
      * @return $this
      */
     public function setRel($rel)
@@ -314,6 +325,7 @@ class Link
 
     /**
      * @param $tabindex
+     *
      * @return $this
      */
     public function setTabindex($tabindex)
@@ -357,6 +369,7 @@ class Link
 
     /**
      * @param $path
+     *
      * @return $this
      */
     public function setPath($path)
@@ -425,7 +438,7 @@ class Link
     }
 
     /**
-     * @return Document|Asset|boolean
+     * @return Document|Asset|bool
      *
      * @todo: $this->object not found in class
      */
@@ -444,6 +457,7 @@ class Link
 
     /**
      * @param $object
+     *
      * @return $this
      */
     public function setObject($object)
@@ -510,6 +524,7 @@ class Link
 
     /**
      * @param array $data
+     *
      * @return $this
      */
     public function setValues($data = [])

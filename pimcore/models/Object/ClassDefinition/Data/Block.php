@@ -10,17 +10,18 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Object\ClassDefinition\Data;
 
+use Pimcore\Logger;
 use Pimcore\Model;
 use Pimcore\Model\Element;
 use Pimcore\Model\Object;
 use Pimcore\Tool\Serialize;
-use Pimcore\Logger;
 
 class Block extends Model\Object\ClassDefinition\Data
 {
@@ -34,22 +35,22 @@ class Block extends Model\Object\ClassDefinition\Data
     public $fieldtype = "block";
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $disallowAddRemove;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $disallowReorder;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $collapsible;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $collapsed;
 
@@ -66,7 +67,6 @@ class Block extends Model\Object\ClassDefinition\Data
      * @var string
      */
     public $columnType = "longtext";
-
 
     /**
      * Type for the generated phpdoc
@@ -87,6 +87,7 @@ class Block extends Model\Object\ClassDefinition\Data
 
     /**
      * contains further child field definitions if there are more than one localized fields in on class
+     *
      * @var array
      */
     protected $referencedFields = [];
@@ -96,12 +97,13 @@ class Block extends Model\Object\ClassDefinition\Data
      */
     public $fieldDefinitionsCache;
 
-
     /**
      * @see Object\ClassDefinition\Data::getDataForResource
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForResource($data, $object = null, $params = [])
@@ -116,7 +118,7 @@ class Block extends Model\Object\ClassDefinition\Data
                  * @var  $blockElement Object\Data\BlockElement
                  */
                 foreach ($blockElements as $elementName => $blockElement) {
-                    /** @var  $fd Object\ClassDefinition\Data */
+                    /** @var $fd Object\ClassDefinition\Data */
                     $fd = $this->getFielddefinition($elementName);
                     if (!$fd) {
                         // class definition seems to have changed
@@ -144,9 +146,11 @@ class Block extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object\ClassDefinition\Data::getDataFromResource
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataFromResource($data, $object = null, $params = [])
@@ -157,10 +161,10 @@ class Block extends Model\Object\ClassDefinition\Data
 
             foreach ($unserializedData as $blockElements) {
                 $items = [];
-                /** @var  $blockElement Object\Data\BlockElement */
+                /** @var $blockElement Object\Data\BlockElement */
                 foreach ($blockElements as $elementName => $blockElementRaw) {
 
-                    /** @var  $fd Object\ClassDefinition\Data */
+                    /** @var $fd Object\ClassDefinition\Data */
                     $fd = $this->getFielddefinition($elementName);
                     if (!$fd) {
                         // class definition seems to have changed
@@ -176,7 +180,7 @@ class Block extends Model\Object\ClassDefinition\Data
                     $blockElementRaw["data"] = $dataFromResource;
 
                     if ($blockElementRaw["type"] == "localizedfields") {
-                        /** @var  $data Object\Localizedfield */
+                        /** @var $data Object\Localizedfield */
                         $data = $blockElementRaw["data"];
                         if ($data) {
                             $data->setObject($object);
@@ -197,9 +201,11 @@ class Block extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object\ClassDefinition\Data::getDataForQueryResource
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForQueryResource($data, $object = null, $params = [])
@@ -209,9 +215,11 @@ class Block extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object\ClassDefinition\Data::getDataForEditmode
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForEditmode($data, $object = null, $params = [])
@@ -228,7 +236,7 @@ class Block extends Model\Object\ClassDefinition\Data
                  * @var  $blockElement Object\Data\BlockElement
                  */
                 foreach ($blockElements as $elementName => $blockElement) {
-                    /** @var  $fd Object\ClassDefinition\Data */
+                    /** @var $fd Object\ClassDefinition\Data */
                     $fd = $this->getFielddefinition($elementName);
                     if (!$fd) {
                         // class definition seems to have changed
@@ -251,9 +259,11 @@ class Block extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Model\Object\ClassDefinition\Data::getDataFromEditmode
+     *
      * @param array $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataFromEditmode($data, $object = null, $params = [])
@@ -269,7 +279,7 @@ class Block extends Model\Object\ClassDefinition\Data
 
             foreach ($blockElement as $elementName => $elementData) {
 
-                /** @var  $fd Object\ClassDefinition\Data */
+                /** @var $fd Object\ClassDefinition\Data */
                 $fd = $this->getFielddefinition($elementName);
                 $dataFromEditMode = $fd->getDataFromEditmode($elementData, $object,
                     [
@@ -297,9 +307,11 @@ class Block extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object\ClassDefinition\Data::getVersionPreview
+     *
      * @param string $data
      * @param null|Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getVersionPreview($data, $object = null, $params = [])
@@ -307,12 +319,14 @@ class Block extends Model\Object\ClassDefinition\Data
         return "not supported";
     }
 
-
     /**
      * converts object data to a simple string value or CSV Export
+     *
      * @abstract
+     *
      * @param Object\AbstractObject $object
      * @param array $params
+     *
      * @return string
      */
     public function getForCsvExport($object, $params = [])
@@ -324,6 +338,7 @@ class Block extends Model\Object\ClassDefinition\Data
      * @param $importValue
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getFromCsvImport($importValue, $object = null, $params = [])
@@ -331,11 +346,12 @@ class Block extends Model\Object\ClassDefinition\Data
         return null;
     }
 
-
     /**
      * converts data to be exposed via webservices
+     *
      * @param string $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function getForWebserviceExport($object, $params = [])
@@ -343,13 +359,14 @@ class Block extends Model\Object\ClassDefinition\Data
         return "not supported yet";
     }
 
-
     /**
      * @param mixed $value
      * @param null $relatedObject
      * @param mixed $params
      * @param null $idMapper
+     *
      * @return mixed|void
+     *
      * @throws \Exception
      */
     public function getFromWebserviceImport($value, $relatedObject = null, $params = [], $idMapper = null)
@@ -357,10 +374,10 @@ class Block extends Model\Object\ClassDefinition\Data
         // do nothing
     }
 
-
     /** True if change is allowed in edit mode.
      * @param string $object
      * @param mixed $params
+     *
      * @return bool
      */
     public function isDiffChangeAllowed($object, $params = [])
@@ -370,9 +387,11 @@ class Block extends Model\Object\ClassDefinition\Data
 
     /** Generates a pretty version preview (similar to getVersionPreview) can be either html or
      * a image URL. See the ObjectMerger plugin documentation for details
+     *
      * @param $data
      * @param null $object
      * @param mixed $params
+     *
      * @return array|string
      */
     public function getDiffVersionPreview($data, $object = null, $params = [])
@@ -381,7 +400,6 @@ class Block extends Model\Object\ClassDefinition\Data
             return "not supported";
         }
     }
-
 
     /**
      * @param Model\Object\ClassDefinition\Data $masterDefinition
@@ -396,6 +414,7 @@ class Block extends Model\Object\ClassDefinition\Data
 
     /**
      * @param Object\Data\ExternalImage $data
+     *
      * @return bool
      */
     public function isEmpty($data)
@@ -417,6 +436,7 @@ class Block extends Model\Object\ClassDefinition\Data
 
     /**
      * @param array $children
+     *
      * @return $this
      */
     public function setChildren($children)
@@ -428,7 +448,7 @@ class Block extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function hasChildren()
     {
@@ -450,6 +470,7 @@ class Block extends Model\Object\ClassDefinition\Data
 
     /**
      * @param $layout
+     *
      * @return $this
      */
     public function setLayout($layout)
@@ -470,6 +491,7 @@ class Block extends Model\Object\ClassDefinition\Data
     /**
      * @param mixed $data
      * @param array $blockedKeys
+     *
      * @return $this
      */
     public function setValues($data = [], $blockedKeys = [])
@@ -489,6 +511,7 @@ class Block extends Model\Object\ClassDefinition\Data
     /**
      * @param null $def
      * @param array $fields
+     *
      * @return array
      */
     public function doGetFieldDefinitions($def = null, $fields = [])
@@ -539,6 +562,7 @@ class Block extends Model\Object\ClassDefinition\Data
 
     /**
      * @param $name
+     *
      * @return mixed
      */
     public function getFielddefinition($name)
@@ -589,6 +613,7 @@ class Block extends Model\Object\ClassDefinition\Data
 
     /**
      * @param $data
+     *
      * @return array
      */
     public function resolveDependencies($data)
@@ -621,6 +646,7 @@ class Block extends Model\Object\ClassDefinition\Data
      *
      * @param mixed $data
      * @param array $tags
+     *
      * @return array
      */
     public function getCacheTags($data, $tags = [])
@@ -649,7 +675,7 @@ class Block extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isCollapsed()
     {
@@ -657,7 +683,7 @@ class Block extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @param boolean $collapsed
+     * @param bool $collapsed
      */
     public function setCollapsed($collapsed)
     {
@@ -665,7 +691,7 @@ class Block extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isCollapsible()
     {
@@ -673,7 +699,7 @@ class Block extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @param boolean $collapsible
+     * @param bool $collapsible
      */
     public function setCollapsible($collapsible)
     {

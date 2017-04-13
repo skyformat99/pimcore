@@ -74,6 +74,7 @@ final class AdminEvents
      *  - requestParams | contains the request parameters
      *
      * @Event("Pimcore\Event\Model\GenericEvent")
+     *
      * @var string
      */
     const SEARCH_LIST_BEFORE_FILTER_PREPARE = "pimcore.admin.search.list.beforeFilterPrepare";
@@ -86,6 +87,7 @@ final class AdminEvents
      *  - list | the search backend list
      *
      * @Event("Pimcore\Event\Model\GenericEvent")
+     *
      * @var string
      */
     const SEARCH_LIST_BEFORE_LIST_LOAD = "pimcore.admin.search.list.beforeListLoad";
@@ -98,10 +100,10 @@ final class AdminEvents
      *  - list | raw result as an array
      *
      * @Event("Pimcore\Event\Model\GenericEvent")
+     *
      * @var string
      */
     const SEARCH_LIST_AFTER_LIST_LOAD = "pimcore.admin.search.list.afterListLoad";
-
 
     /**
      * Fired before the request params are parsed.
@@ -112,6 +114,7 @@ final class AdminEvents
      *  - asset | Asset | the current asset
      *
      * @Event("Pimcore\Event\Model\GenericEvent")
+     *
      * @var string
      */
     const ASSET_GET_PRE_SEND_DATA = "pimcore.admin.asset.get.preSendData";
@@ -125,6 +128,7 @@ final class AdminEvents
      *  - document | Document | the current document
      *
      * @Event("Pimcore\Event\Model\GenericEvent")
+     *
      * @var string
      */
     const DOCUMENT_GET_PRE_SEND_DATA = "pimcore.admin.document.get.preSendData";
@@ -138,6 +142,7 @@ final class AdminEvents
      *  - object | AbstractObject | the current object
      *
      * @Event("Pimcore\Event\Model\GenericEvent")
+     *
      * @var string
      */
     const OBJECT_GET_PRE_SEND_DATA = "pimcore.admin.object.get.preSendData";
@@ -148,6 +153,7 @@ final class AdminEvents
      *  - objects | array | the list of object tree nodes
      *
      * @Event("Pimcore\Event\Model\GenericEvent")
+     *
      * @var string
      */
     const OBJECT_TREE_GET_CHILDREN_BY_ID_PRE_SEND_DATA = "pimcore.admin.object.treeGetChildsById.preSendData";
@@ -159,6 +165,7 @@ final class AdminEvents
      *  - objectId | int | id of the origin object
      *
      * @Event("Pimcore\Event\Model\GenericEvent")
+     *
      * @var string
      */
     const CLASS_OBJECTBRICK_LIST_PRE_SEND_DATA = "pimcore.admin.class.objectbrickList.preSendData";

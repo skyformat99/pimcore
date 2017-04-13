@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -24,7 +25,6 @@ use Pimcore\Model\Object;
  */
 class Dao extends Model\Listing\Dao\AbstractDao
 {
-
     /**
      * Loads a list of Classificationstore group configs for the specified parameters, returns an array of config elements
      *
@@ -51,20 +51,16 @@ class Dao extends Model\Listing\Dao\AbstractDao
         $sql = "SELECT " . Object\Classificationstore\KeyGroupRelation\Dao::TABLE_NAME_RELATIONS . ".*,"
             . Object\Classificationstore\KeyConfig\Dao::TABLE_NAME_KEYS . ".*";
 
-
         if ($resourceGroupName) {
             $sql .= ", " . Object\Classificationstore\GroupConfig\Dao::TABLE_NAME_GROUPS . ".name as groupName";
         }
 
-
-        $sql .=  " FROM " . Object\Classificationstore\KeyGroupRelation\Dao::TABLE_NAME_RELATIONS
+        $sql .= " FROM " . Object\Classificationstore\KeyGroupRelation\Dao::TABLE_NAME_RELATIONS
             . "," . Object\Classificationstore\KeyConfig\Dao::TABLE_NAME_KEYS;
 
         if ($resourceGroupName) {
             $sql .= ", " . Object\Classificationstore\GroupConfig\Dao::TABLE_NAME_GROUPS;
         }
-
-
 
         $sql .= $condition;
         $sql .= $this->getOrder() . $this->getOffsetLimit();

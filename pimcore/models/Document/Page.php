@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Document
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -17,17 +18,15 @@
 namespace Pimcore\Model\Document;
 
 use Pimcore\Db;
+use Pimcore\Logger;
 use Pimcore\Model;
 use Pimcore\Model\Redirect;
-use Pimcore\Logger;
 
 /**
  * @method \Pimcore\Model\Document\Page\Dao getDao()
  */
 class Page extends Model\Document\PageSnippet
 {
-
-
     /**
      * Contains the title of the page (meta-title)
      *
@@ -61,6 +60,7 @@ class Page extends Model\Document\PageSnippet
 
     /**
      * comma separated IDs of personas
+     *
      * @var string
      */
     public $personas = "";
@@ -91,9 +91,6 @@ class Page extends Model\Document\PageSnippet
         parent::delete();
     }
 
-    /**
-     *
-     */
     protected function update()
     {
         $oldPath = $this->getDao()->getCurrentFullPath();
@@ -133,6 +130,7 @@ class Page extends Model\Document\PageSnippet
      * getProperty method should be used instead
      *
      * @deprecated
+     *
      * @return string
      */
     public function getName()
@@ -144,7 +142,9 @@ class Page extends Model\Document\PageSnippet
      * setProperty method should be used instead
      *
      * @deprecated
+     *
      * @param string $name
+     *
      * @return $this
      */
     public function setName($name)
@@ -164,6 +164,7 @@ class Page extends Model\Document\PageSnippet
 
     /**
      * @deprecated
+     *
      * @return string
      */
     public function getKeywords()
@@ -184,6 +185,7 @@ class Page extends Model\Document\PageSnippet
 
     /**
      * @param string $description
+     *
      * @return $this
      */
     public function setDescription($description)
@@ -195,7 +197,9 @@ class Page extends Model\Document\PageSnippet
 
     /**
      * @deprecated
+     *
      * @param string $keywords
+     *
      * @return $this
      */
     public function setKeywords($keywords)
@@ -208,6 +212,7 @@ class Page extends Model\Document\PageSnippet
 
     /**
      * @param string $title
+     *
      * @return $this
      */
     public function setTitle($title)
@@ -219,6 +224,7 @@ class Page extends Model\Document\PageSnippet
 
     /**
      * @param $metaData
+     *
      * @return $this
      */
     public function setMetaData($metaData)
@@ -236,9 +242,6 @@ class Page extends Model\Document\PageSnippet
         return $this->metaData;
     }
 
-    /**
-     *
-     */
     public function getFullPath()
     {
         $path = parent::getFullPath();
@@ -257,6 +260,7 @@ class Page extends Model\Document\PageSnippet
 
     /**
      * @param $prettyUrl
+     *
      * @return $this
      */
     public function setPrettyUrl($prettyUrl)
@@ -302,6 +306,7 @@ class Page extends Model\Document\PageSnippet
 
     /**
      * @param null $personaId
+     *
      * @return null|string
      */
     public function getPersonaElementPrefix($personaId = null)
@@ -321,6 +326,7 @@ class Page extends Model\Document\PageSnippet
 
     /**
      * @param $name
+     *
      * @return string
      */
     public function getPersonaElementName($name)
@@ -348,6 +354,7 @@ class Page extends Model\Document\PageSnippet
 
     /**
      * @param string $name
+     *
      * @return Model\Document\Tag
      */
     public function getElement($name)
@@ -397,9 +404,6 @@ class Page extends Model\Document\PageSnippet
         return $this->usePersona;
     }
 
-    /**
-     *
-     */
     public function __sleep()
     {
         $finalVars = [];

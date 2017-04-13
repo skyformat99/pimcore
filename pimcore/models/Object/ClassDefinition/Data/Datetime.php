@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -21,7 +22,6 @@ use Pimcore\Model;
 
 class Datetime extends Model\Object\ClassDefinition\Data
 {
-
     /**
      * Static type of this element
      *
@@ -50,25 +50,24 @@ class Datetime extends Model\Object\ClassDefinition\Data
      */
     public $phpdocType = "\\Carbon\\Carbon";
 
-
     /**
      * @var int
      */
     public $defaultValue;
-
 
     /**
      * @var bool
      */
     public $useCurrentDate;
 
-
     /**
      * @see Model\Object\ClassDefinition\Data::getDataForResource
+     *
      * @param \Zend_Date|\DateTime $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
-     * @return integer
+     *
+     * @return int
      */
     public function getDataForResource($data, $object = null, $params = [])
     {
@@ -79,9 +78,11 @@ class Datetime extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Model\Object\ClassDefinition\Data::getDataFromResource
-     * @param integer $data
+     *
+     * @param int $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return \Zend_Date|\DateTime
      */
     public function getDataFromResource($data, $object = null, $params = [])
@@ -93,10 +94,12 @@ class Datetime extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Model\Object\ClassDefinition\Data::getDataForQueryResource
+     *
      * @param \Zend_Date|\DateTime $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
-     * @return integer
+     *
+     * @return int
      */
     public function getDataForQueryResource($data, $object = null, $params = [])
     {
@@ -107,9 +110,11 @@ class Datetime extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Model\Object\ClassDefinition\Data::getDataForEditmode
+     *
      * @param \Zend_Date|\DateTime $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForEditmode($data, $object = null, $params = [])
@@ -121,6 +126,7 @@ class Datetime extends Model\Object\ClassDefinition\Data
 
     /**
      * @param $timestamp
+     *
      * @return \DateTime|\Pimcore\Date
      */
     protected function getDateFromTimestamp($timestamp)
@@ -137,9 +143,11 @@ class Datetime extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Model\Object\ClassDefinition\Data::getDataFromEditmode
-     * @param integer $data
+     *
+     * @param int $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return \Zend_Date|\DateTime
      */
     public function getDataFromEditmode($data, $object = null, $params = [])
@@ -155,6 +163,7 @@ class Datetime extends Model\Object\ClassDefinition\Data
      * @param \Zend_Date|\DateTime $data
      * @param null $object
      * @param mixed $params
+     *
      * @return null
      */
     public function getDataForGrid($data, $object = null, $params = [])
@@ -168,9 +177,11 @@ class Datetime extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Model\Object\ClassDefinition\Data::getVersionPreview
+     *
      * @param \Zend_Date|\DateTime $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getVersionPreview($data, $object = null, $params = [])
@@ -182,12 +193,14 @@ class Datetime extends Model\Object\ClassDefinition\Data
         }
     }
 
-
     /**
      * converts object data to a simple string value or CSV Export
+     *
      * @abstract
+     *
      * @param Model\Object\AbstractObject $object
      * @param array $params
+     *
      * @return string
      */
     public function getForCsvExport($object, $params = [])
@@ -206,6 +219,7 @@ class Datetime extends Model\Object\ClassDefinition\Data
      * @param string $importValue
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return null|Date|Model\Object\ClassDefinition\Data
      */
     public function getFromCsvImport($importValue, $object = null, $params = [])
@@ -221,6 +235,7 @@ class Datetime extends Model\Object\ClassDefinition\Data
     /**
      * @param $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForSearchIndex($object, $params = [])
@@ -230,8 +245,10 @@ class Datetime extends Model\Object\ClassDefinition\Data
 
     /**
      * converts data to be exposed via webservices
+     *
      * @param Model\Object\Concrete $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function getForWebserviceExport($object, $params = [])
@@ -244,7 +261,9 @@ class Datetime extends Model\Object\ClassDefinition\Data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
      * @param null $idMapper
+     *
      * @return mixed|void
+     *
      * @throws \Exception
      */
     public function getFromWebserviceImport($value, $object = null, $params = [], $idMapper = null)
@@ -274,6 +293,7 @@ class Datetime extends Model\Object\ClassDefinition\Data
 
     /**
      * @param mixed $defaultValue
+     *
      * @return $this
      */
     public function setDefaultValue($defaultValue)
@@ -291,6 +311,7 @@ class Datetime extends Model\Object\ClassDefinition\Data
 
     /**
      * @param $useCurrentDate
+     *
      * @return $this
      */
     public function setUseCurrentDate($useCurrentDate)
@@ -300,10 +321,10 @@ class Datetime extends Model\Object\ClassDefinition\Data
         return $this;
     }
 
-
     /** True if change is allowed in edit mode.
      * @param string $object
      * @param mixed $params
+     *
      * @return bool
      */
     public function isDiffChangeAllowed($object, $params = [])
@@ -315,9 +336,9 @@ class Datetime extends Model\Object\ClassDefinition\Data
      * @param $data
      * @param null $object
      * @param mixed $params
+     *
      * @return null|Date
      */
-
     public function getDiffDataFromEditmode($data, $object = null, $params = [])
     {
         $thedata = $data[0]["data"];
@@ -332,6 +353,7 @@ class Datetime extends Model\Object\ClassDefinition\Data
      * @param mixed $data
      * @param null $object
      * @param mixed $params
+     *
      * @return array|null
      */
     public function getDiffDataForEditMode($data, $object = null, $params = [])
@@ -341,7 +363,7 @@ class Datetime extends Model\Object\ClassDefinition\Data
         $thedata = null;
         if ($data) {
             $thedata = $data->getTimestamp();
-        };
+        }
         $diffdata = [];
         $diffdata["field"] = $this->getName();
         $diffdata["key"] = $this->getName();
@@ -358,9 +380,11 @@ class Datetime extends Model\Object\ClassDefinition\Data
 
     /**
      * returns sql query statement to filter according to this data types value(s)
+     *
      * @param $value
      * @param $operator
      * @param array $params optional params used to change the behavior
+     *
      * @return string
      */
     public function getFilterConditionExt($value, $operator, $params = [])

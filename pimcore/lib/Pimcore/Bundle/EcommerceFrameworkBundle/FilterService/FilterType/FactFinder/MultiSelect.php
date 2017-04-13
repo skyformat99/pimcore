@@ -27,7 +27,6 @@ class MultiSelect extends \Pimcore\Bundle\EcommerceFrameworkBundle\FilterService
     {
     }
 
-
     /**
      * @param AbstractFilterDefinitionType $filterDefinition
      * @param IProductList                 $productList
@@ -43,7 +42,6 @@ class MultiSelect extends \Pimcore\Bundle\EcommerceFrameworkBundle\FilterService
         $field = $this->getField($filterDefinition);
         $value = $params[$field];
 
-
         // set defaults
         if (empty($value) && !$params['is_reload'] && ($preSelect = $this->getPreSelect($filterDefinition))) {
             $value = explode(",", $preSelect);
@@ -53,8 +51,6 @@ class MultiSelect extends \Pimcore\Bundle\EcommerceFrameworkBundle\FilterService
 
         $currentFilter[$field] = $value;
 
-
-
         if (!empty($value)) {
             $quotedValues = [];
 
@@ -63,7 +59,6 @@ class MultiSelect extends \Pimcore\Bundle\EcommerceFrameworkBundle\FilterService
                     $quotedValues[] = $v;
                 }
             }
-
 
             if (!empty($quotedValues)) {
                 if ($filterDefinition->getUseAndCondition()) {

@@ -47,7 +47,6 @@ class PdfReactor8 extends Processor
 
         include_once('Pimcore/Web2Print/Processor/api/v' . $web2PrintConfig->get('pdfreactorVersion', '8.0') . '/PDFreactor.class.php');
 
-
         $port = ((string) $web2PrintConfig->pdfreactorServerPort) ? (string) $web2PrintConfig->pdfreactorServerPort : "9423";
         $protocol = ((string) $web2PrintConfig->pdfreactorProtocol) ? (string) $web2PrintConfig->pdfreactorProtocol : "http";
 

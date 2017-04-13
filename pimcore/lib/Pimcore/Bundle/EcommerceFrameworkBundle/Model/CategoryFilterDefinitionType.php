@@ -19,7 +19,6 @@ namespace Pimcore\Bundle\EcommerceFrameworkBundle\Model;
  */
 abstract class CategoryFilterDefinitionType extends AbstractFilterDefinitionType
 {
-
     /**
      * @return string
      */

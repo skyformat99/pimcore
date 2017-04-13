@@ -17,7 +17,6 @@ namespace Pimcore;
 
 use Composer\Script\Event;
 use Composer\Util\Filesystem;
-use Composer\Installer\PackageEvent;
 
 class Composer
 {

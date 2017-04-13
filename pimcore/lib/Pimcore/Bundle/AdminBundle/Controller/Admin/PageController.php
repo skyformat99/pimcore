@@ -35,7 +35,9 @@ class PageController extends DocumentControllerBase
 {
     /**
      * @Route("/get-data-by-id")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getDataByIdAction(Request $request)
@@ -96,8 +98,11 @@ class PageController extends DocumentControllerBase
 
     /**
      * @Route("/save")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
+     *
      * @throws \Exception
      */
     public function saveAction(Request $request)
@@ -156,7 +161,7 @@ class PageController extends DocumentControllerBase
                             $existingRedirectIds[$existingRedirect->getId()] = $existingRedirect->getId();
                         }
 
-                        for ($i=1; $i<100; $i++) {
+                        for ($i=1; $i < 100; $i++) {
                             if (array_key_exists("redirect_url_".$i, $settings)) {
 
                                 // check for existing
@@ -186,7 +191,7 @@ class PageController extends DocumentControllerBase
                 // check if settings exist, before saving meta data
                 if ($request->get("settings") && is_array($settings)) {
                     $metaData = [];
-                    for ($i=1; $i<30; $i++) {
+                    for ($i=1; $i < 30; $i++) {
                         if (array_key_exists("metadata_" . $i, $settings)) {
                             $metaData[] = $settings["metadata_" . $i];
                         }
@@ -197,7 +202,6 @@ class PageController extends DocumentControllerBase
                 // only save when publish or unpublish
                 if (($request->get("task") == "publish" && $page->isAllowed("publish")) or ($request->get("task") == "unpublish" && $page->isAllowed("unpublish"))) {
                     $this->setValuesToDocument($request, $page);
-
 
                     try {
                         $page->save();
@@ -242,7 +246,9 @@ class PageController extends DocumentControllerBase
 
     /**
      * @Route("/get-list")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getListAction(Request $request)
@@ -259,13 +265,15 @@ class PageController extends DocumentControllerBase
 
     /**
      * @Route("/upload-screenshot")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function uploadScreenshotAction(Request $request)
     {
         if ($request->get("data") && $request->get("id")) {
-            $data = substr($request->get("data"), strpos($request->get("data"), ",")+1);
+            $data = substr($request->get("data"), strpos($request->get("data"), ",") + 1);
             $data = base64_decode($data);
 
             $file = PIMCORE_TEMPORARY_DIRECTORY . "/document-page-previews/document-page-screenshot-" . $request->get("id") . ".jpg";
@@ -282,7 +290,9 @@ class PageController extends DocumentControllerBase
 
     /**
      * @Route("/generate-screenshot")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function generateScreenshotAction(Request $request)
@@ -330,7 +340,9 @@ class PageController extends DocumentControllerBase
 
     /**
      * @Route("/check-pretty-url")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function checkPrettyUrlAction(Request $request)
@@ -371,7 +383,9 @@ class PageController extends DocumentControllerBase
 
     /**
      * @Route("/clear-editable-data")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function clearEditableDataAction(Request $request)

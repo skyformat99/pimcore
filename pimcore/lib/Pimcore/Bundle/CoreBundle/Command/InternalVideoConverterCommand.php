@@ -15,9 +15,9 @@
 namespace Pimcore\Bundle\CoreBundle\Command;
 
 use Pimcore\Console\AbstractCommand;
+use Pimcore\Model\Asset;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Pimcore\Model\Asset;
 
 class InternalVideoConverterCommand extends AbstractCommand
 {

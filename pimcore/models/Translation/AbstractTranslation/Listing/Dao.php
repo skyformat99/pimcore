@@ -10,22 +10,22 @@
  *
  * @category   Pimcore
  * @package    Translation
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Translation\AbstractTranslation\Listing;
 
-use Pimcore\Model;
 use Pimcore\Cache;
+use Pimcore\Model;
 
 /**
  * @property \Pimcore\Model\Translation\AbstractTranslation\Listing $model
  */
 abstract class Dao extends Model\Listing\Dao\AbstractDao implements Dao\DaoInterface
 {
-
-    /** @var  Callback function */
+    /** @var Callback function */
     protected $onCreateQueryCallback;
 
     /**
@@ -50,9 +50,6 @@ abstract class Dao extends Model\Listing\Dao\AbstractDao implements Dao\DaoInter
 
         return $amount;
     }
-
-
-
 
     /**
      * @return int
@@ -92,7 +89,6 @@ abstract class Dao extends Model\Listing\Dao\AbstractDao implements Dao\DaoInter
             $itemClass = static::getItemClass();
             $translations = [];
 
-
             $select = $this->db->select();
 
             // create base
@@ -126,7 +122,6 @@ abstract class Dao extends Model\Listing\Dao\AbstractDao implements Dao\DaoInter
 
             Cache::save($translations, $cacheKey, ["translator", "translate"], 999);
         }
-
 
         return $translations;
     }
@@ -205,9 +200,6 @@ abstract class Dao extends Model\Listing\Dao\AbstractDao implements Dao\DaoInter
         return true;
     }
 
-    /**
-     *
-     */
     public function cleanup()
     {
         $keysToDelete = $this->db->fetchCol("SELECT `key` FROM " . static::getTableName() . " as tbl1 WHERE

@@ -35,6 +35,7 @@ class IndexController extends AdminController
     /**
      * @Route("/", name="pimcore_admin_index")
      * @TemplatePhp()
+     *
      * @return ViewModel
      */
     public function indexAction(Request $request)
@@ -58,6 +59,7 @@ class IndexController extends AdminController
     /**
      * @param ViewModel $view
      * @param User $user
+     *
      * @return $this
      */
     protected function addRuntimePerspective(ViewModel $view, User $user)
@@ -72,6 +74,7 @@ class IndexController extends AdminController
 
     /**
      * @param ViewModel $view
+     *
      * @return $this
      */
     protected function addReportConfig(ViewModel $view)
@@ -84,6 +87,7 @@ class IndexController extends AdminController
 
     /**
      * @param ViewModel $view
+     *
      * @return $this
      */
     protected function addPluginAssets(ViewModel $view)
@@ -167,6 +171,7 @@ class IndexController extends AdminController
 
     /**
      * @param ViewModel $settings
+     *
      * @return $this
      */
     protected function addSystemVarSettings(ViewModel $settings)
@@ -192,6 +197,7 @@ class IndexController extends AdminController
     /**
      * @param ViewModel $settings
      * @param User $user
+     *
      * @return $this
      */
     protected function addCsrfToken(ViewModel $settings, User $user)
@@ -211,6 +217,7 @@ class IndexController extends AdminController
 
     /**
      * @param ViewModel $settings
+     *
      * @return $this
      */
     protected function addMaintenanceSettings(ViewModel $settings)
@@ -236,6 +243,7 @@ class IndexController extends AdminController
     /**
      * @param ViewModel $settings
      * @param \stdClass $config
+     *
      * @return $this
      */
     protected function addMailSettings(ViewModel $settings, $config)
@@ -261,6 +269,7 @@ class IndexController extends AdminController
 
     /**
      * @param ViewModel $settings
+     *
      * @return $this
      */
     protected function addCustomViewSettings(ViewModel $settings)

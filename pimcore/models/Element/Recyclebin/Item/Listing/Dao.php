@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Element
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -23,7 +24,6 @@ use Pimcore\Model;
  */
 class Dao extends Model\Listing\Dao\AbstractDao
 {
-
     /**
      * Loads a list of static routes for the specicifies parameters, returns an array of Staticroute elements
      *

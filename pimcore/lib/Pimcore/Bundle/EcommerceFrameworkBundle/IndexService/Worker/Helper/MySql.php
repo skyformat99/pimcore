@@ -14,8 +14,8 @@
 
 namespace Pimcore\Bundle\EcommerceFrameworkBundle\IndexService\Worker\Helper;
 
-use Pimcore\Logger;
 use Pimcore\Cache;
+use Pimcore\Logger;
 
 class MySql
 {
@@ -38,7 +38,6 @@ class MySql
     public function getValidTableColumns($table)
     {
         $cacheKey = "plugin_ecommerce_productindex_columns_" . $table;
-
 
         if (!Cache\Runtime::isRegistered($cacheKey)) {
             $columns = [];
@@ -64,7 +63,6 @@ class MySql
 
         $this->db->insertOrUpdate($this->tenantConfig->getTablename(), $data);
     }
-
 
     public function getSystemAttributes()
     {
@@ -130,7 +128,6 @@ class MySql
             }
         }
 
-
         foreach ($columnsToAdd as $c => $type) {
             $this->dbexec('ALTER TABLE `' . $this->tenantConfig->getTablename() . '` ADD `' . $c . '` ' . $type . ';');
         }
@@ -150,7 +147,6 @@ class MySql
             }
             $this->dbexec('ALTER TABLE `' . $this->tenantConfig->getTablename() . '` ADD FULLTEXT INDEX search (' . implode(",", $columnNames) . ');');
         }
-
 
         $this->dbexec("CREATE TABLE IF NOT EXISTS `" . $this->tenantConfig->getRelationTablename() . "` (
           `src` $idColumnType,

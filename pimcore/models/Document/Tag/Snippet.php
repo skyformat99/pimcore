@@ -10,16 +10,17 @@
  *
  * @category   Pimcore
  * @package    Document
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Document\Tag;
 
-use Pimcore\Model;
 use Pimcore\Cache;
-use Pimcore\Model\Document;
 use Pimcore\Logger;
+use Pimcore\Model;
+use Pimcore\Model\Document;
 use Pimcore\Tool\DeviceDetector;
 
 /**
@@ -27,11 +28,10 @@ use Pimcore\Tool\DeviceDetector;
  */
 class Snippet extends Model\Document\Tag
 {
-
     /**
      * Contains the ID of the linked snippet
      *
-     * @var integer
+     * @var int
      */
     public $id;
 
@@ -42,9 +42,9 @@ class Snippet extends Model\Document\Tag
      */
     public $snippet;
 
-
     /**
      * @see Document\Tag\TagInterface::getType
+     *
      * @return string
      */
     public function getType()
@@ -54,6 +54,7 @@ class Snippet extends Model\Document\Tag
 
     /**
      * @see Document\Tag\TagInterface::getData
+     *
      * @return mixed
      */
     public function getData()
@@ -96,6 +97,7 @@ class Snippet extends Model\Document\Tag
 
     /**
      * @see Document\Tag\TagInterface::frontend
+     *
      * @return string
      */
     public function frontend()
@@ -160,7 +162,9 @@ class Snippet extends Model\Document\Tag
 
     /**
      * @see Document\Tag\TagInterface::setDataFromResource
+     *
      * @param mixed $data
+     *
      * @return $this
      */
     public function setDataFromResource($data)
@@ -175,7 +179,9 @@ class Snippet extends Model\Document\Tag
 
     /**
      * @see Document\Tag\TagInterface::setDataFromEditmode
+     *
      * @param mixed $data
+     *
      * @return $this
      */
     public function setDataFromEditmode($data)
@@ -189,7 +195,7 @@ class Snippet extends Model\Document\Tag
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isEmpty()
     {
@@ -199,7 +205,6 @@ class Snippet extends Model\Document\Tag
 
         return true;
     }
-
 
     /**
      * @return array
@@ -220,18 +225,18 @@ class Snippet extends Model\Document\Tag
         return $dependencies;
     }
 
-
     /**
      * @param Model\Webservice\Data\Document\Element $wsElement
      * @param $document
      * @param mixed $params
      * @param null $idMapper
+     *
      * @throws \Exception
      */
     public function getFromWebserviceImport($wsElement, $document = null, $params = [], $idMapper = null)
     {
         $data = $wsElement->value;
-        if ($data->id !==null) {
+        if ($data->id !== null) {
             $this->id = $data->id;
             if (is_numeric($this->id)) {
                 $this->snippet = Document\Snippet::getById($this->id);
@@ -243,7 +248,6 @@ class Snippet extends Model\Document\Tag
             }
         }
     }
-
 
     /**
      * @return array
@@ -270,8 +274,6 @@ class Snippet extends Model\Document\Tag
         $this->snippet = Document::getById($this->id);
     }
 
-
-
     /**
      * Rewrites id from source to target, $idMapping contains
      * array(
@@ -282,6 +284,7 @@ class Snippet extends Model\Document\Tag
      *  "object" => array(...),
      *  "asset" => array(...)
      * )
+     *
      * @param array $idMapping
      */
     public function rewriteIds($idMapping)

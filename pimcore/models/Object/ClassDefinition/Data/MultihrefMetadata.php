@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -18,14 +19,13 @@ namespace Pimcore\Model\Object\ClassDefinition\Data;
 
 use Pimcore\Db;
 use Pimcore\Model;
-use Pimcore\Model\Object;
 use Pimcore\Model\Asset;
 use Pimcore\Model\Document;
 use Pimcore\Model\Element;
+use Pimcore\Model\Object;
 
 class MultihrefMetadata extends Model\Object\ClassDefinition\Data\Multihref
 {
-
     /**
      * @var
      */
@@ -45,12 +45,13 @@ class MultihrefMetadata extends Model\Object\ClassDefinition\Data\Multihref
      */
     public $phpdocType = "\\Pimcore\\Model\\Object\\Data\\ElementMetadata[]";
 
-
     /**
      * @see Object\ClassDefinition\Data::getDataForResource
+     *
      * @param array $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return array
      */
     public function getDataForResource($data, $object = null, $params = [])
@@ -73,7 +74,7 @@ class MultihrefMetadata extends Model\Object\ClassDefinition\Data\Multihref
             }
 
             return $return;
-        } elseif (is_array($data) and count($data)===0) {
+        } elseif (is_array($data) and count($data) === 0) {
             //give empty array if data was not null
             return [];
         } else {
@@ -84,9 +85,11 @@ class MultihrefMetadata extends Model\Object\ClassDefinition\Data\Multihref
 
     /**
      * @see Object\ClassDefinition\Data::getDataFromResource
+     *
      * @param array $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return array
      */
     public function getDataFromResource($data, $object = null, $params = [])
@@ -97,7 +100,6 @@ class MultihrefMetadata extends Model\Object\ClassDefinition\Data\Multihref
             foreach ($data as $element) {
                 $destination = null;
                 $source = Object::getById($element["src_id"]);
-
 
                 if ($element["type"] == "object") {
                     $destination = Object::getById($element["dest_id"]);
@@ -120,7 +122,6 @@ class MultihrefMetadata extends Model\Object\ClassDefinition\Data\Multihref
                     $position = $element["position"] ? $element["position"] : "0";
                     $type = $element["type"];
 
-
                     $metaData->load($source, $destination, $this->getName(), $ownertype, $ownername, $position, $type);
                     $objects[] = $metaData;
 
@@ -136,6 +137,7 @@ class MultihrefMetadata extends Model\Object\ClassDefinition\Data\Multihref
      * @param $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @throws \Exception
      */
     public function getDataForQueryResource($data, $object = null, $params = [])
@@ -167,9 +169,11 @@ class MultihrefMetadata extends Model\Object\ClassDefinition\Data\Multihref
 
     /**
      * @see Object\ClassDefinition\Data::getDataForEditmode
+     *
      * @param array $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return array
      */
     public function getDataForEditmode($data, $object = null, $params = [])
@@ -196,7 +200,6 @@ class MultihrefMetadata extends Model\Object\ClassDefinition\Data\Multihref
                     continue;
                 }
 
-
                 foreach ($this->getColumns() as $c) {
                     $getter = "get" . ucfirst($c['key']);
                     $itemData[$c['key']] = $metaObject->$getter();
@@ -211,12 +214,13 @@ class MultihrefMetadata extends Model\Object\ClassDefinition\Data\Multihref
         }
     }
 
-
     /**
      * @see Model\Object\ClassDefinition\Data::getDataFromEditmode
+     *
      * @param array $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return array
      */
     public function getDataFromEditmode($data, $object = null, $params = [])
@@ -266,6 +270,7 @@ class MultihrefMetadata extends Model\Object\ClassDefinition\Data\Multihref
      * @param $data
      * @param null $object
      * @param array $params
+     *
      * @return array
      */
     public function getDataForGrid($data, $object = null, $params = [])
@@ -285,9 +290,11 @@ class MultihrefMetadata extends Model\Object\ClassDefinition\Data\Multihref
 
     /**
      * @see Object\ClassDefinition\Data::getVersionPreview
+     *
      * @param array $data
      * @param null|Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getVersionPreview($data, $object = null, $params = [])
@@ -306,7 +313,8 @@ class MultihrefMetadata extends Model\Object\ClassDefinition\Data\Multihref
      * Checks if data is valid for current data field
      *
      * @param mixed $data
-     * @param boolean $omitMandatoryCheck
+     * @param bool $omitMandatoryCheck
+     *
      * @throws \Exception
      */
     public function checkValidity($data, $omitMandatoryCheck = false)
@@ -343,9 +351,12 @@ class MultihrefMetadata extends Model\Object\ClassDefinition\Data\Multihref
 
     /**
      * converts object data to a simple string value or CSV Export
+     *
      * @abstract
+     *
      * @param Object\AbstractObject $object
      * @param array $params
+     *
      * @return string
      */
     public function getForCsvExport($object, $params = [])
@@ -370,6 +381,7 @@ class MultihrefMetadata extends Model\Object\ClassDefinition\Data\Multihref
      * @param $importValue
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return array|mixed
      */
     public function getFromCsvImport($importValue, $object = null, $params = [])
@@ -399,12 +411,12 @@ class MultihrefMetadata extends Model\Object\ClassDefinition\Data\Multihref
         return $value;
     }
 
-
     /**
      * This is a dummy and is mostly implemented by relation types
      *
      * @param mixed $data
      * @param array $tags
+     *
      * @return array
      */
     public function getCacheTags($data, $tags = [])
@@ -427,10 +439,10 @@ class MultihrefMetadata extends Model\Object\ClassDefinition\Data\Multihref
         return $tags;
     }
 
-
     /**
      * @param Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return array|mixed|null
      */
     public function getForWebserviceExport($object, $params = [])
@@ -459,13 +471,14 @@ class MultihrefMetadata extends Model\Object\ClassDefinition\Data\Multihref
         }
     }
 
-
     /**
      * @param mixed $value
      * @param null $relatedObject
      * @param mixed $params
      * @param null $idMapper
+     *
      * @return mixed|void
+     *
      * @throws \Exception
      */
     public function getFromWebserviceImport($value, $relatedObject = null, $params = [], $idMapper = null)
@@ -497,7 +510,6 @@ class MultihrefMetadata extends Model\Object\ClassDefinition\Data\Multihref
                             $elMeta->$setter($href[$c['key']]);
                         }
 
-
                         $hrefs[] = $elMeta;
                     } else {
                         if (!$idMapper || !$idMapper->ignoreMappingFailures()) {
@@ -514,7 +526,6 @@ class MultihrefMetadata extends Model\Object\ClassDefinition\Data\Multihref
             throw new \Exception("cannot get values from web service import - invalid data");
         }
     }
-
 
     /**
      * @param Object\Concrete $object
@@ -589,6 +600,7 @@ class MultihrefMetadata extends Model\Object\ClassDefinition\Data\Multihref
     /**
      * @param $object
      * @param array $params
+     *
      * @return array|mixed|null
      */
     public function preGetData($object, $params = [])
@@ -615,7 +627,7 @@ class MultihrefMetadata extends Model\Object\ClassDefinition\Data\Multihref
 
         if (Object\AbstractObject::doHideUnpublished() and is_array($data)) {
             $publishedList = [];
-            /** @var  $listElement Object\Data\ElementMetadata */
+            /** @var $listElement Object\Data\ElementMetadata */
             foreach ($data as $listElement) {
                 if (Element\Service::isPublished($listElement->getElement())) {
                     $publishedList[] = $listElement;
@@ -656,6 +668,7 @@ class MultihrefMetadata extends Model\Object\ClassDefinition\Data\Multihref
 
     /**
      * @param $columns
+     *
      * @return $this
      */
     public function setColumns($columns)
@@ -700,6 +713,7 @@ class MultihrefMetadata extends Model\Object\ClassDefinition\Data\Multihref
     /**
      * @param $a
      * @param $b
+     *
      * @return int
      */
     public function sort($a, $b)
@@ -734,9 +748,11 @@ class MultihrefMetadata extends Model\Object\ClassDefinition\Data\Multihref
      *  "object" => array(...),
      *  "asset" => array(...)
      * )
+     *
      * @param mixed $object
      * @param array $idMapping
      * @param array $params
+     *
      * @return Element\ElementInterface
      */
     public function rewriteIds($object, $idMapping, $params = [])
@@ -781,6 +797,7 @@ class MultihrefMetadata extends Model\Object\ClassDefinition\Data\Multihref
 
     /**
      * @param $data
+     *
      * @return array
      */
     public function resolveDependencies($data)
@@ -807,13 +824,14 @@ class MultihrefMetadata extends Model\Object\ClassDefinition\Data\Multihref
      * @param mixed $value
      * @param Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function marshal($value, $object = null, $params = [])
     {
         if (is_array($value)) {
             $result = [];
-            /** @var  $elementMetadata Object\Data\ElementMetadata */
+            /** @var $elementMetadata Object\Data\ElementMetadata */
             foreach ($value as $elementMetadata) {
                 $element = $elementMetadata->getElement();
 
@@ -839,6 +857,7 @@ class MultihrefMetadata extends Model\Object\ClassDefinition\Data\Multihref
      * @param mixed $value
      * @param Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function unmarshal($value, $object = null, $params = [])

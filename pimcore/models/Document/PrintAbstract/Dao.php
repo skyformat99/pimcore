@@ -10,20 +10,20 @@
  *
  * @category   Pimcore
  * @package    Document
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Document\PrintAbstract;
 
-use \Pimcore\Model\Document;
+use Pimcore\Model\Document;
 
 /**
  * @property \Pimcore\Model\Document\PrintAbstract $model
  */
 class Dao extends Document\PageSnippet\Dao
 {
-
     /**
      * Contains the valid database columns
      *
@@ -43,7 +43,8 @@ class Dao extends Document\PageSnippet\Dao
     /**
      * Get the data for the object by the given id, or by the id which is set in the object
      *
-     * @param integer $id
+     * @param int $id
+     *
      * @throws \Exception
      */
     public function getById($id = null)

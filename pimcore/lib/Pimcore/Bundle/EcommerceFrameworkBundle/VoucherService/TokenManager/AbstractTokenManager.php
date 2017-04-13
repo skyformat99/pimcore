@@ -24,7 +24,6 @@ use Pimcore\View\Helper\TranslateAdmin;
 
 abstract class AbstractTokenManager implements ITokenManager
 {
-
     /* @var AbstractVoucherTokenType */
     public $configuration;
 
@@ -35,6 +34,7 @@ abstract class AbstractTokenManager implements ITokenManager
 
     /**
      * @param AbstractVoucherTokenType $configuration
+     *
      * @throws VoucherServiceException
      */
     public function __construct(AbstractVoucherTokenType $configuration)
@@ -55,6 +55,7 @@ abstract class AbstractTokenManager implements ITokenManager
 
     /**
      * @param array $filter
+     *
      * @return mixed
      */
     abstract public function cleanUpCodes($filter = []);
@@ -62,6 +63,7 @@ abstract class AbstractTokenManager implements ITokenManager
     /**
      * @param string $code
      * @param ICart $cart
+     *
      * @return mixed
      */
     public function checkToken($code, ICart $cart)
@@ -75,6 +77,7 @@ abstract class AbstractTokenManager implements ITokenManager
      *
      * @param $code
      * @param ICart $cart
+     *
      * @throws VoucherServiceException
      */
     protected function checkAllowOncePerCart($code, ICart $cart)
@@ -121,6 +124,7 @@ abstract class AbstractTokenManager implements ITokenManager
      * Export tokens to CSV
      *
      * @param $params
+     *
      * @return mixed
      * @implements IExportableTokenManager
      */
@@ -167,6 +171,7 @@ abstract class AbstractTokenManager implements ITokenManager
      * Export tokens to plain text list
      *
      * @param $params
+     *
      * @return mixed
      * @implements IExportableTokenManager
      */
@@ -196,7 +201,9 @@ abstract class AbstractTokenManager implements ITokenManager
      * Get data for export - to be overridden in child classes
      *
      * @param array $params
+     *
      * @return array
+     *
      * @throws \Exception
      */
     protected function getExportData(array $params)
@@ -207,6 +214,7 @@ abstract class AbstractTokenManager implements ITokenManager
     /**
      * @param string $code
      * @param ICart $cart
+     *
      * @return bool
      */
     abstract public function reserveToken($code, ICart $cart);
@@ -215,6 +223,7 @@ abstract class AbstractTokenManager implements ITokenManager
      * @param string $code
      * @param ICart $cart
      * @param \Pimcore\Bundle\EcommerceFrameworkBundle\Model\AbstractOrder $order
+     *
      * @return bool
      */
     abstract public function applyToken($code, ICart $cart, \Pimcore\Bundle\EcommerceFrameworkBundle\Model\AbstractOrder $order);
@@ -222,18 +231,21 @@ abstract class AbstractTokenManager implements ITokenManager
     /**
      * @param string $code
      * @param ICart $cart
+     *
      * @return bool
      */
     abstract public function releaseToken($code, ICart $cart);
 
     /**
      * @param null $filter
+     *
      * @return array|bool
      */
     abstract public function getCodes($filter = null);
 
     /**
      * @param null|int $usagePeriod
+     *
      * @return bool|array
      */
     abstract public function getStatistics($usagePeriod = null);
@@ -255,6 +267,7 @@ abstract class AbstractTokenManager implements ITokenManager
 
     /**
      * @param int $duration
+     *
      * @return bool
      */
     abstract public function cleanUpReservations($duration = 0);
@@ -262,6 +275,7 @@ abstract class AbstractTokenManager implements ITokenManager
     /**
      * @param $viewParamsBag
      * @param array $params
+     *
      * @return string The path of the template to display
      */
     abstract public function prepareConfigurationView(&$viewParamsBag, $params);

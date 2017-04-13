@@ -73,6 +73,7 @@ class DocumentController extends AbstractElementController
      * @param int|null $id
      *
      * @return JsonResponse
+     *
      * @throws ResponseException
      */
     public function getAction(Request $request, $id = null)
@@ -217,6 +218,7 @@ class DocumentController extends AbstractElementController
      * @param int|null $id
      *
      * @return JsonResponse
+     *
      * @throws ResponseException
      */
     public function deleteAction(Request $request, $id = null)
@@ -423,6 +425,7 @@ class DocumentController extends AbstractElementController
      * @param string $type
      *
      * @return string
+     *
      * @throws ResponseException
      */
     protected function getWebserviceInClassName($type)

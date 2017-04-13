@@ -30,6 +30,7 @@ class CleanupReservationsCommand extends AbstractCommand
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
+     *
      * @throws \Pimcore\Bundle\EcommerceFrameworkBundle\Exception\InvalidConfigException
      */
     protected function execute(InputInterface $input, OutputInterface $output)

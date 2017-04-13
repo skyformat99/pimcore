@@ -16,11 +16,11 @@ namespace Pimcore\Bundle\AdminBundle\Controller\Admin;
 
 use Pimcore\Config;
 use Pimcore\Event\AdminEvents;
-use \Pimcore\Model\Document;
+use Pimcore\Logger;
+use Pimcore\Model\Document;
 use Pimcore\Model\Element\Service;
 use Pimcore\Tool\Session;
 use Pimcore\Web2Print\Processor;
-use Pimcore\Logger;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -32,7 +32,9 @@ class PrintpageControllerBase extends DocumentControllerBase
 {
     /**
      * @Route("/get-data-by-id")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getDataByIdAction(Request $request)
@@ -87,7 +89,9 @@ class PrintpageControllerBase extends DocumentControllerBase
 
     /**
      * @Route("/save")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function saveAction(Request $request)
@@ -123,7 +127,6 @@ class PrintpageControllerBase extends DocumentControllerBase
 
                 $this->setValuesToDocument($request, $page);
 
-
                 try {
                     $page->save();
 
@@ -136,7 +139,6 @@ class PrintpageControllerBase extends DocumentControllerBase
             } else {
                 if ($page->isAllowed("save")) {
                     $this->setValuesToDocument($request, $page);
-
 
                     try {
                         $page->saveVersion();
@@ -167,8 +169,11 @@ class PrintpageControllerBase extends DocumentControllerBase
 
     /**
      * @Route("/active-generate-process")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
+     *
      * @throws \Exception
      */
     public function activeGenerateProcessAction(Request $request)
@@ -204,8 +209,11 @@ class PrintpageControllerBase extends DocumentControllerBase
 
     /**
      * @Route("/pdf-download")
+     *
      * @param Request $request
+     *
      * @throws \Exception
+     *
      * @return BinaryFileResponse
      */
     public function pdfDownloadAction(Request $request)
@@ -230,8 +238,11 @@ class PrintpageControllerBase extends DocumentControllerBase
 
     /**
      * @Route("/start-pdf-generation")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
+     *
      * @throws \Exception
      */
     public function startPdfGenerationAction(Request $request)
@@ -251,7 +262,9 @@ class PrintpageControllerBase extends DocumentControllerBase
 
     /**
      * @Route("/check-pdf-dirty")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function checkPdfDirtyAction(Request $request)
@@ -266,10 +279,11 @@ class PrintpageControllerBase extends DocumentControllerBase
         return $this->json(["pdfDirty" => $dirty]);
     }
 
-
     /**
      * @Route("/get-processing-options")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getProcessingOptionsAction(Request $request)
@@ -295,12 +309,12 @@ class PrintpageControllerBase extends DocumentControllerBase
             ];
         }
 
-
         return $this->json(["options" => $returnValue]);
     }
 
     /**
      * @param $documentId
+     *
      * @return array|mixed
      */
     private function getStoredProcessingOptions($documentId)
@@ -322,10 +336,11 @@ class PrintpageControllerBase extends DocumentControllerBase
         file_put_contents(PIMCORE_TEMPORARY_DIRECTORY . DIRECTORY_SEPARATOR . "web2print-processingoptions-" . $documentId . "_" . $this->getUser()->getId() . ".psf", \Pimcore\Tool\Serialize::serialize($options));
     }
 
-
     /**
      * @Route("/cancel-generation")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function cancelGenerationAction(Request $request)

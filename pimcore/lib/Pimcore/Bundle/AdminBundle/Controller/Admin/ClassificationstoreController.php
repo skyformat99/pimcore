@@ -15,9 +15,9 @@
 namespace Pimcore\Bundle\AdminBundle\Controller\Admin;
 
 use Pimcore\Bundle\AdminBundle\Controller\AdminController;
+use Pimcore\Db;
 use Pimcore\Model\Object;
 use Pimcore\Model\Object\Classificationstore;
-use Pimcore\Db;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,12 +27,13 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ClassificationstoreController extends AdminController
 {
-
     /**
      * Delete collection with the group-relations
      *
      * @Route("/delete-collection")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function deleteCollectionAction(Request $request)
@@ -54,7 +55,9 @@ class ClassificationstoreController extends AdminController
 
     /**
      * @Route("/delete-collection-relation")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function deleteCollectionRelationAction(Request $request)
@@ -73,7 +76,9 @@ class ClassificationstoreController extends AdminController
 
     /**
      * @Route("/delete-relation")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function deleteRelationAction(Request $request)
@@ -90,10 +95,11 @@ class ClassificationstoreController extends AdminController
         return $this->json(["success" => true]);
     }
 
-
     /**
      * @Route("/delete-group")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function deleteGroupAction(Request $request)
@@ -108,7 +114,9 @@ class ClassificationstoreController extends AdminController
 
     /**
      * @Route("/create-group")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function createGroupAction(Request $request)
@@ -117,7 +125,6 @@ class ClassificationstoreController extends AdminController
         $storeId = $request->get("storeId");
         $alreadyExist = false;
         $config = Classificationstore\GroupConfig::getByName($name, $storeId);
-
 
         if (!$config) {
             $config = new Classificationstore\GroupConfig();
@@ -131,8 +138,11 @@ class ClassificationstoreController extends AdminController
 
     /**
      * @Route("/create-store")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
+     *
      * @throws \Exception
      */
     public function createStoreAction(Request $request)
@@ -152,10 +162,11 @@ class ClassificationstoreController extends AdminController
         return $this->json(["success" => true, "storeId" => $config->getId()]);
     }
 
-
     /**
      * @Route("/create-collection")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function createCollectionAction(Request $request)
@@ -175,10 +186,11 @@ class ClassificationstoreController extends AdminController
         return $this->json(["success" => !$alreadyExist, "id" => $config->getName()]);
     }
 
-
     /**
      * @Route("/grouptree-get-childs-by-id")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function grouptreeGetChildsByIdAction(Request $request)
@@ -205,14 +217,14 @@ class ClassificationstoreController extends AdminController
             $contents[] = $itemConfig;
         }
 
-
-
         return $this->json($contents);
     }
 
     /**
      * @Route("/getgroup")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getgroupAction(Request $request)
@@ -233,7 +245,9 @@ class ClassificationstoreController extends AdminController
 
     /**
      * @Route("/collections")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function collectionsAction(Request $request)
@@ -305,7 +319,6 @@ class ClassificationstoreController extends AdminController
                 }
             }
 
-
             $list = new Classificationstore\CollectionConfig\Listing();
 
             $list->setLimit($limit);
@@ -340,7 +353,6 @@ class ClassificationstoreController extends AdminController
 
             $list->setCondition($condition);
 
-
             $list->load();
             $configList = $list->getList();
 
@@ -366,7 +378,6 @@ class ClassificationstoreController extends AdminController
                     $item["modificationDate"] = $config->getModificationDate();
                 }
 
-
                 $data[] = $item;
             }
             $rootElement["data"] = $data;
@@ -377,10 +388,11 @@ class ClassificationstoreController extends AdminController
         }
     }
 
-
     /**
      * @Route("/groups")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function groupsAction(Request $request)
@@ -454,7 +466,6 @@ class ClassificationstoreController extends AdminController
                 $conditionParts[] = "(storeId = " . $request->get("storeId") . ")";
             }
 
-
             if ($request->get("filter")) {
                 $filterString = $request->get("filter");
                 $filters = json_decode($filterString);
@@ -503,7 +514,6 @@ class ClassificationstoreController extends AdminController
                     $item["modificationDate"] = $config->getModificationDate();
                 }
 
-
                 $data[] = $item;
             }
             $rootElement["data"] = $data;
@@ -516,7 +526,9 @@ class ClassificationstoreController extends AdminController
 
     /**
      * @Route("/collection-relations")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function collectionRelationsAction(Request $request)
@@ -637,7 +649,9 @@ class ClassificationstoreController extends AdminController
 
     /**
      * @Route("/list-stores")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function listStoresAction(Request $request)
@@ -650,7 +664,9 @@ class ClassificationstoreController extends AdminController
 
     /**
      * @Route("/search-relations")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function searchRelationsAction(Request $request)
@@ -745,7 +761,6 @@ class ClassificationstoreController extends AdminController
                 "sorter" => $config->getSorter()
             ];
 
-
             $groupConfig = Classificationstore\GroupConfig::getById($config->getGroupId());
             if ($groupConfig) {
                 $item["groupName"] = $groupConfig->getName();
@@ -762,7 +777,9 @@ class ClassificationstoreController extends AdminController
 
     /**
      * @Route("/relations")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function relationsAction(Request $request)
@@ -867,7 +884,7 @@ class ClassificationstoreController extends AdminController
             $rootElement = [];
 
             $data = [];
-            /** @var  $config Classificationstore\KeyGroupRelation */
+            /** @var $config Classificationstore\KeyGroupRelation */
             foreach ($listItems as $config) {
                 $type = $config->getType();
                 $definition = json_decode($config->getDefinition());
@@ -896,7 +913,9 @@ class ClassificationstoreController extends AdminController
 
     /**
      * @Route("/add-collections")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function addCollectionsAction(Request $request)
@@ -937,7 +956,6 @@ class ClassificationstoreController extends AdminController
                 $groupList = new Classificationstore\GroupConfig\Listing();
                 $groupCondition = "id in (" . implode(",", $groupIdList) . ")";
                 $groupList->setCondition($groupCondition);
-
 
                 $groupList = $groupList->load();
 
@@ -980,7 +998,9 @@ class ClassificationstoreController extends AdminController
 
     /**
      * @Route("/add-groups")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function addGroupsAction(Request $request)
@@ -994,7 +1014,6 @@ class ClassificationstoreController extends AdminController
         $keyList->setOrderKey(["sorter", "id"]);
         $keyList->setOrder(["ASC", "ASC"]);
         $keyList = $keyList->load();
-
 
         $groupCondition = "id in (" . implode(",", $ids) . ")";
 
@@ -1041,7 +1060,9 @@ class ClassificationstoreController extends AdminController
 
     /**
      * @Route("/properties")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function propertiesAction(Request $request)
@@ -1093,7 +1114,7 @@ class ClassificationstoreController extends AdminController
                         $keyIdList = $keyIdList->load();
                         if ($keyIdList) {
                             $keyIds = [];
-                            /** @var  $keyEntry Classificationstore\KeyGroupRelation */
+                            /** @var $keyEntry Classificationstore\KeyGroupRelation */
                             foreach ($keyIdList as $keyEntry) {
                                 $keyIds[] = $keyEntry->getKeyId();
                             }
@@ -1212,6 +1233,7 @@ class ClassificationstoreController extends AdminController
 
     /**
      * @param $config
+     *
      * @return array
      */
     protected function getConfigItem($config)
@@ -1248,7 +1270,9 @@ class ClassificationstoreController extends AdminController
 
     /**
      * @Route("/add-property")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function addPropertyAction(Request $request)
@@ -1279,7 +1303,9 @@ class ClassificationstoreController extends AdminController
 
     /**
      * @Route("/delete-property")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function deletePropertyAction(Request $request)
@@ -1296,8 +1322,11 @@ class ClassificationstoreController extends AdminController
 
     /**
      * @Route("/edit-store")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
+     *
      * @throws \Exception
      */
     public function editStoreAction(Request $request)
@@ -1332,7 +1361,9 @@ class ClassificationstoreController extends AdminController
 
     /**
      * @Route("/storetree")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function storetreeAction(Request $request)
@@ -1340,7 +1371,7 @@ class ClassificationstoreController extends AdminController
         $result = [];
         $list = new Classificationstore\StoreConfig\Listing();
         $list = $list->load();
-        /** @var  $item Classificationstore\StoreConfig */
+        /** @var $item Classificationstore\StoreConfig */
         foreach ($list as $item) {
             $resultItem = [
                 "id" => $item->getId(),
@@ -1363,10 +1394,11 @@ class ClassificationstoreController extends AdminController
         return $this->json($result);
     }
 
-
     /**
      * @Route("/get-page")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getPageAction(Request $request)
@@ -1376,7 +1408,6 @@ class ClassificationstoreController extends AdminController
         $id = $request->get("id");
         $storeId = $request->get("storeId");
         $pageSize = $request->get("pageSize");
-
 
         if ($request->get("sortKey")) {
             $sortKey = $request->get("sortKey");
@@ -1405,10 +1436,8 @@ class ClassificationstoreController extends AdminController
                   ) all_rows) item where id = " .  $id . ";";
         }
 
-
         $db->query("select @rownum := 0;");
         $result= $db->fetchAll($query);
-
 
         $page = (int) $result[0]["page"] ;
 

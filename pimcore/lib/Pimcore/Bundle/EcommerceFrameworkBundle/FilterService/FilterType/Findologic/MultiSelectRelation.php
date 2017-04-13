@@ -27,7 +27,6 @@ class MultiSelectRelation extends \Pimcore\Bundle\EcommerceFrameworkBundle\Filte
 
         $values = $productList->getGroupByValues($field, true, !$filterDefinition->getUseAndCondition());
 
-
         // add current filter. workaround for findologic behavior
         if (array_key_exists($field, $currentFilter) && $currentFilter[$field] != null) {
             foreach ($currentFilter[$field] as $id) {
@@ -41,15 +40,11 @@ class MultiSelectRelation extends \Pimcore\Bundle\EcommerceFrameworkBundle\Filte
 
                 if ($add) {
                     array_unshift($values, [
-                        'value' => $id
-                        , 'label' => $id
-                        , 'count' => null
-                        , 'parameter' => null
+                        'value' => $id, 'label' => $id, 'count' => null, 'parameter' => null
                     ]);
                 }
             }
         }
-
 
         $objects = [];
         Logger::info("Load Objects...");
@@ -86,12 +81,10 @@ class MultiSelectRelation extends \Pimcore\Bundle\EcommerceFrameworkBundle\Filte
         ]);
     }
 
-
     public function addCondition(AbstractFilterDefinitionType $filterDefinition, IProductList $productList, $currentFilter, $params, $isPrecondition = false)
     {
         $field = $this->getField($filterDefinition);
         $preSelect = $this->getPreSelect($filterDefinition);
-
 
         $value = $params[$field];
 

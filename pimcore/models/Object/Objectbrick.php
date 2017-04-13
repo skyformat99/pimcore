@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object\Objectbrick
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -23,7 +24,6 @@ use Pimcore\Model;
  */
 class Objectbrick extends Model\AbstractModel
 {
-
     /**
      * @var array
      */
@@ -58,6 +58,7 @@ class Objectbrick extends Model\AbstractModel
 
     /**
      * @param bool $withInheritedValues
+     *
      * @return array
      */
     public function getItems($withInheritedValues = false)
@@ -88,6 +89,7 @@ class Objectbrick extends Model\AbstractModel
 
     /**
      * @param $items
+     *
      * @return $this
      */
     public function setItems($items)
@@ -107,6 +109,7 @@ class Objectbrick extends Model\AbstractModel
 
     /**
      * @param $fieldname
+     *
      * @return $this
      */
     public function setFieldname($fieldname)
@@ -227,6 +230,7 @@ class Objectbrick extends Model\AbstractModel
 
     /**
      * @param AbstractObject $object
+     *
      * @return $this
      */
     public function setObject($object)

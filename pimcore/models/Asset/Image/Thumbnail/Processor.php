@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Asset
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -17,9 +18,9 @@
 namespace Pimcore\Model\Asset\Image\Thumbnail;
 
 use Pimcore\File;
-use Pimcore\Model\Tool\TmpStore;
-use Pimcore\Model\Asset;
 use Pimcore\Logger;
+use Pimcore\Model\Asset;
+use Pimcore\Model\Tool\TmpStore;
 
 class Processor
 {
@@ -55,6 +56,7 @@ class Processor
      * @param $format
      * @param array $allowed
      * @param string $fallback
+     *
      * @return string
      */
     public static function getAllowedFormat($format, $allowed = [], $fallback = "png")
@@ -84,6 +86,7 @@ class Processor
      * @param bool $deferred deferred means that the image will be generated on-the-fly (details see below)
      * @param bool $returnAbsolutePath
      * @param bool $generated
+     *
      * @return mixed|string
      */
     public static function process($asset, Config $config, $fileSystemPath = null, $deferred = false, $returnAbsolutePath = false, &$generated = false)
@@ -158,7 +161,6 @@ class Processor
         $filename .= "." . $fileExtension;
 
         $fsPath = $thumbDir . "/" . $filename;
-
 
         // deferred means that the image will be generated on-the-fly (when requested by the browser)
         // the configuration is saved for later use in Pimcore\Controller\Plugin\Thumbnail::routeStartup()
@@ -263,7 +265,7 @@ class Processor
             $highResFactor = $config->getHighResolution();
 
             $calculateMaxFactor = function ($factor, $original, $new) {
-                $newFactor = $factor*$original/$new;
+                $newFactor = $factor * $original / $new;
                 if ($newFactor < 1) {
                     // don't go below factor 1
                     $newFactor = 1;
@@ -351,6 +353,7 @@ class Processor
     /**
      * @param $path
      * @param $absolute
+     *
      * @return mixed
      */
     protected static function returnPath($path, $absolute)
@@ -362,9 +365,6 @@ class Processor
         return $path;
     }
 
-    /**
-     *
-     */
     public static function processOptimizeQueue()
     {
         $ids = TmpStore::getIdsByTag("image-optimize-queue");
@@ -375,7 +375,7 @@ class Processor
             if (file_exists($file)) {
                 $originalFilesize = filesize($file);
                 \Pimcore\Image\Optimizer::optimize($file);
-                Logger::debug("Optimized image: " . $file . " saved " . formatBytes($originalFilesize-filesize($file)));
+                Logger::debug("Optimized image: " . $file . " saved " . formatBytes($originalFilesize - filesize($file)));
             } else {
                 Logger::debug("Skip optimizing of " . $file . " because it doesn't exist anymore");
             }

@@ -113,7 +113,6 @@ abstract class AbstractConfig implements IConfig
         return $this->filterTypeConfig;
     }
 
-
     /**
      * @return bool
      */
@@ -137,6 +136,7 @@ abstract class AbstractConfig implements IConfig
      * use that function, if one object should be indexed more than once (e.g. if field collections are in use)
      *
      * @param IIndexable $object
+     *
      * @return IIndexable[]
      */
     public function createSubIdsForObject(IIndexable $object)
@@ -149,6 +149,7 @@ abstract class AbstractConfig implements IConfig
      *
      * @param IIndexable $object
      * @param array $subIds
+     *
      * @return mixed
      */
     public function getSubIdsToCleanup(IIndexable $object, array $subIds)
@@ -162,6 +163,7 @@ abstract class AbstractConfig implements IConfig
      *
      * @param IIndexable $object
      * @param $subId
+     *
      * @return mixed
      */
     public function createVirtualParentIdForSubId(IIndexable $object, $subId)
@@ -175,6 +177,7 @@ abstract class AbstractConfig implements IConfig
      *
      * @param $objectId
      * @param $onlyMainObject - only returns main object
+     *
      * @return mixed
      */
     public function getObjectById($objectId, $onlyMainObject = false)
@@ -182,13 +185,12 @@ abstract class AbstractConfig implements IConfig
         return \Pimcore\Model\Object\AbstractObject::getById($objectId);
     }
 
-
-
     /**
      * Gets object mockup by id, can consider subIds and therefore return e.g. an array of values
      * always returns a object mockup if available
      *
      * @param $objectId
+     *
      * @return IIndexable | array
      */
     public function getObjectMockupById($objectId)
@@ -196,11 +198,11 @@ abstract class AbstractConfig implements IConfig
         return $this->getObjectById($objectId);
     }
 
-
     /**
      * returns column type for id
      *
      * @param $isPrimary
+     *
      * @return string
      */
     public function getIdColumnType($isPrimary)

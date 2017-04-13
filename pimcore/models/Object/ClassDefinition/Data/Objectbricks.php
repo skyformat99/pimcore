@@ -10,21 +10,21 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Object\ClassDefinition\Data;
 
+use Pimcore\Logger;
 use Pimcore\Model;
 use Pimcore\Model\Object;
 use Pimcore\Model\Webservice;
 use Pimcore\Tool;
-use Pimcore\Logger;
 
 class Objectbricks extends Model\Object\ClassDefinition\Data
 {
-
     /**
      * Static type of this element
      *
@@ -51,6 +51,7 @@ class Objectbricks extends Model\Object\ClassDefinition\Data
 
     /**
      * @param $maxItems
+     *
      * @return $this
      */
     public function setMaxItems($maxItems)
@@ -70,10 +71,12 @@ class Objectbricks extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object\ClassDefinition\Data::getDataForEditmode
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
      * @param $objectFromVersion
+     *
      * @return string
      */
     public function getDataForEditmode($data, $object = null, $params = [], $objectFromVersion = null)
@@ -99,6 +102,7 @@ class Objectbricks extends Model\Object\ClassDefinition\Data
      * @param $allowedBrickType
      * @param $objectFromVersion
      * @param int $level
+     *
      * @return array
      */
     private function doGetDataForEditmode($getter, $data, $params, $allowedBrickType, $objectFromVersion, $level = 0)
@@ -159,7 +163,6 @@ class Objectbricks extends Model\Object\ClassDefinition\Data
         return $editmodeDataItem;
     }
 
-
     /**
      * gets recursively attribute data from parent and fills objectData and metaData
      *
@@ -170,6 +173,7 @@ class Objectbricks extends Model\Object\ClassDefinition\Data
      * @param $baseObject
      * @param $getter
      * @param $objectFromVersion
+     *
      * @return mixed
      */
     private function getDataForField($item, $key, $fielddefinition, $level, $baseObject, $getter, $objectFromVersion)
@@ -243,9 +247,11 @@ class Objectbricks extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Model\Object\ClassDefinition\Data::getDataFromEditmode
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataFromEditmode($data, $object = null, $params = [])
@@ -271,7 +277,6 @@ class Objectbricks extends Model\Object\ClassDefinition\Data
                     $brick = new $brickClass($object);
                 }
 
-
                 if ($collectionRaw["data"] == "deleted") {
                     $brick->setDoDelete(true);
                 } else {
@@ -294,9 +299,11 @@ class Objectbricks extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object\ClassDefinition\Data::getVersionPreview
+     *
      * @param string $data
      * @param null|Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getVersionPreview($data, $object = null, $params = [])
@@ -306,9 +313,12 @@ class Objectbricks extends Model\Object\ClassDefinition\Data
 
     /**
      * converts object data to a simple string value or CSV Export
+     *
      * @abstract
+     *
      * @param Object\AbstractObject $object
      * @param array $params
+     *
      * @return string
      */
     public function getForCsvExport($object, $params = [])
@@ -320,6 +330,7 @@ class Objectbricks extends Model\Object\ClassDefinition\Data
      * @param string $importValue
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return null
      */
     public function getFromCsvImport($importValue, $object = null, $params = [])
@@ -330,6 +341,7 @@ class Objectbricks extends Model\Object\ClassDefinition\Data
     /**
      * @param $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForSearchIndex($object, $params = [])
@@ -374,6 +386,7 @@ class Objectbricks extends Model\Object\ClassDefinition\Data
     /**
      * @param $object
      * @param array $params
+     *
      * @return null
      */
     public function load($object, $params = [])
@@ -411,6 +424,7 @@ class Objectbricks extends Model\Object\ClassDefinition\Data
 
     /**
      * @param $allowedTypes
+     *
      * @return $this
      */
     public function setAllowedTypes($allowedTypes)
@@ -439,6 +453,7 @@ class Objectbricks extends Model\Object\ClassDefinition\Data
     /**
      * @param Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function getForWebserviceExport($object, $params = [])
@@ -467,7 +482,7 @@ class Objectbricks extends Model\Object\ClassDefinition\Data
                     $el->name = $fd->getName();
                     $el->type = $fd->getFieldType();
                     $el->value = $fd->getForWebserviceExport($item, $params);
-                    if ($el->value ==  null && self::$dropNullValues) {
+                    if ($el->value == null && self::$dropNullValues) {
                         continue;
                     }
 
@@ -486,7 +501,9 @@ class Objectbricks extends Model\Object\ClassDefinition\Data
      * @param null $relatedObject
      * @param mixed $params
      * @param null $idMapper
+     *
      * @return mixed
+     *
      * @throws \Exception
      */
     public function getFromWebserviceImport($data, $relatedObject = null, $params = [], $idMapper = null)
@@ -556,6 +573,7 @@ class Objectbricks extends Model\Object\ClassDefinition\Data
      * @param $object
      * @param $value
      * @param array $params
+     *
      * @return mixed
      */
     public function preSetData($object, $value, $params = [])
@@ -567,9 +585,9 @@ class Objectbricks extends Model\Object\ClassDefinition\Data
         return $value;
     }
 
-
     /**
      * @param $data
+     *
      * @return array
      */
     public function resolveDependencies($data)
@@ -605,6 +623,7 @@ class Objectbricks extends Model\Object\ClassDefinition\Data
      *
      * @param mixed $data
      * @param array $tags
+     *
      * @return array
      */
     public function getCacheTags($data, $tags = [])
@@ -637,6 +656,7 @@ class Objectbricks extends Model\Object\ClassDefinition\Data
 
     /**
      * @param $class
+     *
      * @return string
      */
     public function getGetterCode($class)
@@ -664,7 +684,6 @@ class Objectbricks extends Model\Object\ClassDefinition\Data
         $code .= "\t\t" . '}' . "\n";
         $code .= "\t" . '}' . "\n";
 
-
         if (method_exists($this, "preGetData")) {
             $code .= "\t" . '$data = $this->getClass()->getFieldDefinition("' . $key . '")->preGetData($this);' . "\n";
         }
@@ -679,12 +698,12 @@ class Objectbricks extends Model\Object\ClassDefinition\Data
         return $code;
     }
 
-
     /**
      * Checks if data is valid for current data field
      *
      * @param mixed $data
-     * @param boolean $omitMandatoryCheck
+     * @param bool $omitMandatoryCheck
+     *
      * @throws \Exception
      */
     public function checkValidity($data, $omitMandatoryCheck = false)
@@ -726,6 +745,7 @@ class Objectbricks extends Model\Object\ClassDefinition\Data
      * @param $data
      * @param Object\Concrete $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForGrid($data, $object = null, $params = [])
@@ -741,6 +761,7 @@ class Objectbricks extends Model\Object\ClassDefinition\Data
      * @param $baseObject
      * @param $getter
      * @param $objectFromVersion
+     *
      * @return mixed
      */
     private function getDiffDataForField($item, $key, $fielddefinition, $level, $baseObject, $getter, $objectFromVersion)
@@ -757,6 +778,7 @@ class Objectbricks extends Model\Object\ClassDefinition\Data
      * @param $getter
      * @param $objectFromVersion
      * @param int $level
+     *
      * @return array
      */
     private function doGetDiffDataForEditmode($data, $getter, $objectFromVersion, $level = 0)
@@ -818,6 +840,7 @@ class Objectbricks extends Model\Object\ClassDefinition\Data
      * @param null $object
      * @param mixed $params
      * @param null $objectFromVersion
+     *
      * @return array|null
      */
     public function getDiffDataForEditMode($data, $object = null, $params = [], $objectFromVersion = null)
@@ -844,9 +867,9 @@ class Objectbricks extends Model\Object\ClassDefinition\Data
      * @param $data
      * @param null $object
      * @param mixed $params
+     *
      * @return null|\Pimcore\Date
      */
-
     public function getDiffDataFromEditmode($data, $object = null, $params = [])
     {
         $valueGetter = "get" . ucfirst($this->getName());
@@ -892,6 +915,7 @@ class Objectbricks extends Model\Object\ClassDefinition\Data
     /** True if change is allowed in edit mode.
      * @param string $object
      * @param mixed $params
+     *
      * @return bool
      */
     public function isDiffChangeAllowed($object, $params = [])
@@ -909,9 +933,11 @@ class Objectbricks extends Model\Object\ClassDefinition\Data
      *  "object" => array(...),
      *  "asset" => array(...)
      * )
+     *
      * @param mixed $object
      * @param array $idMapping
      * @param array $params
+     *
      * @return Model\Element\ElementInterface
      */
     public function rewriteIds($object, $idMapping, $params = [])
@@ -990,7 +1016,7 @@ class Objectbricks extends Model\Object\ClassDefinition\Data
     public static function collectCalculatedValueItems($container, &$list = [])
     {
         if (is_array($container)) {
-            /** @var  $childDef Object\ClassDefinition\Data */
+            /** @var $childDef Object\ClassDefinition\Data */
             foreach ($container as $childDef) {
                 if ($childDef instanceof Model\Object\ClassDefinition\Data\CalculatedValue) {
                     $list[] = $childDef;

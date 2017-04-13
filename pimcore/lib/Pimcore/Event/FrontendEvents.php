@@ -26,6 +26,7 @@ final class FrontendEvents
      *  - frontendPath | string | Web-path, relative
      *
      * @Event("Pimcore\Event\Model\GenericEvent")
+     *
      * @var string
      */
     const ASSET_IMAGE_THUMBNAIL = "pimcore.frontend.path.asset.image.thumbnail";
@@ -40,6 +41,7 @@ final class FrontendEvents
      *  - frontendPath | string | Web-path, relative
      *
      * @Event("Pimcore\Event\Model\GenericEvent")
+     *
      * @var string
      */
     const ASSET_VIDEO_IMAGE_THUMBNAIL = "pimcore.frontend.path.asset.video.image-thumbnail";
@@ -54,6 +56,7 @@ final class FrontendEvents
      *  - frontendPath | string | Web-path, relative
      *
      * @Event("Pimcore\Event\Model\GenericEvent")
+     *
      * @var string
      */
     const ASSET_VIDEO_THUMBNAIL = "pimcore.frontend.path.asset.video.thumbnail";
@@ -68,6 +71,7 @@ final class FrontendEvents
      *  - frontendPath | string | Web-path, relative
      *
      * @Event("Pimcore\Event\Model\GenericEvent")
+     *
      * @var string
      */
     const ASSET_DOCUMENT_IMAGE_THUMBNAIL = "pimcore.frontend.path.asset.document.image-thumbnail";
@@ -81,6 +85,7 @@ final class FrontendEvents
      *  - frontendPath | string | Web-path, relative
      *
      * @Event("Pimcore\Event\Model\GenericEvent")
+     *
      * @var string
      */
     const ASSET_PATH = "pimcore.frontend.path.asset";
@@ -94,6 +99,7 @@ final class FrontendEvents
      *  - frontendPath | string | Web-path, relative
      *
      * @Event("Pimcore\Event\Model\GenericEvent")
+     *
      * @var string
      */
     const DOCUMENT_PATH = "pimcore.frontend.path.document";
@@ -110,6 +116,7 @@ final class FrontendEvents
      *  - encode | bool
      *
      * @Event("Pimcore\Event\Model\GenericEvent")
+     *
      * @var string
      */
     const STATICROUTE_PATH = "pimcore.frontend.path.staticroute";
@@ -120,6 +127,7 @@ final class FrontendEvents
      *  - item | stdClass
      *
      * @Event("Pimcore\Event\Model\GenericEvent")
+     *
      * @var string
      */
     const VIEW_HELPER_HEAD_LINK = "pimcore.frontend.view.helper.head-link";
@@ -130,6 +138,7 @@ final class FrontendEvents
      *  - item | stdClass
      *
      * @Event("Pimcore\Event\Model\GenericEvent")
+     *
      * @var string
      */
     const VIEW_HELPER_HEAD_SCRIPT = "pimcore.frontend.view.helper.head-script";

@@ -10,17 +10,18 @@
  *
  * @category   Pimcore
  * @package    Object
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Object;
 
+use Pimcore\Config;
 use Pimcore\Event\Model\ObjectEvent;
 use Pimcore\Event\ObjectEvents;
-use Pimcore\Model;
-use Pimcore\Config;
 use Pimcore\Logger;
+use Pimcore\Model;
 
 /**
  * @method \Pimcore\Model\Object\Concrete\Dao getDao()
@@ -33,7 +34,7 @@ class Concrete extends AbstractObject
     public static $systemColumnNames = ["id", "fullpath", "published", "creationDate", "modificationDate", "filename", "classname"];
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $o_published;
 
@@ -43,7 +44,7 @@ class Concrete extends AbstractObject
     public $o_class;
 
     /**
-     * @var integer
+     * @var int
      */
     public $o_classId;
 
@@ -74,7 +75,6 @@ class Concrete extends AbstractObject
      */
     public $scheduledTasks = null;
 
-
     /**
      * @var bool
      */
@@ -82,6 +82,7 @@ class Concrete extends AbstractObject
 
     /**
      * returns the class ID of the current object class
+     *
      * @return int
      */
     public static function classId()
@@ -91,9 +92,6 @@ class Concrete extends AbstractObject
         return $v["o_classId"];
     }
 
-    /**
-     *
-     */
     public function __construct()
     {
         // nothing to do here
@@ -117,6 +115,7 @@ class Concrete extends AbstractObject
 
     /**
      * @param array $o___loadedLazyFields
+     *
      * @return $this
      */
     public function setO__loadedLazyFields(array $o___loadedLazyFields)
@@ -245,8 +244,10 @@ class Concrete extends AbstractObject
     /**
      * $callPluginHook is true when the method is called from outside (eg. directly in the controller "save only version")
      * it is false when the method is called by $this->update()
+     *
      * @param bool $setModificationDate
      * @param bool $callPluginHook
+     *
      * @return Model\Version
      */
     public function saveVersion($setModificationDate = true, $callPluginHook = true)
@@ -306,6 +307,7 @@ class Concrete extends AbstractObject
 
     /**
      * @param array $o_versions
+     *
      * @return $this
      */
     public function setVersions($o_versions)
@@ -317,6 +319,7 @@ class Concrete extends AbstractObject
 
     /**
      * @param string $key
+     *
      * @return mixed
      */
     public function getValueForFieldName($key)
@@ -335,6 +338,7 @@ class Concrete extends AbstractObject
 
     /**
      * @param array $tags
+     *
      * @return array
      */
     public function getCacheTags($tags = [])
@@ -395,7 +399,7 @@ class Concrete extends AbstractObject
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getClassId()
     {
@@ -404,6 +408,7 @@ class Concrete extends AbstractObject
 
     /**
      * @param int $o_classId
+     *
      * @return $this
      */
     public function setClassId($o_classId)
@@ -423,6 +428,7 @@ class Concrete extends AbstractObject
 
     /**
      * @param string $o_className
+     *
      * @return $this
      */
     public function setClassName($o_className)
@@ -433,7 +439,7 @@ class Concrete extends AbstractObject
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getPublished()
     {
@@ -441,7 +447,7 @@ class Concrete extends AbstractObject
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isPublished()
     {
@@ -449,7 +455,8 @@ class Concrete extends AbstractObject
     }
 
     /**
-     * @param boolean $o_published
+     * @param bool $o_published
+     *
      * @return $this
      */
     public function setPublished($o_published)
@@ -460,7 +467,7 @@ class Concrete extends AbstractObject
     }
 
     /**
-     * @param boolean $omitMandatoryCheck
+     * @param bool $omitMandatoryCheck
      */
     public function setOmitMandatoryCheck($omitMandatoryCheck)
     {
@@ -470,7 +477,7 @@ class Concrete extends AbstractObject
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getOmitMandatoryCheck()
     {
@@ -522,7 +529,6 @@ class Concrete extends AbstractObject
         return;
     }
 
-
     /**
      * @return AbstractObject|null
      */
@@ -546,6 +552,7 @@ class Concrete extends AbstractObject
 
     /**
      * Dummy which can be overwritten by a parent class, this is a hook executed in every getter of the properties in the object
+     *
      * @param string $key
      */
     public function preGetValue($key)
@@ -559,6 +566,7 @@ class Concrete extends AbstractObject
      * @param string $fieldName
      * @param bool $forOwner
      * @param $remoteClassId
+     *
      * @return array
      */
     public function getRelationData($fieldName, $forOwner, $remoteClassId)
@@ -568,10 +576,10 @@ class Concrete extends AbstractObject
         return $relationData;
     }
 
-
     /**
      * @param $method
      * @param $arguments
+     *
      * @throws \Exception
      */
     public static function __callStatic($method, $arguments)

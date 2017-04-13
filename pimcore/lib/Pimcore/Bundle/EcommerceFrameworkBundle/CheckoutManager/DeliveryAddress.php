@@ -21,12 +21,10 @@ namespace Pimcore\Bundle\EcommerceFrameworkBundle\CheckoutManager;
  */
 class DeliveryAddress extends AbstractStep implements ICheckoutStep
 {
-
     /**
      * namespace key
      */
     const PRIVATE_NAMESPACE = 'delivery_address';
-
 
     /**
      * @return string
@@ -40,6 +38,7 @@ class DeliveryAddress extends AbstractStep implements ICheckoutStep
      * sets delivered data and commits step
      *
      * @param  $data
+     *
      * @return bool
      */
     public function commit($data)

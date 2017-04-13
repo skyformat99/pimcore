@@ -41,15 +41,14 @@ abstract class AbstractFilterDefinitionType extends \Pimcore\Model\Object\Fieldc
         return $this;
     }
 
-
     /**
-    * @return string
-    */
+     * @return string
+     */
     abstract public function getLabel();
 
     /**
-    * @return string
-    */
+     * @return string
+     */
     abstract public function getField();
 
     /**

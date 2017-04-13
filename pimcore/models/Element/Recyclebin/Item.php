@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Element
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -17,20 +18,19 @@
 namespace Pimcore\Model\Element\Recyclebin;
 
 use Pimcore\Cache;
-use Pimcore\Model;
 use Pimcore\File;
-use Pimcore\Tool\Serialize;
-use Pimcore\Model\Document;
+use Pimcore\Model;
 use Pimcore\Model\Asset;
-use Pimcore\Model\Object;
+use Pimcore\Model\Document;
 use Pimcore\Model\Element;
+use Pimcore\Model\Object;
+use Pimcore\Tool\Serialize;
 
 /**
  * @method \Pimcore\Model\Element\Recyclebin\Item\Dao getDao()
  */
 class Item extends Model\AbstractModel
 {
-
     /**
      * @var int
      */
@@ -73,6 +73,7 @@ class Item extends Model\AbstractModel
 
     /**
      * @static
+     *
      * @param Element\ElementInterface $element
      * @param Model\User $user
      */
@@ -85,7 +86,9 @@ class Item extends Model\AbstractModel
 
     /**
      * @static
+     *
      * @param $id
+     *
      * @return Element\Recyclebin\Item
      */
     public static function getById($id)
@@ -98,6 +101,7 @@ class Item extends Model\AbstractModel
 
     /**
      * @param null $user
+     *
      * @throws \Exception
      */
     public function restore($user = null)
@@ -187,9 +191,6 @@ class Item extends Model\AbstractModel
         @chmod($this->getStoreageFile(), File::getDefaultMode());
     }
 
-    /**
-     *
-     */
     public function delete()
     {
         unlink($this->getStoreageFile());
@@ -283,6 +284,7 @@ class Item extends Model\AbstractModel
 
     /**
      * @param $element
+     *
      * @return string
      */
     public function getStorageFileBinary($element)
@@ -300,6 +302,7 @@ class Item extends Model\AbstractModel
 
     /**
      * @param $id
+     *
      * @return $this
      */
     public function setId($id)
@@ -319,6 +322,7 @@ class Item extends Model\AbstractModel
 
     /**
      * @param $path
+     *
      * @return $this
      */
     public function setPath($path)
@@ -338,6 +342,7 @@ class Item extends Model\AbstractModel
 
     /**
      * @param $type
+     *
      * @return $this
      */
     public function setType($type)
@@ -357,6 +362,7 @@ class Item extends Model\AbstractModel
 
     /**
      * @param $subtype
+     *
      * @return $this
      */
     public function setSubtype($subtype)
@@ -376,6 +382,7 @@ class Item extends Model\AbstractModel
 
     /**
      * @param $amount
+     *
      * @return $this
      */
     public function setAmount($amount)
@@ -395,6 +402,7 @@ class Item extends Model\AbstractModel
 
     /**
      * @param $date
+     *
      * @return $this
      */
     public function setDate($date)
@@ -414,6 +422,7 @@ class Item extends Model\AbstractModel
 
     /**
      * @param $element
+     *
      * @return $this
      */
     public function setElement($element)
@@ -425,6 +434,7 @@ class Item extends Model\AbstractModel
 
     /**
      * @param $username
+     *
      * @return $this
      */
     public function setDeletedby($username)

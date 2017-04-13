@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Element
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -24,9 +25,9 @@ use Pimcore\Model\Element\Tag;
  */
 class Dao extends Model\Dao\AbstractDao
 {
-
     /**
      * @param $id
+     *
      * @throws \Exception
      */
     public function getById($id)
@@ -41,7 +42,8 @@ class Dao extends Model\Dao\AbstractDao
     /**
      * Save object to database
      *
-     * @return boolean|null
+     * @return bool|null
+     *
      * @throws \Exception
      *
      * @todo: not all save methods return a boolean, why this one?
@@ -67,7 +69,6 @@ class Dao extends Model\Dao\AbstractDao
             if (!$this->model->getId() && $lastInsertId) {
                 $this->model->setId($lastInsertId);
             }
-
 
             //check for id-path and update it, if path has changed -> update all other tags that have idPath == idPath/id
             if ($originalIdPath && $originalIdPath != $this->model->getIdPath()) {
@@ -105,10 +106,10 @@ class Dao extends Model\Dao\AbstractDao
         }
     }
 
-
     /**
      * @param $cType
      * @param $cId
+     *
      * @return Model\Element\Tag[]
      */
     public function getTagsForElement($cType, $cId)
@@ -169,6 +170,7 @@ class Dao extends Model\Dao\AbstractDao
      * @param $cType
      * @param $cId
      * @param array $tags
+     *
      * @throws \Exception
      */
     public function setTagsForElement($cType, $cId, array $tags)

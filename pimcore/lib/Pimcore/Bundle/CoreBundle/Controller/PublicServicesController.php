@@ -27,6 +27,7 @@ class PublicServicesController extends FrameworkController
 {
     /**
      * @param Request $request
+     *
      * @return BinaryFileResponse
      */
     public function thumbnailAction(Request $request)
@@ -98,7 +99,7 @@ class PublicServicesController extends FrameworkController
 
                     return new BinaryFileResponse($thumbnailFile, 200, [
                         "Cache-Control" => "public, max-age=" . $lifetime,
-                        "Expires" => date("D, d M Y H:i:s T", time()+$lifetime)
+                        "Expires" => date("D, d M Y H:i:s T", time() + $lifetime)
                     ]);
                 }
             } catch (\Exception $e) {
@@ -110,13 +111,13 @@ class PublicServicesController extends FrameworkController
 
     /**
      * @param Request $request
+     *
      * @return Response
      */
     public function commonFilesAction(Request $request)
     {
         return new Response("HTTP/1.1 404 Not Found\nFiltered by common files filter", 404);
     }
-
 
     /**
      * @param Request $request
@@ -128,6 +129,7 @@ class PublicServicesController extends FrameworkController
 
     /**
      * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function qrcodeAction(Request $request)

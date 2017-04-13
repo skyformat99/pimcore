@@ -46,14 +46,12 @@ interface IProductList extends \Zend_Paginator_Adapter_Interface, \Zend_Paginato
      */
     const VARIANT_MODE_INCLUDE_PARENT_OBJECT = "include_parent_object";
 
-
     /**
      * Returns all products valid for this search
      *
      * @return IIndexable[]
      */
     public function getProducts();
-
 
     /**
      * Adds filter condition to product list
@@ -64,7 +62,6 @@ interface IProductList extends \Zend_Paginator_Adapter_Interface, \Zend_Paginato
      * @param string $fieldname
      */
     public function addCondition($condition, $fieldname = "");
-
 
     /**
      * Adds query condition to product list for fulltext search
@@ -80,6 +77,7 @@ interface IProductList extends \Zend_Paginator_Adapter_Interface, \Zend_Paginato
      * Reset filter condition for fieldname
      *
      * @param $fieldname
+     *
      * @return mixed
      */
     public function resetCondition($fieldname);
@@ -88,10 +86,10 @@ interface IProductList extends \Zend_Paginator_Adapter_Interface, \Zend_Paginato
      * Reset query condition for fieldname
      *
      * @param $fieldname
+     *
      * @return mixed
      */
     public function resetQueryCondition($fieldname);
-
 
     /**
      * Adds relation condition to product list
@@ -101,12 +99,10 @@ interface IProductList extends \Zend_Paginator_Adapter_Interface, \Zend_Paginato
      */
     public function addRelationCondition($fieldname, $condition);
 
-
     /**
      * Resets all conditions of product list
      */
     public function resetConditions();
-
 
     /**
      * Adds price condition to product list
@@ -116,24 +112,23 @@ interface IProductList extends \Zend_Paginator_Adapter_Interface, \Zend_Paginato
      */
     public function addPriceCondition($from = null, $to = null);
 
-
     /**
-     * @param boolean $inProductList
+     * @param bool $inProductList
+     *
      * @return void
      */
     public function setInProductList($inProductList);
 
-
     /**
-     * @return boolean
+     * @return bool
      */
     public function getInProductList();
-
 
     /**
      * sets order direction
      *
      * @param $order
+     *
      * @return void
      */
     public function setOrder($order);
@@ -145,11 +140,11 @@ interface IProductList extends \Zend_Paginator_Adapter_Interface, \Zend_Paginato
      */
     public function getOrder();
 
-
     /**
      * sets order key
      *
      * @param $orderKey string | array  - either single field name, or array of field names or array of arrays (field name, direction)
+     *
      * @return void
      */
     public function setOrderKey($orderKey);
@@ -161,6 +156,7 @@ interface IProductList extends \Zend_Paginator_Adapter_Interface, \Zend_Paginato
 
     /**
      * @param $limit int
+     *
      * @return void
      */
     public function setLimit($limit);
@@ -172,6 +168,7 @@ interface IProductList extends \Zend_Paginator_Adapter_Interface, \Zend_Paginato
 
     /**
      * @param $offset int
+     *
      * @return void
      */
     public function setOffset($offset);
@@ -183,6 +180,7 @@ interface IProductList extends \Zend_Paginator_Adapter_Interface, \Zend_Paginato
 
     /**
      * @param $category
+     *
      * @return void
      */
     public function setCategory(\Pimcore\Bundle\EcommerceFrameworkBundle\Model\AbstractCategory $category);
@@ -194,6 +192,7 @@ interface IProductList extends \Zend_Paginator_Adapter_Interface, \Zend_Paginato
 
     /**
      * @param $variantMode
+     *
      * @return void
      */
     public function setVariantMode($variantMode);
@@ -210,36 +209,35 @@ interface IProductList extends \Zend_Paginator_Adapter_Interface, \Zend_Paginato
      */
     public function load();
 
-
     /**
      * prepares all group by values for given field names and cache them in local variable
      * considers both - normal values and relation values
      *
      * @param string $fieldname
+     *
      * @return void
      */
     public function prepareGroupByValues($fieldname, $countValues = false, $fieldnameShouldBeExcluded = true);
 
-
     /**
      * prepares all group by values for given field names and cache them in local variable
      * considers both - normal values and relation values
      *
      * @param string $fieldname
+     *
      * @return void
      */
     public function prepareGroupByRelationValues($fieldname, $countValues = false, $fieldnameShouldBeExcluded = true);
 
-
     /**
      * prepares all group by values for given field names and cache them in local variable
      * considers both - normal values and relation values
      *
      * @param string $fieldname
+     *
      * @return void
      */
     public function prepareGroupBySystemValues($fieldname, $countValues = false, $fieldnameShouldBeExcluded = true);
-
 
     /**
      * resets all set prepared group by values
@@ -247,7 +245,6 @@ interface IProductList extends \Zend_Paginator_Adapter_Interface, \Zend_Paginato
      * @return void
      */
     public function resetPreparedGroupByValues();
-
 
     /**
      * loads group by values based on fieldname either from local variable if prepared or directly from product index
@@ -257,11 +254,11 @@ interface IProductList extends \Zend_Paginator_Adapter_Interface, \Zend_Paginato
      * @param bool $fieldnameShouldBeExcluded => set to false for and-conditions
      *
      * @return array
+     *
      * @throws \Exception
      */
     public function getGroupByValues($fieldname, $countValues = false, $fieldnameShouldBeExcluded = true);
 
-
     /**
      * loads group by values based on relation fieldname either from local variable if prepared or directly from product index
      *
@@ -270,11 +267,11 @@ interface IProductList extends \Zend_Paginator_Adapter_Interface, \Zend_Paginato
      * @param bool $fieldnameShouldBeExcluded => set to false for and-conditions
      *
      * @return array
+     *
      * @throws \Exception
      */
     public function getGroupByRelationValues($fieldname, $countValues = false, $fieldnameShouldBeExcluded = true);
 
-
     /**
      * loads group by values based on relation fieldname either from local variable if prepared or directly from product index
      *
@@ -283,6 +280,7 @@ interface IProductList extends \Zend_Paginator_Adapter_Interface, \Zend_Paginato
      * @param bool $fieldnameShouldBeExcluded => set to false for and-conditions
      *
      * @return array
+     *
      * @throws \Exception
      */
     public function getGroupBySystemValues($fieldname, $countValues = false, $fieldnameShouldBeExcluded = true);

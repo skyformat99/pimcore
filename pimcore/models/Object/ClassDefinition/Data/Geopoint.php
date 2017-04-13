@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -21,7 +22,6 @@ use Pimcore\Model\Object;
 
 class Geopoint extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
 {
-
     /**
      * Static type of this element
      *
@@ -56,12 +56,13 @@ class Geopoint extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
      */
     public $phpdocType = "\\Pimcore\\Model\\Object\\Data\\Geopoint";
 
-
     /**
      * @see Object\ClassDefinition\Data::getDataForResource
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForResource($data, $object = null, $params = [])
@@ -81,9 +82,11 @@ class Geopoint extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
 
     /**
      * @see Object\ClassDefinition\Data::getDataFromResource
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataFromResource($data, $object = null, $params = [])
@@ -97,9 +100,11 @@ class Geopoint extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
 
     /**
      * @see Object\ClassDefinition\Data::getDataForQueryResource
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForQueryResource($data, $object = null, $params = [])
@@ -109,9 +114,11 @@ class Geopoint extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
 
     /**
      * @see Object\ClassDefinition\Data::getDataForEditmode
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForEditmode($data, $object = null, $params = [])
@@ -128,9 +135,11 @@ class Geopoint extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
 
     /**
      * @see Model\Object\ClassDefinition\Data::getDataFromEditmode
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataFromEditmode($data, $object = null, $params = [])
@@ -144,9 +153,11 @@ class Geopoint extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
 
     /**
      * @see Object\ClassDefinition\Data::getVersionPreview
+     *
      * @param string $data
      * @param null|Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getVersionPreview($data, $object = null, $params = [])
@@ -158,13 +169,14 @@ class Geopoint extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
         return "";
     }
 
-
-
     /**
      * converts object data to a simple string value or CSV Export
+     *
      * @abstract
+     *
      * @param Object\AbstractObject $object
      * @param array $params
+     *
      * @return string
      */
     public function getForCsvExport($object, $params = [])
@@ -182,6 +194,7 @@ class Geopoint extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
      * @param string $importValue
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return null|Object\ClassDefinition\Data|Object\Data\Geopoint
      */
     public function getFromCsvImport($importValue, $object = null, $params = [])
@@ -200,6 +213,7 @@ class Geopoint extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
     /**
      * @param $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForSearchIndex($object, $params = [])
@@ -209,8 +223,10 @@ class Geopoint extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
 
     /**
      * converts data to be exposed via webservices
+     *
      * @param string $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function getForWebserviceExport($object, $params = [])
@@ -232,7 +248,9 @@ class Geopoint extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
      * @param null $idMapper
+     *
      * @return mixed|void
+     *
      * @throws \Exception
      */
     public function getFromWebserviceImport($value, $object = null, $params = [], $idMapper = null)
@@ -252,6 +270,7 @@ class Geopoint extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
     /** True if change is allowed in edit mode.
      * @param string $object
      * @param mixed $params
+     *
      * @return bool
      */
     public function isDiffChangeAllowed($object, $params = [])
@@ -263,6 +282,7 @@ class Geopoint extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
      * @param mixed $value
      * @param Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function marshal($value, $object = null, $params = [])
@@ -279,6 +299,7 @@ class Geopoint extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
      * @param mixed $value
      * @param Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function unmarshal($value, $object = null, $params = [])

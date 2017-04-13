@@ -36,7 +36,6 @@ class TaxCalculationTest extends \Codeception\Test\Unit
 
         $this->assertEquals(90, $price->getGrossAmount(), "No tax entries > net and gross should be equal");
 
-
         //single tax entry 10%
         $taxEntries = [
             new TaxEntry(10, 0)
@@ -52,7 +51,6 @@ class TaxCalculationTest extends \Codeception\Test\Unit
         $taxCalculationService->updateTaxes($price, TaxCalculationService::CALCULATION_FROM_GROSS);
         $this->assertEquals(90.91, round($price->getNetAmount(), 2), "Tax 10%, calc from gross price");
 
-
         //single tax entry 15%
         $taxEntries = [
             new TaxEntry(15, 0)
@@ -63,13 +61,10 @@ class TaxCalculationTest extends \Codeception\Test\Unit
         $taxEntries = $price->getTaxEntries();
         $this->assertEquals(14.35, round($taxEntries[0]->getAmount(), 2), "Tax 15%, tax entry amount");
 
-
         $price->setNetAmount(100, true);
         $this->assertEquals(115, round($price->getGrossAmount(), 2), "Tax 15%, calc from net price with automatic recalc");
         $taxEntries = $price->getTaxEntries();
         $this->assertEquals(15, round($taxEntries[0]->getAmount(), 2), "Tax 15%, tax entry amount");
-
-
 
         //multiple tax entry 12% 4% one-after-another
         $taxEntries = [
@@ -93,7 +88,6 @@ class TaxCalculationTest extends \Codeception\Test\Unit
         $this->assertEquals(10.30, round($taxEntries[0]->getAmount(), 2), "Tax 12% + 4% one-after-another, tax entry 1 amount");
         $this->assertEquals(3.85, round($taxEntries[1]->getAmount(), 2), "Tax 12% + 4% one-after-another, tax entry 2 amount");
 
-
         //multiple tax entry 12% 4% combine
         $taxEntries = [
             new TaxEntry(12, 0),
@@ -116,8 +110,6 @@ class TaxCalculationTest extends \Codeception\Test\Unit
         $this->assertEquals(10.34, round($taxEntries[0]->getAmount(), 2), "Tax 12% + 4% combine, tax entry 1 amount");
         $this->assertEquals(3.45, round($taxEntries[1]->getAmount(), 2), "Tax 12% + 4% combine, tax entry 2 amount");
     }
-
-
 
     public function testPriceSystem()
     {

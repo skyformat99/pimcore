@@ -10,16 +10,17 @@
  *
  * @category   Pimcore
  * @package    Object
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Object\Localizedfield;
 
+use Pimcore\Logger;
 use Pimcore\Model;
 use Pimcore\Model\Object;
 use Pimcore\Tool;
-use Pimcore\Logger;
 
 /**
  * @property \Pimcore\Model\Object\Localizedfield $model
@@ -59,9 +60,6 @@ class Dao extends Model\Dao\AbstractDao
         return "object_localized_query_" . $this->model->getClass()->getId();
     }
 
-    /**
-     *
-     */
     public function save()
     {
         $this->delete(false);
@@ -126,7 +124,6 @@ class Dao extends Model\Dao\AbstractDao
 
             $this->db->insertOrUpdate($storeTable, $insertData);
 
-
             if ($container instanceof Object\ClassDefinition) {
                 // query table
                 $data = [];
@@ -163,7 +160,6 @@ class Dao extends Model\Dao\AbstractDao
                 $untouchable = [];
 
                 // @TODO: currently we do not support lazyloading in localized fields
-
 
                 $inheritanceEnabled = $object->getClass()->getAllowInherit();
                 $parentData = null;
@@ -260,7 +256,6 @@ class Dao extends Model\Dao\AbstractDao
                     }
                 }
 
-
                 $queryTable = $this->getQueryTableName() . "_" . $language;
                 $this->db->insertOrUpdate($queryTable, $data);
                 if ($inheritanceEnabled) {
@@ -334,7 +329,6 @@ class Dao extends Model\Dao\AbstractDao
             $sql = $this->db->quoteInto("src_id = ?", $objectId) . " AND ownertype = 'localizedfield' AND "
                 . $this->db->quoteInto("ownername LIKE ?", "/fieldcollection~" . $containerName . "/" . $index . "/%");
 
-
             $this->db->deleteWhere("object_relations_" . $object->getClassId(), $sql);
         } else {
             $this->db->delete("object_relations_" . $this->model->getObject()->getClassId(), [
@@ -403,10 +397,6 @@ class Dao extends Model\Dao\AbstractDao
         }
     }
 
-
-    /**
-     *
-     */
     public function createLocalizedViews()
     {
 
@@ -418,6 +408,7 @@ class Dao extends Model\Dao\AbstractDao
 
         /**
          * macro for creating ifnull statement
+         *
          * @param string $field
          * @param array  $languages
          *
@@ -444,11 +435,9 @@ class Dao extends Model\Dao\AbstractDao
                 ;
         };
 
-
         foreach ($languages as $language) {
             try {
                 $tablename = $this->getQueryTableName() . "_" . $language;
-
 
                 // get available columns
                 $viewColumns = array_merge(
@@ -456,13 +445,11 @@ class Dao extends Model\Dao\AbstractDao
                 );
                 $localizedColumns = $this->db->fetchAll('SHOW COLUMNS FROM `' . $tablename . '`');
 
-
                 // get view fields
                 $viewFields = [];
                 foreach ($viewColumns as $row) {
                     $viewFields[] = $this->db->quoteIdentifier($row['Field']);
                 }
-
 
                 // create fallback select
                 $localizedFields = [];
@@ -472,10 +459,8 @@ class Dao extends Model\Dao\AbstractDao
                     $localizedFields[] = $getFallbackValue($row['Field'], $fallbackLanguages) . sprintf(' as "%s"', $row['Field']);
                 }
 
-
                 // create view select fields
                 $selectViewFields = implode(',', array_merge($viewFields, $localizedFields));
-
 
                 // create view
                 $viewQuery = <<<QUERY
@@ -486,7 +471,6 @@ FROM `{$defaultTable}`
     JOIN `objects`
         ON (`objects`.`o_id` = `{$defaultTable}`.`oo_id`)
 QUERY;
-
 
                 // join fallback languages
                 foreach ($fallbackLanguages as $lang) {
@@ -506,10 +490,6 @@ QUERY;
         }
     }
 
-
-    /**
-     *
-     */
     public function createUpdateTable()
     {
         $table = $this->getTableName();
@@ -539,7 +519,6 @@ QUERY;
 
         $existingColumns = $this->getValidTableColumns($table, false); // no caching of table definition
         $columnsToRemove = $existingColumns;
-
 
         Object\ClassDefinition\Service::updateTableDefinitions($this->tableDefinitions, ([$table]));
 
@@ -588,7 +567,6 @@ QUERY;
                       INDEX `ooo_id` (`ooo_id`),
                       INDEX `language` (`language`)
                     ) DEFAULT CHARSET=utf8mb4;");
-
 
                 // create object table if not exists
                 $protectedColumns = ["ooo_id", "language"];

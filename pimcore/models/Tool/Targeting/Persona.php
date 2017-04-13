@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Tool
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -23,7 +24,6 @@ use Pimcore\Model;
  */
 class Persona extends Model\AbstractModel
 {
-
     /**
      * @var int
      */
@@ -56,6 +56,7 @@ class Persona extends Model\AbstractModel
 
     /**
      * @param $id
+     *
      * @return null|Persona
      */
     public static function getById($id)
@@ -73,6 +74,7 @@ class Persona extends Model\AbstractModel
 
     /**
      * add the persona to the current user
+     *
      * @param $id
      */
     public static function fire($id)
@@ -83,6 +85,7 @@ class Persona extends Model\AbstractModel
 
     /**
      * @param $id
+     *
      * @return bool
      */
     public static function isIdActive($id)
@@ -97,6 +100,7 @@ class Persona extends Model\AbstractModel
 
     /**
      * @param $description
+     *
      * @return $this
      */
     public function setDescription($description)
@@ -116,6 +120,7 @@ class Persona extends Model\AbstractModel
 
     /**
      * @param $id
+     *
      * @return $this
      */
     public function setId($id)
@@ -135,6 +140,7 @@ class Persona extends Model\AbstractModel
 
     /**
      * @param $name
+     *
      * @return $this
      */
     public function setName($name)
@@ -152,9 +158,9 @@ class Persona extends Model\AbstractModel
         return $this->name;
     }
 
-
     /**
      * @param $conditions
+     *
      * @return $this
      */
     public function setConditions($conditions)
@@ -192,7 +198,7 @@ class Persona extends Model\AbstractModel
     }
 
     /**
-     * @param boolean $active
+     * @param bool $active
      */
     public function setActive($active)
     {
@@ -200,7 +206,7 @@ class Persona extends Model\AbstractModel
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getActive()
     {

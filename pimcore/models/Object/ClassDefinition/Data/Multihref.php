@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -17,9 +18,9 @@
 namespace Pimcore\Model\Object\ClassDefinition\Data;
 
 use Pimcore\Model;
-use Pimcore\Model\Element;
 use Pimcore\Model\Asset;
 use Pimcore\Model\Document;
+use Pimcore\Model\Element;
 use Pimcore\Model\Object;
 
 class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
@@ -34,14 +35,14 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
     public $fieldtype = "multihref";
 
     /**
-     * @var integer
+     * @var int
      */
     public $width;
 
     /**
      * Type for the column to query
      *
-     * @var integer
+     * @var int
      */
     public $height;
 
@@ -76,13 +77,13 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
 
     /**
      *
-     * @var boolean
+     * @var bool
      */
     public $objectsAllowed;
 
     /**
      *
-     * @var boolean
+     * @var bool
      */
     public $assetsAllowed;
 
@@ -95,7 +96,7 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
 
     /**
      *
-     * @var boolean
+     * @var bool
      */
     public $documentsAllowed;
 
@@ -107,7 +108,7 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
     public $documentTypes;
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getObjectsAllowed()
     {
@@ -115,7 +116,8 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
     }
 
     /**
-     * @param boolean $objectsAllowed
+     * @param bool $objectsAllowed
+     *
      * @return $this
      */
     public function setObjectsAllowed($objectsAllowed)
@@ -126,7 +128,7 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getDocumentsAllowed()
     {
@@ -134,7 +136,8 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
     }
 
     /**
-     * @param boolean $documentsAllowed
+     * @param bool $documentsAllowed
+     *
      * @return $this
      */
     public function setDocumentsAllowed($documentsAllowed)
@@ -143,7 +146,6 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
 
         return $this;
     }
-
 
     /**
      * @return array
@@ -155,6 +157,7 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
 
     /**
      * @param array $documentTypes
+     *
      * @return $this
      */
     public function setDocumentTypes($documentTypes)
@@ -166,7 +169,7 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
 
     /**
      *
-     * @return boolean
+     * @return bool
      */
     public function getAssetsAllowed()
     {
@@ -175,7 +178,8 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
 
     /**
      *
-     * @param boolean $assetsAllowed
+     * @param bool $assetsAllowed
+     *
      * @return $this
      */
     public function setAssetsAllowed($assetsAllowed)
@@ -195,6 +199,7 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
 
     /**
      * @param array $assetTypes
+     *
      * @return $this
      */
     public function setAssetTypes($assetTypes)
@@ -204,13 +209,14 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
         return $this;
     }
 
-
     /**
      * @see Object\ClassDefinition\Data::getDataForResource
+     *
      * @param array $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
      * @param mixed $params
+     *
      * @return array
      */
     public function getDataForResource($data, $object = null, $params = [])
@@ -243,9 +249,11 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
 
     /**
      * @see Object\ClassDefinition\Data::getDataFromResource
+     *
      * @param array $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return array
      */
     public function getDataFromResource($data, $object = null, $params = [])
@@ -274,6 +282,7 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
      * @param $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @throws \Exception
      */
     public function getDataForQueryResource($data, $object = null, $params = [])
@@ -304,9 +313,11 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
 
     /**
      * @see Object\ClassDefinition\Data::getDataForEditmode
+     *
      * @param array $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return array
      */
     public function getDataForEditmode($data, $object = null, $params = [])
@@ -337,9 +348,11 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
 
     /**
      * @see Model\Object\ClassDefinition\Data::getDataFromEditmode
+     *
      * @param array $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return array
      */
     public function getDataFromEditmode($data, $object = null, $params = [])
@@ -374,6 +387,7 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
      * @param $data
      * @param null $object
      * @param array $params
+     *
      * @return array
      *
      * @todo: $pathes is undefined
@@ -394,9 +408,11 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
 
     /**
      * @see Object\ClassDefinition\Data::getVersionPreview
+     *
      * @param array $data
      * @param null|Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      *
      * @todo $pathes is not defined, should be definied as empty array
@@ -415,7 +431,7 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getWidth()
     {
@@ -423,7 +439,8 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
     }
 
     /**
-     * @param integer $width
+     * @param int $width
+     *
      * @return $this
      */
     public function setWidth($width)
@@ -434,7 +451,7 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getHeight()
     {
@@ -442,7 +459,8 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
     }
 
     /**
-     * @param integer $height
+     * @param int $height
+     *
      * @return $this
      */
     public function setHeight($height)
@@ -456,7 +474,8 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
      * Checks if data is valid for current data field
      *
      * @param mixed $data
-     * @param boolean $omitMandatoryCheck
+     * @param bool $omitMandatoryCheck
+     *
      * @throws \Exception
      */
     public function checkValidity($data, $omitMandatoryCheck = false)
@@ -488,9 +507,12 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
 
     /**
      * converts object data to a simple string value or CSV Export
+     *
      * @abstract
+     *
      * @param Object\AbstractObject $object
      * @param array $params
+     *
      * @return string
      */
     public function getForCsvExport($object, $params = [])
@@ -512,10 +534,13 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
 
     /**
      * fills object field data values from CSV Import String
+     *
      * @abstract
+     *
      * @param string $importValue
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return Object\ClassDefinition\Data
      */
     public function getFromCsvImport($importValue, $object = null, $params = [])
@@ -544,12 +569,12 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
         return $value;
     }
 
-
     /**
      * This is a dummy and is mostly implemented by relation types
      *
      * @param mixed $data
      * @param array $tags
+     *
      * @return array
      */
     public function getCacheTags($data, $tags = [])
@@ -573,6 +598,7 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
 
     /**
      * @param $data
+     *
      * @return array
      */
     public function resolveDependencies($data)
@@ -596,8 +622,10 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
 
     /**
      * converts data to be exposed via webservices
+     *
      * @param string $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function getForWebserviceExport($object, $params = [])
@@ -626,7 +654,9 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
      * @param null $relatedObject
      * @param mixed $params
      * @param null $idMapper
+     *
      * @return mixed|void
+     *
      * @throws \Exception
      */
     public function getFromWebserviceImport($value, $relatedObject = null, $params = [], $idMapper = null)
@@ -671,6 +701,7 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
     /**
      * @param $object
      * @param array $params
+     *
      * @return array|mixed|null
      */
     public function preGetData($object, $params = [])
@@ -713,6 +744,7 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
      * @param $object
      * @param $data
      * @param array $params
+     *
      * @return array|null
      */
     public function preSetData($object, $data, $params = [])
@@ -732,6 +764,7 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
 
     /**
      * @param $maxItems
+     *
      * @return $this
      */
     public function setMaxItems($maxItems)
@@ -751,6 +784,7 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
 
     /**
      * @param $assetUploadPath
+     *
      * @return $this
      */
     public function setAssetUploadPath($assetUploadPath)
@@ -768,10 +802,10 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
         return $this->assetUploadPath;
     }
 
-
     /** True if change is allowed in edit mode.
      * @param string $object
      * @param mixed $params
+     *
      * @return bool
      */
     public function isDiffChangeAllowed($object, $params = [])
@@ -781,9 +815,11 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
 
     /** Generates a pretty version preview (similar to getVersionPreview) can be either html or
      * a image URL. See the ObjectMerger plugin documentation for details
+     *
      * @param $data
      * @param null $object
      * @param mixed $params
+     *
      * @return array|string
      */
     public function getDiffVersionPreview($data, $object = null, $params = [])
@@ -804,6 +840,7 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
      * @param $data
      * @param null $object
      * @param mixed $params
+     *
      * @return null|\Pimcore_Date
      */
     public function getDiffDataFromEditmode($data, $object = null, $params = [])
@@ -839,9 +876,11 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
      *  "object" => array(...),
      *  "asset" => array(...)
      * )
+     *
      * @param mixed $object
      * @param array $idMapping
      * @param array $params
+     *
      * @return Element\ElementInterface
      */
     public function rewriteIds($object, $idMapping, $params = [])
@@ -867,7 +906,6 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
         $this->documentTypes = $masterDefinition->documentTypes;
     }
 
-
     /**
      * @return string
      */
@@ -880,6 +918,7 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
      * @param mixed $value
      * @param Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function marshal($value, $object = null, $params = [])
@@ -905,6 +944,7 @@ class Multihref extends Model\Object\ClassDefinition\Data\Relations\AbstractRela
      * @param mixed $value
      * @param Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function unmarshal($value, $object = null, $params = [])

@@ -14,8 +14,8 @@
 
 namespace Pimcore\Bundle\EcommerceFrameworkBundle\FilterService;
 
-use Pimcore\Templating\Model\ViewModel;
 use Pimcore\Bundle\EcommerceFrameworkBundle\IndexService\ProductList\IProductList;
+use Pimcore\Templating\Model\ViewModel;
 
 /**
  * Class \Pimcore\Bundle\EcommerceFrameworkBundle\FilterService\Helper
@@ -59,7 +59,6 @@ class Helper
             }
         }
 
-
         $offset = 0;
 
         $pageLimit = intval($params["perPage"]);
@@ -76,7 +75,7 @@ class Helper
 
         if ($params["page"]) {
             $viewModel->currentPage = intval($params["page"]);
-            $offset = $pageLimit * ($params["page"]-1);
+            $offset = $pageLimit * ($params["page"] - 1);
         }
         if ($filterDefinition->getAjaxReload()) {
             if ($loadFullPage && !$excludeLimitOfFirstpage) {
@@ -93,8 +92,6 @@ class Helper
         $productList->setOffset($offset);
 
         $viewModel->pageLimit = $pageLimit;
-
-
 
         $orderBy = $params["orderBy"];
         $orderBy = explode("#", $orderBy);
@@ -126,12 +123,12 @@ class Helper
             $viewModel->currentFilter = $filterService->initFilterService($filterDefinition, $productList, $params);
         }
 
-
         $viewModel->orderByOptions = $orderByOptions;
     }
 
     /**
      * @param $page
+     *
      * @return string
      */
     public static function createPagingQuerystring($page)
@@ -154,9 +151,9 @@ class Helper
         return $string;
     }
 
-
     /**
      * @param $conditions
+     *
      * @return \Pimcore\Bundle\EcommerceFrameworkBundle\Model\AbstractCategory
      */
     public static function getFirstFilteredCategory($conditions)

@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Metadata
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -21,7 +22,6 @@ namespace Pimcore\Model\Metadata\Predefined;
  */
 class Listing extends \Pimcore\Model\Listing\JsonListing
 {
-
     /**
      * Contains the results of the list. They are all an instance of Metadata\Predefined
      *
@@ -39,6 +39,7 @@ class Listing extends \Pimcore\Model\Listing\JsonListing
 
     /**
      * @param $definitions
+     *
      * @return $this
      */
     public function setDefinitions($definitions)
@@ -51,7 +52,9 @@ class Listing extends \Pimcore\Model\Listing\JsonListing
     /**
      * @param $type
      * @param $subTypes
+     *
      * @return Listing
+     *
      * @throws \Exception
      */
     public static function getByTargetType($type, $subTypes)
@@ -88,6 +91,7 @@ class Listing extends \Pimcore\Model\Listing\JsonListing
      * @param $key
      * @param $language
      * @param null $targetSubtype
+     *
      * @return \Pimcore\Model\Metadata\Predefined
      */
     public static function getByKeyAndLanguage($key, $language, $targetSubtype = null)

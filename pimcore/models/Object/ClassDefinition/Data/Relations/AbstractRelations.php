@@ -10,29 +10,28 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Object\ClassDefinition\Data\Relations;
 
-use Pimcore\Model;
-use Pimcore\Model\Object;
-use Pimcore\Model\Element;
 use Pimcore\Db;
 use Pimcore\Logger;
+use Pimcore\Model;
+use Pimcore\Model\Element;
+use Pimcore\Model\Object;
 
 abstract class AbstractRelations extends Model\Object\ClassDefinition\Data
 {
-
     /**
      * @var bool
      */
     public static $remoteOwner = false;
 
-
     /**
-     * @var boolean
+     * @var bool
      */
     public $lazyLoading;
 
@@ -58,6 +57,7 @@ abstract class AbstractRelations extends Model\Object\ClassDefinition\Data
 
     /**
      * @param array $classes
+     *
      * @return $this
      */
     public function setClasses($classes)
@@ -67,9 +67,8 @@ abstract class AbstractRelations extends Model\Object\ClassDefinition\Data
         return $this;
     }
 
-
     /**
-     * @return boolean
+     * @return bool
      */
     public function getLazyLoading()
     {
@@ -78,6 +77,7 @@ abstract class AbstractRelations extends Model\Object\ClassDefinition\Data
 
     /**
      * @param  $lazyLoading
+     *
      * @return $this
      */
     public function setLazyLoading($lazyLoading)
@@ -98,8 +98,10 @@ abstract class AbstractRelations extends Model\Object\ClassDefinition\Data
     /**
      *
      * Checks if an object is an allowed relation
+     *
      * @param Model\Object\AbstractObject $object
-     * @return boolean
+     *
+     * @return bool
      */
     protected function allowObjectRelation($object)
     {
@@ -137,8 +139,10 @@ abstract class AbstractRelations extends Model\Object\ClassDefinition\Data
     /**
      *
      * Checks if an asset is an allowed relation
+     *
      * @param Model\Asset $asset
-     * @return boolean
+     *
+     * @return bool
      */
     protected function allowAssetRelation($asset)
     {
@@ -147,7 +151,7 @@ abstract class AbstractRelations extends Model\Object\ClassDefinition\Data
         $allowed = true;
         if (!$this->getAssetsAllowed()) {
             $allowed = false;
-        } elseif ($this->getAssetsAllowed() and  is_array($allowedAssetTypes) and count($allowedAssetTypes) > 0) {
+        } elseif ($this->getAssetsAllowed() and is_array($allowedAssetTypes) and count($allowedAssetTypes) > 0) {
             //check for allowed asset types
             foreach ($allowedAssetTypes as $t) {
                 if (is_array($t) && array_key_exists("assetTypes", $t)) {
@@ -159,7 +163,7 @@ abstract class AbstractRelations extends Model\Object\ClassDefinition\Data
                         $allowedTypes[] = $t;
                     } elseif (is_array($t) && count($t) > 0) {
                         if (isset($t["assetTypes"])) {
-                            $allowedTypes []= $t["assetTypes"];
+                            $allowedTypes[]= $t["assetTypes"];
                         } else {
                             $allowedTypes[]= $t;
                         }
@@ -181,8 +185,10 @@ abstract class AbstractRelations extends Model\Object\ClassDefinition\Data
     /**
      *
      * Checks if an document is an allowed relation
+     *
      * @param Document $document
-     * @return boolean
+     *
+     * @return bool
      */
     protected function allowDocumentRelation($document)
     {
@@ -191,7 +197,7 @@ abstract class AbstractRelations extends Model\Object\ClassDefinition\Data
         $allowed = true;
         if (!$this->getDocumentsAllowed()) {
             $allowed = false;
-        } elseif ($this->getDocumentsAllowed() and  is_array($allowedDocumentTypes) and count($allowedDocumentTypes) > 0) {
+        } elseif ($this->getDocumentsAllowed() and is_array($allowedDocumentTypes) and count($allowedDocumentTypes) > 0) {
             //check for allowed asset types
             $allowedTypes = [];
             foreach ($allowedDocumentTypes as $t) {
@@ -263,6 +269,7 @@ abstract class AbstractRelations extends Model\Object\ClassDefinition\Data
     /**
      * @param $object
      * @param array $params
+     *
      * @throws \Exception
      */
     public function save($object, $params = [])
@@ -275,7 +282,6 @@ abstract class AbstractRelations extends Model\Object\ClassDefinition\Data
         if (is_array($relations) && !empty($relations)) {
             foreach ($relations as $relation) {
                 $this->enrichRelation($object, $params, $classId, $relation);
-
 
                 /*relation needs to be an array with src_id, dest_id, type, fieldname*/
                 try {
@@ -297,6 +303,7 @@ abstract class AbstractRelations extends Model\Object\ClassDefinition\Data
     /**
      * @param $object
      * @param array $params
+     *
      * @return null
      */
     public function load($object, $params = [])
@@ -313,7 +320,7 @@ abstract class AbstractRelations extends Model\Object\ClassDefinition\Data
         } elseif ($object instanceof Object\Fieldcollection\Data\AbstractData) {
             $relations = $db->fetchAll("SELECT * FROM object_relations_" . $object->getObject()->getClassId() . " WHERE src_id = ? AND fieldname = ? AND ownertype = 'fieldcollection' AND ownername = ? AND position = ?", [$object->getObject()->getId(), $this->getName(), $object->getFieldname(), $object->getIndex()]);
         } elseif ($object instanceof Object\Localizedfield) {
-            if (isset($params["context"])&& $params["context"]["containerType"] == "fieldcollection") {
+            if (isset($params["context"]) && $params["context"]["containerType"] == "fieldcollection") {
                 $context = $params["context"];
                 $fieldname = $context["fieldname"];
                 $index = $context["index"];
@@ -358,8 +365,10 @@ abstract class AbstractRelations extends Model\Object\ClassDefinition\Data
      *  "object" => array(...),
      *  "asset" => array(...)
      * )
+     *
      * @param mixed $data
      * @param array $idMapping
+     *
      * @return array
      */
     public function rewriteIdsService($data, $idMapping)
@@ -397,6 +406,7 @@ abstract class AbstractRelations extends Model\Object\ClassDefinition\Data
     /**
      * @param $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForSearchIndex($object, $params = [])

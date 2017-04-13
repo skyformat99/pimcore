@@ -24,7 +24,6 @@ class SelectRelation extends AbstractFilterType
     {
         $field = $this->getField($filterDefinition);
 
-
         $values = $productList->getGroupByRelationValues($field, true);
 
         $objects = [];
@@ -73,12 +72,10 @@ class SelectRelation extends AbstractFilterType
         return $availableRelationsArray;
     }
 
-
     public function addCondition(AbstractFilterDefinitionType $filterDefinition, IProductList $productList, $currentFilter, $params, $isPrecondition = false)
     {
         $field = $this->getField($filterDefinition);
         $preSelect = $this->getPreSelect($filterDefinition);
-
 
         $value = $params[$field];
 
@@ -96,7 +93,6 @@ class SelectRelation extends AbstractFilterType
         }
 
         $currentFilter[$field] = $value;
-
 
         if (!empty($value)) {
             //            if($isPrecondition) {

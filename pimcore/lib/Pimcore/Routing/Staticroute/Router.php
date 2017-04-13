@@ -185,6 +185,7 @@ class Router implements RouterInterface, RequestMatcherInterface, VersatileGener
 
     /**
      * @param string $pathinfo
+     *
      * @return array
      */
     protected function doMatch($pathinfo)
@@ -218,6 +219,7 @@ class Router implements RouterInterface, RequestMatcherInterface, VersatileGener
 
     /**
      * @param array $routeParams
+     *
      * @return array
      */
     protected function processRouteParams(array $routeParams)

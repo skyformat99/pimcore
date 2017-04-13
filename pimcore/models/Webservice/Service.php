@@ -10,23 +10,25 @@
  *
  * @category   Pimcore
  * @package    Webservice
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Webservice;
 
-use Pimcore\Model\Document;
-use Pimcore\Model\Webservice;
-use Pimcore\Model\User;
-use Pimcore\Model\Object;
-use Pimcore\Model\Asset;
 use Pimcore\Logger;
+use Pimcore\Model\Asset;
+use Pimcore\Model\Document;
+use Pimcore\Model\Object;
+use Pimcore\Model\User;
+use Pimcore\Model\Webservice;
 
 class Service
 {
     /**
      * @return User
+     *
      * @throws \Exception
      */
     public function getUser()
@@ -40,6 +42,7 @@ class Service
 
     /**
      * @param $id
+     *
      * @throws \Exception
      */
     public function getDocumentFolderById($id)
@@ -62,6 +65,7 @@ class Service
 
     /**
      * @param $id
+     *
      * @throws \Exception
      */
     public function getDocumentLinkById($id)
@@ -84,6 +88,7 @@ class Service
 
     /**
      * @param $id
+     *
      * @throws \Exception
      */
     public function getDocumentHardLinkById($id)
@@ -106,6 +111,7 @@ class Service
 
     /**
      * @param $id
+     *
      * @throws \Exception
      */
     public function getDocumentEmailById($id)
@@ -128,6 +134,7 @@ class Service
 
     /**
      * @param $id
+     *
      * @throws \Exception
      */
     public function getDocumentPageById($id)
@@ -152,6 +159,7 @@ class Service
 
     /**
      * @param $id
+     *
      * @throws \Exception
      */
     public function getDocumentSnippetById($id)
@@ -181,6 +189,7 @@ class Service
      * @param null $offset
      * @param null $limit
      * @param null $groupBy
+     *
      * @throws \Exception
      */
     public function getDocumentList($condition = null, $order = null, $orderKey = null, $offset = null, $limit = null, $groupBy = null)
@@ -197,7 +206,7 @@ class Service
             $list->setUnpublished(1);
 
             $items = [];
-            /** @var  $doc Document */
+            /** @var $doc Document */
             foreach ($list as $doc) {
                 $item = new Webservice\Data\Document\Listing\Item();
                 $item->id = $doc->getId();
@@ -205,7 +214,6 @@ class Service
                 if (method_exists($doc, "getPublished")) {
                     $item->published = $doc->getPublished();
                 }
-
 
                 $items[] = $item;
             }
@@ -219,6 +227,7 @@ class Service
 
     /**
      * @param $id
+     *
      * @throws \Exception
      */
     public function unpublishDocument($id)
@@ -241,6 +250,7 @@ class Service
 
     /**
      * @param $id
+     *
      * @throws \Exception
      */
     public function deleteDocument($id)
@@ -262,6 +272,7 @@ class Service
 
     /**
      * @param $wsDocument
+     *
      * @throws \Exception
      */
     public function updateDocumentPage($wsDocument)
@@ -280,6 +291,7 @@ class Service
 
     /**
      * @param $wsDocument
+     *
      * @throws \Exception
      */
     public function updateDocumentFolder($wsDocument)
@@ -298,6 +310,7 @@ class Service
 
     /**
      * @param $wsDocument
+     *
      * @throws \Exception
      */
     public function updateDocumentSnippet($wsDocument)
@@ -316,6 +329,7 @@ class Service
 
     /**
      * @param $wsDocument
+     *
      * @throws \Exception
      */
     public function updateDocumentLink($wsDocument)
@@ -334,6 +348,7 @@ class Service
 
     /**
      * @param $wsDocument
+     *
      * @throws \Exception
      */
     public function updateDocumentHardlink($wsDocument)
@@ -352,6 +367,7 @@ class Service
 
     /**
      * @param $wsDocument
+     *
      * @throws \Exception
      */
     public function updateDocumentEmail($wsDocument)
@@ -368,9 +384,9 @@ class Service
         }
     }
 
-
     /**
      * @param $wsDocument
+     *
      * @throws \Exception
      */
     public function updateObjectFolder($wsDocument)
@@ -389,6 +405,7 @@ class Service
 
     /**
      * @param $wsDocument
+     *
      * @throws \Exception
      */
     public function updateObjectConcrete($wsDocument)
@@ -407,6 +424,7 @@ class Service
 
     /**
      * @param $wsDocument
+     *
      * @throws \Exception
      */
     public function updateAssetFolder($wsDocument)
@@ -425,6 +443,7 @@ class Service
 
     /**
      * @param $wsDocument
+     *
      * @throws \Exception
      */
     public function updateAssetFile($wsDocument)
@@ -443,6 +462,7 @@ class Service
 
     /**
      * @param $wsDocument
+     *
      * @throws \Exception
      */
     public function createDocumentPage($wsDocument)
@@ -463,6 +483,7 @@ class Service
 
     /**
      * @param $wsDocument
+     *
      * @throws \Exception
      */
     public function createDocumentSnippet($wsDocument)
@@ -484,6 +505,7 @@ class Service
 
     /**
      * @param $wsDocument
+     *
      * @throws \Exception
      */
     public function createDocumentEmail($wsDocument)
@@ -503,9 +525,9 @@ class Service
         }
     }
 
-
     /**
      * @param $wsDocument
+     *
      * @throws \Exception
      */
     public function createDocumentFolder($wsDocument)
@@ -526,6 +548,7 @@ class Service
 
     /**
      * @param $wsDocument
+     *
      * @throws \Exception
      */
     public function createDocumentLink($wsDocument)
@@ -546,6 +569,7 @@ class Service
 
     /**
      * @param $wsDocument
+     *
      * @throws \Exception
      */
     public function createDocumentHardlink($wsDocument)
@@ -564,9 +588,9 @@ class Service
         }
     }
 
-
     /**
      * @param $wsDocument
+     *
      * @throws \Exception
      */
     public function createAssetFolder($wsDocument)
@@ -587,6 +611,7 @@ class Service
 
     /**
      * @param $wsDocument
+     *
      * @throws \Exception
      */
     public function createAssetFile($wsDocument)
@@ -617,6 +642,7 @@ class Service
 
     /**
      * @param $wsDocument
+     *
      * @throws \Exception
      */
     public function createObjectFolder($wsDocument)
@@ -638,6 +664,7 @@ class Service
 
     /**
      * @param $wsDocument
+     *
      * @throws \Exception
      */
     public function createObjectConcrete($wsDocument)
@@ -660,9 +687,9 @@ class Service
         }
     }
 
-
     /**
      * @param $id
+     *
      * @throws \Exception
      */
     public function getAssetFolderById($id)
@@ -686,6 +713,7 @@ class Service
     /**
      * @param $id
      * @param null $options
+     *
      * @throws \Exception
      */
     public function getAssetFileById($id, $options = null)
@@ -712,6 +740,7 @@ class Service
      * @param null $offset
      * @param null $limit
      * @param null $groupBy
+     *
      * @throws \Exception
      */
     public function getAssetList($condition = null, $order = null, $orderKey = null, $offset = null, $limit = null, $groupBy = null)
@@ -738,7 +767,6 @@ class Service
                 $params["groupBy"] = $groupBy;
             }
 
-
             $list = Asset::getList($params);
 
             $items = [];
@@ -759,6 +787,7 @@ class Service
 
     /**
      * @param $id
+     *
      * @throws \Exception
      */
     public function deleteAsset($id)
@@ -780,6 +809,7 @@ class Service
 
     /**
      * @param $id
+     *
      * @throws \Exception
      */
     public function getObjectFolderById($id)
@@ -801,6 +831,7 @@ class Service
 
     /**
      * @param $id
+     *
      * @throws \Exception
      */
     public function getObjectConcreteById($id)
@@ -831,6 +862,7 @@ class Service
      * @param null $limit
      * @param null $groupBy
      * @param null $objectClass
+     *
      * @throws \Exception
      */
     public function getObjectList($condition = null, $order = null, $orderKey = null, $offset = null, $limit = null, $groupBy = null, $objectClass = null)
@@ -889,6 +921,7 @@ class Service
 
     /**
      * @param $id
+     *
      * @throws \Exception
      */
     public function unpublishObject($id)
@@ -911,6 +944,7 @@ class Service
 
     /**
      * @param $id
+     *
      * @throws \Exception
      */
     public function deleteObject($id)
@@ -933,7 +967,9 @@ class Service
     /**
      * @param $wsDocument
      * @param $element
+     *
      * @return mixed
+     *
      * @throws \Exception
      */
     protected function create($wsDocument, $element)
@@ -956,6 +992,7 @@ class Service
      * @param $element
      * @param $key
      * @param $path
+     *
      * @return string
      */
     protected function getSaveCopyName($element, $key, $path)
@@ -977,9 +1014,9 @@ class Service
         return $key;
     }
 
-
     /**
      * @param $wsDocument
+     *
      * @throws \Exception
      */
     protected function updateDocument($wsDocument)
@@ -1002,9 +1039,9 @@ class Service
         }
     }
 
-
     /**
      * @param $wsDocument
+     *
      * @throws \Exception
      */
     protected function updateObject($wsDocument)
@@ -1031,9 +1068,9 @@ class Service
         }
     }
 
-
     /**
      * @param $wsDocument
+     *
      * @throws \Exception
      */
     protected function updateAsset($wsDocument)
@@ -1058,7 +1095,9 @@ class Service
     /**
      * @param $element
      * @param bool $creation
+     *
      * @return $this
+     *
      * @throws \Exception
      */
     protected function setModificationParams($element, $creation = false)
@@ -1078,6 +1117,7 @@ class Service
 
     /**
      * @param $id
+     *
      * @throws \Exception
      */
     public function getClassById($id)
@@ -1098,9 +1138,9 @@ class Service
         }
     }
 
-
     /**
      * @param $id
+     *
      * @throws \Exception
      */
     public function getObjectMetadataById($id)
@@ -1125,7 +1165,9 @@ class Service
     /**
      * @param $type
      * @param $params
+     *
      * @return array
+     *
      * @throws \Exception
      */
     public function getTranslations($type, $params)

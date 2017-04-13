@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -43,6 +44,7 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * @param string $abbreviation
+     *
      * @throws \Exception
      */
     public function getByAbbreviation($abbreviation)
@@ -56,6 +58,7 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * @param string $reference
+     *
      * @throws \Exception
      */
     public function getByReference($reference)
@@ -69,6 +72,7 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * @param int $id
+     *
      * @throws \Exception
      */
     public function getById($id)
@@ -80,11 +84,10 @@ class Dao extends Model\Dao\AbstractDao
         $this->assignVariablesToModel($classRaw);
     }
 
-
     /**
      * Create a new record for the object in database
      *
-     * @return boolean
+     * @return bool
      */
     public function create()
     {
@@ -97,7 +100,7 @@ class Dao extends Model\Dao\AbstractDao
     /**
      * Save object to database
      *
-     * @return boolean
+     * @return bool
      *
      * @todo update() don't returns anything
      */

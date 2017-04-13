@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -39,27 +40,27 @@ abstract class Data
     public $tooltip;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $mandatory;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $noteditable;
 
     /**
-     * @var integer
+     * @var int
      */
     public $index;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $locked;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $style;
 
@@ -133,27 +134,30 @@ abstract class Data
      * Returns the the data that should be stored in the resource
      *
      * @param mixed $data
+     *
      * @return mixed
 
-    abstract public function getDataForResource($data);
+     abstract public function getDataForResource($data);
      */
 
     /**
      * Convert the saved data in the resource to the internal eg. Image-Id to Asset\Image object, this is the inverted getDataForResource()
      *
      * @param mixed $data
+     *
      * @return mixed
 
-    abstract public function getDataFromResource($data);
+     abstract public function getDataFromResource($data);
      */
 
     /**
      * Returns the data which should be stored in the query columns
      *
      * @param mixed $data
+     *
      * @return mixed
 
-    abstract public function getDataForQueryResource($data);
+     abstract public function getDataForQueryResource($data);
      */
 
     /**
@@ -162,6 +166,7 @@ abstract class Data
      * @param mixed $data
      * @param null|Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return mixed
      */
     abstract public function getDataForEditmode($data, $object = null, $params = []);
@@ -172,6 +177,7 @@ abstract class Data
      * @param mixed $data
      * @param null|Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return mixed
      */
     abstract public function getDataFromEditmode($data, $object = null, $params = []);
@@ -180,7 +186,8 @@ abstract class Data
      * Checks if data is valid for current data field
      *
      * @param mixed $data
-     * @param boolean $omitMandatoryCheck
+     * @param bool $omitMandatoryCheck
+     *
      * @throws \Exception
      */
     public function checkValidity($data, $omitMandatoryCheck = false)
@@ -205,9 +212,12 @@ abstract class Data
 
     /**
      * converts object data to a simple string value or CSV Export
+     *
      * @abstract
+     *
      * @param Object\AbstractObject $object
      * @param array $params
+     *
      * @return string
      */
     public function getForCsvExport($object, $params = [])
@@ -219,6 +229,7 @@ abstract class Data
      * @param $importValue
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function getFromCsvImport($importValue, $object = null, $params = [])
@@ -229,6 +240,7 @@ abstract class Data
     /**
      * @param $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForSearchIndex($object, $params = [])
@@ -239,8 +251,10 @@ abstract class Data
 
     /**
      * converts data to be exposed via webservices
+     *
      * @param Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function getForWebserviceExport($object, $params = [])
@@ -250,10 +264,12 @@ abstract class Data
 
     /**
      * converts data to be imported via webservices
+     *
      * @param mixed $value
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
      * @param $idMapper
+     *
      * @return mixed
      */
     public function getFromWebserviceImport($value, $object = null, $params = [], $idMapper = null)
@@ -278,7 +294,7 @@ abstract class Data
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getMandatory()
     {
@@ -295,6 +311,7 @@ abstract class Data
 
     /**
      * @param string $name
+     *
      * @return $this
      */
     public function setName($name)
@@ -306,6 +323,7 @@ abstract class Data
 
     /**
      * @param string $title
+     *
      * @return $this
      */
     public function setTitle($title)
@@ -316,7 +334,8 @@ abstract class Data
     }
 
     /**
-     * @param boolean $mandatory
+     * @param bool $mandatory
+     *
      * @return $this
      */
     public function setMandatory($mandatory)
@@ -328,6 +347,7 @@ abstract class Data
 
     /**
      * @param array $permissions
+     *
      * @return $this
      */
     public function setPermissions($permissions)
@@ -339,6 +359,7 @@ abstract class Data
 
     /**
      * @param array $data
+     *
      * @return $this
      */
     public function setValues($data = [])
@@ -353,7 +374,6 @@ abstract class Data
         return $this;
     }
 
-
     /**
      * @return string
      */
@@ -364,6 +384,7 @@ abstract class Data
 
     /**
      * @param string $datatype
+     *
      * @return $this
      */
     public function setDatatype($datatype)
@@ -383,6 +404,7 @@ abstract class Data
 
     /**
      * @param string $fieldtype
+     *
      * @return $this
      */
     public function setFieldtype($fieldtype)
@@ -402,6 +424,7 @@ abstract class Data
 
     /**
      * @param string | array $columnType
+     *
      * @return $this
      */
     public function setColumnType($columnType)
@@ -421,6 +444,7 @@ abstract class Data
 
     /**
      * @param string | array $queryColumnType
+     *
      * @return $this
      */
     public function setQueryColumnType($queryColumnType)
@@ -431,7 +455,7 @@ abstract class Data
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getNoteditable()
     {
@@ -439,7 +463,8 @@ abstract class Data
     }
 
     /**
-     * @param boolean $noteditable
+     * @param bool $noteditable
+     *
      * @return $this
      */
     public function setNoteditable($noteditable)
@@ -450,7 +475,7 @@ abstract class Data
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getIndex()
     {
@@ -458,7 +483,8 @@ abstract class Data
     }
 
     /**
-     * @param integer $index
+     * @param int $index
+     *
      * @return $this
      */
     public function setIndex($index)
@@ -478,7 +504,7 @@ abstract class Data
 
     /**
      *
-     * @return boolean
+     * @return bool
      */
     public function getStyle()
     {
@@ -487,6 +513,7 @@ abstract class Data
 
     /**
      * @param $style
+     *
      * @return $this
      */
     public function setStyle($style)
@@ -498,7 +525,7 @@ abstract class Data
 
     /**
      *
-     * @return boolean
+     * @return bool
      */
     public function getLocked()
     {
@@ -507,6 +534,7 @@ abstract class Data
 
     /**
      * @param $locked
+     *
      * @return $this
      */
     public function setLocked($locked)
@@ -527,6 +555,7 @@ abstract class Data
 
     /**
      * @param $tooltip
+     *
      * @return $this
      */
     public function setTooltip($tooltip)
@@ -538,7 +567,7 @@ abstract class Data
 
     /**
      *
-     * @return boolean
+     * @return bool
      */
     public function isRelationType()
     {
@@ -546,7 +575,7 @@ abstract class Data
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getInvisible()
     {
@@ -555,6 +584,7 @@ abstract class Data
 
     /**
      * @param $invisible
+     *
      * @return $this
      */
     public function setInvisible($invisible)
@@ -565,7 +595,7 @@ abstract class Data
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getVisibleGridView()
     {
@@ -574,6 +604,7 @@ abstract class Data
 
     /**
      * @param $visibleGridView
+     *
      * @return $this
      */
     public function setVisibleGridView($visibleGridView)
@@ -584,7 +615,7 @@ abstract class Data
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getVisibleSearch()
     {
@@ -593,6 +624,7 @@ abstract class Data
 
     /**
      * @param $visibleSearch
+     *
      * @return $this
      */
     public function setVisibleSearch($visibleSearch)
@@ -607,6 +639,7 @@ abstract class Data
      *
      * @param mixed $data
      * @param array $tags
+     *
      * @return array
      */
     public function getCacheTags($data, $tags = [])
@@ -616,6 +649,7 @@ abstract class Data
 
     /**
      * @param $data
+     *
      * @return array
      */
     public function resolveDependencies($data)
@@ -625,8 +659,10 @@ abstract class Data
 
     /**
      * returns sql query statement to filter according to this data types value(s)
+     *
      * @param  $value
      * @param  $operator
+     *
      * @return string
      *
      */
@@ -639,9 +675,11 @@ abstract class Data
 
     /**
      * returns sql query statement to filter according to this data types value(s)
+     *
      * @param $value
      * @param $operator
      * @param array $params optional params used to change the behavior
+     *
      * @return string
      */
     public function getFilterConditionExt($value, $operator, $params = [])
@@ -671,10 +709,11 @@ abstract class Data
         }
     }
 
-
     /**
      * Creates getter code which is used for generation of php file for object classes using this data type
+     *
      * @param $class
+     *
      * @return string
      */
     public function getGetterCode($class)
@@ -715,7 +754,9 @@ abstract class Data
 
     /**
      * Creates setter code which is used for generation of php file for object classes using this data type
+     *
      * @param $class
+     *
      * @return string
      */
     public function getSetterCode($class)
@@ -742,10 +783,11 @@ abstract class Data
         return $code;
     }
 
-
     /**
      * Creates getter code which is used for generation of php file for object brick classes using this data type
+     *
      * @param $brickClass
+     *
      * @return string
      */
     public function getGetterCodeObjectbrick($brickClass)
@@ -768,7 +810,6 @@ abstract class Data
         $code .= "\t\t" . 'return $this->getValueFromParent("' . $key . '");' . "\n";
         $code .= "\t" . '}' . "\n";
 
-
         $code .= "\t return " . '$data' . ";\n";
         $code .= "}\n\n";
 
@@ -777,7 +818,9 @@ abstract class Data
 
     /**
      * Creates setter code which is used for generation of php file for object brick classes using this data type
+     *
      * @param $brickClass
+     *
      * @return string
      */
     public function getSetterCodeObjectbrick($brickClass)
@@ -804,10 +847,11 @@ abstract class Data
         return $code;
     }
 
-
     /**
      * Creates getter code which is used for generation of php file for fieldcollectionk classes using this data type
+     *
      * @param $fieldcollectionDefinition
+     *
      * @return string
      */
     public function getGetterCodeFieldcollection($fieldcollectionDefinition)
@@ -837,7 +881,9 @@ abstract class Data
 
     /**
      * Creates setter code which is used for generation of php file for fieldcollection classes using this data type
+     *
      * @param $fieldcollectionDefinition
+     *
      * @return string
      */
     public function getSetterCodeFieldcollection($fieldcollectionDefinition)
@@ -864,10 +910,11 @@ abstract class Data
         return $code;
     }
 
-
     /**
      * Creates getter code which is used for generation of php file for localized fields in classes using this data type
+     *
      * @param $class
+     *
      * @return string
      */
     public function getGetterCodeLocalizedfields($class)
@@ -899,7 +946,9 @@ abstract class Data
 
     /**
      * Creates setter code which is used for generation of php file for localized fields in classes using this data type
+     *
      * @param $class
+     *
      * @return string
      */
     public function getSetterCodeLocalizedfields($class)
@@ -937,6 +986,7 @@ abstract class Data
 
     /**
      * @param $number
+     *
      * @return float
      */
     public function getAsFloatCast($number)
@@ -948,6 +998,7 @@ abstract class Data
      * @param $data
      * @param null|Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getVersionPreview($data, $object = null, $params = [])
@@ -957,6 +1008,7 @@ abstract class Data
 
     /**
      * @param Object\Concrete $data
+     *
      * @return bool
      */
     public function isEmpty($data)
@@ -971,6 +1023,7 @@ abstract class Data
     /** True if change is allowed in edit mode.
      * @param string $object
      * @param mixed $params
+     *
      * @return bool
      */
     public function isDiffChangeAllowed($object, $params = [])
@@ -983,9 +1036,11 @@ abstract class Data
      *  - "field" => the name of (this) field
      *  - "key" => the key of the data element
      *  - "data" => the data
+     *
      * @param $data
      * @param null $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function getDiffDataFromEditmode($data, $object = null, $params = [])
@@ -994,8 +1049,6 @@ abstract class Data
 
         return $thedata;
     }
-
-
 
     /**
      * Returns the data for the editmode in the format expected by the object merger plugin.
@@ -1013,6 +1066,7 @@ abstract class Data
      * @param mixed $data
      * @param null|Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return null|array
      */
     public function getDiffDataForEditMode($data, $object = null, $params = [])
@@ -1055,11 +1109,12 @@ abstract class Data
         return self::$dropNullValues;
     }
 
-
     /**
      * @param $object
      * @param array $params
+     *
      * @return mixed
+     *
      * @throws \Exception
      */
     protected function getDataFromObjectParam($object, $params = [])
@@ -1131,7 +1186,7 @@ abstract class Data
                     $keyId = $context["keyId"];
                     $language = $context["language"];
 
-                    /** @var  $classificationStoreData Object\Classificationstore */
+                    /** @var $classificationStoreData Object\Classificationstore */
                     $classificationStoreData = $object->$getter();
                     $data = $classificationStoreData->getLocalizedKeyValue($groupId, $keyId, $language, true, true);
 
@@ -1139,7 +1194,6 @@ abstract class Data
                 }
             }
         }
-
 
         $container = $object;
 
@@ -1184,6 +1238,7 @@ abstract class Data
      * @param mixed $value
      * @param Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function marshal($value, $object = null, $params = [])
@@ -1199,6 +1254,7 @@ abstract class Data
      * @param mixed $data
      * @param Model\Object\AbstractObject $object
      * @param array $params
+     *
      * @return mixed
      */
     public function unmarshal($data, $object = null, $params = [])
@@ -1209,7 +1265,7 @@ abstract class Data
             if (is_array($data)) {
                 return $data["value"];
             }
-        };
+        }
 
         return null;
     }

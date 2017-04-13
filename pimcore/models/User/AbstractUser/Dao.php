@@ -10,14 +10,15 @@
  *
  * @category   Pimcore
  * @package    User
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\User\AbstractUser;
 
-use Pimcore\Model;
 use Pimcore\Logger;
+use Pimcore\Model;
 
 /**
  * @property \Pimcore\Model\User\AbstractUser $model
@@ -25,8 +26,10 @@ use Pimcore\Logger;
 class Dao extends Model\Dao\AbstractDao
 {
     use Model\Element\ChildsCompatibilityTrait;
+
     /**
      * @param $id
+     *
      * @throws \Exception
      */
     public function getById($id)
@@ -46,6 +49,7 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * @param $name
+     *
      * @throws \Exception
      */
     public function getByName($name)
@@ -80,10 +84,10 @@ class Dao extends Model\Dao\AbstractDao
         }
     }
 
-     /**
+    /**
      * Quick test if there are children
      *
-     * @return boolean
+     * @return bool
      */
     public function hasChildren()
     {
@@ -91,7 +95,6 @@ class Dao extends Model\Dao\AbstractDao
 
         return (bool) $c;
     }
-
 
     /**
      * @throws \Exception

@@ -20,7 +20,6 @@ use Pimcore\Logger;
 
 class Installer extends AbstractInstaller
 {
-
     /**
      * @var array - contains all tables that need to be created
      */
@@ -192,7 +191,6 @@ class Installer extends AbstractInstaller
         return false;
     }
 
-
     /**
      * checks, if install is possible. otherwise throws exception
      *
@@ -265,7 +263,6 @@ class Installer extends AbstractInstaller
         }
     }
 
-
     /**
      * installs all field collections
      */
@@ -293,6 +290,7 @@ class Installer extends AbstractInstaller
 
     /**
      * creates classes
+     *
      * @throws \Exception
      */
     private function createClasses()
@@ -366,6 +364,7 @@ class Installer extends AbstractInstaller
 
     /**
      * imports admin-translations
+     *
      * @throws \Exception
      */
     private function importTranslations()
@@ -393,7 +392,6 @@ class Installer extends AbstractInstaller
             $res->save();
         }
     }
-
 
     public function canBeUninstalled()
     {
@@ -426,7 +424,7 @@ class Installer extends AbstractInstaller
 
     /**
      *
-     * @return boolean
+     * @return bool
      */
     public function needsReloadAfterInstall()
     {
@@ -435,7 +433,8 @@ class Installer extends AbstractInstaller
 
     /**
      *  indicates wether this plugins is currently installed
-     * @return boolean
+     *
+     * @return bool
      */
     public function isInstalled()
     {

@@ -15,12 +15,11 @@
 namespace Pimcore\Google;
 
 use Pimcore\Config;
-use Pimcore\Model;
 use Pimcore\Logger;
+use Pimcore\Model;
 
 class Analytics
 {
-
     /**
      * @var array
      */
@@ -42,6 +41,7 @@ class Analytics
 
     /**
      * @param Model\Site $site
+     *
      * @return bool
      */
     public static function isConfigured(Model\Site $site = null)
@@ -55,6 +55,7 @@ class Analytics
 
     /**
      * @param null $site
+     *
      * @return bool
      */
     public static function getSiteConfig($site = null)
@@ -75,6 +76,7 @@ class Analytics
 
     /**
      * @param null $config
+     *
      * @return string
      */
     public static function getCode($config = null)
@@ -103,7 +105,6 @@ class Analytics
         if (!empty(self::$additionalCodes["beforeEnd"])) {
             $codeBeforeEnd .= "\n" . implode("\n", self::$additionalCodes["beforeEnd"]);
         }
-
 
         $code = "";
 
@@ -157,7 +158,6 @@ class Analytics
               " . $codeBeforeEnd . "
             </script>";
         }
-
 
         return $code;
     }

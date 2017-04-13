@@ -20,6 +20,7 @@ class Image
 {
     /**
      * @return null|Adapter\GD|Adapter\Imagick
+     *
      * @throws \Exception
      */
     public static function getInstance()
@@ -32,6 +33,7 @@ class Image
 
     /**
      * @return null|Adapter\GD|Adapter\Imagick
+     *
      * @throws \Exception
      */
     public static function create()

@@ -17,8 +17,8 @@ namespace Pimcore\Bundle\AdminBundle\Controller\Admin;
 use Pimcore\Bundle\AdminBundle\Controller\AdminController;
 use Pimcore\File;
 use Pimcore\Logger;
-use Pimcore\Model\Object;
 use Pimcore\Model\Element;
+use Pimcore\Model\Object;
 use Pimcore\Tool;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -34,7 +34,9 @@ class ObjectHelperController extends AdminController
 {
     /**
      * @Route("/load-object-data")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function loadObjectDataAction(Request $request)
@@ -52,10 +54,11 @@ class ObjectHelperController extends AdminController
         return $this->json($result);
     }
 
-
     /**
      * @Route("/grid-get-column-config")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function gridGetColumnConfigAction(Request $request)
@@ -295,7 +298,6 @@ class ObjectHelperController extends AdminController
             $language = $validLanguages[0];
         }
 
-
         if (!empty($gridConfig) && !empty($gridConfig['language'])) {
             $language = $gridConfig['language'];
         }
@@ -309,16 +311,16 @@ class ObjectHelperController extends AdminController
         ]);
     }
 
-
     /**
      * @Route("/grid-delete-column-config")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function gridDeleteColumnConfigAction(Request $request)
     {
         $object = Object::getById($request->get("id"));
-
 
         if ($object->isAllowed("publish")) {
             try {
@@ -330,7 +332,6 @@ class ObjectHelperController extends AdminController
                 $configFiles = [];
                 $configFiles[]= PIMCORE_CONFIGURATION_DIRECTORY . "/object/grid/" . $object->getId() . "_" . $classId . $postfix . "-user_" . $this->getUser()->getId() . ".psf";
                 $configFiles[] = PIMCORE_CONFIGURATION_DIRECTORY . "/object/grid/" . $object->getId() . $postfix . "-user_" . $this->getUser()->getId() . ".psf";
-
 
                 foreach ($configFiles as $configFile) {
                     $configDir = dirname($configFile);
@@ -352,13 +353,14 @@ class ObjectHelperController extends AdminController
 
     /**
      * @Route("/grid-save-column-config")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function gridSaveColumnConfigAction(Request $request)
     {
         $object = Object::getById($request->get("id"));
-
 
         if ($object->isAllowed("publish")) {
             try {
@@ -396,6 +398,7 @@ class ObjectHelperController extends AdminController
      * @param $position
      * @param bool $force
      * @param null $keyPrefix
+     *
      * @return array|null
      */
     protected function getFieldGridConfig($field, $gridType, $position, $force = false, $keyPrefix = null)
@@ -439,7 +442,7 @@ class ObjectHelperController extends AdminController
                 "type" => $field->getFieldType(),
                 "label" => $title,
                 "config" => $config,
-                "layout" => $field ,
+                "layout" => $field,
                 "position" => $position
             ];
         } else {
@@ -453,7 +456,9 @@ class ObjectHelperController extends AdminController
 
     /**
      * @Route("/import-upload")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function importUploadAction(Request $request)
@@ -480,7 +485,9 @@ class ObjectHelperController extends AdminController
 
     /**
      * @Route("/import-get-file-info")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function importGetFileInfoAction(Request $request)
@@ -585,7 +592,9 @@ class ObjectHelperController extends AdminController
 
     /**
      * @Route("/import-process")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function importProcessAction(Request $request)
@@ -627,7 +636,6 @@ class ObjectHelperController extends AdminController
 
         unlink($file);
         rename($tmpFile, $file);
-
 
         // prepare mapping
         foreach ($mappingRaw as $map) {
@@ -706,7 +714,7 @@ class ObjectHelperController extends AdminController
 
             foreach ($class->getFieldDefinitions() as $key => $field) {
                 $value = $data[$mapping[$key]];
-                if (array_key_exists($key, $mapping) and  $value != null) {
+                if (array_key_exists($key, $mapping) and $value != null) {
                     // data mapping
                     $value = $field->getFromCsvImport($value, $object);
 
@@ -725,12 +733,12 @@ class ObjectHelperController extends AdminController
             }
         }
 
-
         return $this->json(["success" => $success]);
     }
 
     /**
      * @param Request $request
+     *
      * @return mixed|string
      */
     protected function extractLanguage(Request $request)
@@ -749,6 +757,7 @@ class ObjectHelperController extends AdminController
 
     /**
      * @param Request $request
+     *
      * @return array
      */
     protected function extractFieldsAndBricks(Request $request)
@@ -773,6 +782,7 @@ class ObjectHelperController extends AdminController
 
     /**
      * @param Request $request
+     *
      * @return array
      */
     protected function prepareExportList(Request $request)
@@ -845,6 +855,7 @@ class ObjectHelperController extends AdminController
 
     /**
      * @param $fileHandle
+     *
      * @return string
      */
     protected function getCsvFile($fileHandle)
@@ -854,7 +865,9 @@ class ObjectHelperController extends AdminController
 
     /**
      * @Route("/get-export-jobs")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getExportJobsAction(Request $request)
@@ -873,7 +886,9 @@ class ObjectHelperController extends AdminController
 
     /**
      * @Route("/do-export")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function doExportAction(Request $request)
@@ -904,7 +919,9 @@ class ObjectHelperController extends AdminController
 
     /**
      * @Route("/download-csv-file")
+     *
      * @param Request $request
+     *
      * @return BinaryFileResponse
      */
     public function downloadCsvFileAction(Request $request)
@@ -923,6 +940,7 @@ class ObjectHelperController extends AdminController
 
     /**
      * @param $field
+     *
      * @return string
      */
     protected function mapFieldname($field)
@@ -952,6 +970,7 @@ class ObjectHelperController extends AdminController
      * @param $list
      * @param $fields
      * @param bool $addTitles
+     *
      * @return string
      */
     protected function getCsvData(Request $request, $list, $fields, $addTitles = true)
@@ -1020,6 +1039,7 @@ class ObjectHelperController extends AdminController
      * @param $field
      * @param $object
      * @param $requestedLanguage
+     *
      * @return mixed
      */
     protected function getCsvFieldData(Request $request, $field, $object, $requestedLanguage)
@@ -1108,11 +1128,13 @@ class ObjectHelperController extends AdminController
     /**
      * @extjs - TODO remove this, when old ext support is removed
      */
+
     /**
      * Flattens object data to an array with key=>value where
      * value is simply a string representation of the value (for objects, hrefs and assets the full path is used)
      *
      * @param Object\AbstractObject $object
+     *
      * @return array
      */
     protected function csvObjectData($object)
@@ -1131,13 +1153,14 @@ class ObjectHelperController extends AdminController
         $o["published (system)"] = $object->isPublished();
         $o["type (system)"] = $object->getType();
 
-
         return $o;
     }
 
     /**
      * @Route("/get-batch-jobs")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getBatchJobsAction(Request $request)
@@ -1176,7 +1199,9 @@ class ObjectHelperController extends AdminController
 
     /**
      * @Route("/batch")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function batchAction(Request $request)

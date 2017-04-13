@@ -23,6 +23,7 @@ use Symfony\Component\Process\Process;
  *
  *
  * Class ImageMagick
+ *
  * @package Pimcore\Image\Adapter
  */
 class ImageMagick extends Adapter
@@ -80,12 +81,12 @@ class ImageMagick extends Adapter
      */
     protected $forceAlpha = false;
 
-
     /**
      * loads the image by the specified path
      *
      * @param $imagePath
      * @param array $options
+     *
      * @return ImageMagick
      */
     public function load($imagePath, $options = [])
@@ -140,6 +141,7 @@ class ImageMagick extends Adapter
      * @param $path
      * @param null $format
      * @param null $quality
+     *
      * @return $this
      */
     public function save($path, $format = null, $quality = null)
@@ -167,7 +169,6 @@ class ImageMagick extends Adapter
         return $this;
     }
 
-
     /**
      * @return ImageMagick
      */
@@ -186,6 +187,7 @@ class ImageMagick extends Adapter
      *
      * @param $width
      * @param $height
+     *
      * @return $this
      */
     public function resize($width, $height)
@@ -203,6 +205,7 @@ class ImageMagick extends Adapter
      * @param $width
      * @param $height
      * @param bool $forceResize
+     *
      * @return ImageMagick
      */
     public function frame($width, $height, $forceResize = false)
@@ -228,6 +231,7 @@ class ImageMagick extends Adapter
      * Trims edges
      *
      * @param int $tolerance
+     *
      * @return ImageMagick
      */
     public function trim($tolerance)
@@ -241,6 +245,7 @@ class ImageMagick extends Adapter
      * Rotates the image with the given angle.
      *
      * @param $angle
+     *
      * @return ImageMagick
      */
     public function rotate($angle)
@@ -266,6 +271,7 @@ class ImageMagick extends Adapter
      * @param $y
      * @param $width
      * @param $height
+     *
      * @return ImageMagick
      */
     public function crop($x, $y, $width, $height)
@@ -280,6 +286,7 @@ class ImageMagick extends Adapter
      * Set the background color of the image.
      *
      * @param $color
+     *
      * @return ImageMagick
      */
     public function setBackgroundColor($color)
@@ -298,6 +305,7 @@ class ImageMagick extends Adapter
      *
      * @param $width
      * @param $height
+     *
      * @return ImageMagick
      */
     public function roundCorners($width, $height)
@@ -305,7 +313,7 @@ class ImageMagick extends Adapter
         $this->saveIfRequired('round_corners_canvas');
 
         //creates the mask for rounded corners
-        $mask = new ImageMagick();
+        $mask = new self();
         $mask->addConvertOption('size', "{$this->getWidth()}x{$this->getHeight()}")
             ->addConvertOption('draw', "'roundRectangle 0,0 {$this->getWidth()},{$this->getHeight()} {$width},{$height}'");
         $mask->addFilter('draw', 'xc:none');
@@ -336,6 +344,7 @@ class ImageMagick extends Adapter
      * @param $image
      * @param null $mode
      * @param bool $relativePath
+     *
      * @return ImageMagick
      */
     public function setBackgroundImage($image, $mode = null, $relativePath = false)
@@ -367,7 +376,6 @@ class ImageMagick extends Adapter
             $this->imagePath = $this->getOutputPath();
         }
 
-
         return $this;
     }
 
@@ -378,6 +386,7 @@ class ImageMagick extends Adapter
      * @param int $alpha
      * @param string $composite
      * @param string $origin
+     *
      * @return ImageMagick
      */
     public function addOverlay($image, $x = 0, $y = 0, $alpha = 100, $composite = "COMPOSITE_DEFAULT", $origin = 'top-left')
@@ -399,11 +408,11 @@ class ImageMagick extends Adapter
                     $y =  $this->getHeight() - $overlayImage->getHeight() - $y;
                     break;
                 case "bottom-right":
-                    $x = $this->getWidth() - $overlayImage->getWidth()  - $x;
+                    $x = $this->getWidth() - $overlayImage->getWidth() - $x;
                     $y = $this->getHeight() - $overlayImage->getHeight() - $y;
                     break;
                 case "center":
-                    $x = round($this->getWidth() / 2)  - round($overlayImage->getWidth() / 2) + $x;
+                    $x = round($this->getWidth() / 2) - round($overlayImage->getWidth() / 2) + $x;
                     $y = round($this->getHeight() / 2) - round($overlayImage->getHeight() / 2) + $y;
                     break;
             }
@@ -419,6 +428,7 @@ class ImageMagick extends Adapter
     /**
      * @param $image
      * @param string $composite
+     *
      * @return ImageMagick
      */
     public function addOverlayFit($image, $composite = "COMPOSITE_DEFAULT")
@@ -441,6 +451,7 @@ class ImageMagick extends Adapter
      * @param int $x
      * @param int $y
      * @param int $overlayOpacity
+     *
      * @return ImageMagick
      */
     protected function processOverlay(ImageMagick $overlayImage, $composite = "COMPOSITE_DEFAULT", $x = 0, $y = 0, $overlayOpacity = 100)
@@ -471,6 +482,7 @@ class ImageMagick extends Adapter
      * Add mask to the image
      *
      * @param $image
+     *
      * @return ImageMagick
      */
     public function applyMask($image)
@@ -483,7 +495,6 @@ class ImageMagick extends Adapter
             ->addConvertOption('composite')
             ->addFilter('alpha', $image);
 
-
         return $this;
     }
 
@@ -494,6 +505,7 @@ class ImageMagick extends Adapter
      * @param $y
      * @param $width
      * @param $height
+     *
      * @return $this
      */
     public function cropPercent($x, $y, $width, $height)
@@ -507,6 +519,7 @@ class ImageMagick extends Adapter
      * Converts the image into a linear-grayscale image.
      *
      * @param string $method
+     *
      * @return ImageMagick
      */
     public function grayscale($method = "Rec601Luma")
@@ -535,6 +548,7 @@ class ImageMagick extends Adapter
      * @param float $sigma
      * @param float $amount
      * @param float $threshold
+     *
      * @return ImageMagick
      */
     public function sharpen($radius = 0, $sigma = 1.0, $amount = 1.0, $threshold = 0.05)
@@ -549,6 +563,7 @@ class ImageMagick extends Adapter
      *
      * @param int $radius
      * @param float $sigma
+     *
      * @return $this
      */
     public function gaussianBlur($radius = 0, $sigma = 1.0)
@@ -564,6 +579,7 @@ class ImageMagick extends Adapter
      * @param int $brightness
      * @param int $saturation
      * @param int $hue
+     *
      * @return ImageMagick
      */
     public function brightnessSaturation($brightness = 100, $saturation = 100, $hue = 100)
@@ -577,6 +593,7 @@ class ImageMagick extends Adapter
      * Creates vertical or horizontal mirror of the image.
      *
      * @param $mode
+     *
      * @return ImageMagick
      */
     public function mirror($mode)
@@ -595,6 +612,7 @@ class ImageMagick extends Adapter
      *
      * @param $name
      * @param null $value
+     *
      * @return ImageMagick
      */
     public function addConvertOption($name, $value = null)
@@ -609,6 +627,7 @@ class ImageMagick extends Adapter
      *
      * @param $name
      * @param null $value
+     *
      * @return ImageMagick
      */
     public function addCompositeOption($name, $value = null)
@@ -623,6 +642,7 @@ class ImageMagick extends Adapter
      *
      * @param $optionName
      * @param $filterValue
+     *
      * @return $this
      */
     public function addFilter($optionName, $filterValue)
@@ -640,6 +660,7 @@ class ImageMagick extends Adapter
      * Returns the filters array
      *
      * @param $optionName
+     *
      * @return array
      */
     public function getConvertFilters($optionName)
@@ -716,6 +737,7 @@ class ImageMagick extends Adapter
      * Convert script path, as a default the adapter is just using 'convert'.
      *
      * @param $convertScriptPath
+     *
      * @return ImageMagick
      */
     public function setConvertScriptPath($convertScriptPath)
@@ -743,7 +765,9 @@ class ImageMagick extends Adapter
      * Composite script path, as a default the adapter is just using 'composite'.
      *
      * @param $compositeScriptPath
+     *
      * @return ImageMagick
+     *
      * @internal param $convertScriptPath
      */
     public function setCompositeScriptPath($compositeScriptPath)
@@ -758,12 +782,13 @@ class ImageMagick extends Adapter
      *
      * @param $imagePath
      * @param $suffix
+     *
      * @return ImageMagick
      */
     protected function createTmpImage($imagePath, $suffix)
     {
         //if a specified file as a overlay exists
-        $tmpImage = new ImageMagick();
+        $tmpImage = new self();
         $tmpImage->load($imagePath);
         //creates the temp file for the background
         $this->setTmpPaths($tmpImage, $suffix);
@@ -775,6 +800,7 @@ class ImageMagick extends Adapter
     /**
      * @param ImageMagick $image
      * @param $suffix
+     *
      * @return $this
      */
     protected function setTmpPaths(ImageMagick $image, $suffix)
@@ -797,6 +823,7 @@ class ImageMagick extends Adapter
 
     /**
      * @param $path
+     *
      * @return ImageMagick
      */
     public function setOutputPath($path)
@@ -812,11 +839,12 @@ class ImageMagick extends Adapter
      * @param $width
      * @param $height
      * @param $color
+     *
      * @return ImageMagick
      */
     public function generateCanvas($width, $height, $color)
     {
-        $canvas = new ImageMagick();
+        $canvas = new self();
         $canvas->addConvertOption('size', "{$width}x{$height}")
             ->addConvertOption('fill', "\"$color\"")
             ->addFilter('fill', "canvas:{$color}");
@@ -833,6 +861,7 @@ class ImageMagick extends Adapter
      * Merges the image specified as the argument into the main picture.
      *
      * @param ImageMagick $backgroundImage
+     *
      * @return ImageMagick
      */
     public function mergeImage(ImageMagick $backgroundImage)
@@ -851,6 +880,7 @@ class ImageMagick extends Adapter
 
     /**
      * @param $command
+     *
      * @return int
      */
     protected function processCommand($command)
@@ -870,6 +900,7 @@ class ImageMagick extends Adapter
 
     /**
      * @param bool $forceAlpha
+     *
      * @return ImageMagick
      */
     public function setForceAlpha($forceAlpha)
@@ -879,9 +910,9 @@ class ImageMagick extends Adapter
         return $this;
     }
 
-
     /**
      * @param string $suffix a thumbnail identifier
+     *
      * @return $this
      */
     public function saveIfRequired($suffix)

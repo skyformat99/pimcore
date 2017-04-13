@@ -14,16 +14,14 @@
 
 namespace Pimcore\Video\Adapter;
 
-use Pimcore\Video\Adapter;
-use Pimcore\Tool\Console;
 use Pimcore\File;
-use Symfony\Component\Process\Process;
 use Pimcore\Logger;
+use Pimcore\Tool\Console;
+use Pimcore\Video\Adapter;
+use Symfony\Component\Process\Process;
 
 class Ffmpeg extends Adapter
 {
-
-
     /**
      * @var string
      */
@@ -59,6 +57,7 @@ class Ffmpeg extends Adapter
 
     /**
      * @return mixed
+     *
      * @throws \Exception
      */
     public static function getFfmpegCli()
@@ -68,6 +67,7 @@ class Ffmpeg extends Adapter
 
     /**
      * @param $file
+     *
      * @return $this|mixed
      */
     public function load($file)
@@ -80,6 +80,7 @@ class Ffmpeg extends Adapter
 
     /**
      * @return mixed|void
+     *
      * @throws \Exception
      */
     public function save()
@@ -172,6 +173,7 @@ class Ffmpeg extends Adapter
 
     /**
      * @return int
+     *
      * @throws \Exception
      */
     public function getDuration()
@@ -187,18 +189,12 @@ class Ffmpeg extends Adapter
         return $this->extractDuration($contents);
     }
 
-    /**
-     *
-     */
     public function destroy()
     {
         Logger::debug("FFMPEG finished, last message was: \n" . file_get_contents($this->getConversionLogFile()));
         $this->deleteConversionLogFile();
     }
 
-    /**
-     *
-     */
     public function deleteConversionLogFile()
     {
         @unlink($this->getConversionLogFile());
@@ -206,6 +202,7 @@ class Ffmpeg extends Adapter
 
     /**
      * @param $output
+     *
      * @return int
      */
     protected function extractDuration($output)
@@ -223,6 +220,7 @@ class Ffmpeg extends Adapter
 
     /**
      * @param $processId
+     *
      * @return $this
      */
     public function setProcessId($processId)
@@ -259,13 +257,14 @@ class Ffmpeg extends Adapter
 
     /**
      * @param $videoBitrate
+     *
      * @return $this
      */
     public function setVideoBitrate($videoBitrate)
     {
         $videoBitrate = intval($videoBitrate);
 
-        $videoBitrate = ceil($videoBitrate/2) * 2;
+        $videoBitrate = ceil($videoBitrate / 2) * 2;
 
         parent::setVideoBitrate($videoBitrate);
 
@@ -278,13 +277,14 @@ class Ffmpeg extends Adapter
 
     /**
      * @param $audioBitrate
+     *
      * @return $this
      */
     public function setAudioBitrate($audioBitrate)
     {
         $audioBitrate = intval($audioBitrate);
 
-        $audioBitrate = ceil($audioBitrate/2) * 2;
+        $audioBitrate = ceil($audioBitrate / 2) * 2;
 
         parent::setAudioBitrate($audioBitrate);
 
@@ -302,8 +302,8 @@ class Ffmpeg extends Adapter
     public function resize($width, $height)
     {
         // ensure $width & $height are even (mp4 requires this)
-        $width = ceil($width/2) * 2;
-        $height = ceil($height/2) * 2;
+        $width = ceil($width / 2) * 2;
+        $height = ceil($height / 2) * 2;
         $this->addArgument("resize", "-s ".$width."x".$height);
     }
 
@@ -313,7 +313,7 @@ class Ffmpeg extends Adapter
     public function scaleByWidth($width)
     {
         // ensure $width is even (mp4 requires this)
-        $width = ceil($width/2) * 2;
+        $width = ceil($width / 2) * 2;
         $this->addArgument("scaleByWidth", '-vf "scale='.$width.':trunc(ow/a/vsub)*vsub"');
     }
 
@@ -323,7 +323,7 @@ class Ffmpeg extends Adapter
     public function scaleByHeight($height)
     {
         // ensure $height is even (mp4 requires this)
-        $height = ceil($height/2) * 2;
+        $height = ceil($height / 2) * 2;
         $this->addArgument("scaleByHeight", '-vf "scale=trunc(oh/(ih/iw)/hsub)*hsub:'.$height.'"');
     }
 }

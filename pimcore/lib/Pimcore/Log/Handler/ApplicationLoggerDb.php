@@ -14,24 +14,18 @@
 
 namespace Pimcore\Log\Handler;
 
-use Pimcore\Db as Database;
 use Monolog\Handler\AbstractProcessingHandler;
+use Pimcore\Db as Database;
 
 class ApplicationLoggerDb extends AbstractProcessingHandler
 {
-
-    /**
-     *
-     */
     const TABLE_NAME = "application_logs";
 
-    /**
-     *
-     */
     const TABLE_ARCHIVE_PREFIX = "application_logs_archive";
 
     /**
      * ApplicationLoggerDb constructor.
+     *
      * @param string $level
      * @param bool|true $bubble
      */
@@ -72,6 +66,7 @@ class ApplicationLoggerDb extends AbstractProcessingHandler
 
     /**
      * @deprecated
+     *
      * @param $level
      */
     public function setFilterPriority($level)
@@ -86,6 +81,7 @@ class ApplicationLoggerDb extends AbstractProcessingHandler
 
     /**
      * @static
+     *
      * @return string[]
      */
     public static function getComponents()
@@ -99,6 +95,7 @@ class ApplicationLoggerDb extends AbstractProcessingHandler
 
     /**
      * @static
+     *
      * @return string[]
      */
     public static function getPriorities()

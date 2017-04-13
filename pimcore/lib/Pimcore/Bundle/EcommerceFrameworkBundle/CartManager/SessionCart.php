@@ -16,11 +16,9 @@ namespace Pimcore\Bundle\EcommerceFrameworkBundle\CartManager;
 
 use Pimcore\Bundle\EcommerceFrameworkBundle\Tools\SessionConfigurator;
 use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface;
-use Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag;
 
 class SessionCart extends AbstractCart implements ICart
 {
-
     /**
      * @return string
      */
@@ -54,7 +52,6 @@ class SessionCart extends AbstractCart implements ICart
         return $session;
     }
 
-
     public function save()
     {
         $session = $this->getSession();
@@ -70,6 +67,7 @@ class SessionCart extends AbstractCart implements ICart
 
     /**
      * @return void
+     *
      * @throws \Exception if the cart is not yet saved.
      */
     public function delete()
@@ -103,12 +101,11 @@ class SessionCart extends AbstractCart implements ICart
         return $this;
     }
 
-
-
     protected static $unserializedCarts = null;
 
     /**
      * @param int $id
+     *
      * @return \Pimcore\Bundle\EcommerceFrameworkBundle\CartManager\SessionCart
      */
     public static function getById($id)
@@ -120,7 +117,9 @@ class SessionCart extends AbstractCart implements ICart
 
     /**
      * @static
+     *
      * @param int $userId
+     *
      * @return array
      */
     public static function getAllCartsForUser($userId)
@@ -155,7 +154,6 @@ class SessionCart extends AbstractCart implements ICart
 
         return $finalVars;
     }
-
 
     /**
      * modified flag needs to be set

@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -31,7 +32,7 @@ class Password extends Model\Object\ClassDefinition\Data
     public $fieldtype = "password";
 
     /**
-     * @var integer
+     * @var int
      */
     public $width;
 
@@ -72,7 +73,7 @@ class Password extends Model\Object\ClassDefinition\Data
     public $saltlocation = "";
 
     /**
-     * @return integer
+     * @return int
      */
     public function getWidth()
     {
@@ -80,7 +81,8 @@ class Password extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @param integer $width
+     * @param int $width
+     *
      * @return $this
      */
     public function setWidth($width)
@@ -140,9 +142,11 @@ class Password extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object\ClassDefinition\Data::getDataForResource
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForResource($data, $object = null, $params = [])
@@ -188,6 +192,7 @@ class Password extends Model\Object\ClassDefinition\Data
      * Calculate hash according to configured parameters
      *
      * @param $data
+     *
      * @return bool|null|string
      */
     public function calculateHash($data)
@@ -220,6 +225,7 @@ class Password extends Model\Object\ClassDefinition\Data
      * @param $password
      * @param Object\AbstractObject $object
      * @param bool|true $updateHash
+     *
      * @return bool
      */
     public function verifyPassword($password, Object\AbstractObject $object, $updateHash = true)
@@ -255,9 +261,11 @@ class Password extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object\ClassDefinition\Data::getDataFromResource
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataFromResource($data, $object = null, $params = [])
@@ -267,9 +275,11 @@ class Password extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object\ClassDefinition\Data::getDataForQueryResource
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForQueryResource($data, $object = null, $params = [])
@@ -279,9 +289,11 @@ class Password extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object\ClassDefinition\Data::getDataForEditmode
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForEditmode($data, $object = null, $params = [])
@@ -291,9 +303,11 @@ class Password extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Model\Object\ClassDefinition\Data::getDataFromEditmode
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataFromEditmode($data, $object = null, $params = [])
@@ -303,9 +317,11 @@ class Password extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object\ClassDefinition\Data::getVersionPreview
+     *
      * @param string $data
      * @param null|Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getVersionPreview($data, $object = null, $params = [])
@@ -317,6 +333,7 @@ class Password extends Model\Object\ClassDefinition\Data
      * @param $data
      * @param $object
      * @param array $params
+     *
      * @return string
      */
     public function getDataForGrid($data, $object, $params = [])
@@ -326,10 +343,13 @@ class Password extends Model\Object\ClassDefinition\Data
 
     /**
      * fills object field data values from CSV Import String
+     *
      * @abstract
+     *
      * @param string $importValue
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return Object\ClassDefinition\Data
      */
     public function getFromCsvImport($importValue, $object = null, $params = [])
@@ -340,6 +360,7 @@ class Password extends Model\Object\ClassDefinition\Data
     /**
      * @param $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForSearchIndex($object, $params = [])
@@ -349,8 +370,10 @@ class Password extends Model\Object\ClassDefinition\Data
 
     /**
      * converts data to be exposed via webservices
+     *
      * @param string $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function getForWebserviceExport($object, $params = [])
@@ -362,6 +385,7 @@ class Password extends Model\Object\ClassDefinition\Data
     /** True if change is allowed in edit mode.
      * @param string $object
      * @param mixed $params
+     *
      * @return bool
      */
     public function isDiffChangeAllowed($object, $params = [])
@@ -373,19 +397,19 @@ class Password extends Model\Object\ClassDefinition\Data
      * @param $data
      * @param null $object
      * @param mixed $params
+     *
      * @return null|\Pimcore_Date
      */
-
     public function getDiffDataFromEditmode($data, $object = null, $params = [])
     {
         return $data[0]["data"];
     }
 
-
     /** See parent class.
      * @param mixed $data
      * @param null $object
      * @param mixed $params
+     *
      * @return array|null
      */
     public function getDiffDataForEditMode($data, $object = null, $params = [])

@@ -15,17 +15,17 @@
 namespace Pimcore\Tool;
 
 use Defuse\Crypto\Crypto;
+use Pimcore\Logger;
 use Pimcore\Model\User;
 use Pimcore\Tool;
-use Pimcore\Logger;
 use Symfony\Component\HttpFoundation\Request;
 
 class Authentication
 {
-
     /**
      * @param $username
      * @param $password
+     *
      * @return null|User
      */
     public static function authenticatePlaintext($username, $password)
@@ -82,7 +82,9 @@ class Authentication
 
     /**
      * @static
+     *
      * @throws \Exception
+     *
      * @return User
      */
     public static function authenticateHttpBasic()
@@ -113,6 +115,7 @@ class Authentication
      * @param $username
      * @param $token
      * @param bool $adminRequired
+     *
      * @return null|User
      */
     public static function authenticateToken($username, $token, $adminRequired = false)
@@ -145,6 +148,7 @@ class Authentication
     /**
      * @param User $user
      * @param $password
+     *
      * @return bool
      */
     public static function verifyPassword($user, $password)
@@ -167,6 +171,7 @@ class Authentication
 
     /**
      * @param $user
+     *
      * @return bool
      */
     public static function isValidUser($user)
@@ -181,7 +186,9 @@ class Authentication
     /**
      * @param $username
      * @param $plainTextPassword
+     *
      * @return bool|false|string
+     *
      * @throws \Exception
      */
     public static function getPasswordHash($username, $plainTextPassword)
@@ -197,6 +204,7 @@ class Authentication
     /**
      * @param $username
      * @param $plainTextPassword
+     *
      * @return string
      */
     public static function preparePlainTextPassword($username, $plainTextPassword)
@@ -209,6 +217,7 @@ class Authentication
     /**
      * @param $username
      * @param $passwordHash
+     *
      * @return string
      */
     public static function generateToken($username, $passwordHash)
@@ -222,6 +231,7 @@ class Authentication
     /**
      * @param $passwordHash
      * @param $token
+     *
      * @return array
      */
     public static function tokenDecrypt($passwordHash, $token)

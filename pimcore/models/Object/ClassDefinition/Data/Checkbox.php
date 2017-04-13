@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -21,7 +22,6 @@ use Pimcore\Model\Object;
 
 class Checkbox extends Model\Object\ClassDefinition\Data
 {
-
     /**
      * Static type of this element
      *
@@ -55,9 +55,8 @@ class Checkbox extends Model\Object\ClassDefinition\Data
      */
     public $phpdocType = "boolean";
 
-
     /**
-     * @return integer
+     * @return int
      */
     public function getDefaultValue()
     {
@@ -65,7 +64,8 @@ class Checkbox extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @param integer $defaultValue
+     * @param int $defaultValue
+     *
      * @return $this
      */
     public function setDefaultValue($defaultValue)
@@ -75,12 +75,13 @@ class Checkbox extends Model\Object\ClassDefinition\Data
         return $this;
     }
 
-
     /**
      * @see Object\ClassDefinition\Data::getDataForResource
-     * @param boolean $data
+     *
+     * @param bool $data
      * @param null|Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return int
      */
     public function getDataForResource($data, $object = null, $params = [])
@@ -89,16 +90,17 @@ class Checkbox extends Model\Object\ClassDefinition\Data
             $data = (int)$data;
         }
 
-
         return $data;
     }
 
     /**
      * @see Object\ClassDefinition\Data::getDataFromResource
-     * @param boolean $data
+     *
+     * @param bool $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
-     * @return boolean
+     *
+     * @return bool
      */
     public function getDataFromResource($data, $object = null, $params = [])
     {
@@ -111,10 +113,12 @@ class Checkbox extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object\ClassDefinition\Data::getDataForQueryResource
-     * @param boolean $data
+     *
+     * @param bool $data
      * @param null|Object\AbstractObject $object
      * @param mixed $params
-     * @return boolean
+     *
+     * @return bool
      */
     public function getDataForQueryResource($data, $object = null, $params = [])
     {
@@ -123,10 +127,12 @@ class Checkbox extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object\ClassDefinition\Data::getDataForEditmode
-     * @param boolean $data
+     *
+     * @param bool $data
      * @param null|Object\AbstractObject $object
      * @param mixed $params
-     * @return boolean
+     *
+     * @return bool
      */
     public function getDataForEditmode($data, $object = null, $params = [])
     {
@@ -135,10 +141,12 @@ class Checkbox extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object\ClassDefinition\Data::getDataFromEditmode
-     * @param boolean $data
+     *
+     * @param bool $data
      * @param null|Object\AbstractObject $object
      * @param mixed $params
-     * @return boolean
+     *
+     * @return bool
      */
     public function getDataFromEditmode($data, $object = null, $params = [])
     {
@@ -151,10 +159,12 @@ class Checkbox extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object\ClassDefinition\Data::getVersionPreview
-     * @param boolean $data
+     *
+     * @param bool $data
      * @param null|Object\AbstractObject $object
      * @param mixed $params
-     * @return boolean
+     *
+     * @return bool
      */
     public function getVersionPreview($data, $object = null, $params = [])
     {
@@ -165,7 +175,8 @@ class Checkbox extends Model\Object\ClassDefinition\Data
      * Checks if data is valid for current data field
      *
      * @param mixed $data
-     * @param boolean $omitMandatoryCheck
+     * @param bool $omitMandatoryCheck
+     *
      * @throws \Exception
      */
     public function checkValidity($data, $omitMandatoryCheck = false)
@@ -182,9 +193,12 @@ class Checkbox extends Model\Object\ClassDefinition\Data
 
     /**
      * converts object data to a simple string value or CSV Export
+     *
      * @abstract
+     *
      * @param Object\AbstractObject $object
      * @param array $params
+     *
      * @return string
      */
     public function getForCsvExport($object, $params = [])
@@ -196,10 +210,13 @@ class Checkbox extends Model\Object\ClassDefinition\Data
 
     /**
      * fills object field data values from CSV Import String
+     *
      * @abstract
+     *
      * @param string $importValue
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return Object\ClassDefinition\Data
      */
     public function getFromCsvImport($importValue, $object = null, $params = [])
@@ -210,6 +227,7 @@ class Checkbox extends Model\Object\ClassDefinition\Data
     /**
      * @param Object\AbstractObject $object
      * @param array $params
+     *
      * @return bool
      */
     public function getForWebserviceExport($object, $params = [])
@@ -221,10 +239,12 @@ class Checkbox extends Model\Object\ClassDefinition\Data
 
     /**
      * converts data to be imported via webservices
+     *
      * @param mixed $value
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
      * @param $idMapper
+     *
      * @return mixed
      */
     public function getFromWebserviceImport($value, $object = null, $params = [], $idMapper = null)
@@ -232,10 +252,10 @@ class Checkbox extends Model\Object\ClassDefinition\Data
         return (bool)$value;
     }
 
-
     /** True if change is allowed in edit mode.
      * @param string $object
      * @param mixed $params
+     *
      * @return bool
      */
     public function isDiffChangeAllowed($object, $params = [])
@@ -253,8 +273,10 @@ class Checkbox extends Model\Object\ClassDefinition\Data
 
     /**
      * returns sql query statement to filter according to this data types value(s)
+     *
      * @param  $value
      * @param  $operator
+     *
      * @return string
      *
      */
@@ -267,9 +289,11 @@ class Checkbox extends Model\Object\ClassDefinition\Data
 
     /**
      * returns sql query statement to filter according to this data types value(s)
+     *
      * @param $value
      * @param $operator
      * @param array $params optional params used to change the behavior
+     *
      * @return string
      */
     public function getFilterConditionExt($value, $operator, $params = [])
@@ -285,6 +309,7 @@ class Checkbox extends Model\Object\ClassDefinition\Data
     /**
      * @param $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForSearchIndex($object, $params = [])

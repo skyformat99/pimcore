@@ -23,6 +23,7 @@ class DocumentResolver extends AbstractRequestResolver implements TemplateVarsPr
 {
     /**
      * @param Request $request
+     *
      * @return null|Document|Document\PageSnippet
      */
     public function getDocument(Request $request = null)

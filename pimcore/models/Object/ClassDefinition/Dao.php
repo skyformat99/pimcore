@@ -10,15 +10,16 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Object\ClassDefinition;
 
+use Pimcore\Logger;
 use Pimcore\Model;
 use Pimcore\Model\Object;
-use Pimcore\Logger;
 
 /**
  * @property \Pimcore\Model\Object\ClassDefinition $model
@@ -44,6 +45,7 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * @param null $id
+     *
      * @return string
      */
     public function getNameById($id = null)
@@ -55,6 +57,7 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * @param null $name
+     *
      * @return string
      */
     public function getIdByName($name = null)
@@ -64,11 +67,10 @@ class Dao extends Model\Dao\AbstractDao
         return $id;
     }
 
-
     /**
      * Save object to database
      *
-     * @return boolean
+     * @return bool
      *
      * @todo: update() or create() don't return anything
      */
@@ -143,8 +145,6 @@ class Dao extends Model\Dao\AbstractDao
           KEY `ownername` (`ownername`)
         ) DEFAULT CHARSET=utf8mb4;");
 
-
-
         $existingColumns = $this->getValidTableColumns($objectTable, false); // no caching of table definition
         $existingDatastoreColumns = $this->getValidTableColumns($objectDatastoreTable, false); // no caching of table definition
 
@@ -156,8 +156,6 @@ class Dao extends Model\Dao\AbstractDao
         // add non existing columns in the table
         if (is_array($this->model->getFieldDefinitions()) && count($this->model->getFieldDefinitions())) {
             foreach ($this->model->getFieldDefinitions() as $key => $value) {
-
-
 
                 // if a datafield requires more than one column in the query table
                 if (is_array($value->getQueryColumnType())) {
@@ -222,7 +220,7 @@ class Dao extends Model\Dao\AbstractDao
     /**
      * Create a new record for the object in database
      *
-     * @return boolean
+     * @return bool
      */
     public function create()
     {
@@ -242,7 +240,6 @@ class Dao extends Model\Dao\AbstractDao
         $objectDatastoreTable = "object_store_" . $this->model->getId();
         $objectDatastoreTableRelation = "object_relations_" . $this->model->getId();
         $objectMetadataTable = "object_metadata_" . $this->model->getId();
-
 
         $this->db->query('DROP TABLE `' . $objectTable . '`');
         $this->db->query('DROP TABLE `' . $objectDatastoreTable . '`');

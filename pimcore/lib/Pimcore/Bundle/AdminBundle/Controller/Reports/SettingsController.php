@@ -24,10 +24,11 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class SettingsController extends ReportsControllerBase
 {
-
     /**
      * @Route("/get")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getAction(Request $request)
@@ -46,7 +47,9 @@ class SettingsController extends ReportsControllerBase
 
     /**
      * @Route("/save")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function saveAction(Request $request)

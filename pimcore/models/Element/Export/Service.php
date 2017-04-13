@@ -10,17 +10,18 @@
  *
  * @category   Pimcore
  * @package    Element
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Element\Export;
 
-use Pimcore\Model\Webservice;
-use Pimcore\Model\Element;
 use Pimcore\Model\Asset;
-use Pimcore\Model\Object;
 use Pimcore\Model\Document;
+use Pimcore\Model\Element;
+use Pimcore\Model\Object;
+use Pimcore\Model\Webservice;
 
 class Service
 {
@@ -36,6 +37,7 @@ class Service
 
     /**
      * @param  Element\ElementInterface $element
+     *
      * @return mixed
      */
     public function getApiElement($element)
@@ -65,6 +67,7 @@ class Service
      * @param $apiElementKeys
      * @param $recursive
      * @param $includeRelations
+     *
      * @return array
      */
     public function extractRelations($element, $apiElementKeys, $recursive, $includeRelations)

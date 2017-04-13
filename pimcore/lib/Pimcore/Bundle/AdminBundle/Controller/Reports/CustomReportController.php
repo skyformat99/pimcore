@@ -31,7 +31,9 @@ class CustomReportController extends ReportsControllerBase implements EventedCon
 {
     /**
      * @Route("/tree")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function treeAction(Request $request)
@@ -47,7 +49,9 @@ class CustomReportController extends ReportsControllerBase implements EventedCon
 
     /**
      * @Route("/add")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function addAction(Request $request)
@@ -69,7 +73,9 @@ class CustomReportController extends ReportsControllerBase implements EventedCon
 
     /**
      * @Route("/delete")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function deleteAction(Request $request)
@@ -82,7 +88,9 @@ class CustomReportController extends ReportsControllerBase implements EventedCon
 
     /**
      * @Route("/get")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getAction(Request $request)
@@ -94,7 +102,9 @@ class CustomReportController extends ReportsControllerBase implements EventedCon
 
     /**
      * @Route("/update")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function updateAction(Request $request)
@@ -120,7 +130,9 @@ class CustomReportController extends ReportsControllerBase implements EventedCon
 
     /**
      * @Route("/column-config")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function columnConfigAction(Request $request)
@@ -170,10 +182,11 @@ class CustomReportController extends ReportsControllerBase implements EventedCon
         ]);
     }
 
-
     /**
      * @Route("/get-report-config")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getReportConfigAction(Request $request)
@@ -183,7 +196,7 @@ class CustomReportController extends ReportsControllerBase implements EventedCon
         $list = new CustomReport\Config\Listing();
         $items = $list->load();
 
-        /** @var  $report CustomReport\Config */
+        /** @var $report CustomReport\Config */
         foreach ($items as $report) {
             $reports[] = [
                 "name" => $report->getName(),
@@ -204,7 +217,9 @@ class CustomReportController extends ReportsControllerBase implements EventedCon
 
     /**
      * @Route("/data")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function dataAction(Request $request)
@@ -228,7 +243,6 @@ class CustomReportController extends ReportsControllerBase implements EventedCon
 
         $result = $adapter->getData($filters, $sort, $dir, $offset, $limit, null, $drillDownFilters, $config);
 
-
         return $this->json([
             "success" => true,
             "data" => $result['data'],
@@ -238,7 +252,9 @@ class CustomReportController extends ReportsControllerBase implements EventedCon
 
     /**
      * @Route("/drill-down-options")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function drillDownOptionsAction(Request $request)
@@ -261,7 +277,9 @@ class CustomReportController extends ReportsControllerBase implements EventedCon
 
     /**
      * @Route("/chart")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function chartAction(Request $request)
@@ -288,7 +306,9 @@ class CustomReportController extends ReportsControllerBase implements EventedCon
 
     /**
      * @Route("/download-csv")
+     *
      * @param Request $request
+     *
      * @return BinaryFileResponse
      */
     public function downloadCsvAction(Request $request)

@@ -17,17 +17,18 @@ namespace Pimcore\Web2Print;
 use Pimcore\Config;
 use Pimcore\Event\DocumentEvents;
 use Pimcore\Event\Model\DocumentEvent;
-use \Pimcore\Tool;
-use \Pimcore\Model;
-use \Pimcore\Model\Document;
+use Pimcore\Logger;
+use Pimcore\Model;
+use Pimcore\Model\Document;
+use Pimcore\Tool;
 use Pimcore\Web2Print\Processor\PdfReactor8;
 use Pimcore\Web2Print\Processor\WkHtmlToPdf;
-use Pimcore\Logger;
 
 abstract class Processor
 {
     /**
      * @return PdfReactor8|WkHtmlToPdf
+     *
      * @throws \Exception
      */
     public static function getInstance()
@@ -46,6 +47,7 @@ abstract class Processor
     /**
      * @param $documentId
      * @param $config
+     *
      * @throws \Exception
      */
     public function preparePdfGeneration($documentId, $config)
@@ -77,12 +79,13 @@ abstract class Processor
         if (!$config['disableBackgroundExecution']) {
             Tool\Console::execInBackground($cmd, PIMCORE_LOG_DIRECTORY . DIRECTORY_SEPARATOR . "web2print-output.log");
         } else {
-            Processor::getInstance()->startPdfGeneration($jobConfig->documentId);
+            self::getInstance()->startPdfGeneration($jobConfig->documentId);
         }
     }
 
     /**
      * @param $documentId
+     *
      * @return mixed|null
      */
     public function startPdfGeneration($documentId)
@@ -127,13 +130,14 @@ abstract class Processor
     /**
      * @param Document\PrintAbstract $document
      * @param $config
+     *
      * @return mixed
      */
     abstract protected function buildPdf(Document\PrintAbstract $document, $config);
 
-
     /**
      * @param $jobConfig
+     *
      * @return bool
      */
     protected function saveJobConfigObjectFile($jobConfig)
@@ -145,6 +149,7 @@ abstract class Processor
 
     /**
      * @param $documentId
+     *
      * @return \stdClass
      */
     protected function loadJobConfigObject($documentId)
@@ -156,7 +161,9 @@ abstract class Processor
 
     /**
      * @param $documentId
+     *
      * @return Document\Printpage
+     *
      * @throws \Exception
      */
     protected function getPrintDocument($documentId)
@@ -171,6 +178,7 @@ abstract class Processor
 
     /**
      * @param $processId
+     *
      * @return string
      */
     public static function getJobConfigFile($processId)
@@ -182,7 +190,6 @@ abstract class Processor
      * @return array
      */
     abstract public function getProcessingOptions();
-
 
     /**
      * @param $documentId
@@ -199,6 +206,7 @@ abstract class Processor
 
     /**
      * @param $documentId
+     *
      * @return array
      */
     public function getStatusUpdate($documentId)
@@ -214,6 +222,7 @@ abstract class Processor
 
     /**
      * @param $documentId
+     *
      * @throws \Exception
      */
     public function cancelGeneration($documentId)

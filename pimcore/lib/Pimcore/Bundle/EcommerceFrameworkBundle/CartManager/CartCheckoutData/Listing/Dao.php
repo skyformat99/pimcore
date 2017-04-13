@@ -16,7 +16,6 @@ namespace Pimcore\Bundle\EcommerceFrameworkBundle\CartManager\CartCheckoutData\L
 
 class Dao extends \Pimcore\Model\Listing\Dao\AbstractDao
 {
-
     /**
      * @return array
      */

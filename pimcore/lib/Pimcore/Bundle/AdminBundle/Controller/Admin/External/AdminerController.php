@@ -25,7 +25,6 @@ namespace Pimcore\Bundle\AdminBundle\Controller\Admin\External {
 
     class AdminerController extends AdminController implements EventedControllerInterface
     {
-
         /**
          * @var string
          */
@@ -33,6 +32,7 @@ namespace Pimcore\Bundle\AdminBundle\Controller\Admin\External {
 
         /**
          * @Route("/external_adminer/adminer")
+         *
          * @return Response
          */
         public function adminerAction()
@@ -57,7 +57,9 @@ namespace Pimcore\Bundle\AdminBundle\Controller\Admin\External {
 
         /**
          * @Route("/external_adminer/proxy/{path}", requirements={"path"=".*"})
+         *
          * @param Request $request
+         *
          * @return Response
          */
         public function proxyAction(Request $request)
@@ -169,6 +171,7 @@ namespace {
 
                 /**
                  * @param bool $create
+                 *
                  * @return string
                  */
                 public function permanentLogin($create = false)
@@ -180,6 +183,7 @@ namespace {
                 /**
                  * @param $login
                  * @param $password
+                 *
                  * @return bool
                  */
                 public function login($login, $password)

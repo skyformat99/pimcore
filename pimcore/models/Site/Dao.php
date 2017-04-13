@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Site
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -23,9 +24,9 @@ use Pimcore\Model;
  */
 class Dao extends Model\Dao\AbstractDao
 {
-
     /**
      * @param $id
+     *
      * @throws \Exception
      */
     public function getById($id)
@@ -39,6 +40,7 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * @param $id
+     *
      * @throws \Exception
      */
     public function getByRootId($id)
@@ -52,6 +54,7 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * @param $domain
+     *
      * @throws \Exception
      */
     public function getByDomain($domain)
@@ -68,7 +71,7 @@ class Dao extends Model\Dao\AbstractDao
                     $siteDomains = unserialize($site["domains"]);
                     if (is_array($siteDomains) && count($siteDomains) > 0) {
                         foreach ($siteDomains as $siteDomain) {
-                            if (strpos($siteDomain, "*") !==  false) {
+                            if (strpos($siteDomain, "*") !== false) {
                                 $siteDomain = str_replace(".*", "*", $siteDomain); // backward compatibility
                                 $wildcardDomains[$siteDomain] = $site["id"];
                             }
@@ -107,7 +110,7 @@ class Dao extends Model\Dao\AbstractDao
     /**
      * Create a new record for the object in database
      *
-     * @return boolean
+     * @return bool
      */
     public function create()
     {

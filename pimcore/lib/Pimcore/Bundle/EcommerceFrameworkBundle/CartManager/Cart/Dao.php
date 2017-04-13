@@ -39,6 +39,7 @@ class Dao extends \Pimcore\Model\Dao\AbstractDao
 
     /**
      * @param int $id
+     *
      * @return void
      */
     public function getById($id)
@@ -50,11 +51,10 @@ class Dao extends \Pimcore\Model\Dao\AbstractDao
         $this->assignVariablesToModel($classRaw);
     }
 
-
     /**
      * Create a new record for the object in database
      *
-     * @return boolean
+     * @return bool
      */
     public function create()
     {

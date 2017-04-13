@@ -15,11 +15,11 @@
 namespace Pimcore\Bundle\AdminBundle\Controller\Admin;
 
 use Pimcore\Event\AdminEvents;
-use Pimcore\Mail;
-use Pimcore\Model\Element;
-use Pimcore\Model\Document;
-use Pimcore\Model\Tool;
 use Pimcore\Logger;
+use Pimcore\Mail;
+use Pimcore\Model\Document;
+use Pimcore\Model\Element;
+use Pimcore\Model\Tool;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,10 +31,11 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class EmailController extends DocumentControllerBase
 {
-
     /**
      * @Route("/get-data-by-id")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getDataByIdAction(Request $request)
@@ -66,7 +67,6 @@ class EmailController extends DocumentControllerBase
         $this->addTranslationsData($email);
         $this->minimizeProperties($email);
 
-
         //Hook for modifying return value - e.g. for changing permissions based on object data
         //data need to wrapped into a container in order to pass parameter to event listeners by reference so that they can change the values
         $data = object2array($email);
@@ -86,8 +86,11 @@ class EmailController extends DocumentControllerBase
 
     /**
      * @Route("/save")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
+     *
      * @throws \Exception
      */
     public function saveAction(Request $request)
@@ -109,7 +112,6 @@ class EmailController extends DocumentControllerBase
                 if (($request->get("task") == "publish" && $page->isAllowed("publish")) or ($request->get("task") == "unpublish" && $page->isAllowed("unpublish"))) {
                     $this->setValuesToDocument($request, $page);
 
-
                     try {
                         $page->save();
                         $this->saveToSession($page);
@@ -123,7 +125,6 @@ class EmailController extends DocumentControllerBase
                 } else {
                     if ($page->isAllowed("save")) {
                         $this->setValuesToDocument($request, $page);
-
 
                         try {
                             $page->saveVersion();
@@ -167,8 +168,11 @@ class EmailController extends DocumentControllerBase
 
     /**
      * @Route("/email-logs")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
+     *
      * @throws \Exception
      */
     public function emailLogsAction(Request $request)
@@ -225,11 +229,13 @@ class EmailController extends DocumentControllerBase
         ]);
     }
 
-
     /**
      * @Route("/show-email-log")
+     *
      * @param Request $request
+     *
      * @return JsonResponse|Response
+     *
      * @throws \Exception
      */
     public function showEmailLogAction(Request $request)
@@ -340,11 +346,13 @@ class EmailController extends DocumentControllerBase
         }
     }
 
-
     /**
      * @Route("/delete-email-log")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
+     *
      * @throws \Exception
      */
     public function deleteEmailLogAction(Request $request)
@@ -367,8 +375,11 @@ class EmailController extends DocumentControllerBase
 
     /**
      * @Route("/resend-email")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
+     *
      * @throws \Exception
      */
     public function resendEmailAction(Request $request)
@@ -417,11 +428,13 @@ class EmailController extends DocumentControllerBase
         ]);
     }
 
-
     /**
      * @Route("/send-test-email")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
+     *
      * @throws \Exception
      */
     public function sendTestEmailAction(Request $request)
@@ -448,11 +461,13 @@ class EmailController extends DocumentControllerBase
         ]);
     }
 
-
     /**
      * @Route("/blacklist")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
+     *
      * @throws \Exception
      */
     public function blacklistAction(Request $request)
@@ -507,7 +522,6 @@ class EmailController extends DocumentControllerBase
             if ($sortingSettings['order']) {
                 $order  = $sortingSettings['order'];
             }
-
 
             if ($request->get("filter")) {
                 $list->setCondition("`address` LIKE " . $list->quote("%".$request->get("filter")."%"));

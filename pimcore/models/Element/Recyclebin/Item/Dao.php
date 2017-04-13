@@ -10,23 +10,24 @@
  *
  * @category   Pimcore
  * @package    Element
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Element\Recyclebin\Item;
 
-use Pimcore\Model;
 use Pimcore\Logger;
+use Pimcore\Model;
 
 /**
  * @property \Pimcore\Model\Element\Recyclebin\Item $model
  */
 class Dao extends Model\Dao\AbstractDao
 {
-
     /**
      * @param $id
+     *
      * @throws \Exception
      */
     public function getById($id)
@@ -43,7 +44,7 @@ class Dao extends Model\Dao\AbstractDao
     /**
      * Save object to database
      *
-     * @return boolean
+     * @return bool
      *
      * @todo: not all save methods return a boolean, why this one?
      */

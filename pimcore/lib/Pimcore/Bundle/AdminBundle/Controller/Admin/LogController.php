@@ -47,7 +47,9 @@ class LogController extends AdminController implements EventedControllerInterfac
 
     /**
      * @Route("/log/show")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function showAction(Request $request)
@@ -79,7 +81,7 @@ class LogController extends AdminController implements EventedControllerInterfac
         if ($request->get("fromDate")) {
             $datetime = $request->get("fromDate");
             if ($request->get("fromTime")) {
-                $datetime =  substr($datetime, 0, 11) . substr($request->get("fromTime"), strpos($request->get("fromTime"), 'T')+1, strlen($request->get("fromTime")));
+                $datetime =  substr($datetime, 0, 11) . substr($request->get("fromTime"), strpos($request->get("fromTime"), 'T') + 1, strlen($request->get("fromTime")));
             }
             $queryString .= " AND timestamp >= '" . $datetime . "'";
         }
@@ -87,7 +89,7 @@ class LogController extends AdminController implements EventedControllerInterfac
         if ($request->get("toDate")) {
             $datetime = $request->get("toDate");
             if ($request->get("toTime")) {
-                $datetime =  substr($datetime, 0, 11) . substr($request->get("toTime"), strpos($request->get("toTime"), 'T')+1, strlen($request->get("toTime")));
+                $datetime =  substr($datetime, 0, 11) . substr($request->get("toTime"), strpos($request->get("toTime"), 'T') + 1, strlen($request->get("toTime")));
             }
             $queryString .= " AND timestamp <= '" . $datetime . "'";
         }
@@ -108,11 +110,9 @@ class LogController extends AdminController implements EventedControllerInterfac
             $queryString .= " AND pid like '%" . $request->get("pid") ."%'";
         }
 
-
         $db = Db::get();
         $count = $db->fetchCol("SELECT count(*) FROM " . \Pimcore\Log\Handler\ApplicationLoggerDb::TABLE_NAME . $queryString);
         $total = $count[0];
-
 
         $result = $db->fetchAll("SELECT * FROM " . \Pimcore\Log\Handler\ApplicationLoggerDb::TABLE_NAME . $queryString . " $orderby LIMIT $offset, $limit");
 
@@ -120,7 +120,7 @@ class LogController extends AdminController implements EventedControllerInterfac
         if (!empty($result)) {
             foreach ($result as $r) {
                 $parts = explode("/", $r['filelink']);
-                $filename = $parts[count($parts)-1];
+                $filename = $parts[count($parts) - 1];
                 $fileobject = str_replace(PIMCORE_PROJECT_ROOT, "", $r['fileobject']);
 
                 $errorData =  ["id"=>$r['id'],
@@ -142,6 +142,7 @@ class LogController extends AdminController implements EventedControllerInterfac
 
     /**
      * @param $priority
+     *
      * @return mixed
      */
     private function getPriorityName($priority)
@@ -153,7 +154,9 @@ class LogController extends AdminController implements EventedControllerInterfac
 
     /**
      * @Route("/log/priority-json")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function priorityJsonAction(Request $request)
@@ -168,7 +171,9 @@ class LogController extends AdminController implements EventedControllerInterfac
 
     /**
      * @Route("/log/component-json")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function componentJsonAction(Request $request)
@@ -183,8 +188,11 @@ class LogController extends AdminController implements EventedControllerInterfac
 
     /**
      * @Route("/log/show-file-object")
+     *
      * @param Request $request
+     *
      * @return Response
+     *
      * @throws \Exception
      */
     public function showFileObjectAction(Request $request)

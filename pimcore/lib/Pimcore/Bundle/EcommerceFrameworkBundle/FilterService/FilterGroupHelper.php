@@ -33,13 +33,13 @@ use Pimcore\Bundle\EcommerceFrameworkBundle\IndexService\Worker\IWorker;
  */
 class FilterGroupHelper
 {
-
     /**
      * its possible to combine more different column groups to one column type (which has one logic for retrieving data)
      *
      * might be overwritten, if new column groups are necessary
      *
      * @param $columnGroup
+     *
      * @return string
      */
     protected static function getColumnTypeForColumnGroup($columnGroup)
@@ -53,6 +53,7 @@ class FilterGroupHelper
      * @param $columnGroup
      * @param IProductList $productList
      * @param string $field
+     *
      * @return array
      */
     public static function getGroupByValuesForFilterGroup($columnGroup, IProductList $productList, $field)

@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -20,7 +21,6 @@ use Pimcore\Model;
 
 class Region extends Model\Object\ClassDefinition\Layout
 {
-
     /**
      * Static type of this element
      *

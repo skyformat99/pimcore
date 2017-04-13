@@ -15,13 +15,12 @@
 namespace Pimcore\Web2Print\Processor;
 
 use Pimcore\Config;
-use \Pimcore\Model\Document;
-use Pimcore\Web2Print\Processor;
 use Pimcore\Logger;
+use Pimcore\Model\Document;
+use Pimcore\Web2Print\Processor;
 
 class WkHtmlToPdf extends Processor
 {
-
     /**
      * @var string
      */
@@ -31,7 +30,6 @@ class WkHtmlToPdf extends Processor
      * @var string
      */
     private $options = "";
-
 
     /**
      * @param string $wkhtmltopdfBin
@@ -68,7 +66,9 @@ class WkHtmlToPdf extends Processor
     /**
      * @param Document\PrintAbstract $document
      * @param $config
+     *
      * @return string
+     *
      * @throws \Exception
      */
     protected function buildPdf(Document\PrintAbstract $document, $config)
@@ -132,6 +132,7 @@ class WkHtmlToPdf extends Processor
     /**
      * @param string $htmlString
      * @param string $dstFile
+     *
      * @return string
      */
     public function fromStringToFile($htmlString, $dstFile = null)
@@ -150,6 +151,7 @@ class WkHtmlToPdf extends Processor
 
     /**
      * @param string $htmlString
+     *
      * @return string
      */
     public function fromStringToStream($htmlString)
@@ -161,11 +163,12 @@ class WkHtmlToPdf extends Processor
         return $stream;
     }
 
-
     /**
      * @param string $srcUrl
      * @param string $dstFile
+     *
      * @return string
+     *
      * @throws \Exception
      */
     protected function convert($srcUrl, $dstFile = null)

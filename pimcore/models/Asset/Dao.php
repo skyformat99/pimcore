@@ -10,14 +10,15 @@
  *
  * @category   Pimcore
  * @package    Asset
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Asset;
 
-use Pimcore\Model;
 use Pimcore\Logger;
+use Pimcore\Model;
 
 /**
  * @property \Pimcore\Model\Asset $model
@@ -25,9 +26,12 @@ use Pimcore\Logger;
 class Dao extends Model\Element\Dao
 {
     use Model\Element\ChildsCompatibilityTrait;
+
     /**
      * Get the data for the object by id from database and assign it to the object (model)
+     *
      * @param $id
+     *
      * @throws \Exception
      */
     public function getById($id)
@@ -57,6 +61,7 @@ class Dao extends Model\Element\Dao
      * Get the data for the asset from database for the given path
      *
      * @param string $path
+     *
      * @throws \Exception
      */
     public function getByPath($path)
@@ -180,6 +185,7 @@ class Dao extends Model\Element\Dao
 
     /**
      * @param $oldPath
+     *
      * @return array
      */
     public function updateChildsPaths($oldPath)
@@ -201,7 +207,6 @@ class Dao extends Model\Element\Dao
         //update assets child properties paths
         $this->db->query("update properties set cpath = replace(cpath," . $this->db->quote($oldPath . "/") . "," . $this->db->quote($this->model->getRealFullPath() . "/") . ") where cpath like " . $this->db->quote($oldPath . "/%") . ";");
 
-
         return $assets;
     }
 
@@ -209,6 +214,7 @@ class Dao extends Model\Element\Dao
      * Get the properties for the object from database and assign it
      *
      * @param bool $onlyInherited
+     *
      * @return array
      */
     public function getProperties($onlyInherited = false)
@@ -322,11 +328,10 @@ class Dao extends Model\Element\Dao
         return $path;
     }
 
-
     /**
      * quick test if there are childs
      *
-     * @return boolean
+     * @return bool
      */
     public function hasChildren()
     {
@@ -338,7 +343,7 @@ class Dao extends Model\Element\Dao
     /**
      * Quick test if there are siblings
      *
-     * @return boolean
+     * @return bool
      */
     public function hasSiblings()
     {
@@ -351,7 +356,8 @@ class Dao extends Model\Element\Dao
      * returns the amount of directly childs (not recursivly)
      *
      * @param Model\User $user
-     * @return integer
+     *
+     * @return int
      */
     public function getChildAmount($user = null)
     {
@@ -364,8 +370,6 @@ class Dao extends Model\Element\Dao
         } else {
             $query = "SELECT COUNT(*) AS count FROM assets WHERE parentId = ?";
         }
-
-
 
         $c = $this->db->fetchOne($query, $this->model->getId());
 
@@ -391,13 +395,9 @@ class Dao extends Model\Element\Dao
             return true;
         }
 
-
         return false;
     }
 
-    /**
-     *
-     */
     public function unlockPropagate()
     {
         $lockIds = $this->db->fetchCol("SELECT id from assets WHERE path LIKE " . $this->db->quote($this->model->getRealFullPath() . "/%") . " OR id = " . $this->model->getId());
@@ -408,7 +408,9 @@ class Dao extends Model\Element\Dao
 
     /**
      * Get latest available version, using $force always returns a version no matter if it is the same as the published one
+     *
      * @param bool $force
+     *
      * @return array
      */
     public function getLatestVersion($force = false)
@@ -429,6 +431,7 @@ class Dao extends Model\Element\Dao
     /**
      * @param $type
      * @param $user
+     *
      * @return bool
      */
     public function isAllowed($type, $user)

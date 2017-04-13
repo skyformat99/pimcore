@@ -21,9 +21,9 @@ use Pimcore\Model;
  */
 class Dao extends Model\Dao\AbstractDao
 {
-
     /**
      * @param null $id
+     *
      * @throws \Exception
      */
     public function getById($id = null)
@@ -45,6 +45,7 @@ class Dao extends Model\Dao\AbstractDao
     /**
      * @param null $name
      * @param null $siteId
+     *
      * @throws \Exception
      */
     public function getByName($name = null, $siteId = null)
@@ -64,7 +65,7 @@ class Dao extends Model\Dao\AbstractDao
     /**
      * Save object to database
      *
-     * @return boolean
+     * @return bool
      *
      * @todo: create and update don't return anything
      */
@@ -116,7 +117,7 @@ class Dao extends Model\Dao\AbstractDao
     /**
      * Create a new record for the object in database
      *
-     * @return boolean
+     * @return bool
      */
     public function create()
     {

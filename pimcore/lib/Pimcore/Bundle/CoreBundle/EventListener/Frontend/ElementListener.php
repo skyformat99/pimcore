@@ -250,6 +250,7 @@ class ElementListener extends AbstractFrontendListener implements EventSubscribe
 
     /**
      * @param Document|Dao $document
+     *
      * @return mixed|Document|Document\PageSnippet
      */
     protected function handleEditmode(Document $document)

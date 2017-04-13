@@ -14,7 +14,6 @@
 
 namespace Pimcore\Bundle\CoreBundle\Command;
 
-use Pimcore\Cache;
 use Pimcore\Console\AbstractCommand;
 use Pimcore\Web2Print\Processor;
 use Symfony\Component\Console\Input\InputInterface;

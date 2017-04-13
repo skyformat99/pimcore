@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Property
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -23,9 +24,8 @@ use Pimcore\Model;
  */
 class Predefined extends Model\AbstractModel
 {
-
     /**
-     * @var integer
+     * @var int
      */
     public $id;
 
@@ -70,19 +70,18 @@ class Predefined extends Model\AbstractModel
     public $inheritable = false;
 
     /**
-     * @var integer
+     * @var int
      */
     public $creationDate;
 
     /**
-     * @var integer
+     * @var int
      */
     public $modificationDate;
 
-
-
     /**
-     * @param integer $id
+     * @param int $id
+     *
      * @return self
      */
     public static function getById($id)
@@ -100,6 +99,7 @@ class Predefined extends Model\AbstractModel
 
     /**
      * @param string $key
+     *
      * @return self
      */
     public static function getByKey($key)
@@ -171,6 +171,7 @@ class Predefined extends Model\AbstractModel
 
     /**
      * @param string $key
+     *
      * @return $this
      */
     public function setKey($key)
@@ -182,6 +183,7 @@ class Predefined extends Model\AbstractModel
 
     /**
      * @param string $name
+     *
      * @return $this
      */
     public function setName($name)
@@ -193,6 +195,7 @@ class Predefined extends Model\AbstractModel
 
     /**
      * @param string $type
+     *
      * @return $this
      */
     public function setType($type)
@@ -204,6 +207,7 @@ class Predefined extends Model\AbstractModel
 
     /**
      * @param string $data
+     *
      * @return $this
      */
     public function setData($data)
@@ -214,7 +218,7 @@ class Predefined extends Model\AbstractModel
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -222,7 +226,8 @@ class Predefined extends Model\AbstractModel
     }
 
     /**
-     * @param integer $id
+     * @param int $id
+     *
      * @return $this
      */
     public function setId($id)
@@ -242,6 +247,7 @@ class Predefined extends Model\AbstractModel
 
     /**
      * @param string $config
+     *
      * @return $this
      */
     public function setConfig($config)
@@ -261,6 +267,7 @@ class Predefined extends Model\AbstractModel
 
     /**
      * @param string $ctype
+     *
      * @return $this
      */
     public function setCtype($ctype)
@@ -280,6 +287,7 @@ class Predefined extends Model\AbstractModel
 
     /**
      * @param string $inheritable
+     *
      * @return $this
      */
     public function setInheritable($inheritable)
@@ -291,6 +299,7 @@ class Predefined extends Model\AbstractModel
 
     /**
      * @param string $description
+     *
      * @return $this
      */
     public function setDescription($description)

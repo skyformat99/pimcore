@@ -43,6 +43,7 @@ class Dao extends \Pimcore\Model\Dao\AbstractDao
     /**
      * @param int $productId
      * @param int $cartId
+     *
      * @return void
      */
     public function getByCartIdItemKey($cartId, $itemKey, $parentKey = "")

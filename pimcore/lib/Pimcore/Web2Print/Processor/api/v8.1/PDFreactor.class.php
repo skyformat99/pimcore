@@ -27,12 +27,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 class PDFreactor
 {
     public $url;
     public $headers;
     public $cookies;
+
     public function __construct($url = "http://localhost:9423/service/rest")
     {
         $this->url = $url;
@@ -40,6 +40,7 @@ class PDFreactor
         $this->cookies = [];
         $this->stickyMap = [];
     }
+
     public function convert($config)
     {
         $url = $this->url ."/convert.json";
@@ -90,6 +91,7 @@ class PDFreactor
 
         return json_decode($result);
     }
+
     public function convertAsBinary($config)
     {
         $url = $this->url ."/convert.bin";
@@ -140,6 +142,7 @@ class PDFreactor
 
         return $result;
     }
+
     public function convertAsync($config)
     {
         $documentId = null;
@@ -199,7 +202,6 @@ class PDFreactor
                 }
             }
             if (preg_match('/^Set-Cookie:\s*([^;]+)/', $header, $matches)) {
-                ;
                 parse_str($matches[1], $tmp);
                 $keepDocument = false;
                 if (isset($config->{'keepDocument'})) {
@@ -216,6 +218,7 @@ class PDFreactor
 
         return $documentId;
     }
+
     public function getProgress($documentId)
     {
         if (is_null($documentId)) {
@@ -273,6 +276,7 @@ class PDFreactor
 
         return json_decode($result);
     }
+
     public function getDocument($documentId)
     {
         if (is_null($documentId)) {
@@ -333,6 +337,7 @@ class PDFreactor
 
         return json_decode($result);
     }
+
     public function getDocumentAsBinary($documentId)
     {
         if (is_null($documentId)) {
@@ -393,6 +398,7 @@ class PDFreactor
 
         return $result;
     }
+
     public function deleteDocument($documentId)
     {
         if (is_null($documentId)) {
@@ -451,6 +457,7 @@ class PDFreactor
             throw new Exception('PDFreactor Web Service error (status: ' . $status . ').');
         }
     }
+
     public function getVersion()
     {
         $url = $this->url ."/version.json";
@@ -500,6 +507,7 @@ class PDFreactor
 
         return json_decode($result);
     }
+
     public function getStatus()
     {
         $url = $this->url ."/document.json";
@@ -549,6 +557,7 @@ class PDFreactor
             throw new Exception('PDFreactor Web Service error (status: ' . $status . ').');
         }
     }
+
     public function getDocumentUrl($documentId)
     {
         if (!is_null($documentId)) {
@@ -557,6 +566,7 @@ class PDFreactor
 
         return null;
     }
+
     public function getProgressUrl($documentId)
     {
         if (!is_null($documentId)) {
@@ -565,7 +575,9 @@ class PDFreactor
 
         return null;
     }
+
     const VERSION = 1;
+
     public function __get($name)
     {
         if ($name == "headers" || $name == "cookies") {

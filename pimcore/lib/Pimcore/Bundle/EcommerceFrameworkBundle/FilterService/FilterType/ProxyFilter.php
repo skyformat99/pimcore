@@ -26,16 +26,18 @@ use Symfony\Component\Translation\TranslatorInterface;
  */
 class ProxyFilter extends AbstractFilterType
 {
-    /** @var $proxy AbstractFilterType*/
+    /** @var $proxy AbstractFilterType */
     private $proxy;
     protected $field;
 
     /**
      * ProxyFilter constructor.
+     *
      * @param string $script
      * @param \Pimcore\Config\Config $config
      * @param TranslatorInterface $translator
      * @param EngineInterface $engine
+     *
      * @throws \Exception
      */
     public function __construct($script, $config, TranslatorInterface $translator, EngineInterface $engine)

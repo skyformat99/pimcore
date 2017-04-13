@@ -20,7 +20,6 @@ use Pimcore\Bundle\EcommerceFrameworkBundle\Model\AbstractFilterDefinitionType;
 
 class MultiSelectFromMultiSelect extends \Pimcore\Bundle\EcommerceFrameworkBundle\FilterService\FilterType\SelectFromMultiSelect
 {
-
     /**
      * @param AbstractFilterDefinitionType $filterDefinition
      * @param IProductList                  $productList
@@ -65,7 +64,6 @@ class MultiSelectFromMultiSelect extends \Pimcore\Bundle\EcommerceFrameworkBundl
         ]);
     }
 
-
     /**
      * @param AbstractFilterDefinitionType $filterDefinition
      * @param IProductList                  $productList
@@ -81,7 +79,6 @@ class MultiSelectFromMultiSelect extends \Pimcore\Bundle\EcommerceFrameworkBundl
         $preSelect = $this->getPreSelect($filterDefinition);
 
         $value = $params[$field];
-
 
         if (empty($value) && !$params['is_reload']) {
             if (is_array($preSelect)) {
@@ -102,7 +99,6 @@ class MultiSelectFromMultiSelect extends \Pimcore\Bundle\EcommerceFrameworkBundl
       //  $value = trim($value);
 
         $currentFilter[$field] = $value;
-
 
         if (!empty($value)) {
             $quotedValues = [];

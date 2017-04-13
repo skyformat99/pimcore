@@ -56,6 +56,7 @@ class RobotsTxt
     /**
      * @param $url
      * @param string $userAgent
+     *
      * @return bool
      */
     public function isUrlBlocked($url, $userAgent = '*')
@@ -99,6 +100,7 @@ class RobotsTxt
 
     /**
      * @param $robotsTxt
+     *
      * @return array
      */
     private function _makeRules($robotsTxt)
@@ -107,7 +109,7 @@ class RobotsTxt
         $lines = explode("\n", $robotsTxt);
 
         $lines = array_filter($lines, function ($l) {
-            return (preg_match('#^((dis)?allow|user-agent)[^:]*:.+#i', $l) > 0);
+            return preg_match('#^((dis)?allow|user-agent)[^:]*:.+#i', $l) > 0;
         });
 
         $userAgent = '';
@@ -136,6 +138,7 @@ class RobotsTxt
 
     /**
      * @param $path
+     *
      * @return string
      */
     private function _getRegExByPath($path)

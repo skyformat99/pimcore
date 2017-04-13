@@ -10,21 +10,23 @@
  *
  * @category   Pimcore
  * @package    Document
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Document\Hardlink;
 
-use Pimcore\Tool\Serialize;
 use Pimcore\Model\Document;
+use Pimcore\Tool\Serialize;
 
 class Service
 {
-
     /**
      * @param Document $doc
+     *
      * @return Document
+     *
      * @throws \Exception
      */
     public static function wrap(Document $doc)
@@ -52,7 +54,9 @@ class Service
 
     /**
      * @static
+     *
      * @param Document $doc
+     *
      * @return Document
      */
     public static function upperCastDocument(Document $doc)
@@ -81,6 +85,7 @@ class Service
      *
      * @param Document\Hardlink $hardlink
      * @param string $path
+     *
      * @return Document
      */
     public static function getChildByPath(Document\Hardlink $hardlink, $path)
@@ -108,6 +113,7 @@ class Service
     /**
      * @param Document\Hardlink $hardlink
      * @param $path
+     *
      * @return Document
      */
     public static function getNearestChildByPath(Document\Hardlink $hardlink, $path)

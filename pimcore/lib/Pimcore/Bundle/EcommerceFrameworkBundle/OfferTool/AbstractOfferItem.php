@@ -21,9 +21,9 @@ use Pimcore\Bundle\EcommerceFrameworkBundle\Exception\UnsupportedException;
  */
 class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
 {
-
     /**
      * @throws UnsupportedException
+     *
      * @return AbstractOfferToolProduct
      */
     public function getProduct()
@@ -33,6 +33,7 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
 
     /**
      * @param \Pimcore\Bundle\EcommerceFrameworkBundle\Model\ICheckoutable $product
+     *
      * @throws UnsupportedException
      */
     public function setProduct($product)
@@ -40,9 +41,9 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
         throw new UnsupportedException("setProduct is not implemented for " . get_class($this));
     }
 
-
     /**
      * @throws UnsupportedException
+     *
      * @return string
      */
     public function getProductNumber()
@@ -52,6 +53,7 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
 
     /**
      * @param string $productNumber
+     *
      * @throws UnsupportedException
      */
     public function setProductNumber($productNumber)
@@ -59,9 +61,9 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
         throw new UnsupportedException("setProductNumber is not implemented for " . get_class($this));
     }
 
-
     /**
      * @throws UnsupportedException
+     *
      * @return string
      */
     public function getProductName()
@@ -71,6 +73,7 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
 
     /**
      * @param string $productName
+     *
      * @throws UnsupportedException
      */
     public function setProductName($productName)
@@ -80,6 +83,7 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
 
     /**
      * @throws UnsupportedException
+     *
      * @return float
      */
     public function getAmount()
@@ -89,6 +93,7 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
 
     /**
      * @param float $amount
+     *
      * @throws UnsupportedException
      */
     public function setAmount($amount)
@@ -96,9 +101,9 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
         throw new UnsupportedException("setAmount is not implemented for " . get_class($this));
     }
 
-
     /**
      * @throws UnsupportedException
+     *
      * @return float
      */
     public function getOriginalTotalPrice()
@@ -108,6 +113,7 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
 
     /**
      * @throws UnsupportedException
+     *
      * @param float $originalTotalPrice
      */
     public function setOriginalTotalPrice($originalTotalPrice)
@@ -117,6 +123,7 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
 
     /**
      * @throws UnsupportedException
+     *
      * @return float
      */
     public function getFinalTotalPrice()
@@ -126,6 +133,7 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
 
     /**
      * @throws UnsupportedException
+     *
      * @param float $finalTotalPrice
      */
     public function setFinalTotalPrice($finalTotalPrice)
@@ -133,9 +141,9 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
         throw new UnsupportedException("setFinalTotalPrice is not implemented for " . get_class($this));
     }
 
-
     /**
      * @throws UnsupportedException
+     *
      * @return float
      */
     public function getDiscount()
@@ -145,6 +153,7 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
 
     /**
      * @throws UnsupportedException
+     *
      * @param float $discount
      */
     public function setDiscount($discount)
@@ -154,6 +163,7 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
 
     /**
      * @throws UnsupportedException
+     *
      * @return string
      */
     public function getDiscountType()
@@ -163,6 +173,7 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
 
     /**
      * @throws UnsupportedException
+     *
      * @param string $discountType
      */
     public function setDiscountType($discountType)
@@ -170,9 +181,9 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
         throw new UnsupportedException("setDiscountType is not implemented for " . get_class($this));
     }
 
-
     /**
      * @return AbstractOrderItem[]
+     *
      * @throws UnsupportedException
      */
     public function getSubItems()
@@ -182,6 +193,7 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
 
     /**
      * @param AbstractOrderItem[] $subItems
+     *
      * @throws UnsupportedException
      */
     public function setSubItems($subItems)
@@ -189,10 +201,9 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
         throw new UnsupportedException("setSubItems is not implemented for " . get_class($this));
     }
 
-
-
     /**
      * @throws UnsupportedException
+     *
      * @return string
      */
     public function getComment()
@@ -202,6 +213,7 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
 
     /**
      * @throws UnsupportedException
+     *
      * @param string $comment
      */
     public function setComment($comment)
@@ -209,9 +221,9 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
         throw new UnsupportedException("getComment is not implemented for " . get_class($this));
     }
 
-
     /**
      * @throws UnsupportedException
+     *
      * @return string
      */
     public function getCartItemKey()
@@ -221,6 +233,7 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
 
     /**
      * @throws UnsupportedException
+     *
      * @param string $cartItemKey
      */
     public function setCartItemKey($cartItemKey)

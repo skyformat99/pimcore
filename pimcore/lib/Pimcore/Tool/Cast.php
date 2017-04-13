@@ -16,10 +16,10 @@ namespace Pimcore\Tool;
 
 class Cast
 {
-
     /**
      * @param $class
      * @param $object
+     *
      * @return mixed
      */
     public static function castToClass($class, $object)

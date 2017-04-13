@@ -7,24 +7,21 @@ $installSql = file_get_contents(PIMCORE_PROJECT_ROOT . "/app/Resources/install/i
 preg_match_all("/CREATE TABLE `(.*)`/", $installSql, $matches);
 $existingTables = $matches[1];
 
-
 $db = \Pimcore\Db::get();
 $databaseName = $db->getDatabase();
-
 
 $tablesRaw = $db->fetchAll("SHOW FULL TABLES");
 
 $views = [];
 $tables = [];
 
-foreach($tablesRaw as $table) {
-    if($table["Table_type"] == "VIEW") {
+foreach ($tablesRaw as $table) {
+    if ($table["Table_type"] == "VIEW") {
         $views[]  = current($table);
     } else {
         $tables[] = current($table);
     }
 }
-
 
 $dumpData = "\nSET NAMES utf8mb4;\n\n";
 
@@ -49,7 +46,6 @@ $dumpData .= "\n\n";
 
 // dump data
 foreach ($tables as $name) {
-
     if (in_array($name, ["tracking_events", "cache", "cache_tags", "http_error_log", "versions", "edit_lock", "locks", "email_log", "tmp_store"])) {
         continue;
     }
@@ -73,7 +69,7 @@ foreach ($tables as $name) {
     }
 }
 
-foreach($views as $name) {
+foreach ($views as $name) {
     // dump view structure
     $dumpData .= "\n\n";
     $dumpData .= "DROP VIEW IF EXISTS `" . $name . "`;";

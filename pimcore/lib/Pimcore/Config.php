@@ -14,10 +14,6 @@
 
 namespace Pimcore;
 
-use Pimcore\Tool;
-use Pimcore\Cache;
-use Pimcore\Model;
-use Pimcore\Logger;
 use Symfony\Cmf\Bundle\RoutingBundle\Routing\DynamicRouter;
 
 class Config
@@ -36,6 +32,7 @@ class Config
 
     /**
      * @param $name - name of configuration file. slash is allowed for subdirectories.
+     *
      * @return mixed
      */
     public static function locateConfigFile($name)
@@ -85,7 +82,9 @@ class Config
 
     /**
      * @param bool $forceReload
+     *
      * @return mixed|null|\Pimcore\Config\Config
+     *
      * @throws \Exception
      */
     public static function getSystemConfig($forceReload = false)
@@ -125,6 +124,7 @@ class Config
 
     /**
      * @static
+     *
      * @param \Pimcore\Config\Config $config
      */
     public static function setSystemConfig(\Pimcore\Config\Config $config)
@@ -134,6 +134,7 @@ class Config
 
     /**
      * @static
+     *
      * @return mixed|\Pimcore\Config\Config
      */
     public static function getWebsiteConfig()
@@ -168,8 +169,6 @@ class Config
 
                 $list = new Model\WebsiteSetting\Listing();
                 $list = $list->load();
-
-
 
                 foreach ($list as $item) {
                     $key = $item->getName();
@@ -218,6 +217,7 @@ class Config
 
     /**
      * @static
+     *
      * @param \Pimcore\Config\Config $config
      */
     public static function setWebsiteConfig(\Pimcore\Config\Config $config)
@@ -227,6 +227,7 @@ class Config
 
     /**
      * @static
+     *
      * @return \Pimcore\Config\Config
      */
     public static function getReportConfig()
@@ -253,6 +254,7 @@ class Config
 
     /**
      * @static
+     *
      * @param \Pimcore\Config\Config $config
      */
     public static function setReportConfig(\Pimcore\Config\Config $config)
@@ -262,6 +264,7 @@ class Config
 
     /**
      * @static
+     *
      * @return \Pimcore\Config\Config
      */
     public static function getWeb2PrintConfig()
@@ -288,6 +291,7 @@ class Config
 
     /**
      * @static
+     *
      * @param \Pimcore\Config\Config $config
      */
     public static function setWeb2PrintConfig(\Pimcore\Config\Config $config)
@@ -297,6 +301,7 @@ class Config
 
     /**
      * @static
+     *
      * @param \Pimcore\Config\Config $config
      */
     public static function setModelClassMappingConfig($config)
@@ -306,6 +311,7 @@ class Config
 
     /**
      * @static
+     *
      * @return mixed|\Pimcore\Config\Config
      */
     public static function getPerspectivesConfig()
@@ -421,6 +427,7 @@ class Config
 
     /** Gets the active perspective for the current user
      * @param Model\User $currentUser
+     *
      * @return array
      */
     public static function getRuntimePerspective(Model\User $currentUser = null)
@@ -452,15 +459,14 @@ class Config
             $currentUser->save();
         }
 
-
         $result["elementTree"] = self::getRuntimeElementTreeConfig($currentConfigName);
 
         return $result;
     }
 
-
     /** Returns the element tree config for the given config name
      * @param $name
+     *
      * @return array
      */
     protected static function getRuntimeElementTreeConfig($name)
@@ -509,7 +515,6 @@ class Config
             }
         }
 
-
         foreach ($tmpResult as $resultItem) {
             if ($resultItem["hidden"]) {
                 continue;
@@ -526,7 +531,6 @@ class Config
                     Logger::error("no custom view config for id  " . $customViewId);
                     continue;
                 }
-
 
                 foreach ($resultItem as $specificConfigKey => $specificConfigValue) {
                     $customViewCfg[$specificConfigKey] = $specificConfigValue;
@@ -553,9 +557,9 @@ class Config
         return $result;
     }
 
-
     /**
      * @static
+     *
      * @param \Pimcore\Config\Config $config
      */
     public static function setPerspectivesConfig(\Pimcore\Config\Config $config)
@@ -563,9 +567,9 @@ class Config
         \Pimcore\Cache\Runtime::set("pimcore_config_perspectives", $config);
     }
 
-
     /** Returns a list of available perspectives for the given user
      * @param Model\User $user
+     *
      * @return array
      */
     public static function getAvailablePerspectives($user)
@@ -645,6 +649,7 @@ class Config
     /**
      * @param $runtimeConfig
      * @param $key
+     *
      * @return bool
      */
     public static function inPerspective($runtimeConfig, $key)

@@ -15,7 +15,6 @@
 namespace Pimcore\Cache\Pool;
 
 use Pimcore\Cache\Pool\Exception\CacheException;
-use Pimcore\Cache\Pool\Exception\InvalidArgumentException;
 
 /**
  * Redis2 item pool with tagging and LUA support.
@@ -91,6 +90,7 @@ class Redis extends AbstractCacheItemPool implements PurgeableCacheItemPoolInter
      * This value is defined by LUAI_MAXCSTACK in luaconf.h and for Redis it is set to 8000.
      *
      * @see https://github.com/antirez/redis/blob/b903145/deps/lua/src/luaconf.h#L439
+     *
      * @var int
      */
     protected $luaMaxCStack = 5000;
@@ -648,6 +648,7 @@ class Redis extends AbstractCacheItemPool implements PurgeableCacheItemPoolInter
      * In case of multiple tags, a logical OR is made between tags
      *
      * @param array $tags array of tags
+     *
      * @return array array of any matching cache ids (string)
      */
     protected function getIdsMatchingAnyTags($tags = [])
@@ -671,6 +672,7 @@ class Redis extends AbstractCacheItemPool implements PurgeableCacheItemPoolInter
 
     /**
      * @param $ids
+     *
      * @return array
      */
     protected function preprocessIds($ids)
@@ -682,6 +684,7 @@ class Redis extends AbstractCacheItemPool implements PurgeableCacheItemPoolInter
 
     /**
      * @param $tags
+     *
      * @return array
      */
     protected function preprocessTagIds($tags)
@@ -694,7 +697,9 @@ class Redis extends AbstractCacheItemPool implements PurgeableCacheItemPoolInter
     /**
      * @param string $data
      * @param int $level
+     *
      * @throws \CredisException
+     *
      * @return string
      */
     protected function encodeData($data, $level)
@@ -728,6 +733,7 @@ class Redis extends AbstractCacheItemPool implements PurgeableCacheItemPoolInter
 
     /**
      * @param bool|string $data
+     *
      * @return string
      */
     protected function decodeData($data)

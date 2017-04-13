@@ -16,20 +16,20 @@ namespace Pimcore\Bundle\AdminBundle\Controller\Admin;
 
 use Pimcore\Bundle\AdminBundle\Controller\AdminController;
 use Pimcore\Cache;
-use Pimcore\Tool;
 use Pimcore\Config;
+use Pimcore\File;
+use Pimcore\Model;
+use Pimcore\Model\Asset;
+use Pimcore\Model\Document;
+use Pimcore\Model\Element;
+use Pimcore\Model\Glossary;
 use Pimcore\Model\Metadata;
 use Pimcore\Model\Property;
-use Pimcore\Model\Asset;
-use Pimcore\Model\WebsiteSetting;
-use Pimcore\Model\Document;
-use Pimcore\Model\Glossary;
-use Pimcore\Model\Staticroute;
 use Pimcore\Model\Redirect;
-use Pimcore\Model\Element;
-use Pimcore\Model;
+use Pimcore\Model\Staticroute;
 use Pimcore\Model\Tool\Tag;
-use Pimcore\File;
+use Pimcore\Model\WebsiteSetting;
+use Pimcore\Tool;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,7 +42,9 @@ class SettingsController extends AdminController
 {
     /**
      * @Route("/metadata")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function metadataAction(Request $request)
@@ -127,7 +129,9 @@ class SettingsController extends AdminController
 
     /**
      * @Route("/get-predefined-metadata")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getPredefinedMetadataAction(Request $request)
@@ -142,13 +146,14 @@ class SettingsController extends AdminController
             $result[] = $item;
         }
 
-
         return $this->json(["data" => $result, "success" => true]);
     }
 
     /**
      * @Route("/properties")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function propertiesAction(Request $request)
@@ -228,10 +233,12 @@ class SettingsController extends AdminController
     private function deleteThumbnailFolders($root, $thumbnailName)
     {
         // delete all thumbnails which are using this config
+
         /**
          * @param $dir
          * @param $thumbnail
          * @param array $matches
+         *
          * @return array
          */
         function delete($dir, $thumbnail, &$matches = [])
@@ -250,7 +257,7 @@ class SettingsController extends AdminController
             }
 
             return $matches;
-        };
+        }
 
         delete($root, $thumbnailName);
     }
@@ -273,7 +280,9 @@ class SettingsController extends AdminController
 
     /**
      * @Route("/get-system")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getSystemAction(Request $request)
@@ -351,7 +360,9 @@ class SettingsController extends AdminController
 
     /**
      * @Route("/set-system")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function setSystemAction(Request $request)
@@ -521,7 +532,6 @@ class SettingsController extends AdminController
         }
         $settings["newsletter"]["usespecific"] = $values["newsletter.usespecific"];
 
-
         $settings = array_merge($existingValues, $settings);
 
         $configFile = \Pimcore\Config::locateConfigFile("system.php");
@@ -540,6 +550,7 @@ class SettingsController extends AdminController
      * @param $source
      * @param $definitions
      * @param array $fallbacks
+     *
      * @throws \Exception
      */
     protected function checkFallbackLanguageLoop($source, $definitions, $fallbacks = [])
@@ -564,7 +575,9 @@ class SettingsController extends AdminController
 
     /**
      * @Route("/get-web2print")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getWeb2printAction(Request $request)
@@ -595,7 +608,9 @@ class SettingsController extends AdminController
 
     /**
      * @Route("/set-web2print")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function setWeb2printAction(Request $request)
@@ -618,7 +633,6 @@ class SettingsController extends AdminController
             $values['wkhtml2pdfOptions'] = $optionArray;
         }
 
-
         $configFile = \Pimcore\Config::locateConfigFile("web2print.php");
         File::putPhpFile($configFile, to_php_data_file_format($values));
 
@@ -627,7 +641,9 @@ class SettingsController extends AdminController
 
     /**
      * @Route("/clear-cache")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function clearCacheAction(Request $request)
@@ -654,7 +670,9 @@ class SettingsController extends AdminController
 
     /**
      * @Route("/clear-output-cache")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function clearOutputCacheAction(Request $request)
@@ -674,7 +692,9 @@ class SettingsController extends AdminController
 
     /**
      * @Route("/clear-temporary-files")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function clearTemporaryFilesAction(Request $request)
@@ -698,7 +718,9 @@ class SettingsController extends AdminController
 
     /**
      * @Route("/staticroutes")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function staticroutesAction(Request $request)
@@ -766,7 +788,7 @@ class SettingsController extends AdminController
             $list->load();
 
             $routes = [];
-            /** @var  $route Staticroute */
+            /** @var $route Staticroute */
             foreach ($list->getRoutes() as $route) {
                 if (is_array($route->getSiteId())) {
                     $route = json_encode($route);
@@ -784,7 +806,9 @@ class SettingsController extends AdminController
 
     /**
      * @Route("/get-available-languages")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getAvailableLanguagesAction(Request $request)
@@ -800,7 +824,9 @@ class SettingsController extends AdminController
 
     /**
      * @Route("/get-available-admin-languages")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getAvailableAdminLanguagesAction(Request $request)
@@ -823,7 +849,9 @@ class SettingsController extends AdminController
 
     /**
      * @Route("/redirects")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function redirectsAction(Request $request)
@@ -905,7 +933,6 @@ class SettingsController extends AdminController
                 $list->setCondition("`source` LIKE " . $list->quote("%".$request->get("filter")."%") . " OR `target` LIKE " . $list->quote("%".$request->get("filter")."%"));
             }
 
-
             $list->load();
 
             $redirects = [];
@@ -929,7 +956,9 @@ class SettingsController extends AdminController
 
     /**
      * @Route("/glossary")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function glossaryAction(Request $request)
@@ -957,7 +986,6 @@ class SettingsController extends AdminController
                         $data["link"] = $doc->getId();
                     }
                 }
-
 
                 $glossary->setValues($data);
 
@@ -1039,7 +1067,9 @@ class SettingsController extends AdminController
 
     /**
      * @Route("/get-available-sites")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getAvailableSitesAction(Request $request)
@@ -1076,7 +1106,9 @@ class SettingsController extends AdminController
 
     /**
      * @Route("/get-available-countries")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getAvailableCountriesAction(Request $request)
@@ -1089,7 +1121,7 @@ class SettingsController extends AdminController
         foreach ($countries as $short => $translation) {
             if (strlen($short) == 2) {
                 $options[] = [
-                    "key" => $translation . " (" . $short . ")" ,
+                    "key" => $translation . " (" . $short . ")",
                     "value" => $short
                 ];
             }
@@ -1100,10 +1132,11 @@ class SettingsController extends AdminController
         return $this->json($result);
     }
 
-
     /**
      * @Route("/thumbnail-adapter-check")
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function thumbnailAdapterCheckAction(Request $request)
@@ -1122,7 +1155,9 @@ class SettingsController extends AdminController
 
     /**
      * @Route("/thumbnail-tree")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function thumbnailTreeAction(Request $request)
@@ -1146,7 +1181,9 @@ class SettingsController extends AdminController
 
     /**
      * @Route("/thumbnail-add")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function thumbnailAddAction(Request $request)
@@ -1170,7 +1207,9 @@ class SettingsController extends AdminController
 
     /**
      * @Route("/thumbnail-delete")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function thumbnailDeleteAction(Request $request)
@@ -1185,7 +1224,9 @@ class SettingsController extends AdminController
 
     /**
      * @Route("/thumbnail-get")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function thumbnailGetAction(Request $request)
@@ -1199,7 +1240,9 @@ class SettingsController extends AdminController
 
     /**
      * @Route("/thumbnail-update")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function thumbnailUpdateAction(Request $request)
@@ -1235,10 +1278,11 @@ class SettingsController extends AdminController
         return $this->json(["success" => true]);
     }
 
-
     /**
      * @Route("/video-thumbnail-adapter-check")
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function videoThumbnailAdapterCheckAction(Request $request)
@@ -1256,7 +1300,9 @@ class SettingsController extends AdminController
 
     /**
      * @Route("/video-thumbnail-tree")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function videoThumbnailTreeAction(Request $request)
@@ -1280,7 +1326,9 @@ class SettingsController extends AdminController
 
     /**
      * @Route("/video-thumbnail-add")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function videoThumbnailAddAction(Request $request)
@@ -1304,7 +1352,9 @@ class SettingsController extends AdminController
 
     /**
      * @Route("/video-thumbnail-delete")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function videoThumbnailDeleteAction(Request $request)
@@ -1319,7 +1369,9 @@ class SettingsController extends AdminController
 
     /**
      * @Route("/video-thumbnail-get")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function videoThumbnailGetAction(Request $request)
@@ -1333,7 +1385,9 @@ class SettingsController extends AdminController
 
     /**
      * @Route("/video-thumbnail-update")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function videoThumbnailUpdateAction(Request $request)
@@ -1373,7 +1427,9 @@ class SettingsController extends AdminController
 
     /**
      * @Route("/robots-txt")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function robotsTxtAction(Request $request)
@@ -1411,7 +1467,9 @@ class SettingsController extends AdminController
 
     /**
      * @Route("/tag-management-tree")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function tagManagementTreeAction(Request $request)
@@ -1435,7 +1493,9 @@ class SettingsController extends AdminController
 
     /**
      * @Route("/tag-management-add")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function tagManagementAddAction(Request $request)
@@ -1459,7 +1519,9 @@ class SettingsController extends AdminController
 
     /**
      * @Route("/tag-management-delete")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function tagManagementDeleteAction(Request $request)
@@ -1474,7 +1536,9 @@ class SettingsController extends AdminController
 
     /**
      * @Route("/tag-management-get")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function tagManagementGetAction(Request $request)
@@ -1486,10 +1550,11 @@ class SettingsController extends AdminController
         return $this->json($tag);
     }
 
-
     /**
      * @Route("/tag-management-update")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function tagManagementUpdateAction(Request $request)
@@ -1519,7 +1584,7 @@ class SettingsController extends AdminController
 
         // parameters get/post
         $params = [];
-        for ($i=0; $i<5; $i++) {
+        for ($i=0; $i < 5; $i++) {
             $params[] = [
                 "name" => $data["params.name" . $i],
                 "value" => $data["params.value" . $i]
@@ -1540,8 +1605,11 @@ class SettingsController extends AdminController
 
     /**
      * @Route("/website-settings")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
+     *
      * @throws \Exception
      */
     public function websiteSettingsAction(Request $request)
@@ -1639,6 +1707,7 @@ class SettingsController extends AdminController
 
     /**
      * @param $item
+     *
      * @return array
      */
     private function getWebsiteSettingForEditMode($item)
@@ -1652,7 +1721,6 @@ class SettingsController extends AdminController
             "creationDate" => $item->getCreationDate(),
             "modificationDate" => $item->getModificationDate()
         ];
-
 
         switch ($item->getType()) {
             case "document":
@@ -1673,7 +1741,9 @@ class SettingsController extends AdminController
 
     /**
      * @Route("/get-available-algorithms")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getAvailableAlgorithmsAction(Request $request)
@@ -1702,6 +1772,7 @@ class SettingsController extends AdminController
      * deleteViews
      * delete views for localized fields when languages are removed to
      * prevent mysql errors
+     *
      * @param $language
      * @param $dbName
      */

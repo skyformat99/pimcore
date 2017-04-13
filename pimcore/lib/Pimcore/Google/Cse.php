@@ -14,7 +14,6 @@
 
 namespace Pimcore\Google;
 
-use Pimcore\Google\Api;
 use Pimcore\Cache;
 use Pimcore\Google\Cse\Item;
 use Pimcore\Model;
@@ -29,6 +28,7 @@ class Cse implements \Zend_Paginator_Adapter_Interface, \Zend_Paginator_AdapterA
      * @param int $perPage
      * @param array $config
      * @param null $facet
+     *
      * @return Cse
      */
     public static function search($query, $offset = 0, $perPage = 10, array $config = [], $facet = null)
@@ -53,7 +53,6 @@ class Cse implements \Zend_Paginator_Adapter_Interface, \Zend_Paginator_AdapterA
         $perPage = $this->getPerPage();
         $offset = $this->getOffset();
         $query = $this->getQuery();
-
 
         if ($client) {
             $search = new \Google_Service_Customsearch($client);
@@ -143,7 +142,6 @@ class Cse implements \Zend_Paginator_Adapter_Interface, \Zend_Paginator_AdapterA
      */
     public $facets = [];
 
-
     /**
      * @param null|mixed $googleResponse
      */
@@ -187,14 +185,12 @@ class Cse implements \Zend_Paginator_Adapter_Interface, \Zend_Paginator_AdapterA
             }
         }
 
-
         // set search results
         $total = intval($googleResponse["searchInformation"]["totalResults"]);
         if ($total > 100) {
             $total = 100;
         }
         $this->setTotal($total);
-
 
         if (array_key_exists("items", $googleResponse) && is_array($googleResponse["items"])) {
             foreach ($googleResponse["items"] as $item) {
@@ -240,6 +236,7 @@ class Cse implements \Zend_Paginator_Adapter_Interface, \Zend_Paginator_AdapterA
 
     /**
      * @param $offset
+     *
      * @return $this
      */
     public function setOffset($offset)
@@ -259,6 +256,7 @@ class Cse implements \Zend_Paginator_Adapter_Interface, \Zend_Paginator_AdapterA
 
     /**
      * @param $raw
+     *
      * @return $this
      */
     public function setRaw($raw)
@@ -278,6 +276,7 @@ class Cse implements \Zend_Paginator_Adapter_Interface, \Zend_Paginator_AdapterA
 
     /**
      * @param $total
+     *
      * @return $this
      */
     public function setTotal($total)
@@ -297,6 +296,7 @@ class Cse implements \Zend_Paginator_Adapter_Interface, \Zend_Paginator_AdapterA
 
     /**
      * @param $perPage
+     *
      * @return $this
      */
     public function setPerPage($perPage)
@@ -316,6 +316,7 @@ class Cse implements \Zend_Paginator_Adapter_Interface, \Zend_Paginator_AdapterA
 
     /**
      * @param $config
+     *
      * @return $this
      */
     public function setConfig($config)
@@ -335,6 +336,7 @@ class Cse implements \Zend_Paginator_Adapter_Interface, \Zend_Paginator_AdapterA
 
     /**
      * @param $query
+     *
      * @return $this
      */
     public function setQuery($query)
@@ -354,6 +356,7 @@ class Cse implements \Zend_Paginator_Adapter_Interface, \Zend_Paginator_AdapterA
 
     /**
      * @param $results
+     *
      * @return $this
      */
     public function setResults($results)
@@ -364,7 +367,8 @@ class Cse implements \Zend_Paginator_Adapter_Interface, \Zend_Paginator_AdapterA
     }
 
     /**
-     * @param boolean $retry
+     * @param bool $retry
+     *
      * @return array
      */
     public function getResults($retry=true)
@@ -378,6 +382,7 @@ class Cse implements \Zend_Paginator_Adapter_Interface, \Zend_Paginator_AdapterA
 
     /**
      * @param $facets
+     *
      * @return $this
      */
     public function setFacets($facets)
@@ -412,6 +417,7 @@ class Cse implements \Zend_Paginator_Adapter_Interface, \Zend_Paginator_AdapterA
     /**
      * @param int $offset
      * @param int $itemCountPerPage
+     *
      * @return array
      */
     public function getItems($offset, $itemCountPerPage)
@@ -432,11 +438,9 @@ class Cse implements \Zend_Paginator_Adapter_Interface, \Zend_Paginator_AdapterA
         return $this;
     }
 
-
     /**
      * Methods for Iterator
      */
-
     public function rewind()
     {
         reset($this->results);

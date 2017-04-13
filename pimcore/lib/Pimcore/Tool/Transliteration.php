@@ -16,11 +16,12 @@ namespace Pimcore\Tool;
 
 class Transliteration
 {
-
     /**
      * @static
+     *
      * @param $value
      * @param null $language
+     *
      * @return string
      */
     public static function toASCII($value, $language = null)
@@ -64,12 +65,13 @@ class Transliteration
      * http://search.cpan.org/~sburke/Text-Unidecode-0.04/lib/Text/Unidecode.pm
      */
 
-
     /**
      * @static
+     *
      * @param $string
      * @param string $unknown
      * @param null $source_langcode
+     *
      * @return string
      */
     private static function _transliterationProcess($string, $unknown = '?', $source_langcode = null)
@@ -194,12 +196,13 @@ class Transliteration
         return $result;
     }
 
-
     /**
      * @static
+     *
      * @param $ord
      * @param string $unknown
      * @param null $langcode
+     *
      * @return string
      */
     private static function _transliterationReplace($ord, $unknown = '?', $langcode = null)

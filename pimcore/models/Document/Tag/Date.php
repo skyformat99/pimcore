@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Document
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -23,7 +24,6 @@ use Pimcore\Model;
  */
 class Date extends Model\Document\Tag
 {
-
     /**
      * Contains the date
      *
@@ -31,9 +31,9 @@ class Date extends Model\Document\Tag
      */
     public $date;
 
-
     /**
      * @see TagInterface::getType
+     *
      * @return string
      */
     public function getType()
@@ -43,6 +43,7 @@ class Date extends Model\Document\Tag
 
     /**
      * @see TagInterface::getData
+     *
      * @return mixed
      */
     public function getData()
@@ -80,6 +81,7 @@ class Date extends Model\Document\Tag
 
     /**
      * @see Tag::getDataForResource
+     *
      * @return int|null
      */
     public function getDataForResource()
@@ -94,7 +96,9 @@ class Date extends Model\Document\Tag
 
     /**
      * @see TagInterface::setDataFromResource
+     *
      * @param mixed $data
+     *
      * @return $this
      */
     public function setDataFromResource($data)
@@ -108,7 +112,9 @@ class Date extends Model\Document\Tag
 
     /**
      * @see TagInterface::setDataFromEditmode
+     *
      * @param mixed $data
+     *
      * @return $this
      */
     public function setDataFromEditmode($data)
@@ -122,7 +128,7 @@ class Date extends Model\Document\Tag
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isEmpty()
     {
@@ -140,8 +146,9 @@ class Date extends Model\Document\Tag
      * @param $document
      * @param mixed $params
      * @param $idMapper
+     *
      * @throws \Exception
-    */
+     */
     public function getFromWebserviceImport($wsElement, $document = null, $params = [], $idMapper = null)
     {
         if (!$wsElement or empty($wsElement->value)) {
@@ -155,9 +162,11 @@ class Date extends Model\Document\Tag
 
     /**
      * Returns the current tag's data for web service export
+     *
      * @param $document
      * @param mixed $params
      * @abstract
+     *
      * @return array
      */
     public function getForWebserviceExport($document = null, $params = [])

@@ -22,9 +22,9 @@ use Pimcore\Bundle\EcommerceFrameworkBundle\Factory;
  */
 class AbstractOffer extends \Pimcore\Model\Object\Concrete
 {
-
     /**
      * @return string
+     *
      * @throws UnsupportedException
      */
     public function getOffernumber()
@@ -34,6 +34,7 @@ class AbstractOffer extends \Pimcore\Model\Object\Concrete
 
     /**
      * @param string $offernumber
+     *
      * @throws UnsupportedException
      */
     public function setOffernumber($offernumber)
@@ -43,6 +44,7 @@ class AbstractOffer extends \Pimcore\Model\Object\Concrete
 
     /**
      * @throws UnsupportedException
+     *
      * @return float
      */
     public function getTotalPrice()
@@ -52,6 +54,7 @@ class AbstractOffer extends \Pimcore\Model\Object\Concrete
 
     /**
      * @throws UnsupportedException
+     *
      * @param float $totalPrice
      */
     public function setTotalPriceBeforeDiscount($totalPrice)
@@ -61,6 +64,7 @@ class AbstractOffer extends \Pimcore\Model\Object\Concrete
 
     /**
      * @throws UnsupportedException
+     *
      * @return float
      */
     public function getTotalPriceBeforeDiscount()
@@ -70,6 +74,7 @@ class AbstractOffer extends \Pimcore\Model\Object\Concrete
 
     /**
      * @throws UnsupportedException
+     *
      * @param float $totalPrice
      */
     public function setTotalPrice($totalPrice)
@@ -77,9 +82,9 @@ class AbstractOffer extends \Pimcore\Model\Object\Concrete
         throw new UnsupportedException("setTotalPrice is not implemented for " . get_class($this));
     }
 
-
     /**
      * @throws UnsupportedException
+     *
      * @return float
      */
     public function getDiscount()
@@ -89,6 +94,7 @@ class AbstractOffer extends \Pimcore\Model\Object\Concrete
 
     /**
      * @throws UnsupportedException
+     *
      * @param float $discount
      */
     public function setDiscount($discount)
@@ -98,6 +104,7 @@ class AbstractOffer extends \Pimcore\Model\Object\Concrete
 
     /**
      * @throws UnsupportedException
+     *
      * @return string
      */
     public function getDiscountType()
@@ -107,6 +114,7 @@ class AbstractOffer extends \Pimcore\Model\Object\Concrete
 
     /**
      * @throws UnsupportedException
+     *
      * @param string $discountType
      */
     public function setDiscountType($discountType)
@@ -114,9 +122,9 @@ class AbstractOffer extends \Pimcore\Model\Object\Concrete
         throw new UnsupportedException("setDiscountType is not implemented for " . get_class($this));
     }
 
-
     /**
      * @throws UnsupportedException
+     *
      * @return \DateTime
      */
     public function getDateCreated()
@@ -126,6 +134,7 @@ class AbstractOffer extends \Pimcore\Model\Object\Concrete
 
     /**
      * @throws UnsupportedException
+     *
      * @param \DateTime $dateCreated
      */
     public function setDateCreated($dateCreated)
@@ -133,9 +142,9 @@ class AbstractOffer extends \Pimcore\Model\Object\Concrete
         throw new UnsupportedException("setDateCreated is not implemented for " . get_class($this));
     }
 
-
     /**
      * @throws UnsupportedException
+     *
      * @return \DateTime
      */
     public function getDateValidUntil()
@@ -145,6 +154,7 @@ class AbstractOffer extends \Pimcore\Model\Object\Concrete
 
     /**
      * @throws UnsupportedException
+     *
      * @param \DateTime $dateValidUntil
      */
     public function setDateValidUntil($dateValidUntil)
@@ -152,9 +162,9 @@ class AbstractOffer extends \Pimcore\Model\Object\Concrete
         throw new UnsupportedException("setDateValidUntil is not implemented for " . get_class($this));
     }
 
-
     /**
      * @throws UnsupportedException
+     *
      * @return AbstractOfferItem[]
      */
     public function getItems()
@@ -164,6 +174,7 @@ class AbstractOffer extends \Pimcore\Model\Object\Concrete
 
     /**
      * @param AbstractOfferItem[] $items
+     *
      * @throws UnsupportedException
      */
     public function setItems($items)
@@ -171,9 +182,9 @@ class AbstractOffer extends \Pimcore\Model\Object\Concrete
         throw new UnsupportedException("setItems is not implemented for " . get_class($this));
     }
 
-
     /**
      * @throws UnsupportedException
+     *
      * @return AbstractOfferItem[]
      */
     public function getCustomItems()
@@ -183,6 +194,7 @@ class AbstractOffer extends \Pimcore\Model\Object\Concrete
 
     /**
      * @param AbstractOfferItem[] $customItems
+     *
      * @throws UnsupportedException
      */
     public function setCustomItems($customItems)
@@ -192,6 +204,7 @@ class AbstractOffer extends \Pimcore\Model\Object\Concrete
 
     /**
      * @throws UnsupportedException
+     *
      * @return mixed
      */
     public function getCustomer()
@@ -201,6 +214,7 @@ class AbstractOffer extends \Pimcore\Model\Object\Concrete
 
     /**
      * @throws UnsupportedException
+     *
      * @param mixed $customer
      */
     public function setCustomer($customer)
@@ -210,6 +224,7 @@ class AbstractOffer extends \Pimcore\Model\Object\Concrete
 
     /**
      * @throws UnsupportedException
+     *
      * @return string
      */
     public function getCartId()
@@ -219,6 +234,7 @@ class AbstractOffer extends \Pimcore\Model\Object\Concrete
 
     /**
      * @throws UnsupportedException
+     *
      * @param string $cartId
      */
     public function setCartId($cartId)
@@ -226,10 +242,10 @@ class AbstractOffer extends \Pimcore\Model\Object\Concrete
         throw new UnsupportedException("setCartId is not implemented for " . get_class($this));
     }
 
-
     /**
      * @param AbstractOfferToolProduct $product
      * @param int $amount
+     *
      * @return AbstractOfferItem
      */
     public function addCustomItemFromProduct(AbstractOfferToolProduct $product, $amount = 1)
@@ -280,6 +296,7 @@ class AbstractOffer extends \Pimcore\Model\Object\Concrete
 
     /**
      * @param string $groupName
+     *
      * @return AbstractOfferItem
      */
     public function getCustomItemsByGroup($groupName)
@@ -295,9 +312,9 @@ class AbstractOffer extends \Pimcore\Model\Object\Concrete
         return $groupedItems[$groupName];
     }
 
-
     /**
      * @param AbstractOfferToolProduct $product
+     *
      * @return null|AbstractOfferItem
      */
     public function getCustomItemByProduct(AbstractOfferToolProduct $product)

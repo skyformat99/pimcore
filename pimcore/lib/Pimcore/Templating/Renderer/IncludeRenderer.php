@@ -139,6 +139,7 @@ class IncludeRenderer
     /**
      * @param PageSnippet $include
      * @param $params
+     *
      * @return string
      */
     protected function renderAction(PageSnippet $include, $params)
@@ -152,6 +153,7 @@ class IncludeRenderer
      * @param View $view
      * @param PageSnippet $include
      * @param $params
+     *
      * @return string
      */
     protected function renderLegacyAction(View $view, PageSnippet $include, $params)
@@ -179,6 +181,7 @@ class IncludeRenderer
      *
      * @param PageSnippet $include
      * @param $content
+     *
      * @return string
      */
     protected function modifyEditmodeContent(PageSnippet $include, $content)

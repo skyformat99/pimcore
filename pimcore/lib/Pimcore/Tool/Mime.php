@@ -225,7 +225,9 @@ class Mime
     /**
      * @param $file
      * @param null $filename
+     *
      * @return mixed|string
+     *
      * @throws \Exception
      */
     public static function detect($file, $filename = null)

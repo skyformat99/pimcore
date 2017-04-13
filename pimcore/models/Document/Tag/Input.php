@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Document
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -23,17 +24,16 @@ use Pimcore\Model;
  */
 class Input extends Model\Document\Tag
 {
-
     /**
      * Contains the text for this element
      *
-     * @var integer
+     * @var int
      */
     public $text = "";
 
-
     /**
      * @see TagInterface::getType
+     *
      * @return string
      */
     public function getType()
@@ -43,6 +43,7 @@ class Input extends Model\Document\Tag
 
     /**
      * @see TagInterface::getData
+     *
      * @return mixed
      */
     public function getData()
@@ -52,6 +53,7 @@ class Input extends Model\Document\Tag
 
     /**
      * @see TagInterface::frontend
+     *
      * @return string
      */
     public function frontend()
@@ -66,9 +68,6 @@ class Input extends Model\Document\Tag
         return $text;
     }
 
-    /**
-     *
-     */
     public function getDataEditmode()
     {
         return htmlentities($this->text);
@@ -76,7 +75,9 @@ class Input extends Model\Document\Tag
 
     /**
      * @see TagInterface::setDataFromResource
+     *
      * @param mixed $data
+     *
      * @return $this
      */
     public function setDataFromResource($data)
@@ -88,7 +89,9 @@ class Input extends Model\Document\Tag
 
     /**
      * @see TagInterface::setDataFromEditmode
+     *
      * @param mixed $data
+     *
      * @return $this
      */
     public function setDataFromEditmode($data)
@@ -100,11 +103,11 @@ class Input extends Model\Document\Tag
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isEmpty()
     {
-        return !(boolean) strlen($this->text);
+        return !(bool) strlen($this->text);
     }
 
     /**
@@ -112,6 +115,7 @@ class Input extends Model\Document\Tag
      * @param null $document
      * @param mixed $params
      * @param null $idMapper
+     *
      * @throws \Exception
      */
     public function getFromWebserviceImport($wsElement, $document = null, $params = [], $idMapper = null)

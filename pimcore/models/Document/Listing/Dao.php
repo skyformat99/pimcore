@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Document
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -26,8 +27,7 @@ use Pimcore\Model\Document;
  */
 class Dao extends Model\Listing\Dao\AbstractDao
 {
-
-    /** @var  Callback function */
+    /** @var Callback function */
     protected $onCreateQueryCallback;
 
     /**
@@ -57,6 +57,7 @@ class Dao extends Model\Listing\Dao\AbstractDao
 
     /**
      * @param $columns
+     *
      * @return \Pimcore\Db\ZendCompatibility\QueryBuilder
      */
     public function getQuery($columns)

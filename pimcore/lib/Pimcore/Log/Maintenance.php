@@ -14,15 +14,12 @@
 
 namespace Pimcore\Log;
 
-use Pimcore\Tool;
 use Pimcore\Config;
 use Pimcore\Logger;
+use Pimcore\Tool;
 
 class Maintenance
 {
-    /**
-     *
-     */
     public function httpErrorLogCleanup()
     {
 
@@ -34,9 +31,6 @@ class Maintenance
         $db->deleteWhere("http_error_log", "date < " . $limit);
     }
 
-    /**
-     *
-     */
     public function usageStatistics()
     {
         if (Config::getSystemConfig()->general->disableusagestatistics) {
@@ -56,9 +50,6 @@ class Maintenance
         }
     }
 
-    /**
-     *
-     */
     public function cleanupLogFiles()
     {
         // we don't use the RotatingFileHandler of Monolog, since rotating asynchronously is recommended + compression
@@ -75,7 +66,7 @@ class Maintenance
         $files = glob(PIMCORE_LOG_DIRECTORY . "/*.log-archive-*");
         if (is_array($files)) {
             foreach ($files as $file) {
-                if (filemtime($file) < (time()-(86400*30))) { // we keep the logs for 30 days
+                if (filemtime($file) < (time() - (86400 * 30))) { // we keep the logs for 30 days
                     unlink($file);
                 } elseif (!preg_match("/\.gz$/", $file)) {
                     gzcompressfile($file);
@@ -139,7 +130,6 @@ class Maintenance
         $db->query("UPDATE " . \Pimcore\Log\Handler\ApplicationLoggerDb::TABLE_NAME . " set maintenanceChecked = 1");
     }
 
-
     public function archiveLogEntries()
     {
         $conf = Config::getSystemConfig();
@@ -154,7 +144,7 @@ class Maintenance
             $tablename = $config->archive_alternative_database . '.' . $tablename;
         }
 
-        $archive_treshold = intval($config->archive_treshold) ? : 30;
+        $archive_treshold = intval($config->archive_treshold) ?: 30;
 
         $db->query("CREATE TABLE IF NOT EXISTS " . $tablename . " (
                        id BIGINT(20) NOT NULL,

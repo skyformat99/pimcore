@@ -34,7 +34,6 @@ class SessionCartCheckoutData extends AbstractCartCheckoutData
         $checkoutDataItem->getCart()->checkoutData = [];
     }
 
-
     public function setCart(ICart $cart)
     {
         $this->cart = $cart;
@@ -59,7 +58,6 @@ class SessionCartCheckoutData extends AbstractCartCheckoutData
     {
         $this->cartId = $cartId;
     }
-
 
     /**
      * @return array

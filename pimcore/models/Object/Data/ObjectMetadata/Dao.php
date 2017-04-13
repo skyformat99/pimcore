@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -24,13 +25,13 @@ use Pimcore\Model\Object;
  */
 class Dao extends Model\Dao\AbstractDao
 {
-
     /**
      * @param Object\Concrete $object
      * @param $ownertype
      * @param $ownername
      * @param $position
      * @param $type
+     *
      * @throws \Exception
      */
     public function save(Object\Concrete $object, $ownertype, $ownername, $position, $type = "object")
@@ -42,8 +43,8 @@ class Dao extends Model\Dao\AbstractDao
             "fieldname" => $this->model->getFieldname(),
             "ownertype" => $ownertype,
             "ownername" => $ownername ? $ownername : "",
-            "position" => $position ?  $position : "0",
-            "type" => $type ?  $type : "object"];
+            "position" => $position ? $position : "0",
+            "type" => $type ? $type : "object"];
 
         foreach ($this->model->getColumns() as $column) {
             $getter = "get" . ucfirst($column);
@@ -56,6 +57,7 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * @param $object
+     *
      * @return string
      */
     private function getTablename($object)
@@ -71,6 +73,7 @@ class Dao extends Model\Dao\AbstractDao
      * @param $ownername
      * @param $position
      * @param $type
+     *
      * @return null|Model\Dao\\Pimcore\Model\Object\AbstractObject
      */
     public function load(Object\Concrete $source, $destination, $fieldname, $ownertype, $ownername, $position, $type = "object")

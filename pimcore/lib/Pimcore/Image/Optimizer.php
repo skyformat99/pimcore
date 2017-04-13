@@ -81,6 +81,7 @@ class Optimizer
 
     /**
      * @param $path
+     *
      * @return null|string
      */
     public static function optimizePngcrush($path)
@@ -99,6 +100,7 @@ class Optimizer
 
     /**
      * @param $path
+     *
      * @return null|string
      */
     public static function optimizeZopflipng($path)
@@ -117,6 +119,7 @@ class Optimizer
 
     /**
      * @param $path
+     *
      * @return null|string
      */
     public static function optimizePngout($path)
@@ -135,6 +138,7 @@ class Optimizer
 
     /**
      * @param $path
+     *
      * @return null|string
      */
     public static function optimizeAdvpng($path)
@@ -153,6 +157,7 @@ class Optimizer
 
     /**
      * @param $path
+     *
      * @return null|string
      */
     public static function optimizeCjpeg($path)
@@ -171,6 +176,7 @@ class Optimizer
 
     /**
      * @param $path
+     *
      * @return null|string
      */
     public static function optimizeJpegoptim($path)
@@ -195,6 +201,7 @@ class Optimizer
 
     /**
      * @param string $type
+     *
      * @return string
      */
     protected static function getTempFile($type = "")

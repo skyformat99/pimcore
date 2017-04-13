@@ -14,8 +14,6 @@
 
 namespace Pimcore;
 
-use Pimcore\Config;
-
 /**
  * @deprecated Superseded by PimcoreBundleManager and AreabrickManager in Pimcore 5
  */
@@ -33,6 +31,7 @@ class ExtensionManager
 
     /**
      * @static
+     *
      * @return Config\Config
      */
     public static function getConfig()
@@ -42,6 +41,7 @@ class ExtensionManager
 
     /**
      * @static
+     *
      * @param Config\Config $config
      */
     public static function setConfig(Config\Config $config)
@@ -61,8 +61,10 @@ class ExtensionManager
 
     /**
      * @static
+     *
      * @param  $type
      * @param  $id
+     *
      * @return bool
      */
     public static function isEnabled($type, $id)
@@ -90,6 +92,7 @@ class ExtensionManager
 
     /**
      * @static
+     *
      * @param  $type
      * @param  $id
      */
@@ -114,6 +117,7 @@ class ExtensionManager
 
     /**
      * @static
+     *
      * @param  $type
      * @param  $id
      */
@@ -135,7 +139,6 @@ class ExtensionManager
             include($disableScript);
         }
     }
-
 
     /**
      * @return array $pluginConfigs
@@ -173,6 +176,7 @@ class ExtensionManager
      * @param $id
      *
      * @return array
+     *
      * @throws \Exception
      */
     public static function getPluginConfig($id)
@@ -312,6 +316,7 @@ class ExtensionManager
 
     /**
      * @param null $customPath
+     *
      * @return array|mixed
      */
     public static function getBrickDirectories($customPath = null)
@@ -335,12 +340,12 @@ class ExtensionManager
             }
 
             // include area repositories from active plugins
-            $configs = ExtensionManager::getPluginConfigs();
+            $configs = self::getPluginConfigs();
             foreach ($configs as $config) {
                 $className = $config["plugin"]["pluginClassName"];
 
                 if (!empty($className)) {
-                    $isEnabled = ExtensionManager::isEnabled("plugin", $config["plugin"]["pluginName"]);
+                    $isEnabled = self::isEnabled("plugin", $config["plugin"]["pluginName"]);
                     $areaDir = PIMCORE_PLUGINS_PATH . "/" . $config["plugin"]["pluginName"] . "/views/areas";
 
                     if ($isEnabled && file_exists($areaDir)) {
@@ -371,6 +376,7 @@ class ExtensionManager
 
     /**
      * @param null $customPath
+     *
      * @return array|mixed
      */
     public static function getBrickConfigs($customPath = null)
@@ -404,6 +410,7 @@ class ExtensionManager
     /**
      * @param $id
      * @param $path
+     *
      * @throws \Exception
      *
      * @return mixed|array
@@ -447,6 +454,7 @@ class ExtensionManager
     /**
      * @param $id
      * @param $type
+     *
      * @return string
      */
     public static function getPathForExtension($id, $type)

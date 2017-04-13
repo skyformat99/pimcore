@@ -16,12 +16,13 @@ namespace Pimcore;
 
 class Document
 {
-
     /**
      * Singleton for Pimcore\Document
      *
      * @param null $adapter
+     *
      * @return bool|null|Document
+     *
      * @throws \Exception
      */
     public static function getInstance($adapter = null)
@@ -65,6 +66,7 @@ class Document
      * Checks if a file type is supported by the adapter.
      *
      * @param $filetype
+     *
      * @return bool
      */
     public static function isFileTypeSupported($filetype)

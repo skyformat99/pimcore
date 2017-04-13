@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -18,7 +19,6 @@ namespace Pimcore\Model\Object\Data;
 
 class StructuredTable
 {
-
     /**
      * @var array
      */
@@ -36,6 +36,7 @@ class StructuredTable
 
     /**
      * @param $data
+     *
      * @return $this
      */
     public function setData($data)
@@ -56,12 +57,13 @@ class StructuredTable
     /**
      * @param $name
      * @param $arguments
+     *
      * @throws \Exception
      */
     public function __call($name, $arguments)
     {
         if (substr($name, 0, 3) == "get") {
-            $key = strtolower(substr($name, 3, strlen($name)-3));
+            $key = strtolower(substr($name, 3, strlen($name) - 3));
 
             $parts = explode("__", $key);
             if (count($parts) == 2) {
@@ -81,9 +83,8 @@ class StructuredTable
             throw new \Exception("Requested data $key not available");
         }
 
-
         if (substr($name, 0, 3) == "set") {
-            $key = strtolower(substr($name, 3, strlen($name)-3));
+            $key = strtolower(substr($name, 3, strlen($name) - 3));
 
             $parts = explode("__", $key);
             if (count($parts) == 2) {
@@ -147,6 +148,7 @@ class StructuredTable
     /**
      * @param $rowDefs
      * @param $colDefs
+     *
      * @return string
      */
     public function getHtmlTable($rowDefs, $colDefs)
@@ -154,7 +156,7 @@ class StructuredTable
         $string = "<table>";
 
         $string .= "<tr>";
-        $string .=  "<th><strong></strong></th>";
+        $string .= "<th><strong></strong></th>";
         foreach ($colDefs as $c) {
             $string .= "<th><strong>" . $c['label'] . "</strong></th>";
         }

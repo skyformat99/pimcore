@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Element
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -23,10 +24,10 @@ use Pimcore\Model;
  */
 class Dao extends Model\Dao\AbstractDao
 {
-
     /**
      * @param $cid
      * @param $ctype
+     *
      * @throws \Exception
      */
     public function getByElement($cid, $ctype)
@@ -49,7 +50,7 @@ class Dao extends Model\Dao\AbstractDao
     /**
      * Save object to database
      *
-     * @return boolean
+     * @return bool
      *
      * @todo: not all save methods return a boolean, why this one?
      */

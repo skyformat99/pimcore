@@ -26,7 +26,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LinfoController extends AdminController implements EventedControllerInterface
 {
-
     /**
      * @var string
      */
@@ -34,7 +33,9 @@ class LinfoController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/external_linfo/")
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function indexAction(Request $request)
@@ -55,7 +56,9 @@ class LinfoController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/external_linfo/layout/{anything}", defaults={"anything" = null}, requirements={"anything"=".+"})
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function layoutAction(Request $request)

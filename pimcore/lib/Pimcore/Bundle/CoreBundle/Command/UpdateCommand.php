@@ -16,14 +16,14 @@ namespace Pimcore\Bundle\CoreBundle\Command;
 
 use Pimcore\Config;
 use Pimcore\Console\AbstractCommand;
+use Pimcore\Tool\Admin;
 use Pimcore\Tool\Console;
+use Pimcore\Update;
+use Symfony\Component\Console\Helper\ProgressBar;
+use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Helper\ProgressBar;
-use Pimcore\Update;
-use Pimcore\Tool\Admin;
-use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 
 class UpdateCommand extends AbstractCommand
@@ -153,7 +153,6 @@ class UpdateCommand extends AbstractCommand
 
                 $progress->advance();
             }
-
 
             $maintenanceModeId = 'cache-warming-dummy-session-id';
             Admin::activateMaintenanceMode($maintenanceModeId);

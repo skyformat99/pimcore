@@ -140,6 +140,7 @@ class EditmodeListener extends AbstractFrontendListener implements EventSubscrib
 
     /**
      * @param Response $response
+     *
      * @return bool
      */
     protected function contentTypeMatches(Response $response)
@@ -209,6 +210,7 @@ class EditmodeListener extends AbstractFrontendListener implements EventSubscrib
      * @param Document $document
      * @param User $user
      * @param string $language
+     *
      * @return string
      */
     protected function buildHeadHtml(Document $document, $language)

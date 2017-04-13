@@ -16,11 +16,11 @@ namespace Pimcore\Bundle\CoreBundle\Command;
 
 use Pimcore\Console\AbstractCommand;
 use Pimcore\Document\Newsletter\AddressSourceAdapterInterface;
+use Pimcore\Logger;
+use Pimcore\Model;
 use Pimcore\Tool\Newsletter;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Pimcore\Model;
-use Pimcore\Logger;
 
 class InternalNewsletterDocumentSendCommand extends AbstractCommand
 {
@@ -69,7 +69,6 @@ class InternalNewsletterDocumentSendCommand extends AbstractCommand
          * @var $addressAdapter \Pimcore\Document\Newsletter\AddressSourceAdapterInterface
          */
         $addressAdapter = new $adapterClass($adapterParams);
-
 
         if ($document->getSendingMode() == Newsletter::SENDING_MODE_BATCH) {
             $this->doSendMailInBatchMode($document, $addressAdapter, $sendingId, $hostUrl);
@@ -160,7 +159,6 @@ class InternalNewsletterDocumentSendCommand extends AbstractCommand
                 } catch (\Exception $e) {
                     Logger::err('Exception while sending newsletter: '.$e->getMessage());
                 }
-
 
                 if (empty($tmpStore)) {
                     Logger::warn("Sending configuration for sending ID $sendingId was deleted. Cancelling sending process.");

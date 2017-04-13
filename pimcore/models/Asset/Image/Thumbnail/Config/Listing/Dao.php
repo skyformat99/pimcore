@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Property
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -24,10 +25,6 @@ use Pimcore\Model\Asset\Image\Thumbnail\Config;
  */
 class Dao extends Model\Dao\PhpArrayTable
 {
-
-    /**
-     *
-     */
     public function configure()
     {
         parent::configure();

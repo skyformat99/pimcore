@@ -10,22 +10,23 @@
  *
  * @category   Pimcore
  * @package    Webservice
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Webservice;
 
-use Pimcore\Model\Webservice;
-use Pimcore\Model\Element;
 use Pimcore\Model;
+use Pimcore\Model\Element;
+use Pimcore\Model\Webservice;
 
 abstract class Data
 {
-
     /**
      * @param $object
      * @param null $options
+     *
      * @throws \Exception
      */
     public function map($object, $options = null)
@@ -46,7 +47,7 @@ abstract class Data
                     // if the value is an object or array call the mapper again for the value
                     if (is_object($this->$key) || is_array($this->$key)) {
                         $type = "out";
-                        if (strpos(get_class($this), "_In")!==false) {
+                        if (strpos(get_class($this), "_In") !== false) {
                             $type = "in";
                         }
                         $className = Webservice\Data\Mapper::findWebserviceClass($this->$key, "out");
@@ -59,6 +60,7 @@ abstract class Data
 
     /**
      * @param $value
+     *
      * @return array
      */
     private function mapProperties($value)
@@ -88,6 +90,7 @@ abstract class Data
      * @param $object
      * @param bool $disableMappingExceptions
      * @param null $idMapper
+     *
      * @throws \Exception
      */
     public function reverseMap($object, $disableMappingExceptions = false, $idMapper = null)

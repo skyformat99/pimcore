@@ -29,12 +29,13 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class TargetingController extends AdminController implements EventedControllerInterface
 {
-
     /* RULES */
 
     /**
      * @Route("/rule-list")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function ruleListAction(Request $request)
@@ -55,7 +56,9 @@ class TargetingController extends AdminController implements EventedControllerIn
 
     /**
      * @Route("/rule-add")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function ruleAddAction(Request $request)
@@ -69,7 +72,9 @@ class TargetingController extends AdminController implements EventedControllerIn
 
     /**
      * @Route("/rule-delete")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function ruleDeleteAction(Request $request)
@@ -87,7 +92,9 @@ class TargetingController extends AdminController implements EventedControllerIn
 
     /**
      * @Route("/rule-get")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function ruleGetAction(Request $request)
@@ -106,7 +113,9 @@ class TargetingController extends AdminController implements EventedControllerIn
 
     /**
      * @Route("/rule-save")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function ruleSaveAction(Request $request)
@@ -139,13 +148,13 @@ class TargetingController extends AdminController implements EventedControllerIn
         return $this->json(["success" => true]);
     }
 
-
-
     /* PERSONAS */
 
     /**
      * @Route("/persona-list")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function personaListAction(Request $request)
@@ -166,7 +175,9 @@ class TargetingController extends AdminController implements EventedControllerIn
 
     /**
      * @Route("/persona-add")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function personaAddAction(Request $request)
@@ -180,7 +191,9 @@ class TargetingController extends AdminController implements EventedControllerIn
 
     /**
      * @Route("/persona-delete")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function personaDeleteAction(Request $request)
@@ -198,7 +211,9 @@ class TargetingController extends AdminController implements EventedControllerIn
 
     /**
      * @Route("/persona-get")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function personaGetAction(Request $request)
@@ -210,7 +225,9 @@ class TargetingController extends AdminController implements EventedControllerIn
 
     /**
      * @Route("/persona-save")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function personaSaveAction(Request $request)

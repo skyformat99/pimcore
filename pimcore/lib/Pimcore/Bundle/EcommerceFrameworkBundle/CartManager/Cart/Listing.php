@@ -18,7 +18,6 @@ use Pimcore\Bundle\EcommerceFrameworkBundle\Factory;
 
 class Listing extends \Pimcore\Model\Listing\AbstractListing
 {
-
     /**
      * @var array
      */
@@ -55,6 +54,7 @@ class Listing extends \Pimcore\Model\Listing\AbstractListing
 
     /**
      * @param array $carts
+     *
      * @return void
      */
     public function setCarts($carts)

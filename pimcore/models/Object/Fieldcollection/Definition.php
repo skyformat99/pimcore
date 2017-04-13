@@ -10,15 +10,16 @@
  *
  * @category   Pimcore
  * @package    Object\Fieldcollection
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Object\Fieldcollection;
 
+use Pimcore\File;
 use Pimcore\Model;
 use Pimcore\Model\Object;
-use Pimcore\File;
 
 /**
  * @method \Pimcore\Model\Object\Fieldcollection\Definition\Dao getDao()
@@ -52,6 +53,7 @@ class Definition extends Model\AbstractModel
 
     /**
      * @param string $key
+     *
      * @return $this
      */
     public function setKey($key)
@@ -71,6 +73,7 @@ class Definition extends Model\AbstractModel
 
     /**
      * @param string $parentClass
+     *
      * @return $this
      */
     public function setParentClass($parentClass)
@@ -90,6 +93,7 @@ class Definition extends Model\AbstractModel
 
     /**
      * @param array $layoutDefinitions
+     *
      * @return $this
      */
     public function setLayoutDefinitions($layoutDefinitions)
@@ -112,6 +116,7 @@ class Definition extends Model\AbstractModel
 
     /**
      * @param array $fieldDefinitions
+     *
      * @return $this
      */
     public function setFieldDefinitions($fieldDefinitions)
@@ -124,6 +129,7 @@ class Definition extends Model\AbstractModel
     /**
      * @param string $key
      * @param Object\ClassDefinition\Data $data
+     *
      * @return $this
      */
     public function addFieldDefinition($key, $data)
@@ -135,7 +141,8 @@ class Definition extends Model\AbstractModel
 
     /**
      * @param $key
-     * @return Object\ClassDefinition\Data|boolean
+     *
+     * @return Object\ClassDefinition\Data|bool
      */
     public function getFieldDefinition($key)
     {
@@ -166,6 +173,7 @@ class Definition extends Model\AbstractModel
 
     /**
      * @param $key
+     *
      * @throws \Exception
      */
     public static function getByKey($key)
@@ -204,7 +212,6 @@ class Definition extends Model\AbstractModel
             throw new \Exception("A field-collection needs a key to be saved!");
         }
 
-
         $infoDocBlock = $this->getInfoDocBlock();
 
         $definitionFile = $this->getDefinitionFile();
@@ -224,13 +231,11 @@ class Definition extends Model\AbstractModel
 
         \Pimcore\File::put($definitionFile, $data);
 
-
         $extendClass = "Object\\Fieldcollection\\Data\\AbstractData";
         if ($this->getParentClass()) {
             $extendClass = $this->getParentClass();
             $extendClass = "\\" . ltrim($extendClass, "\\");
         }
-
 
         // create class file
         $cd = '<?php ';
@@ -261,7 +266,6 @@ class Definition extends Model\AbstractModel
                 /**
                  * @var $def Object\ClassDefinition\Data
                  */
-
                 $cd .= $def->getGetterCodeFieldcollection($this);
 
                 if ($def instanceof Object\ClassDefinition\Data\Localizedfields) {
@@ -310,9 +314,6 @@ class Definition extends Model\AbstractModel
         }
     }
 
-    /**
-     *
-     */
     public function delete()
     {
         @unlink($this->getDefinitionFile());
@@ -382,7 +383,6 @@ class Definition extends Model\AbstractModel
         }
 
         $cd .= "*/ ";
-
 
         return $cd;
     }

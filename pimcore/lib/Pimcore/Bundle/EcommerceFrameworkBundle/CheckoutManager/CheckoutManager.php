@@ -26,7 +26,6 @@ use Pimcore\Bundle\EcommerceFrameworkBundle\Tools\Config\HelperContainer;
  */
 class CheckoutManager implements ICheckoutManager
 {
-
     /**
      * constants for custom environment item names for persisting state of checkout
      * always concatenated with current cart id
@@ -60,7 +59,6 @@ class CheckoutManager implements ICheckoutManager
      */
     protected $finished = false;
 
-
     /**
      * @var bool
      */
@@ -93,7 +91,6 @@ class CheckoutManager implements ICheckoutManager
      */
     protected $payment;
 
-
     /**
      * @param ICart $cart
      * @param                            $config
@@ -111,7 +108,6 @@ class CheckoutManager implements ICheckoutManager
             $this->checkoutStepOrder[] = $step;
             $this->checkoutSteps[$step->getName()] = $step;
         }
-
 
         //getting state information for checkout from custom environment items
         $env = Factory::getInstance()->getEnvironment();
@@ -144,7 +140,6 @@ class CheckoutManager implements ICheckoutManager
         return $this->commitOrderProcessor;
     }
 
-
     /**
      * @return bool
      */
@@ -163,6 +158,7 @@ class CheckoutManager implements ICheckoutManager
 
     /**
      * @return \Pimcore\Bundle\EcommerceFrameworkBundle\Model\AbstractPaymentInformation
+     *
      * @throws \Exception
      * @throws UnsupportedException
      */
@@ -226,6 +222,7 @@ class CheckoutManager implements ICheckoutManager
      * updates and cleans up environment after order is committed
      *
      * @param AbstractOrder $order
+     *
      * @throws UnsupportedException
      */
     protected function updateEnvironmentAfterOrderCommit(AbstractOrder $order)
@@ -251,7 +248,9 @@ class CheckoutManager implements ICheckoutManager
 
     /**
      * @param $paymentResponseParams
+     *
      * @return AbstractOrder
+     *
      * @throws UnsupportedException
      */
     public function handlePaymentResponseAndCommitOrderPayment($paymentResponseParams)
@@ -284,7 +283,9 @@ class CheckoutManager implements ICheckoutManager
 
     /**
      * @param \Pimcore\Bundle\EcommerceFrameworkBundle\PaymentManager\IStatus $status
+     *
      * @return AbstractOrder
+     *
      * @throws UnsupportedException
      */
     public function commitOrderPayment(\Pimcore\Bundle\EcommerceFrameworkBundle\PaymentManager\IStatus $status)
@@ -310,6 +311,7 @@ class CheckoutManager implements ICheckoutManager
 
     /**
      * @return AbstractOrder
+     *
      * @throws UnsupportedException
      */
     public function commitOrder()
@@ -335,7 +337,9 @@ class CheckoutManager implements ICheckoutManager
      * generates classic google analytics e-commerce tracking code
      *
      * @param AbstractOrder $order
+     *
      * @return string
+     *
      * @throws UnsupportedException
      */
     protected function generateGaEcommerceCode(AbstractOrder $order)
@@ -399,12 +403,13 @@ class CheckoutManager implements ICheckoutManager
         return $code;
     }
 
-
     /**
      * generates universal google analytics e-commerce tracking code
      *
      * @param AbstractOrder $order
+     *
      * @return string
+     *
      * @throws UnsupportedException
      */
     protected function generateUniversalEcommerceCode(AbstractOrder $order)
@@ -468,7 +473,9 @@ class CheckoutManager implements ICheckoutManager
     /**
      * @param ICheckoutStep $step
      * @param mixed $data
+     *
      * @return bool
+     *
      * @throws UnsupportedException
      */
     public function commitStep(ICheckoutStep $step, $data)
@@ -510,7 +517,6 @@ class CheckoutManager implements ICheckoutManager
         return $result;
     }
 
-
     /**
      * @return ICart
      */
@@ -521,6 +527,7 @@ class CheckoutManager implements ICheckoutManager
 
     /**
      * @param string $stepname
+     *
      * @return ICheckoutStep
      */
     public function getCheckoutStep($stepname)
@@ -563,7 +570,6 @@ class CheckoutManager implements ICheckoutManager
         return $order && $order->getOrderState() == $order::ORDER_STATE_COMMITTED;
     }
 
-
     /**
      * @return IPayment
      */
@@ -572,10 +578,6 @@ class CheckoutManager implements ICheckoutManager
         return $this->payment;
     }
 
-
-    /**
-     *
-     */
     public function cleanUpPendingOrders()
     {
         $this->getCommitOrderProcessor()->cleanUpPendingOrders();

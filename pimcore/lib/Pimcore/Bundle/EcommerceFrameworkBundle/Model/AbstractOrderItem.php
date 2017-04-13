@@ -22,9 +22,9 @@ use Pimcore\Logger;
  */
 class AbstractOrderItem extends \Pimcore\Model\Object\Concrete
 {
-
     /**
      * @throws UnsupportedException
+     *
      * @return \Pimcore\Bundle\EcommerceFrameworkBundle\Model\ICheckoutable
      */
     public function getProduct()
@@ -34,6 +34,7 @@ class AbstractOrderItem extends \Pimcore\Model\Object\Concrete
 
     /**
      * @param \Pimcore\Bundle\EcommerceFrameworkBundle\Model\ICheckoutable $product
+     *
      * @throws UnsupportedException
      */
     public function setProduct($product)
@@ -41,9 +42,9 @@ class AbstractOrderItem extends \Pimcore\Model\Object\Concrete
         throw new UnsupportedException("setProduct is not implemented for " . get_class($this));
     }
 
-
     /**
      * @throws UnsupportedException
+     *
      * @return string
      */
     public function getProductNumber()
@@ -53,6 +54,7 @@ class AbstractOrderItem extends \Pimcore\Model\Object\Concrete
 
     /**
      * @param string $productNumber
+     *
      * @throws UnsupportedException
      */
     public function setProductNumber($productNumber)
@@ -60,9 +62,9 @@ class AbstractOrderItem extends \Pimcore\Model\Object\Concrete
         throw new UnsupportedException("setProductNumber is not implemented for " . get_class($this));
     }
 
-
     /**
      * @throws UnsupportedException
+     *
      * @return string
      */
     public function getProductName()
@@ -72,6 +74,7 @@ class AbstractOrderItem extends \Pimcore\Model\Object\Concrete
 
     /**
      * @param string $productName
+     *
      * @throws UnsupportedException
      */
     public function setProductName($productName)
@@ -81,6 +84,7 @@ class AbstractOrderItem extends \Pimcore\Model\Object\Concrete
 
     /**
      * @throws UnsupportedException
+     *
      * @return float
      */
     public function getAmount()
@@ -90,6 +94,7 @@ class AbstractOrderItem extends \Pimcore\Model\Object\Concrete
 
     /**
      * @param float $amount
+     *
      * @throws UnsupportedException
      */
     public function setAmount($amount)
@@ -97,9 +102,9 @@ class AbstractOrderItem extends \Pimcore\Model\Object\Concrete
         throw new UnsupportedException("setAmount is not implemented for " . get_class($this));
     }
 
-
     /**
      * @throws UnsupportedException
+     *
      * @return float
      */
     public function getTotalPrice()
@@ -109,6 +114,7 @@ class AbstractOrderItem extends \Pimcore\Model\Object\Concrete
 
     /**
      * @throws UnsupportedException
+     *
      * @param float $totalPrice
      */
     public function setTotalPrice($totalPrice)
@@ -118,6 +124,7 @@ class AbstractOrderItem extends \Pimcore\Model\Object\Concrete
 
     /**
      * @throws UnsupportedException
+     *
      * @return float
      */
     public function getTotalNetPrice()
@@ -128,6 +135,7 @@ class AbstractOrderItem extends \Pimcore\Model\Object\Concrete
 
     /**
      * @throws UnsupportedException
+     *
      * @param float $totalNetPrice
      */
     public function setTotalNetPrice($totalNetPrice)
@@ -138,6 +146,7 @@ class AbstractOrderItem extends \Pimcore\Model\Object\Concrete
 
     /**
      * @throws UnsupportedException
+     *
      * @return array
      */
     public function getTaxInfo()
@@ -148,6 +157,7 @@ class AbstractOrderItem extends \Pimcore\Model\Object\Concrete
 
     /**
      * @throws UnsupportedException
+     *
      * @param array $taxInfo
      */
     public function setTaxInfo($taxInfo)
@@ -156,9 +166,9 @@ class AbstractOrderItem extends \Pimcore\Model\Object\Concrete
         Logger::err("setTaxInfo not implemented for " . get_class($this));
     }
 
-
     /**
      * @return AbstractOrderItem[]
+     *
      * @throws UnsupportedException
      */
     public function getSubItems()
@@ -168,6 +178,7 @@ class AbstractOrderItem extends \Pimcore\Model\Object\Concrete
 
     /**
      * @param AbstractOrderItem[] $subItems
+     *
      * @throws UnsupportedException
      */
     public function setSubItems($subItems)
@@ -177,6 +188,7 @@ class AbstractOrderItem extends \Pimcore\Model\Object\Concrete
 
     /**
      * @throws UnsupportedException
+     *
      * @return \Pimcore\Model\Object\Fieldcollection
      */
     public function getPricingRules()
@@ -186,7 +198,9 @@ class AbstractOrderItem extends \Pimcore\Model\Object\Concrete
 
     /**
      * @param \Pimcore\Model\Object\Fieldcollection $pricingRules
+     *
      * @throws UnsupportedException
+     *
      * @return $this
      */
     public function setPricingRules($pricingRules)
@@ -196,6 +210,7 @@ class AbstractOrderItem extends \Pimcore\Model\Object\Concrete
 
     /**
      * @throws UnsupportedException
+     *
      * @return string
      */
     public function getOrderState()
@@ -205,7 +220,9 @@ class AbstractOrderItem extends \Pimcore\Model\Object\Concrete
 
     /**
      * @param string $orderState
+     *
      * @throws UnsupportedException
+     *
      * @return $this
      */
     public function setOrderState($orderState)
@@ -213,9 +230,9 @@ class AbstractOrderItem extends \Pimcore\Model\Object\Concrete
         throw new UnsupportedException(__FUNCTION__ . " is not implemented for " . get_class($this));
     }
 
-
     /**
      * is the order item cancel able
+     *
      * @return bool
      */
     public function isCancelAble()
@@ -225,6 +242,7 @@ class AbstractOrderItem extends \Pimcore\Model\Object\Concrete
 
     /**
      * is the order item edit able
+     *
      * @return bool
      */
     public function isEditAble()
@@ -232,9 +250,9 @@ class AbstractOrderItem extends \Pimcore\Model\Object\Concrete
         return true && !$this->isCanceled();
     }
 
-
     /**
      * ist eine rückerstattung erlaubt
+     *
      * @return bool
      */
     public function isComplaintAble()

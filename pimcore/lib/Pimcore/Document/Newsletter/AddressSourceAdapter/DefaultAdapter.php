@@ -21,7 +21,6 @@ use Pimcore\Model\Object\Listing;
 
 class DefaultAdapter implements AddressSourceAdapterInterface
 {
-
     /**
      * @var string
      */
@@ -49,6 +48,7 @@ class DefaultAdapter implements AddressSourceAdapterInterface
 
     /**
      * IAddressSourceAdapter constructor.
+     *
      * @param $params
      */
     public function __construct($params)
@@ -131,6 +131,7 @@ class DefaultAdapter implements AddressSourceAdapterInterface
      * returns params to be set on mail for test sending
      *
      * @param string $emailAddress
+     *
      * @return SendingParamContainer
      */
     public function getParamsForTestSending($emailAddress)
@@ -164,6 +165,7 @@ class DefaultAdapter implements AddressSourceAdapterInterface
      *
      * @param $limit
      * @param $offset
+     *
      * @return SendingParamContainer[]
      */
     public function getParamsForSingleSending($limit, $offset)

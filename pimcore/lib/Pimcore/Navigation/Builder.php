@@ -14,16 +14,14 @@
 
 namespace Pimcore\Navigation;
 
-use Pimcore\Model\Document;
 use Pimcore\Cache as CacheManager;
+use Pimcore\Model\Document;
 use Pimcore\Model\Site;
 use Pimcore\Navigation\Page\Document as DocumentUrl;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 class Builder
 {
-
     /**
      * @var string
      */
@@ -40,7 +38,9 @@ class Builder
      * @param null $htmlMenuIdPrefix
      * @param null $pageCallback
      * @param bool|string $cache
+     *
      * @return mixed|\Pimcore\Navigation\Container
+     *
      * @throws \Exception
      */
     public function getNavigation($activeDocument, $navigationRootDocument = null, $htmlMenuIdPrefix = null, $pageCallback = null, $cache = true)
@@ -119,7 +119,6 @@ class Builder
             $activePages = $tmpPages;
         }
 
-
         if (!empty($activePages)) {
             // we found an active document, so we can build the active trail by getting respectively the parent
             foreach ($activePages as $activePage) {
@@ -182,12 +181,12 @@ class Builder
             $classes .= " mainactive";
         }
 
-
         $page->setClass($page->getClass() . $classes);
     }
 
     /**
      * @param $pageClass
+     *
      * @return $this
      */
     public function setPageClass($pageClass)
@@ -207,9 +206,9 @@ class Builder
         return $this->_pageClass;
     }
 
-
     /**
      * @param Document $parentDocument
+     *
      * @return Document[]
      */
     protected function getChilds($parentDocument)
@@ -221,6 +220,7 @@ class Builder
      * @param $parentDocument
      * @param bool $isRoot
      * @param callable $pageCallback
+     *
      * @return array
      */
     protected function buildNextLevel($parentDocument, $isRoot = false, $pageCallback = null)

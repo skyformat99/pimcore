@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Document
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -23,10 +24,6 @@ use Pimcore\Model;
  */
 class Dao extends Model\Dao\AbstractDao
 {
-
-    /**
-     *
-     */
     public function save()
     {
         $data = $this->model->getDataForResource();
@@ -45,9 +42,6 @@ class Dao extends Model\Dao\AbstractDao
         $this->db->insertOrUpdate("documents_elements", $element);
     }
 
-    /**
-     *
-     */
     public function delete()
     {
         $this->db->delete("documents_elements", [

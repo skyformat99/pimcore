@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -20,7 +21,6 @@ use Pimcore\Model;
 
 class Time extends Model\Object\ClassDefinition\Data\Input
 {
-
     /**
      * Static type of this element
      *
@@ -31,10 +31,9 @@ class Time extends Model\Object\ClassDefinition\Data\Input
     /**
      * Column length
      *
-     * @var integer
+     * @var int
      */
     public $columnLength = 5;
-
 
     /**
      * @var string
@@ -45,7 +44,6 @@ class Time extends Model\Object\ClassDefinition\Data\Input
      * @var string
      */
     public $maxValue;
-
 
     /**
      * @return string
@@ -87,12 +85,12 @@ class Time extends Model\Object\ClassDefinition\Data\Input
         }
     }
 
-
     /**
      * Checks if data is valid for current data field
      *
      * @param mixed $data
-     * @param boolean $omitMandatoryCheck
+     * @param bool $omitMandatoryCheck
+     *
      * @throws \Exception
      */
     public function checkValidity($data, $omitMandatoryCheck = false)
@@ -121,6 +119,7 @@ class Time extends Model\Object\ClassDefinition\Data\Input
     /** True if change is allowed in edit mode.
      * @param string $object
      * @param mixed $params
+     *
      * @return bool
      */
     public function isDiffChangeAllowed($object, $params = [])
@@ -130,16 +129,19 @@ class Time extends Model\Object\ClassDefinition\Data\Input
 
     /**
      * @param $data
+     *
      * @return bool
      */
     public function isEmpty($data)
     {
-        return (strlen($data) !== 5);
+        return strlen($data) !== 5;
     }
 
     /**
      * Returns a 5 digit time string of a given time
+     *
      * @param $string
+     *
      * @return null|string
      */
     public function toTime($string)
@@ -154,8 +156,10 @@ class Time extends Model\Object\ClassDefinition\Data\Input
 
     /**
      * Returns a timestamp representation of a given time
+     *
      * @param      $string
      * @param null $baseTimestamp
+     *
      * @return int
      */
     protected function toTimestamp($string, $baseTimestamp=null)
@@ -169,8 +173,10 @@ class Time extends Model\Object\ClassDefinition\Data\Input
 
     /**
      * Returns whether or not a time is earlier than the subject
+     *
      * @param $subject
      * @param $comparison
+     *
      * @return int
      */
     public function isEarlier($subject, $comparison)
@@ -182,8 +188,10 @@ class Time extends Model\Object\ClassDefinition\Data\Input
 
     /**
      * Returns whether or not a time is later than the subject
+     *
      * @param $subject
      * @param $comparison
+     *
      * @return int
      */
     public function isLater($subject, $comparison)
@@ -196,6 +204,7 @@ class Time extends Model\Object\ClassDefinition\Data\Input
     /**
      * @param $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForSearchIndex($object, $params = [])

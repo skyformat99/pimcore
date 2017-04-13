@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Element
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -18,14 +19,14 @@ namespace Pimcore\Model\Element;
 
 use Pimcore\Db\ZendCompatibility\QueryBuilder;
 use Pimcore\Event\SystemEvents;
-use Pimcore\Model;
-use Pimcore\Model\Document;
-use Pimcore\Model\Asset;
-use Pimcore\Model\Object;
-use Pimcore\Model\Dependency;
 use Pimcore\File;
-use Pimcore\Tool;
 use Pimcore\Logger;
+use Pimcore\Model;
+use Pimcore\Model\Asset;
+use Pimcore\Model\Dependency;
+use Pimcore\Model\Document;
+use Pimcore\Model\Object;
+use Pimcore\Tool;
 use Symfony\Component\EventDispatcher\GenericEvent;
 
 /**
@@ -33,10 +34,11 @@ use Symfony\Component\EventDispatcher\GenericEvent;
  */
 class Service extends Model\AbstractModel
 {
-
     /**
      * @static
+     *
      * @param  $element
+     *
      * @return string
      */
     public static function getIdPath($element)
@@ -62,8 +64,11 @@ class Service extends Model\AbstractModel
 
     /**
      * @static
+     *
      * @param $element
+     *
      * @return string
+     *
      * @throws \Exception
      */
     public static function getTypePath($element)
@@ -99,12 +104,12 @@ class Service extends Model\AbstractModel
         return $path;
     }
 
-
-
     /**
      * @static
+     *
      * @param $list array | \Pimcore\Model\Listing\AbstractListing
      * @param string $idGetter
+     *
      * @return array
      */
     public static function getIdList($list, $idGetter = 'getId')
@@ -130,6 +135,7 @@ class Service extends Model\AbstractModel
 
     /**
      * @param Dependency $d
+     *
      * @return array
      */
     public static function getRequiredByDependenciesForFrontend(Dependency $d)
@@ -153,6 +159,7 @@ class Service extends Model\AbstractModel
 
     /**
      * @param Dependency $d
+     *
      * @return array
      */
     public static function getRequiresDependenciesForFrontend(Dependency $d)
@@ -176,6 +183,7 @@ class Service extends Model\AbstractModel
 
     /**
      * @param Document|Asset|Object\AbstractObject $element
+     *
      * @return array
      */
     public static function getDependencyForFrontend($element)
@@ -192,6 +200,7 @@ class Service extends Model\AbstractModel
 
     /**
      * @param array $config
+     *
      * @return Object\AbstractObject|Document|Asset
      */
     public static function getDependedElement($config)
@@ -207,12 +216,13 @@ class Service extends Model\AbstractModel
         return false;
     }
 
-
     /**
      * determines whether an element is published
      *
      * @static
+     *
      * @param  ElementInterface $element
+     *
      * @return bool
      */
     public static function isPublished($element = null)
@@ -230,8 +240,10 @@ class Service extends Model\AbstractModel
 
     /**
      * @static
+     *
      * @param  string $type
      * @param  string $path
+     *
      * @return ElementInterface
      */
     public static function getElementByPath($type, $path)
@@ -247,11 +259,13 @@ class Service extends Model\AbstractModel
         return $element;
     }
 
-
     /**
      * Returns a uniqe key for the element in the $target-Path (recursive)
+     *
      * @static
+     *
      * @return ElementInterface|string
+     *
      * @param string $type
      * @param string $sourceKey
      * @param ElementInterface $target
@@ -274,8 +288,10 @@ class Service extends Model\AbstractModel
 
     /**
      * @static
+     *
      * @param $type
      * @param $path
+     *
      * @return bool
      */
     public static function pathExists($path, $type = null)
@@ -291,11 +307,12 @@ class Service extends Model\AbstractModel
         return;
     }
 
-
     /**
      * @static
+     *
      * @param  string $type
      * @param  int $id
+     *
      * @return ElementInterface
      */
     public static function getElementById($type, $id)
@@ -314,7 +331,9 @@ class Service extends Model\AbstractModel
 
     /**
      * @static
+     *
      * @param  ElementInterface $element $element
+     *
      * @return string
      */
     public static function getElementType($element)
@@ -335,7 +354,9 @@ class Service extends Model\AbstractModel
      * determines the type of an element (object,asset,document)
      *
      * @static
+     *
      * @param  ElementInterface $element
+     *
      * @return string
      */
     public static function getType($element)
@@ -347,6 +368,7 @@ class Service extends Model\AbstractModel
      * Schedules element with this id for sanity check to be cleaned of broken relations
      *
      * @static
+     *
      * @param  ElementInterface $element
      */
     public static function scheduleForSanityCheck($element)
@@ -356,9 +378,6 @@ class Service extends Model\AbstractModel
         $sanityCheck->save();
     }
 
-    /**
-     *
-     */
     public static function runSanityCheck()
     {
         $sanityCheck = Sanitycheck::getNext();
@@ -390,6 +409,7 @@ class Service extends Model\AbstractModel
 
     /**
      * @static
+     *
      * @param ElementInterface $element
      *
      * @todo: I think ElementInterface is the wrong type here, it has no getter latestVersion
@@ -411,10 +431,11 @@ class Service extends Model\AbstractModel
         }
     }
 
-
     /**
      * @static
+     *
      * @param  $props
+     *
      * @return array
      */
     public static function minimizePropertiesForEditmode($props)
@@ -468,7 +489,6 @@ class Service extends Model\AbstractModel
         return $properties;
     }
 
-
     /**
      * @param ElementInterface $target the parent element
      * @param ElementInterface $new the newly inserted child
@@ -495,6 +515,7 @@ class Service extends Model\AbstractModel
 
     /**
      * @param  ElementInterface $element
+     *
      * @return array
      */
     public static function gridElementData(ElementInterface $element)
@@ -518,9 +539,9 @@ class Service extends Model\AbstractModel
         return $data;
     }
 
-
     /**
      * @param ElementInterface $element
+     *
      * @return string
      */
     public static function getFilename(ElementInterface $element)
@@ -534,8 +555,10 @@ class Service extends Model\AbstractModel
 
     /**
      * find all elements which the user may not list and therefore may never be shown to the user
+     *
      * @param string $type asset|object|document
      * @param $user
+     *
      * @return array
      */
     public static function findForbiddenPaths($type, $user)
@@ -567,8 +590,10 @@ class Service extends Model\AbstractModel
 
     /**
      * renews all references, for example after unserializing an ElementInterface
+     *
      * @param Document|Asset|Object\AbstractObject $data
      * @param bool $initial
+     *
      * @return mixed
      */
     public static function renewReferences($data, $initial = true)
@@ -617,7 +642,9 @@ class Service extends Model\AbstractModel
 
     /**
      * @static
+     *
      * @param string $path
+     *
      * @return string
      */
     public static function correctPath($path)
@@ -639,7 +666,9 @@ class Service extends Model\AbstractModel
 
     /**
      * @static
+     *
      * @param ElementInterface $element
+     *
      * @return ElementInterface
      */
     public static function loadAllFields(ElementInterface $element)
@@ -666,6 +695,7 @@ class Service extends Model\AbstractModel
 
     /** Callback for array_filter function.
      * @param string $var value
+     *
      * @return bool true if value is accepted
      */
     private static function filterNullValues($var)
@@ -676,7 +706,9 @@ class Service extends Model\AbstractModel
     /**
      * @param $path
      * @param array $options
+     *
      * @return Asset\Folder|Document\Folder|Object\Folder
+     *
      * @throws \Exception
      */
     public static function createFolderByPath($path, $options = [])
@@ -708,7 +740,7 @@ class Service extends Model\AbstractModel
             for ($i = 0; $i < count($pathsArray); $i++) {
                 $currentPath = $pathsArray[$i];
                 if (!($type::getByPath($currentPath) instanceof $type)) {
-                    $parentFolderPath = ($i ==0) ? '/' : $pathsArray[$i - 1];
+                    $parentFolderPath = ($i == 0) ? '/' : $pathsArray[$i - 1];
 
                     $parentFolder = $type::getByPath($parentFolderPath);
 
@@ -778,13 +810,14 @@ class Service extends Model\AbstractModel
 
                 if ($cv["having"]) {
                     $select->having($cv["having"]);
-                };
+                }
             });
         }
     }
 
     /**
      * @param $id
+     *
      * @return mixed
      */
     public static function getCustomViewById($id)
@@ -802,6 +835,7 @@ class Service extends Model\AbstractModel
     /**
      * @param $key
      * @param null $type
+     *
      * @return mixed|string
      */
     public static function getValidKey($key, $type)
@@ -838,17 +872,19 @@ class Service extends Model\AbstractModel
     /**
      * @param $key
      * @param $type
+     *
      * @return bool
      */
     public static function isValidKey($key, $type)
     {
-        return (self::getValidKey($key, $type) == $key);
+        return self::getValidKey($key, $type) == $key;
     }
 
     /**
      * returns a unique key for an element
      *
      * @param $element
+     *
      * @return string
      */
     public static function getUniqueKey($element)
@@ -865,6 +901,7 @@ class Service extends Model\AbstractModel
     /**
      * @param $data
      * @param $type
+     *
      * @return array|string
      */
     public static function fixAllowedTypes($data, $type)
@@ -903,6 +940,7 @@ class Service extends Model\AbstractModel
 
     /**
      * @param $versions
+     *
      * @return array
      */
     public static function getSafeVersionInfo($versions)
@@ -916,7 +954,6 @@ class Service extends Model\AbstractModel
                 unset($version["user"]);
                 $version["user"]["name"] = $name;
                 $version["user"]["id"] = $id;
-
 
                 $result[] = $version;
             }

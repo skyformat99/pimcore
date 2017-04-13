@@ -10,23 +10,24 @@
  *
  * @category   Pimcore
  * @package    Version
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Version;
 
-use Pimcore\Model;
 use Pimcore\Logger;
+use Pimcore\Model;
 
 /**
  * @property \Pimcore\Model\Version $model
  */
 class Dao extends Model\Dao\AbstractDao
 {
-
     /**
      * @param $id
+     *
      * @throws \Exception
      */
     public function getById($id)
@@ -81,7 +82,9 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * @deprecated
-     * @param integer $days
+     *
+     * @param int $days
+     *
      * @return array
      */
     public function getOutdatedVersionsDays($days)
@@ -97,6 +100,7 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * @param $steps
+     *
      * @return array
      */
     public function getOutdatedVersionsSteps($steps)
@@ -108,9 +112,6 @@ class Dao extends Model\Dao\AbstractDao
         return $versionIds;
     }
 
-    /**
-     *
-     */
     protected function disableSlowQueryLog()
     {
         try {
@@ -120,9 +121,6 @@ class Dao extends Model\Dao\AbstractDao
         }
     }
 
-    /**
-     *
-     */
     protected function enableSlowQueryLog()
     {
         try {
@@ -135,6 +133,7 @@ class Dao extends Model\Dao\AbstractDao
     /**
      * @param $elementTypes
      * @param array $ignoreIds
+     *
      * @return array
      */
     public function maintenanceGetOutdatedVersions($elementTypes, $ignoreIds = [])

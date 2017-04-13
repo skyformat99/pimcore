@@ -24,7 +24,7 @@ class Token implements \Pimcore\Bundle\EcommerceFrameworkBundle\PricingManager\I
     /**
      * @param \Pimcore\Bundle\EcommerceFrameworkBundle\PricingManager\IEnvironment $environment
      *
-     * @return boolean
+     * @return bool
      */
     public function check(\Pimcore\Bundle\EcommerceFrameworkBundle\PricingManager\IEnvironment $environment)
     {
@@ -40,8 +40,7 @@ class Token implements \Pimcore\Bundle\EcommerceFrameworkBundle\PricingManager\I
     {
         // basic
         $json = [
-            'type' => 'Token'
-            , 'token' => $this->getToken()
+            'type' => 'Token', 'token' => $this->getToken()
         ];
 
         return json_encode($json);

@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Tool
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -23,9 +24,9 @@ use Pimcore\Model;
  */
 class Dao extends Model\Dao\AbstractDao
 {
-
     /**
      * @param $id
+     *
      * @throws \Exception
      */
     public function getById($id)
@@ -44,6 +45,7 @@ class Dao extends Model\Dao\AbstractDao
      * @param $day
      * @param $month
      * @param $year
+     *
      * @throws \Exception
      */
     public function getByDate($category, $action, $label, $day, $month, $year)
@@ -55,9 +57,6 @@ class Dao extends Model\Dao\AbstractDao
         $this->assignVariablesToModel($data);
     }
 
-    /**
-     *
-     */
     public function save()
     {
         $data = [
@@ -70,7 +69,7 @@ class Dao extends Model\Dao\AbstractDao
             "month" => (int) date("m", $this->model->getTimestamp()),
             "day" => (int) date("d", $this->model->getTimestamp()),
             "dayOfWeek" => (int) date("N", $this->model->getTimestamp()),
-            "dayOfYear" => (int) date("z", $this->model->getTimestamp())+1,
+            "dayOfYear" => (int) date("z", $this->model->getTimestamp()) + 1,
             "weekOfYear" => (int) date("W", $this->model->getTimestamp()),
             "hour" => (int) date("H", $this->model->getTimestamp()),
             "minute" => (int) date("i", $this->model->getTimestamp()),

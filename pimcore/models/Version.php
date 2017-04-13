@@ -10,33 +10,33 @@
  *
  * @category   Pimcore
  * @package    Version
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model;
 
+use Pimcore\Config;
 use Pimcore\Event\Model\VersionEvent;
 use Pimcore\Event\VersionEvents;
-use Pimcore\Model\Element\ElementInterface;
-use Pimcore\Tool\Serialize;
-use Pimcore\Config;
 use Pimcore\File;
 use Pimcore\Logger;
+use Pimcore\Model\Element\ElementInterface;
+use Pimcore\Tool\Serialize;
 
 /**
  * @method \Pimcore\Model\Version\Dao getDao()
  */
 class Version extends AbstractModel
 {
-
     /**
-     * @var integer
+     * @var int
      */
     public $id;
 
     /**
-     * @var integer
+     * @var int
      */
     public $cid;
 
@@ -46,7 +46,7 @@ class Version extends AbstractModel
     public $ctype;
 
     /**
-     * @var integer
+     * @var int
      */
     public $userId;
 
@@ -61,7 +61,7 @@ class Version extends AbstractModel
     public $note;
 
     /**
-     * @var integer
+     * @var int
      */
     public $date;
 
@@ -76,7 +76,7 @@ class Version extends AbstractModel
     public $public = false;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $serialized = false;
 
@@ -90,9 +90,9 @@ class Version extends AbstractModel
      */
     public static $disabled = false;
 
-
     /**
-     * @param integer $id
+     * @param int $id
+     *
      * @return Version
      */
     public static function getById($id)
@@ -124,7 +124,6 @@ class Version extends AbstractModel
     {
         self::$disabled = false;
     }
-
 
     /**
      * @throws \Exception
@@ -279,7 +278,6 @@ class Version extends AbstractModel
         return $data;
     }
 
-
     /**
      * Returns the path on the file system
      *
@@ -321,6 +319,7 @@ class Version extends AbstractModel
 
     /**
      * the cleanup is now done in the maintenance see self::maintenanceCleanUp()
+     *
      * @deprecated
      */
     public function cleanHistory()
@@ -347,13 +346,13 @@ class Version extends AbstractModel
         $versions = array_merge($days, $steps);
 
         foreach ($versions as $id) {
-            $version = Version::getById($id);
+            $version = self::getById($id);
             $version->delete();
         }
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getCid()
     {
@@ -361,7 +360,7 @@ class Version extends AbstractModel
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getDate()
     {
@@ -369,7 +368,7 @@ class Version extends AbstractModel
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -385,7 +384,7 @@ class Version extends AbstractModel
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getUserId()
     {
@@ -394,6 +393,7 @@ class Version extends AbstractModel
 
     /**
      * @param $cid
+     *
      * @return $this
      */
     public function setCid($cid)
@@ -404,7 +404,8 @@ class Version extends AbstractModel
     }
 
     /**
-     * @param integer $date
+     * @param int $date
+     *
      * @return $this
      */
     public function setDate($date)
@@ -415,7 +416,8 @@ class Version extends AbstractModel
     }
 
     /**
-     * @param integer $id
+     * @param int $id
+     *
      * @return $this
      */
     public function setId($id)
@@ -427,6 +429,7 @@ class Version extends AbstractModel
 
     /**
      * @param string $note
+     *
      * @return $this
      */
     public function setNote($note)
@@ -437,7 +440,8 @@ class Version extends AbstractModel
     }
 
     /**
-     * @param integer $userId
+     * @param int $userId
+     *
      * @return $this
      */
     public function setUserId($userId)
@@ -466,6 +470,7 @@ class Version extends AbstractModel
 
     /**
      * @param mixed $data
+     *
      * @return $this
      */
     public function setData($data)
@@ -476,7 +481,7 @@ class Version extends AbstractModel
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getSerialized()
     {
@@ -484,7 +489,8 @@ class Version extends AbstractModel
     }
 
     /**
-     * @param boolean $serialized
+     * @param bool $serialized
+     *
      * @return $this
      */
     public function setSerialized($serialized)
@@ -504,6 +510,7 @@ class Version extends AbstractModel
 
     /**
      * @param string $ctype
+     *
      * @return $this
      */
     public function setCtype($ctype)
@@ -523,6 +530,7 @@ class Version extends AbstractModel
 
     /**
      * @param User $user
+     *
      * @return $this
      */
     public function setUser($user)
@@ -550,6 +558,7 @@ class Version extends AbstractModel
 
     /**
      * @param bool $public
+     *
      * @return $this
      */
     public function setPublic($public)
@@ -559,7 +568,6 @@ class Version extends AbstractModel
         return $this;
     }
 
-
     public function maintenanceCompress()
     {
         $perIteration = 100;
@@ -567,18 +575,18 @@ class Version extends AbstractModel
         $overallCounter = 0;
 
         $list = new Version\Listing();
-        $list->setCondition("date < " . (time() - 86400*30));
+        $list->setCondition("date < " . (time() - 86400 * 30));
         $list->setOrderKey("date");
         $list->setOrder("DESC");
         $list->setLimit($perIteration);
 
         $total = $list->getTotalCount();
-        $iterations = ceil($total/$perIteration);
+        $iterations = ceil($total / $perIteration);
 
-        for ($i=0; $i<$iterations; $i++) {
-            Logger::debug("iteration " . ($i+1) . " of " . $iterations);
+        for ($i=0; $i < $iterations; $i++) {
+            Logger::debug("iteration " . ($i + 1) . " of " . $iterations);
 
-            $list->setOffset($i*$perIteration);
+            $list->setOffset($i * $perIteration);
 
             $versions = $list->load();
 
@@ -613,9 +621,6 @@ class Version extends AbstractModel
         }
     }
 
-    /**
-     *
-     */
     public function maintenanceCleanUp()
     {
         $conf["document"] = Config::getSystemConfig()->documents->versions;
@@ -645,7 +650,7 @@ class Version extends AbstractModel
 
         while (true) {
             $versions = $this->getDao()->maintenanceGetOutdatedVersions($elementTypes, $ignoredIds);
-            if (count($versions) ==  0) {
+            if (count($versions) == 0) {
                 break;
             }
             $counter = 0;
@@ -655,7 +660,7 @@ class Version extends AbstractModel
                 $totalCount = count($versions);
                 foreach ($versions as $index => $id) {
                     try {
-                        $version = Version::getById($id);
+                        $version = self::getById($id);
                     } catch (\Exception $e) {
                         $ignoredIds[] = $id;
                         Logger::debug("Version with " . $id . " not found\n");

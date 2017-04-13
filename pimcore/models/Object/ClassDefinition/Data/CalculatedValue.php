@@ -10,19 +10,19 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Object\ClassDefinition\Data;
 
+use Pimcore\Logger;
 use Pimcore\Model;
 use Pimcore\Model\Object;
-use Pimcore\Logger;
 
 class CalculatedValue extends Model\Object\ClassDefinition\Data
 {
-
     /**
      * Static type of this element
      *
@@ -50,7 +50,7 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
     /**
      * Column length
      *
-     * @var integer
+     * @var int
      */
     public $columnLength = 190;
 
@@ -62,7 +62,7 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
     public $phpdocType = "\\Pimcore\\Model\\Object\\Data\\CalculatedValue";
 
     /**
-     * @return integer
+     * @return int
      */
     public function getWidth()
     {
@@ -70,7 +70,7 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @param integer $width
+     * @param int $width
      */
     public function setWidth($width)
     {
@@ -87,6 +87,7 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
 
     /**
      * @param $columnLength
+     *
      * @return $this
      */
     public function setColumnLength($columnLength)
@@ -97,8 +98,6 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
 
         return $this;
     }
-
-
 
     /**
      * @return string
@@ -116,14 +115,13 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
         $this->calculatorClass = $calculatorClass;
     }
 
-
-
-
     /**
      * @see Object_Class_Data::getDataForResource
+     *
      * @param float $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return float
      */
     public function getDataForResource($data, $object = null, $params = [])
@@ -133,9 +131,11 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object_Class_Data::getDataFromResource
+     *
      * @param float $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return float
      */
     public function getDataFromResource($data, $object = null, $params = [])
@@ -145,9 +145,11 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object_Class_Data::getDataForQueryResource
+     *
      * @param float $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return float
      */
     public function getDataForQueryResource($data, $object = null, $params = [])
@@ -157,9 +159,11 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object_Class_Data::getDataForEditmode
+     *
      * @param float $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return float
      */
     public function getDataForEditmode($data, $object = null, $params = [])
@@ -173,9 +177,11 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object_Class_Data::getDataFromEditmode
+     *
      * @param float $data
      * @param null|Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return float
      */
     public function getDataFromEditmode($data, $object = null, $params = [])
@@ -184,9 +190,11 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object_Class_Data::getVersionPreview
+     *
      * @param float $data
      * @param null|Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return float
      */
     public function getVersionPreview($data, $object = null, $params = [])
@@ -198,7 +206,8 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
      * Checks if data is valid for current data field
      *
      * @param mixed $data
-     * @param boolean $omitMandatoryCheck
+     * @param bool $omitMandatoryCheck
+     *
      * @throws \Exception
      */
     public function checkValidity($data, $omitMandatoryCheck = false)
@@ -208,9 +217,12 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
 
     /**
      * converts object data to a simple string value or CSV Export
+     *
      * @abstract
+     *
      * @param Object\AbstractObject $object
      * @param array $params
+     *
      * @return string
      */
     public function getForCsvExport($object, $params = [])
@@ -219,24 +231,26 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
         //TODO
     }
 
-
     /**
      * fills object field data values from CSV Import String
+     *
      * @param string $importValue
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
-     * @return double
+     *
+     * @return float
      */
     public function getFromCsvImport($importValue, $object = null, $params = [])
     {
         // nothing to do
     }
 
-
-       /**
+    /**
      * converts data to be exposed via webservices
+     *
      * @param string $object
-        * @param mixed $params
+     * @param mixed $params
+     *
      * @return mixed
      */
     public function getForWebserviceExport($object, $params = [])
@@ -244,13 +258,15 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
         //TODO
     }
 
-     /**
-      * converts data to be imported via webservices
-      * @param mixed $value
-      * @param null|Model\Object\AbstractObject $object
-      * @param mixed $params
-      * @param $idMapper
-      * @return mixed
+    /**
+     * converts data to be imported via webservices
+     *
+     * @param mixed $value
+     * @param null|Model\Object\AbstractObject $object
+     * @param mixed $params
+     * @param $idMapper
+     *
+     * @return mixed
      */
     public function getFromWebserviceImport($value, $object = null, $params = [], $idMapper = null)
     {
@@ -284,7 +300,9 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
 
     /**
      * Creates getter code which is used for generation of php file for object classes using this data type
+     *
      * @param $class
+     *
      * @return string
      */
     public function getGetterCode($class)
@@ -310,7 +328,9 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
 
     /**
      * Creates getter code which is used for generation of php file for localized fields in classes using this data type
+     *
      * @param $class
+     *
      * @return string
      */
     public function getGetterCodeLocalizedfields($class)
@@ -346,7 +366,9 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
 
     /**
      * Creates getter code which is used for generation of php file for object brick classes using this data type
+     *
      * @param $brickClass
+     *
      * @return string
      */
     public function getGetterCodeObjectbrick($brickClass)
@@ -358,7 +380,6 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
         $code .= '* @return ' . $this->getPhpdocType() . "\n";
         $code .= '*/' . "\n";
         $code .= "public function get" . ucfirst($key) . ' ($language = null) {' . "\n";
-
 
         $code .= "\t" . '$brickDefinition = Object\Objectbrick\Definition::getByKey("' . $brickClass->getKey() . '");' . "\n";
         $code .= "\t" . '$fd = $brickDefinition->getFieldDefinition("' . $key . '");' . "\n";
@@ -375,7 +396,9 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
 
     /**
      * Creates getter code which is used for generation of php file for fieldcollectionk classes using this data type
+     *
      * @param $fieldcollectionDefinition
+     *
      * @return string
      */
     public function getGetterCodeFieldcollection($fieldcollectionDefinition)
@@ -401,7 +424,9 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
 
     /**
      * Creates setter code which is used for generation of php file for object classes using this data type
+     *
      * @param $class
+     *
      * @return string
      */
     public function getSetterCode($class)
@@ -422,10 +447,11 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
         return $code;
     }
 
-
     /**
      * Creates setter code which is used for generation of php file for object brick classes using this data type
+     *
      * @param $brickClass
+     *
      * @return string
      */
     public function getSetterCodeObjectbrick($brickClass)
@@ -440,7 +466,6 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
         $code .= '*/' . "\n";
         $code .= "public function set" . ucfirst($key) . " (" . '$' . $key . ") {\n";
 
-
         $code .= "\t" . 'return $this;' . "\n";
         $code .= "}\n\n";
 
@@ -449,7 +474,9 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
 
     /**
      * Creates setter code which is used for generation of php file for fieldcollection classes using this data type
+     *
      * @param $fieldcollectionDefinition
+     *
      * @return string
      */
     public function getSetterCodeFieldcollection($fieldcollectionDefinition)
@@ -472,7 +499,9 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
 
     /**
      * Creates setter code which is used for generation of php file for localized fields in classes using this data type
+     *
      * @param $class
+     *
      * @return string
      */
     public function getSetterCodeLocalizedfields($class)

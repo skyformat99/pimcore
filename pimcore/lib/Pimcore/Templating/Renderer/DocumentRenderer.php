@@ -20,7 +20,6 @@ use Symfony\Component\HttpKernel\Fragment\FragmentRendererInterface;
 
 class DocumentRenderer
 {
-
     /**
      * @var ActionRenderer
      */
@@ -31,9 +30,9 @@ class DocumentRenderer
      */
     protected $fragmentRenderer;
 
-
     /**
      * DocumentRenderer constructor.
+     *
      * @param ActionRenderer $actionRenderer
      * @param FragmentRendererInterface $fragmentRenderer
      */
@@ -49,6 +48,7 @@ class DocumentRenderer
      * @param Document $document
      * @param array $params
      * @param bool $useLayout
+     *
      * @return string
      */
     public function render(Document $document, $params = [], $useLayout = false)

@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    User
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -18,11 +19,13 @@ namespace Pimcore\Model\User;
 
 class Service
 {
-
     /**
      * Mapping between database types and pimcore class names
+     *
      * @static
+     *
      * @param $type
+     *
      * @return string
      */
     public static function getClassNameForType($type)

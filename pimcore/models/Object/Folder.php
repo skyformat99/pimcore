@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -21,7 +22,6 @@ namespace Pimcore\Model\Object;
  */
 class Folder extends AbstractObject
 {
-
     /**
      * @var string
      */
@@ -29,6 +29,7 @@ class Folder extends AbstractObject
 
     /**
      * @param array $values
+     *
      * @return Folder
      */
     public static function create($values)

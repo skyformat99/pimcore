@@ -25,7 +25,6 @@ class MultiSelectFromMultiSelect extends \Pimcore\Bundle\EcommerceFrameworkBundl
         $productList->prepareGroupByValues($field, true, !$filterDefinition->getUseAndCondition());
     }
 
-
     /**
      * @param AbstractFilterDefinitionType $filterDefinition
      * @param IProductList                  $productList
@@ -41,7 +40,6 @@ class MultiSelectFromMultiSelect extends \Pimcore\Bundle\EcommerceFrameworkBundl
         $preSelect = $this->getPreSelect($filterDefinition);
 
         $value = $params[$field];
-
 
         if (empty($value) && !$params['is_reload']) {
             if (is_array($preSelect)) {

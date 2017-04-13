@@ -25,7 +25,6 @@ class SessionCartItem extends AbstractCartItem implements ICartItem
         return $this->cart;
     }
 
-
     public function save()
     {
         throw new \Exception("Not implemented, should not be needed for this cart type.");
@@ -51,7 +50,6 @@ class SessionCartItem extends AbstractCartItem implements ICartItem
     {
         return (array)$this->subItems;
     }
-
 
     /**
      * @return array

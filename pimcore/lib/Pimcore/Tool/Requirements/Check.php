@@ -42,6 +42,7 @@ class Check implements \ArrayAccess
 
     /**
      * Check constructor.
+     *
      * @param array $data
      */
     public function __construct(array $data = [])
@@ -121,6 +122,7 @@ class Check implements \ArrayAccess
 
     /**
      * @param string $offset
+     *
      * @return bool
      */
     public function offsetExists($offset)
@@ -130,6 +132,7 @@ class Check implements \ArrayAccess
 
     /**
      * @param string $offset
+     *
      * @return string
      */
     public function offsetGet($offset)

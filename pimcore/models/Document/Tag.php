@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Document
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -28,7 +29,6 @@ use Pimcore\View;
  */
 abstract class Tag extends Model\AbstractModel implements Model\Document\Tag\TagInterface
 {
-
     /**
      * Options of the current tag, can contain some configurations for the editmode, or the thumbnail name, ...
      *
@@ -52,7 +52,7 @@ abstract class Tag extends Model\AbstractModel implements Model\Document\Tag\Tag
     /**
      * Element belongs to the ID of the document
      *
-     * @var integer
+     * @var int
      */
     protected $documentId;
 
@@ -69,7 +69,7 @@ abstract class Tag extends Model\AbstractModel implements Model\Document\Tag\Tag
     /**
      * In Editmode or not
      *
-     * @var boolean
+     * @var bool
      */
     protected $editmode;
 
@@ -86,6 +86,7 @@ abstract class Tag extends Model\AbstractModel implements Model\Document\Tag\Tag
      * @param null $controller
      * @param null $view
      * @param null $editmode
+     *
      * @return mixed
      */
     public static function factory($type, $name, $documentId, $config = null, $controller = null, $view = null, $editmode = null)
@@ -158,6 +159,7 @@ abstract class Tag extends Model\AbstractModel implements Model\Document\Tag\Tag
 
     /**
      * @param string $name
+     *
      * @return $this
      */
     public function setName($name)
@@ -168,7 +170,8 @@ abstract class Tag extends Model\AbstractModel implements Model\Document\Tag\Tag
     }
 
     /**
-     * @param integer $id
+     * @param int $id
+     *
      * @return $this
      */
     public function setDocumentId($id)
@@ -179,7 +182,7 @@ abstract class Tag extends Model\AbstractModel implements Model\Document\Tag\Tag
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getDocumentId()
     {
@@ -196,6 +199,7 @@ abstract class Tag extends Model\AbstractModel implements Model\Document\Tag\Tag
 
     /**
      * @param array $options
+     *
      * @return $this
      */
     public function setOptions($options)
@@ -207,6 +211,7 @@ abstract class Tag extends Model\AbstractModel implements Model\Document\Tag\Tag
 
     /**
      * @param \Pimcore\Controller\Action $controller
+     *
      * @return $this
      */
     public function setController($controller)
@@ -226,6 +231,7 @@ abstract class Tag extends Model\AbstractModel implements Model\Document\Tag\Tag
 
     /**
      * @param ViewModelInterface|View $view
+     *
      * @return $this
      */
     public function setView($view)
@@ -318,7 +324,7 @@ abstract class Tag extends Model\AbstractModel implements Model\Document\Tag\Tag
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getEditmode()
     {
@@ -326,7 +332,8 @@ abstract class Tag extends Model\AbstractModel implements Model\Document\Tag\Tag
     }
 
     /**
-     * @param boolean $editmode
+     * @param bool $editmode
+     *
      * @return $this
      */
     public function setEditmode($editmode)
@@ -349,6 +356,7 @@ abstract class Tag extends Model\AbstractModel implements Model\Document\Tag\Tag
     /**
      * @param $ownerDocument
      * @param array $tags
+     *
      * @return array
      */
     public function getCacheTags($ownerDocument, $tags = [])
@@ -364,16 +372,17 @@ abstract class Tag extends Model\AbstractModel implements Model\Document\Tag\Tag
         return [];
     }
 
-
     /**
      * Receives a standard class object from webservice import and fills the current tag's data
      *
      * @abstract
+     *
      * @param Webservice\Data\Document\Element $wsElement
      * @param $document
      * @param array $params,
      * @param $idMapper
      * @param mixed $params
+     *
      * @return Webservice\Data\Document\Element
      */
     public function getFromWebserviceImport($wsElement, $document = null, $params = [], $idMapper = null)
@@ -381,12 +390,13 @@ abstract class Tag extends Model\AbstractModel implements Model\Document\Tag\Tag
         return $wsElement;
     }
 
-
     /**
      * Returns the current tag's data for web service export
+     *
      * @param $document
      * @param mixed $params
      * @abstract
+     *
      * @return array
      */
     public function getForWebserviceExport($document = null, $params = [])
@@ -413,8 +423,6 @@ abstract class Tag extends Model\AbstractModel implements Model\Document\Tag\Tag
         return $el;
     }
 
-
-
     /**
      * @return bool
      */
@@ -425,6 +433,7 @@ abstract class Tag extends Model\AbstractModel implements Model\Document\Tag\Tag
 
     /**
      * @param $inherited
+     *
      * @return $this
      */
     public function setInherited($inherited)
@@ -435,7 +444,7 @@ abstract class Tag extends Model\AbstractModel implements Model\Document\Tag\Tag
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getInherited()
     {
@@ -446,7 +455,9 @@ abstract class Tag extends Model\AbstractModel implements Model\Document\Tag\Tag
      * @param $type
      * @param $name
      * @param null $document
+     *
      * @return string
+     *
      * @throws \Exception
      */
     public static function buildTagName($type, $name, $document = null)

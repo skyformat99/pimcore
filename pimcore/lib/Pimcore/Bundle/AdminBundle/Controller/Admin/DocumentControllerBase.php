@@ -30,7 +30,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 abstract class DocumentControllerBase extends AdminController implements EventedControllerInterface
 {
-
     /**
      * @param Request $request
      * @param Model\Document $document
@@ -152,7 +151,9 @@ abstract class DocumentControllerBase extends AdminController implements Evented
 
     /**
      * @Route("/save-to-session")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function saveToSessionAction(Request $request)
@@ -197,7 +198,9 @@ abstract class DocumentControllerBase extends AdminController implements Evented
 
     /**
      * @Route("/remove-from-session")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function removeFromSessionAction(Request $request)
@@ -222,6 +225,7 @@ abstract class DocumentControllerBase extends AdminController implements Evented
 
     /**
      * @param Model\Document $document
+     *
      * @return Model\Document
      */
     protected function getLatestVersion(Model\Document $document)
@@ -240,8 +244,11 @@ abstract class DocumentControllerBase extends AdminController implements Evented
 
     /**
      * This is used for pages and snippets to change the master document (which is not saved with the normal save button)
+     *
      * @Route("/change-master-document")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function changeMasterDocumentAction(Request $request)

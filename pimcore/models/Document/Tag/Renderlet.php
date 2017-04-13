@@ -10,30 +10,30 @@
  *
  * @category   Pimcore
  * @package    Document
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Document\Tag;
 
-use Pimcore\Model;
 use Pimcore\Config;
-use Pimcore\Model\Document;
-use Pimcore\Model\Asset;
-use Pimcore\Model\Object;
-use Pimcore\Model\Element;
 use Pimcore\Logger;
+use Pimcore\Model;
+use Pimcore\Model\Asset;
+use Pimcore\Model\Document;
+use Pimcore\Model\Element;
+use Pimcore\Model\Object;
 
 /**
  * @method \Pimcore\Model\Document\Tag\Dao getDao()
  */
 class Renderlet extends Model\Document\Tag
 {
-
     /**
      * Contains the ID of the linked object
      *
-     * @var integer
+     * @var int
      */
     public $id;
 
@@ -44,14 +44,12 @@ class Renderlet extends Model\Document\Tag
      */
     public $o;
 
-
     /**
      * Contains the type
      *
      * @var string
      */
     public $type;
-
 
     /**
      * Contains the subtype
@@ -62,6 +60,7 @@ class Renderlet extends Model\Document\Tag
 
     /**
      * @see Document\Tag\TagInterface::getType
+     *
      * @return string
      */
     public function getType()
@@ -71,6 +70,7 @@ class Renderlet extends Model\Document\Tag
 
     /**
      * @see Document\Tag\TagInterface::getData
+     *
      * @return mixed
      */
     public function getData()
@@ -102,6 +102,7 @@ class Renderlet extends Model\Document\Tag
 
     /**
      * @see Document\Tag\TagInterface::frontend
+     *
      * @return string
      */
     public function frontend()
@@ -179,7 +180,9 @@ class Renderlet extends Model\Document\Tag
 
     /**
      * @see Document\Tag\TagInterface::setDataFromResource
+     *
      * @param mixed $data
+     *
      * @return $this
      */
     public function setDataFromResource($data)
@@ -197,7 +200,9 @@ class Renderlet extends Model\Document\Tag
 
     /**
      * @see Document\Tag\TagInterface::setDataFromEditmode
+     *
      * @param mixed $data
+     *
      * @return $this
      */
     public function setDataFromEditmode($data)
@@ -247,8 +252,11 @@ class Renderlet extends Model\Document\Tag
 
     /**
      * get correct type of object as string
+     *
      * @param null $object
+     *
      * @return bool|string
+     *
      * @internal param mixed $data
      */
     public function getObjectType($object = null)
@@ -265,9 +273,8 @@ class Renderlet extends Model\Document\Tag
         }
     }
 
-
     /**
-     * @return boolean
+     * @return bool
      */
     public function isEmpty()
     {
@@ -285,12 +292,13 @@ class Renderlet extends Model\Document\Tag
      * @param $document
      * @param mixed $params
      * @param null $idMapper
+     *
      * @throws \Exception
      */
     public function getFromWebserviceImport($wsElement, $document = null, $params = [], $idMapper = null)
     {
         $data = $wsElement->value;
-        if ($data->id !==null) {
+        if ($data->id !== null) {
             $this->type = $data->type;
             $this->subtype = $data->subtype;
             if (is_numeric($this->id)) {
@@ -385,6 +393,7 @@ class Renderlet extends Model\Document\Tag
 
     /**
      * @param int $id
+     *
      * @return Document\Tag\Renderlet
      */
     public function setId($id)
@@ -404,6 +413,7 @@ class Renderlet extends Model\Document\Tag
 
     /**
      * @param Asset|Document|Object $o
+     *
      * @return Document\Tag\Renderlet
      */
     public function setO($o)
@@ -423,6 +433,7 @@ class Renderlet extends Model\Document\Tag
 
     /**
      * @param string $subtype
+     *
      * @return Document\Tag\Renderlet
      */
     public function setSubtype($subtype)
@@ -450,6 +461,7 @@ class Renderlet extends Model\Document\Tag
      *  "object" => array(...),
      *  "asset" => array(...)
      * )
+     *
      * @param array $idMapping
      */
     public function rewriteIds($idMapping)

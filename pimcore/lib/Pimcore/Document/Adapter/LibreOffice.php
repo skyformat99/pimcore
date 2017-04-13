@@ -14,15 +14,13 @@
 
 namespace Pimcore\Document\Adapter;
 
-use Pimcore\Document\Adapter\Ghostscript;
-use Pimcore\Tool\Console;
 use Pimcore\File;
-use Pimcore\Model;
 use Pimcore\Logger;
+use Pimcore\Model;
+use Pimcore\Tool\Console;
 
 class LibreOffice extends Ghostscript
 {
-
     /**
      * @var string
      */
@@ -47,6 +45,7 @@ class LibreOffice extends Ghostscript
 
     /**
      * @param string $fileType
+     *
      * @return bool
      */
     public function isFileTypeSupported($fileType)
@@ -62,6 +61,7 @@ class LibreOffice extends Ghostscript
 
     /**
      * @return mixed
+     *
      * @throws \Exception
      */
     public static function getLibreOfficeCli()
@@ -71,7 +71,9 @@ class LibreOffice extends Ghostscript
 
     /**
      * @param $path
+     *
      * @return $this
+     *
      * @throws \Exception
      */
     public function load($path)
@@ -107,7 +109,9 @@ class LibreOffice extends Ghostscript
 
     /**
      * @param null $path
+     *
      * @return null|string|void
+     *
      * @throws \Exception
      */
     public function getPdf($path = null)
@@ -168,7 +172,9 @@ class LibreOffice extends Ghostscript
     /**
      * @param null $page
      * @param null $path
+     *
      * @return bool|string
+     *
      * @throws \Exception
      */
     public function getText($page = null, $path = null)

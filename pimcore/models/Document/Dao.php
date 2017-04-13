@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Document
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -26,10 +27,12 @@ use Pimcore\Tool\Serialize;
 class Dao extends Model\Element\Dao
 {
     use Model\Element\ChildsCompatibilityTrait;
+
     /**
      * Fetch a row by an id from the database and assign variables to the document model.
      *
      * @param $id
+     *
      * @throws \Exception
      */
     public function getById($id)
@@ -52,6 +55,7 @@ class Dao extends Model\Element\Dao
      * Fetch a row by a path from the database and assign variables to the model.
      *
      * @param $path
+     *
      * @throws \Exception
      */
     public function getByPath($path)
@@ -83,7 +87,6 @@ class Dao extends Model\Element\Dao
             }
         }
     }
-
 
     /**
      * Insert a new row to the database.
@@ -211,6 +214,7 @@ class Dao extends Model\Element\Dao
      * Updates children path in order to the old document path specified in the $oldPath parameter.
      *
      * @param $oldPath
+     *
      * @return array
      */
     public function updateChildsPaths($oldPath)
@@ -231,7 +235,6 @@ class Dao extends Model\Element\Dao
 
         //update documents child properties paths
         $this->db->query("update properties set cpath = replace(cpath," . $this->db->quote($oldPath . "/") . "," . $this->db->quote($this->model->getRealFullPath() . "/") . ") where cpath like " . $this->db->quote($oldPath . "/%") . ";");
-
 
         return $documents;
     }
@@ -256,8 +259,9 @@ class Dao extends Model\Element\Dao
     /**
      * Returns properties for the object from the database and assigns these.
      *
-     * @param boolean $onlyInherited
-     * @param boolean $onlyDirect
+     * @param bool $onlyInherited
+     * @param bool $onlyDirect
+     *
      * @return array
      */
     public function getProperties($onlyInherited = false, $onlyDirect = false)
@@ -340,7 +344,7 @@ class Dao extends Model\Element\Dao
     /**
      * Checks if there are children.
      *
-     * @return boolean
+     * @return bool
      */
     public function hasChildren()
     {
@@ -353,7 +357,8 @@ class Dao extends Model\Element\Dao
      * Returns the amount of children (not recursively),
      *
      * @param Model\User $user
-     * @return integer
+     *
+     * @return int
      */
     public function getChildAmount($user = null)
     {
@@ -374,7 +379,7 @@ class Dao extends Model\Element\Dao
     /**
      * Checks if the document has siblings
      *
-     * @return boolean
+     * @return bool
      */
     public function hasSiblings()
     {
@@ -387,6 +392,7 @@ class Dao extends Model\Element\Dao
      * Checks if the document is locked.
      *
      * @return bool
+     *
      * @throws \Exception
      */
     public function isLocked()
@@ -407,7 +413,6 @@ class Dao extends Model\Element\Dao
         if ($inhertitedLocks > 0) {
             return true;
         }
-
 
         return false;
     }
@@ -445,6 +450,7 @@ class Dao extends Model\Element\Dao
      *
      * @param $type
      * @param $user
+     *
      * @return bool
      */
     public function isAllowed($type, $user)
@@ -495,6 +501,7 @@ class Dao extends Model\Element\Dao
      * Save the document index.
      *
      * @param $index
+     *
      * @throws \Exception
      */
     public function saveIndex($index)

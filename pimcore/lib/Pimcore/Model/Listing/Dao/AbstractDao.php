@@ -20,12 +20,10 @@ use Pimcore\Model;
 
 abstract class AbstractDao extends Model\Dao\AbstractDao
 {
-
     /**
      * @var Model\Object\Listing
      */
     protected $model;
-
 
     /**
      * @return string
@@ -100,7 +98,6 @@ abstract class AbstractDao extends Model\Dao\AbstractDao
         return "";
     }
 
-
     /**
      * @param QueryBuilder $select
      *
@@ -134,10 +131,11 @@ abstract class AbstractDao extends Model\Dao\AbstractDao
         }
     }
 
-
     /**
      * @param QueryBuilder $select
+     *
      * @return $this
+     *
      * @internal param $QueryBuilder
      *
      */
@@ -151,7 +149,6 @@ abstract class AbstractDao extends Model\Dao\AbstractDao
         return $this;
     }
 
-
     /**
      * @param QueryBuilder $select
      *
@@ -163,7 +160,6 @@ abstract class AbstractDao extends Model\Dao\AbstractDao
 
         return $this;
     }
-
 
     /**
      * @param QueryBuilder $select

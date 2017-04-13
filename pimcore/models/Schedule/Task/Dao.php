@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Schedule
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -23,9 +24,9 @@ use Pimcore\Model;
  */
 class Dao extends Model\Dao\AbstractDao
 {
-
     /**
      * @param $id
+     *
      * @throws \Exception
      */
     public function getById($id)
@@ -37,11 +38,10 @@ class Dao extends Model\Dao\AbstractDao
         $this->assignVariablesToModel($data);
     }
 
-
     /**
      * Save object to database
      *
-     * @return boolean
+     * @return bool
      *
      * @todo: update() and create() don't return anything
      */

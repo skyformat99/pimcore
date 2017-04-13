@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Document
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -23,11 +24,11 @@ use Pimcore\Model;
  */
 class Dao extends Model\Document\PageSnippet\Dao
 {
-
     /**
      * Get the data for the object by the given id, or by the id which is set in the object
      *
-     * @param integer $id
+     * @param int $id
+     *
      * @throws \Exception
      */
     public function getById($id = null)

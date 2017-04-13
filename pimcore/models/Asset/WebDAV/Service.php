@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Asset
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -20,7 +21,6 @@ use Pimcore\Model\Asset;
 
 class Service
 {
-
     /**
      * @return string
      */
@@ -43,7 +43,7 @@ class Service
                 // cleanup old entries
                 $tmpLog = [];
                 foreach ($log as $path => $data) {
-                    if ($data["timestamp"] > (time()-30)) { // remove 30 seconds old entries
+                    if ($data["timestamp"] > (time() - 30)) { // remove 30 seconds old entries
                         $tmpLog[$path] = $data;
                     }
                 }
@@ -62,7 +62,7 @@ class Service
         // cleanup old entries
         $tmpLog = [];
         foreach ($log as $path => $data) {
-            if ($data["timestamp"] > (time()-30)) { // remove 30 seconds old entries
+            if ($data["timestamp"] > (time() - 30)) { // remove 30 seconds old entries
                 $tmpLog[$path] = $data;
             }
         }

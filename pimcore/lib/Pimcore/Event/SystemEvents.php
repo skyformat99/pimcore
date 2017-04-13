@@ -20,6 +20,7 @@ final class SystemEvents
      * This event is fired on shutdown (register_shutdown_function)
      *
      * @Event()
+     *
      * @var string
      */
     const SHUTDOWN = 'pimcore.system.shutdown';
@@ -28,6 +29,7 @@ final class SystemEvents
      * Use this event to register your own maintenance jobs, this event is triggered just before the jobs are executed
      *
      * @Event("Pimcore\Event\System\MaintenanceEvent")
+     *
      * @var string
      */
     const MAINTENANCE = 'pimcore.system.maintenance';
@@ -36,6 +38,7 @@ final class SystemEvents
      * 	See Console / CLI | allow to register console commands (e.g. through plugins)
      *
      * @Event("Pimcore\Event\System\ConsoleEvent")
+     *
      * @var string
      */
     const CONSOLE_INIT = "pimcore.system.console.init";
@@ -44,6 +47,7 @@ final class SystemEvents
      * This event is fired on maintenance mode activation
      *
      * @Event()
+     *
      * @var string
      */
     const MAINTENANCE_MODE_ACTIVATE = "pimcore.system.maintenance_mode.activate";
@@ -52,6 +56,7 @@ final class SystemEvents
      * This event is fired on maintenance mode deactivation
      *
      * @Event()
+     *
      * @var string
      */
     const MAINTENANCE_MODE_DEACTIVATE = "pimcore.system.maintenance_mode.deactivate";
@@ -60,6 +65,7 @@ final class SystemEvents
      * This event is fired on Full-Page Cache clear
      *
      * @Event()
+     *
      * @var string
      */
     const CACHE_CLEAR_FULLPAGE_CACHE = "pimcore.system.cache.clearFullpageCache";
@@ -68,6 +74,7 @@ final class SystemEvents
      * This event is fired on Cache clear
      *
      * @Event()
+     *
      * @var string
      */
     const CACHE_CLEAR = "pimcore.system.cache.clear";
@@ -76,6 +83,7 @@ final class SystemEvents
      * This event is fired on Temporary Files clear
      *
      * @Event()
+     *
      * @var string
      */
     const CACHE_CLEAR_TEMPORARY_FILES = "pimcore.system.cache.clearTemporaryFiles";
@@ -84,6 +92,7 @@ final class SystemEvents
      * This event is fired on Temporary Files clear
      *
      * @Event("\Symfony\Component\EventDispatcher\GenericEvent")
+     *
      * @var string
      */
     const SERVICE_PRE_GET_VALID_KEY = "pimcore.system.service.preGetValidKey";

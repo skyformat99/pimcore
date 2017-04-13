@@ -16,7 +16,6 @@ namespace Pimcore\Helper;
 
 class ImageChart
 {
-
     /**
      * @var string
      */
@@ -25,6 +24,7 @@ class ImageChart
     /**
      * @param $data
      * @param string $parameters
+     *
      * @return string
      */
     public static function lineSmall($data, $parameters="")

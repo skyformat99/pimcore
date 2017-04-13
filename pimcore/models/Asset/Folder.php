@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Asset
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -34,6 +35,7 @@ class Folder extends Model\Asset
      * set the children of the document
      *
      * @param $children
+     *
      * @return Folder
      */
     public function setChildren($children)

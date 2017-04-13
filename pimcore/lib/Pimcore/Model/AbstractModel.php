@@ -26,7 +26,6 @@ use Pimcore\Logger;
  */
 abstract class AbstractModel
 {
-
     /**
      * @var \Pimcore\Model\Dao\AbstractDao
      */
@@ -51,6 +50,7 @@ abstract class AbstractModel
 
     /**
      * @param $dao
+     *
      * @return self
      */
     public function setDao($dao)
@@ -62,6 +62,7 @@ abstract class AbstractModel
 
     /**
      * @deprecated
+     *
      * @return Dao\AbstractDao
      */
     public function getResource()
@@ -72,6 +73,7 @@ abstract class AbstractModel
     /**
      * @param null $key
      * @param bool $forceDetection
+     *
      * @throws \Exception
      */
     public function initDao($key = null, $forceDetection = false)
@@ -154,9 +156,9 @@ abstract class AbstractModel
         }
     }
 
-
     /**
      * @param array $data
+     *
      * @return $this
      */
     public function setValues($data = [])
@@ -173,6 +175,7 @@ abstract class AbstractModel
     /**
      * @param  $key
      * @param  $value
+     *
      * @return $this
      */
     public function setValue($key, $value)
@@ -208,7 +211,9 @@ abstract class AbstractModel
     /**
      * @param $method
      * @param $args
+     *
      * @return mixed
+     *
      * @throws \Exception
      */
     public function __call($method, $args)

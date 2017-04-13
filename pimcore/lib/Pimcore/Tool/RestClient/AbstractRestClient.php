@@ -360,6 +360,7 @@ abstract class AbstractRestClient implements LoggerAwareInterface
      * @param int               $expectedStatus
      *
      * @return object
+     *
      * @throws Exception
      */
     protected function parseJsonResponse(RequestInterface $request, ResponseInterface $response, $expectedStatus = 200)
@@ -499,6 +500,7 @@ abstract class AbstractRestClient implements LoggerAwareInterface
      * @param null $objectClass
      *
      * @return Object[]
+     *
      * @throws Exception
      */
     public function getObjectList($condition = null, $order = null, $orderKey = null, $offset = null, $limit = null, $groupBy = null, $decode = true, $objectClass = null)
@@ -536,6 +538,7 @@ abstract class AbstractRestClient implements LoggerAwareInterface
      * @param bool $decode
      *
      * @return Asset[]
+     *
      * @throws Exception
      */
     public function getAssetList($condition = null, $order = null, $orderKey = null, $offset = null, $limit = null, $groupBy = null, $decode = true)
@@ -575,6 +578,7 @@ abstract class AbstractRestClient implements LoggerAwareInterface
      * @param bool $decode
      *
      * @return Document[]
+     *
      * @throws Exception
      */
     public function getDocumentList($condition = null, $order = null, $orderKey = null, $offset = null, $limit = null, $groupBy = null, $decode = true)
@@ -615,6 +619,7 @@ abstract class AbstractRestClient implements LoggerAwareInterface
      * @param null $idMapper
      *
      * @return mixed|Object\Folder
+     *
      * @throws Exception
      */
     public function getObjectById($id, $decode = true, $idMapper = null)
@@ -676,6 +681,7 @@ abstract class AbstractRestClient implements LoggerAwareInterface
      * @param null $idMapper
      *
      * @return mixed
+     *
      * @throws Exception
      */
     public function getDocumentById($id, $decode = true, $idMapper = null)
@@ -723,6 +729,7 @@ abstract class AbstractRestClient implements LoggerAwareInterface
      * @param string $protocol
      *
      * @return mixed|Asset\Folder
+     *
      * @throws Exception
      */
     public function getAssetById($id, $decode = true, $idMapper = null, $light = false, $thumbnail = null, $tolerant = false, $protocol = "http://")
@@ -776,7 +783,7 @@ abstract class AbstractRestClient implements LoggerAwareInterface
                         $client->setUri($uri);
 
                         if ($this->getLoggingEnabled()) {
-                            print("    =>" . $uri . "\n");
+                            print "    =>" . $uri . "\n";
                         }
 
                         $result = $client->request();
@@ -874,6 +881,7 @@ abstract class AbstractRestClient implements LoggerAwareInterface
      * @param Asset $asset
      *
      * @return mixed|null|string
+     *
      * @throws Exception
      * @throws \Exception
      */
@@ -976,6 +984,7 @@ abstract class AbstractRestClient implements LoggerAwareInterface
      * @param bool $decode
      *
      * @return mixed|null|Object\ClassDefinition|string
+     *
      * @throws Exception
      */
     public function getClassById($id, $decode = true)
@@ -1000,6 +1009,7 @@ abstract class AbstractRestClient implements LoggerAwareInterface
      * @param bool $decode
      *
      * @return mixed|Object\ClassDefinition
+     *
      * @throws Exception
      */
     public function getObjectMetaById($id, $decode = true)
@@ -1024,6 +1034,7 @@ abstract class AbstractRestClient implements LoggerAwareInterface
      * @param null $groupBy
      *
      * @return mixed
+     *
      * @throws Exception
      */
     public function getAssetCount($condition = null, $groupBy = null)
@@ -1045,6 +1056,7 @@ abstract class AbstractRestClient implements LoggerAwareInterface
      * @param null $groupBy
      *
      * @return mixed
+     *
      * @throws Exception
      */
     public function getDocumentCount($condition = null, $groupBy = null)
@@ -1067,6 +1079,7 @@ abstract class AbstractRestClient implements LoggerAwareInterface
      * @param null $objectClass
      *
      * @return mixed
+     *
      * @throws Exception
      */
     public function getObjectCount($condition = null, $groupBy = null, $objectClass = null)
@@ -1098,6 +1111,7 @@ abstract class AbstractRestClient implements LoggerAwareInterface
 
     /**
      * @return mixed|null|string
+     *
      * @throws Exception
      */
     public function getFieldCollections()
@@ -1111,6 +1125,7 @@ abstract class AbstractRestClient implements LoggerAwareInterface
      * @param $id
      *
      * @return mixed|null|string
+     *
      * @throws Exception
      */
     public function getFieldCollection($id)
@@ -1217,6 +1232,7 @@ abstract class AbstractRestClient implements LoggerAwareInterface
      * @param $data
      *
      * @return mixed
+     *
      * @throws Exception
      */
     private function map($wsData, $data)
@@ -1251,6 +1267,7 @@ abstract class AbstractRestClient implements LoggerAwareInterface
      * @param $data
      *
      * @return mixed
+     *
      * @throws Exception
      */
     private function fillWebserviceData($class, $data)

@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -38,7 +39,6 @@ class Dao extends Model\Dao\AbstractDao
         if ($groupId != null) {
             $this->model->setGroupId($groupId);
         }
-
 
         $data = $this->db->fetchRow("SELECT * FROM " . self::TABLE_NAME_RELATIONS
             . "," . Model\Object\Classificationstore\KeyConfig\Dao::TABLE_NAME_KEYS . " WHERE keyId = ? AND groupId = `?", $this->model->getKeyId(), $this->model->groupId);
@@ -69,6 +69,7 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * @return Model\Object\Classificationstore\KeyGroupRelation
+     *
      * @throws \Exception
      */
     public function update()
@@ -100,7 +101,7 @@ class Dao extends Model\Dao\AbstractDao
     /**
      * Create a new record for the object in database
      *
-     * @return boolean
+     * @return bool
      */
     public function create()
     {

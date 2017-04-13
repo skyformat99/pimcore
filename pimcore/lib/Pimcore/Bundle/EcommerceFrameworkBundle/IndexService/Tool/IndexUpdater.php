@@ -19,7 +19,6 @@ use Pimcore\Bundle\EcommerceFrameworkBundle\IndexService\Worker\IBatchProcessing
 
 class IndexUpdater
 {
-
     /**
      * Runs update index for all tenants
      *  - but does not run processPreparationQueue or processUpdateIndexQueue
@@ -64,7 +63,6 @@ class IndexUpdater
             \Pimcore::collectGarbage();
         }
     }
-
 
     /**
      * Runs processPreparationQueue for given tenants or for all tenants
@@ -126,6 +124,7 @@ class IndexUpdater
      * @param int $maxRounds - max rounds after process returns. null for infinite run until no work is left
      * @param string $loggername
      * @param int $indexItemsPerRound - number of items to index per round
+     *
      * @throws \Pimcore\Bundle\EcommerceFrameworkBundle\Exception\InvalidConfigException
      */
     public static function processUpdateIndexQueue($tenants = null, $maxRounds = null, $loggername = "indexupdater", $indexItemsPerRound = 200)
@@ -148,7 +147,6 @@ class IndexUpdater
 
             $indexService = Factory::getInstance()->getIndexService();
             $worker = $indexService->getCurrentTenantWorker();
-
 
             if ($worker instanceof IBatchProcessingWorker) {
                 $result = true;

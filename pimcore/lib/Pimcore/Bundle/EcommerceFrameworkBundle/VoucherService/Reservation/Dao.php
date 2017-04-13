@@ -28,6 +28,7 @@ class Dao extends \Pimcore\Model\Dao\AbstractDao
     /**
      * @param string $code
      * @param \Pimcore\Bundle\EcommerceFrameworkBundle\CartManager\ICart $cart
+     *
      * @return bool|string
      */
     public function get($code, \Pimcore\Bundle\EcommerceFrameworkBundle\CartManager\ICart $cart = null)
@@ -72,7 +73,6 @@ class Dao extends \Pimcore\Model\Dao\AbstractDao
         }
     }
 
-
     /**
      * @return bool
      */
@@ -87,9 +87,9 @@ class Dao extends \Pimcore\Model\Dao\AbstractDao
         }
     }
 
-
     /**
      * @param null|int $seriesId
+     *
      * @return bool|int
      */
     public static function getReservedTokenCount($seriesId = null)
@@ -117,6 +117,7 @@ class Dao extends \Pimcore\Model\Dao\AbstractDao
 
     /**
      * @param string $token
+     *
      * @return bool
      */
     public static function isReservedToken($token)

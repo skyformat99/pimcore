@@ -64,7 +64,6 @@ class NumberRangeSelection extends AbstractFilterType
             $currentValue = implode($currentFilter[$field], "-");
         }
 
-
         return $this->render($script, [
             "hideFilter" => $filterDefinition->getRequiredFilterField() && empty($currentFilter[$filterDefinition->getRequiredFilterField()]),
             "label" => $filterDefinition->getLabel(),
@@ -113,7 +112,6 @@ class NumberRangeSelection extends AbstractFilterType
         }
 
         $currentFilter[$field] = $value;
-
 
         if (!empty($value)) {
             if (!empty($value['from'])) {

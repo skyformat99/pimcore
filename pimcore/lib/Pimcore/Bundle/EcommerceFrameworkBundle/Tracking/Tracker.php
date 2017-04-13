@@ -60,6 +60,7 @@ abstract class Tracker implements ITracker
      * Get path to view script
      *
      * @param $name
+     *
      * @return string
      */
     protected function getViewScript($name)
@@ -72,6 +73,7 @@ abstract class Tracker implements ITracker
      *
      * @param $data
      * @param array $protectedKeys
+     *
      * @return array
      */
     protected function filterNullValues($data, $protectedKeys = [])
@@ -86,7 +88,6 @@ abstract class Tracker implements ITracker
 
         return $result;
     }
-
 
     private $dependenciesIncluded = false;
 

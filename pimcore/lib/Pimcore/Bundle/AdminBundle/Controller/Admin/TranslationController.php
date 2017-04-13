@@ -15,14 +15,14 @@
 namespace Pimcore\Bundle\AdminBundle\Controller\Admin;
 
 use Pimcore\Bundle\AdminBundle\Controller\AdminController;
-use Pimcore\Tool;
 use Pimcore\File;
-use Pimcore\Model\Translation;
-use Pimcore\Model\Object;
+use Pimcore\Logger;
+use Pimcore\Model;
 use Pimcore\Model\Document;
 use Pimcore\Model\Element;
-use Pimcore\Model;
-use Pimcore\Logger;
+use Pimcore\Model\Object;
+use Pimcore\Model\Translation;
+use Pimcore\Tool;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,7 +39,9 @@ class TranslationController extends AdminController
 
     /**
      * @Route("/import")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function importAction(Request $request)
@@ -85,10 +87,11 @@ class TranslationController extends AdminController
         return $response;
     }
 
-
     /**
      * @Route("/export")
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function exportAction(Request $request)
@@ -114,7 +117,6 @@ class TranslationController extends AdminController
         }
 
         $joins = [];
-
 
         $list->setOrder("asc");
         $list->setOrderKey($tableName . ".key", false);
@@ -152,7 +154,6 @@ class TranslationController extends AdminController
 
             $translationObjects[] = $t;
         }
-
 
         foreach ($translationObjects as $t) {
             $translations[] = array_merge(["key" => $t->getKey(),
@@ -219,7 +220,9 @@ class TranslationController extends AdminController
 
     /**
      * @Route("/add-admin-translation-keys")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function addAdminTranslationKeysAction(Request $request)
@@ -261,7 +264,9 @@ class TranslationController extends AdminController
 
     /**
      * @Route("/translations")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function translationsAction(Request $request)
@@ -442,6 +447,7 @@ class TranslationController extends AdminController
      * @param Request $request
      * @param $tableName
      * @param bool $languageMode
+     *
      * @return array|null|string
      */
     protected function getGridFilterCondition(Request $request, $tableName, $languageMode = false)
@@ -449,7 +455,6 @@ class TranslationController extends AdminController
         $joins = [];
         $conditions = [];
         $validLanguages = $this->getUser()->getAllowedLanguagesForViewingWebsiteTranslations();
-        ;
 
         $db = \Pimcore\Db::get();
         $conditionFilters = [];
@@ -533,7 +538,9 @@ class TranslationController extends AdminController
 
     /**
      * @Route("/cleanup")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function cleanupAction(Request $request)
@@ -551,7 +558,6 @@ class TranslationController extends AdminController
         return $this->json(["success" => false]);
     }
 
-
     /**
      * -----------------------------------------------------------------------------------
      * THE FOLLOWING ISN'T RELATED TO THE SHARED TRANSLATIONS OR ADMIN-TRANSLATIONS
@@ -561,7 +567,9 @@ class TranslationController extends AdminController
 
     /**
      * @Route("/content-export-jobs")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function contentExportJobsAction(Request $request)
@@ -640,7 +648,9 @@ class TranslationController extends AdminController
 
     /**
      * @Route("/xliff-export")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function xliffExportAction(Request $request)
@@ -709,7 +719,6 @@ class TranslationController extends AdminController
                         }
                     }
                 }
-
 
                 if ($element instanceof Document\Page) {
                     $data = [
@@ -797,7 +806,9 @@ class TranslationController extends AdminController
 
     /**
      * @Route("/xliff-export-download")
+     *
      * @param Request $request
+     *
      * @return BinaryFileResponse
      */
     public function xliffExportDownloadAction(Request $request)
@@ -815,7 +826,9 @@ class TranslationController extends AdminController
 
     /**
      * @Route("/xliff-import-upload")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function xliffImportUploadAction(Request $request)
@@ -828,7 +841,7 @@ class TranslationController extends AdminController
         $xliff = simplexml_load_file($importFile, null, LIBXML_NOCDATA);
         $steps = count($xliff->file);
 
-        for ($i=0; $i<$steps; $i++) {
+        for ($i=0; $i < $steps; $i++) {
             $jobs[] = [[
                 "url" => "/admin/translation/xliff-import-element",
                 "params" => [
@@ -852,8 +865,11 @@ class TranslationController extends AdminController
 
     /**
      * @Route("/xliff-import-element")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
+     *
      * @throws \Exception
      */
     public function xliffImportElementAction(Request $request)
@@ -971,6 +987,7 @@ class TranslationController extends AdminController
 
     /**
      * @param $content
+     *
      * @return mixed|string
      */
     protected function unescapeXliff($content)
@@ -996,6 +1013,7 @@ class TranslationController extends AdminController
 
     /**
      * @param $content
+     *
      * @return mixed|string
      */
     protected function escapeXliff($content)
@@ -1060,7 +1078,9 @@ class TranslationController extends AdminController
 
     /**
      * @Route("/word-export")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function wordExportAction(Request $request)
@@ -1133,7 +1153,6 @@ class TranslationController extends AdminController
                         }
                     }
 
-
                     // we need to set the parameter "pimcore_admin" here to be able to render unpublished documents
                     $reqBak = $_REQUEST;
                     $_REQUEST["pimcore_admin"] = true;
@@ -1179,7 +1198,6 @@ class TranslationController extends AdminController
                             }
                         }
 
-
                         // replace links => links get [Linktext]
                         $elements = $dom->find("a");
                         if ($elements) {
@@ -1204,7 +1222,7 @@ class TranslationController extends AdminController
                         libxml_clear_errors();
                         $html = $doc->saveHTML();
 
-                        $bodyStart = strpos($html, "<body>")+6;
+                        $bodyStart = strpos($html, "<body>") + 6;
                         $bodyEnd = strpos($html, "</body>");
                         if ($bodyStart && $bodyEnd) {
                             $html = substr($html, $bodyStart, $bodyEnd - $bodyStart);
@@ -1259,7 +1277,6 @@ class TranslationController extends AdminController
                     }
                 }
 
-
                 // append contents
                 if (!empty($output)) {
                     $f = fopen($exportFile, "a+");
@@ -1272,7 +1289,6 @@ class TranslationController extends AdminController
             }
         }
 
-
         return $this->json([
             "success" => true
         ]);
@@ -1280,7 +1296,9 @@ class TranslationController extends AdminController
 
     /**
      * @Route("/word-export-download")
+     *
      * @param Request $request
+     *
      * @return BinaryFileResponse
      */
     public function wordExportDownloadAction(Request $request)
@@ -1294,7 +1312,6 @@ class TranslationController extends AdminController
         //fclose($f);
 
         // should be done via Pimcore_Document(_Adapter_LibreOffice) in the future
-
 
         if (\Pimcore\Document::isFileTypeSupported("docx")) {
             $lockKey = "soffice";
@@ -1325,7 +1342,9 @@ class TranslationController extends AdminController
 
     /**
      * @Route("/merge-item")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function mergeItemAction(Request $request)
@@ -1342,7 +1361,6 @@ class TranslationController extends AdminController
             $t->save();
         }
 
-
         return $this->json([
             "success" => true
         ]);
@@ -1350,7 +1368,9 @@ class TranslationController extends AdminController
 
     /**
      * @Route("/get-website-translation-languages")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getWebsiteTranslationLanguagesAction(Request $request)

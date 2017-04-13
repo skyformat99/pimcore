@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Tool
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -23,7 +24,6 @@ use Pimcore\Model;
  */
 class Config extends Model\AbstractModel
 {
-
     /**
      * @var string
      */
@@ -111,6 +111,7 @@ class Config extends Model\AbstractModel
 
     /**
      * @param $name
+     *
      * @return null|Config
      */
     public static function getByName($name)
@@ -148,6 +149,7 @@ class Config extends Model\AbstractModel
     /**
      * @param $configuration
      * @param null $fullConfig
+     *
      * @return mixed
      */
     public static function getAdapter($configuration, $fullConfig = null)
@@ -271,7 +273,7 @@ class Config extends Model\AbstractModel
     }
 
     /**
-     * @param boolean $menuShortcut
+     * @param bool $menuShortcut
      */
     public function setMenuShortcut($menuShortcut)
     {
@@ -279,13 +281,12 @@ class Config extends Model\AbstractModel
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getMenuShortcut()
     {
         return $this->menuShortcut;
     }
-
 
     /**
      * @param \string[] $dataSourceConfig

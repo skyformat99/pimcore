@@ -154,7 +154,6 @@ class LocalizedFieldTest extends ModelTestCase
         $two = AbstractObject::getById($id2);
         $this->assertEquals(null, $two->getInput("en"));
 
-
         $list = new Inheritance\Listing();
         $list->setCondition("input LIKE '%parenttext%'");
         $list->setLocale("en");

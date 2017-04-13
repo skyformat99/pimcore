@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Tool
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -24,9 +25,9 @@ use Pimcore\Tool\Serialize;
  */
 class Dao extends Model\Dao\AbstractDao
 {
-
     /**
      * @param null $id
+     *
      * @throws \Exception
      */
     public function getById($id = null)
@@ -49,6 +50,7 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * @param string $name
+     *
      * @throws \Exception
      */
     public function getByName($name = null)
@@ -69,7 +71,7 @@ class Dao extends Model\Dao\AbstractDao
     /**
      * Save object to database
      *
-     * @return boolean
+     * @return bool
      *
      * @todo: update and delete don't return anything
      */
@@ -120,7 +122,7 @@ class Dao extends Model\Dao\AbstractDao
     /**
      * Create a new record for the object in database
      *
-     * @return boolean
+     * @return bool
      */
     public function create()
     {

@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Tool
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -25,9 +26,6 @@ class Dao extends Model\Dao\AbstractDao
 {
     const TABLE_NAME = 'uuids';
 
-    /**
-     *
-     */
     public function save()
     {
         $data = get_object_vars($this->model);
@@ -55,6 +53,7 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * @param $uuid
+     *
      * @return Model\Tool\UUID
      */
     public function getByUuid($uuid)

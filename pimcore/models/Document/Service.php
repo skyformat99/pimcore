@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Document
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -55,9 +56,11 @@ class Service extends Model\Element\Service
      * static function to render a document outside of a view
      *
      * @static
+     *
      * @param Document $document
      * @param array $params
      * @param bool $useLayout
+     *
      * @return string
      */
     public static function render(Document $document, $params = [], $useLayout = false)
@@ -85,7 +88,7 @@ class Service extends Model\Element\Service
         if ($document instanceof Document) {
             $document->save();
             $saved++;
-            if ($saved%$collectGarbageAfterIteration === 0) {
+            if ($saved % $collectGarbageAfterIteration === 0) {
                 \Pimcore::collectGarbage();
             }
         }
@@ -94,7 +97,7 @@ class Service extends Model\Element\Service
             if (!$child->hasChilds()) {
                 $child->save();
                 $saved++;
-                if ($saved%$collectGarbageAfterIteration === 0) {
+                if ($saved % $collectGarbageAfterIteration === 0) {
                     \Pimcore::collectGarbage();
                 }
             }
@@ -107,6 +110,7 @@ class Service extends Model\Element\Service
     /**
      * @param  Document $target
      * @param  Document $source
+     *
      * @return Document copied document
      */
     public function copyRecursive($target, $source)
@@ -119,7 +123,6 @@ class Service extends Model\Element\Service
         if (in_array($source->getId(), $this->_copyRecursiveIds)) {
             return;
         }
-
 
         if (method_exists($source, "getElements")) {
             $source->getElements();
@@ -157,7 +160,6 @@ class Service extends Model\Element\Service
             'base_element' => $source // the element used to make a copy
         ]));
 
-
         return $new;
     }
 
@@ -166,7 +168,9 @@ class Service extends Model\Element\Service
      * @param $source
      * @param bool $enableInheritance
      * @param bool $resetIndex
+     *
      * @return Document
+     *
      * @throws \Exception
      */
     public function copyAsChild($target, $source, $enableInheritance = false, $resetIndex = false)
@@ -217,7 +221,9 @@ class Service extends Model\Element\Service
     /**
      * @param $target
      * @param $source
+     *
      * @return mixed
+     *
      * @throws \Exception
      */
     public function copyContents($target, $source)
@@ -262,6 +268,7 @@ class Service extends Model\Element\Service
 
     /**
      * @param Document $document
+     *
      * @return array
      */
     public static function gridDocumentData($document)
@@ -282,7 +289,9 @@ class Service extends Model\Element\Service
 
     /**
      * @static
+     *
      * @param $doc
+     *
      * @return mixed
      */
     public static function loadAllDocumentFields($doc)
@@ -302,8 +311,10 @@ class Service extends Model\Element\Service
 
     /**
      * @static
+     *
      * @param $path
      * @param $type
+     *
      * @return bool
      */
     public static function pathExists($path, $type = null)
@@ -326,6 +337,7 @@ class Service extends Model\Element\Service
 
     /**
      * @param $type
+     *
      * @return bool
      */
     public static function isValidType($type)
@@ -343,9 +355,11 @@ class Service extends Model\Element\Service
      *  "object" => array(...),
      *  "asset" => array(...)
      * )
+     *
      * @param $document
      * @param $rewriteConfig
      * @param array $params
+     *
      * @return Document
      */
     public static function rewriteIds($document, $rewriteConfig, $params = [])
@@ -406,6 +420,7 @@ class Service extends Model\Element\Service
 
     /**
      * @param $url
+     *
      * @return Document
      */
     public static function getByUrl($url)
@@ -435,7 +450,9 @@ class Service extends Model\Element\Service
     /**
      * @param $item
      * @param int $nr
+     *
      * @return mixed|string
+     *
      * @throws \Exception
      */
     public static function getUniqueKey($item, $nr = 0)

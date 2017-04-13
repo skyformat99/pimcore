@@ -27,7 +27,6 @@ use Pimcore\Logger;
  */
 abstract class AbstractMockupCacheWorker extends AbstractBatchProcessingWorker
 {
-
     /**
      * returns prefix for cache key
      *
@@ -39,6 +38,7 @@ abstract class AbstractMockupCacheWorker extends AbstractBatchProcessingWorker
      * creates mockup cache key
      *
      * @param $objectId
+     *
      * @return string
      */
     protected function createMockupCacheKey($objectId)
@@ -62,6 +62,7 @@ abstract class AbstractMockupCacheWorker extends AbstractBatchProcessingWorker
      *
      * @param $objectId
      * @param null $data
+     *
      * @return \Pimcore\Bundle\EcommerceFrameworkBundle\Model\DefaultMockup
      */
     public function saveToMockupCache($objectId, $data = null)
@@ -76,7 +77,6 @@ abstract class AbstractMockupCacheWorker extends AbstractBatchProcessingWorker
         } else {
             throw new InvalidConfigException("Tenant Config is not instance of IMockupConfig");
         }
-
 
         $key = $this->createMockupCacheKey($objectId);
 
@@ -106,6 +106,7 @@ abstract class AbstractMockupCacheWorker extends AbstractBatchProcessingWorker
      * gets mockup from cache and if not in cache, adds it to cache
      *
      * @param $objectId
+     *
      * @return DefaultMockup
      */
     public function getMockupFromCache($objectId)

@@ -14,14 +14,15 @@
 
 namespace Pimcore\Tool;
 
-use Pimcore\Model\Document;
 use Pimcore\Model\Asset;
+use Pimcore\Model\Document;
 use Pimcore\Model\Element;
 
 class Text
 {
     /**
      * @param string $text
+     *
      * @return mixed|string
      */
     public static function removeLineBreaks($text = "")
@@ -34,6 +35,7 @@ class Text
 
     /**
      * @param $text
+     *
      * @return mixed
      */
     public static function wysiwygText($text)
@@ -45,7 +47,7 @@ class Text
         $matches = self::getElementsTagsInWysiwyg($text);
 
         if (count($matches[2]) > 0) {
-            for ($i=0; $i<count($matches[2]); $i++) {
+            for ($i=0; $i < count($matches[2]); $i++) {
                 preg_match("/[0-9]+/", $matches[2][$i], $idMatches);
                 preg_match("/asset|object|document/", $matches[3][$i], $typeMatches);
 
@@ -150,8 +152,10 @@ class Text
     /**
      * @deprecated
      * @static
+     *
      * @param  array $idMapping e.g. array("asset"=>array(OLD_ID=>NEW_ID),"object"=>array(OLD_ID=>NEW_ID),"document"=>array(OLD_ID=>NEW_ID));
      * @param  string $text html text of wysiwyg field
+     *
      * @return mixed
      */
     public static function replaceWysiwygTextRelationIds($idMapping, $text)
@@ -185,7 +189,7 @@ class Text
                 if ($newId) {
                     //update id
 
-                    if ($type=="asset") {
+                    if ($type == "asset") {
                         $pimcoreElement = Asset::getById($newId);
                     } else {
                         $pimcoreElement = Document::getById($newId);
@@ -209,10 +213,11 @@ class Text
         }
     }
 
-
     /**
      * @static
+     *
      * @param string $text
+     *
      * @return array
      */
     public static function getElementsTagsInWysiwyg($text)
@@ -236,7 +241,9 @@ class Text
 
     /**
      * @static
+     *
      * @param $text
+     *
      * @return array
      */
     public static function getElementsInWysiwyg($text)
@@ -250,7 +257,7 @@ class Text
         $matches = self::getElementsTagsInWysiwyg($text);
 
         if (count($matches[2]) > 0) {
-            for ($i=0; $i<count($matches[2]); $i++) {
+            for ($i=0; $i < count($matches[2]); $i++) {
                 preg_match("/[0-9]+/", $matches[2][$i], $idMatches);
                 preg_match("/asset|object|document/", $matches[3][$i], $typeMatches);
 
@@ -278,7 +285,9 @@ class Text
      * extracts all dependencies to other elements from wysiwyg text
      *
      * @static
+     *
      * @param  string $text
+     *
      * @return array
      */
     public static function getDependenciesOfWysiwygText($text)
@@ -302,6 +311,7 @@ class Text
     /**
      * @param $text
      * @param array $tags
+     *
      * @return array
      */
     public static function getCacheTagsOfWysiwygText($text, $tags = [])
@@ -323,6 +333,7 @@ class Text
 
     /**
      * @param $text
+     *
      * @return string
      */
     public static function convertToUTF8($text)
@@ -337,6 +348,7 @@ class Text
 
     /**
      * @param $text
+     *
      * @return string
      */
     public static function detectEncoding($text)

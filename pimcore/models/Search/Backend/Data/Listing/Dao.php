@@ -14,18 +14,17 @@
 
 namespace Pimcore\Model\Search\Backend\Data\Listing;
 
-use Pimcore\Model\Document;
+use Pimcore\Logger;
 use Pimcore\Model\Asset;
+use Pimcore\Model\Document;
 use Pimcore\Model\Object;
 use Pimcore\Model\Search;
-use Pimcore\Logger;
 
 /**
  * @property \Pimcore\Model\Search\Backend\Data\Listing $model
  */
 class Dao extends \Pimcore\Model\Listing\Dao\AbstractDao
 {
-
     /**
      * Loads a list of entries for the specicifies parameters, returns an array of Search\Backend\Data
      *
@@ -37,11 +36,11 @@ class Dao extends \Pimcore\Model\Listing\Dao\AbstractDao
         $data = $this->db->fetchAll("SELECT * FROM search_backend_data" .  $this->getCondition() . $this->getGroupBy() . $this->getOrder() . $this->getOffsetLimit(), $this->model->getConditionVariables());
 
         foreach ($data as $entryData) {
-            if ($entryData['maintype']=='document') {
+            if ($entryData['maintype'] == 'document') {
                 $element = Document::getById($entryData['id']);
-            } elseif ($entryData['maintype']=='asset') {
+            } elseif ($entryData['maintype'] == 'asset') {
                 $element = Asset::getById($entryData['id']);
-            } elseif ($entryData['maintype']=='object') {
+            } elseif ($entryData['maintype'] == 'object') {
                 $element = Object::getById($entryData['id']);
             } else {
                 Logger::err("unknown maintype ");
@@ -56,7 +55,7 @@ class Dao extends \Pimcore\Model\Listing\Dao\AbstractDao
                 $entry->setUserModification($entryData['userModification']);
                 $entry->setCreationDate($entryData['creationDate']);
                 $entry->setModificationDate($entryData['modificationDate']);
-                $entry->setPublished($entryData['published']=== 0 ? false : true);
+                $entry->setPublished($entryData['published'] === 0 ? false : true);
                 $entries[]=$entry;
             }
         }

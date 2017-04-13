@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Document
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -23,7 +24,6 @@ use Pimcore\Model;
  */
 class Block extends Model\Document\Tag
 {
-
     /**
      * Contains an array of indices, which represent the order of the elements in the block
      *
@@ -34,7 +34,7 @@ class Block extends Model\Document\Tag
     /**
      * Current step of the block while iteration
      *
-     * @var integer
+     * @var int
      */
     public $current = 0;
 
@@ -45,6 +45,7 @@ class Block extends Model\Document\Tag
 
     /**
      * @see TagInterface::getType
+     *
      * @return string
      */
     public function getType()
@@ -54,6 +55,7 @@ class Block extends Model\Document\Tag
 
     /**
      * @see TagInterface::getData
+     *
      * @return mixed
      */
     public function getData()
@@ -80,7 +82,9 @@ class Block extends Model\Document\Tag
 
     /**
      * @see TagInterface::setDataFromResource
+     *
      * @param mixed $data
+     *
      * @return $this
      */
     public function setDataFromResource($data)
@@ -92,7 +96,9 @@ class Block extends Model\Document\Tag
 
     /**
      * @see TagInterface::setDataFromEditmode
+     *
      * @param mixed $data
+     *
      * @return $this
      */
     public function setDataFromEditmode($data)
@@ -118,7 +124,8 @@ class Block extends Model\Document\Tag
 
     /**
      * Loops through the block
-     * @return boolean
+     *
+     * @return bool
      */
     public function loop()
     {
@@ -158,9 +165,11 @@ class Block extends Model\Document\Tag
 
     /**
      * Alias for loop
+     *
      * @deprecated
      * @see loop()
-     * @return boolean
+     *
+     * @return bool
      */
     public function enumerate()
     {
@@ -235,9 +244,6 @@ class Block extends Model\Document\Tag
         $this->outputEditmode("</div>");
     }
 
-    /**
-     *
-     */
     public function blockConstruct()
     {
 
@@ -247,9 +253,6 @@ class Block extends Model\Document\Tag
         \Pimcore\Cache\Runtime::set("pimcore_tag_block_numeration", $suffixes);
     }
 
-    /**
-     *
-     */
     public function blockDestruct()
     {
         $suffixes = \Pimcore\Cache\Runtime::get("pimcore_tag_block_numeration");
@@ -326,6 +329,7 @@ class Block extends Model\Document\Tag
 
     /**
      * @param array $options
+     *
      * @return $this
      */
     public function setOptions($options)
@@ -342,7 +346,7 @@ class Block extends Model\Document\Tag
     /**
      * Return the amount of block elements
      *
-     * @return integer
+     * @return int
      */
     public function getCount()
     {
@@ -352,17 +356,17 @@ class Block extends Model\Document\Tag
     /**
      * Return current iteration step
      *
-     * @return integer
+     * @return int
      */
     public function getCurrent()
     {
-        return $this->current-1;
+        return $this->current - 1;
     }
 
     /**
      * Return current index
      *
-     * @return integer
+     * @return int
      */
     public function getCurrentIndex()
     {
@@ -390,14 +394,17 @@ class Block extends Model\Document\Tag
      * @param null $document
      * @param mixed $params
      * @param null $idMapper
+     *
      * @return Model\Webservice\Data\Document\Element|void
+     *
      * @throws \Exception
+     *
      * @todo replace and with &&
      */
     public function getFromWebserviceImport($wsElement, $document = null, $params = [], $idMapper = null)
     {
         $data = $wsElement->value;
-        if (($data->indices === null or is_array($data->indices)) and ($data->current==null or is_numeric($data->current))) {
+        if (($data->indices === null or is_array($data->indices)) and ($data->current == null or is_numeric($data->current))) {
             $this->indices = $data->indices;
             $this->current = $data->current;
         } else {

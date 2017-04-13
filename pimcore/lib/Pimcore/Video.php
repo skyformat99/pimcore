@@ -14,14 +14,13 @@
 
 namespace Pimcore;
 
-use Pimcore\Logger;
-
 class Video
 {
-
     /**
      * @param null $adapter
+     *
      * @return bool|null|Video\Adapter
+     *
      * @throws \Exception
      */
     public static function getInstance($adapter = null)

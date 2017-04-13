@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -20,7 +21,6 @@ use Pimcore\Model;
 
 class Numeric extends Model\Object\ClassDefinition\Data
 {
-
     /**
      * Static type of this element
      *
@@ -85,7 +85,7 @@ class Numeric extends Model\Object\ClassDefinition\Data
     public $decimalPrecision;
 
     /**
-     * @return integer
+     * @return int
      */
     public function getWidth()
     {
@@ -93,7 +93,8 @@ class Numeric extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @param integer $width
+     * @param int $width
+     *
      * @return $this
      */
     public function setWidth($width)
@@ -104,7 +105,7 @@ class Numeric extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getDefaultValue()
     {
@@ -114,7 +115,8 @@ class Numeric extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @param integer $defaultValue
+     * @param int $defaultValue
+     *
      * @return $this
      */
     public function setDefaultValue($defaultValue)
@@ -127,7 +129,7 @@ class Numeric extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @param boolean $integer
+     * @param bool $integer
      */
     public function setInteger($integer)
     {
@@ -135,7 +137,7 @@ class Numeric extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getInteger()
     {
@@ -175,7 +177,7 @@ class Numeric extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @param boolean $unsigned
+     * @param bool $unsigned
      */
     public function setUnsigned($unsigned)
     {
@@ -183,7 +185,7 @@ class Numeric extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getUnsigned()
     {
@@ -240,9 +242,11 @@ class Numeric extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Model\Object\ClassDefinition\Data::getDataForResource
+     *
      * @param float $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return float
      */
     public function getDataForResource($data, $object = null, $params = [])
@@ -256,9 +260,11 @@ class Numeric extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Model\Object\ClassDefinition\Data::getDataFromResource
+     *
      * @param float $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return float
      */
     public function getDataFromResource($data, $object = null, $params = [])
@@ -272,9 +278,11 @@ class Numeric extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Model\Object\ClassDefinition\Data::getDataForQueryResource
+     *
      * @param float $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return float
      */
     public function getDataForQueryResource($data, $object = null, $params = [])
@@ -284,9 +292,11 @@ class Numeric extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Model\Object\ClassDefinition\Data::getDataForEditmode
+     *
      * @param float $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return float
      */
     public function getDataForEditmode($data, $object = null, $params = [])
@@ -296,9 +306,11 @@ class Numeric extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Model\Object\ClassDefinition\Data::getDataFromEditmode
+     *
      * @param float $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return float
      */
     public function getDataFromEditmode($data, $object = null, $params = [])
@@ -308,9 +320,11 @@ class Numeric extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Model\Object\ClassDefinition\Data::getVersionPreview
+     *
      * @param float $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return float
      */
     public function getVersionPreview($data, $object = null, $params = [])
@@ -322,7 +336,8 @@ class Numeric extends Model\Object\ClassDefinition\Data
      * Checks if data is valid for current data field
      *
      * @param mixed $data
-     * @param boolean $omitMandatoryCheck
+     * @param bool $omitMandatoryCheck
+     *
      * @throws \Exception
      */
     public function checkValidity($data, $omitMandatoryCheck = false)
@@ -362,9 +377,12 @@ class Numeric extends Model\Object\ClassDefinition\Data
 
     /**
      * converts object data to a simple string value or CSV Export
+     *
      * @abstract
+     *
      * @param Model\Object\AbstractObject $object
      * @param array $params
+     *
      * @return string
      */
     public function getForCsvExport($object, $params = [])
@@ -374,12 +392,13 @@ class Numeric extends Model\Object\ClassDefinition\Data
         return strval($data);
     }
 
-
     /**
      * fills object field data values from CSV Import String
+     *
      * @param string $importValue
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return float
      */
     public function getFromCsvImport($importValue, $object = null, $params = [])
@@ -392,6 +411,7 @@ class Numeric extends Model\Object\ClassDefinition\Data
     /** True if change is allowed in edit mode.
      * @param string $object
      * @param mixed $params
+     *
      * @return bool
      */
     public function isDiffChangeAllowed($object, $params = [])
@@ -401,15 +421,17 @@ class Numeric extends Model\Object\ClassDefinition\Data
 
     /**
      * @param $data
+     *
      * @return bool
      */
     public function isEmpty($data)
     {
-        return (strlen($data) < 1);
+        return strlen($data) < 1;
     }
 
     /**
      * @param $value
+     *
      * @return float|int
      */
     protected function toNumeric($value)

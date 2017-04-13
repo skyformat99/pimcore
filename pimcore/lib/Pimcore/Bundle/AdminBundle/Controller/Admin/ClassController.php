@@ -35,10 +35,11 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ClassController extends AdminController implements EventedControllerInterface
 {
-
     /**
      * @Route("/get-document-types")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getDocumentTypesAction(Request $request)
@@ -56,7 +57,9 @@ class ClassController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/get-asset-types")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getAssetTypesAction(Request $request)
@@ -74,7 +77,9 @@ class ClassController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/get-tree")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getTreeAction(Request $request)
@@ -178,7 +183,9 @@ class ClassController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/get")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getAction(Request $request)
@@ -191,7 +198,9 @@ class ClassController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/get-custom-layout")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getCustomLayoutAction(Request $request)
@@ -203,7 +212,9 @@ class ClassController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/add")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function addAction(Request $request)
@@ -219,7 +230,9 @@ class ClassController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/add-custom-layout")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function addCustomLayoutAction(Request $request)
@@ -237,7 +250,9 @@ class ClassController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/delete")
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function deleteAction(Request $request)
@@ -250,7 +265,9 @@ class ClassController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/delete-custom-layout")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function deleteCustomLayoutAction(Request $request)
@@ -263,10 +280,11 @@ class ClassController extends AdminController implements EventedControllerInterf
         return $this->json(["success" => true]);
     }
 
-
     /**
      * @Route("/save-custom-layout")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function saveCustomLayoutAction(Request $request)
@@ -281,7 +299,6 @@ class ClassController extends AdminController implements EventedControllerInterf
         if ($modificationDate < $customLayout->getModificationDate()) {
             return $this->json(["success" => false, "msg" => "custom_layout_changed"]);
         }
-
 
         $configuration["datatype"] = "layout";
         $configuration["fieldtype"] = "panel";
@@ -305,8 +322,11 @@ class ClassController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/save")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
+     *
      * @throws \Exception
      */
     public function saveAction(Request $request)
@@ -330,7 +350,6 @@ class ClassController extends AdminController implements EventedControllerInterf
         unset($values["userOwner"]);
         unset($values["layoutDefinitions"]);
         unset($values["fieldDefinitions"]);
-
 
         $configuration["datatype"] = "layout";
         $configuration["fieldtype"] = "panel";
@@ -375,6 +394,7 @@ class ClassController extends AdminController implements EventedControllerInterf
 
     /**
      * @param $name
+     *
      * @return mixed
      */
     protected function correctClassname($name)
@@ -387,7 +407,9 @@ class ClassController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/import-class")
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function importClassAction(Request $request)
@@ -409,7 +431,9 @@ class ClassController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/import-custom-layout")
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function importCustomLayoutDefinitionAction(Request $request)
@@ -417,7 +441,6 @@ class ClassController extends AdminController implements EventedControllerInterf
         $success = false;
         $json = file_get_contents($_FILES["Filedata"]["tmp_name"]);
         $importData = $this->decodeJson($json);
-
 
         $customLayoutId = $request->get("id");
         $customLayout = Object\ClassDefinition\CustomLayout::getById($customLayoutId);
@@ -446,7 +469,9 @@ class ClassController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/get-custom-layout-definitions")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getCustomLayoutDefinitionsAction(Request $request)
@@ -471,7 +496,9 @@ class ClassController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/get-all-layouts")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getAllLayoutsAction(Request $request)
@@ -517,7 +544,9 @@ class ClassController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/export-class")
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function exportClassAction(Request $request)
@@ -542,7 +571,9 @@ class ClassController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/export-custom-layout-definitions")
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function exportCustomLayoutDefinitionAction(Request $request)
@@ -577,15 +608,15 @@ class ClassController extends AdminController implements EventedControllerInterf
         echo $errorMessage;
     }
 
-
-
     /**
      * FIELDCOLLECTIONS
      */
 
     /**
      * @Route("/fieldcollection-get")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function fieldcollectionGetAction(Request $request)
@@ -597,7 +628,9 @@ class ClassController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/fieldcollection-update")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function fieldcollectionUpdateAction(Request $request)
@@ -647,7 +680,9 @@ class ClassController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/import-fieldcollection")
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function importFieldcollectionAction(Request $request)
@@ -671,7 +706,9 @@ class ClassController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/export-fieldcollection")
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function exportFieldcollectionAction(Request $request)
@@ -694,7 +731,9 @@ class ClassController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/fieldcollection-delete")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function fieldcollectionDeleteAction(Request $request)
@@ -707,7 +746,9 @@ class ClassController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/fieldcollection-tree")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function fieldcollectionTreeAction(Request $request)
@@ -729,7 +770,9 @@ class ClassController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/fieldcollection-list")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function fieldcollectionListAction(Request $request)
@@ -768,14 +811,14 @@ class ClassController extends AdminController implements EventedControllerInterf
             $list = $filteredList;
         }
 
-
         return $this->json(["fieldcollections" => $list]);
     }
 
-
     /**
      * @Route("/get-class-definition-for-column-config")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getClassDefinitionForColumnConfigAction(Request $request)
@@ -806,7 +849,6 @@ class ClassController extends AdminController implements EventedControllerInterf
         $result['systemColumns']['nodeType'] = "system";
         $result['systemColumns']['childs'] = $systemColumns;
 
-
         $list = new Object\Objectbrick\Definition\Listing();
         $list = $list->load();
 
@@ -833,14 +875,15 @@ class ClassController extends AdminController implements EventedControllerInterf
         return $this->json($result);
     }
 
-
     /**
      * OBJECT BRICKS
      */
 
     /**
      * @Route("/objectbrick-get")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function objectbrickGetAction(Request $request)
@@ -852,7 +895,9 @@ class ClassController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/objectbrick-update")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function objectbrickUpdateAction(Request $request)
@@ -905,7 +950,9 @@ class ClassController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/import-objectbrick")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function importObjectbrickAction(Request $request)
@@ -928,7 +975,9 @@ class ClassController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/export-objectbrick")
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function exportObjectbrickAction(Request $request)
@@ -951,7 +1000,9 @@ class ClassController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/objectbrick-delete")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function objectbrickDeleteAction(Request $request)
@@ -964,7 +1015,9 @@ class ClassController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/objectbrick-tree")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function objectbrickTreeAction(Request $request)
@@ -986,7 +1039,9 @@ class ClassController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/objectbrick-list")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function objectbrickListAction(Request $request)
@@ -999,7 +1054,7 @@ class ClassController extends AdminController implements EventedControllerInterf
             $classId = $request->get("class_id");
             $fieldname = $request->get("field_name");
             foreach ($list as $type) {
-                /** @var  $type Object\Objectbrick\Definition */
+                /** @var $type Object\Objectbrick\Definition */
                 $clsDefs = $type->getClassDefinitions();
                 if (!empty($clsDefs)) {
                     foreach ($clsDefs as $cd) {
@@ -1043,7 +1098,9 @@ class ClassController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/bulk-import")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function bulkImportAction(Request $request)
@@ -1101,8 +1158,11 @@ class ClassController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/bulk-commit")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
+     *
      * @throws \Exception
      */
     public function bulkCommitAction(Request $request)
@@ -1122,7 +1182,6 @@ class ClassController extends AdminController implements EventedControllerInterf
             unset($item["modificationDate"]);
             unset($item["userOwner"]);
             unset($item["userModification"]);
-
 
             unset($item["id"]);
 
@@ -1169,7 +1228,6 @@ class ClassController extends AdminController implements EventedControllerInterf
 
                     $classId = $class->getId();
 
-
                     $layoutList = new Object\ClassDefinition\CustomLayout\Listing();
                     $db = \Pimcore\Db::get();
                     $layoutList->setCondition("name = " . $db->quote($layoutName) . " AND classId = " . $classId);
@@ -1200,7 +1258,6 @@ class ClassController extends AdminController implements EventedControllerInterf
             }
         }
 
-
         return $this->json(["success" => true]);
     }
 
@@ -1211,7 +1268,9 @@ class ClassController extends AdminController implements EventedControllerInterf
 
     /**
      * @Route("/bulk-export")
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function bulkExportAction(Request $request)
@@ -1227,7 +1286,6 @@ class ClassController extends AdminController implements EventedControllerInterf
             $fieldCollectionJson->key = $key;
             $result["fieldcollection"][] = $fieldCollectionJson;
         }
-
 
         $classes = new Object\ClassDefinition\Listing();
         $classes->setOrder("ASC");
@@ -1253,7 +1311,7 @@ class ClassController extends AdminController implements EventedControllerInterf
         $customLayouts = new Object\ClassDefinition\CustomLayout\Listing();
         $customLayouts = $customLayouts->load();
         foreach ($customLayouts as $customLayout) {
-            /** @var  $customLayout Object\ClassDefinition\CustomLayout */
+            /** @var $customLayout Object\ClassDefinition\CustomLayout */
             $classId = $customLayout->getClassId();
             $class = Object\ClassDefinition::getById($classId);
             $customLayout->className = $class->getName();

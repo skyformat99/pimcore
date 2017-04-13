@@ -24,6 +24,7 @@ class Reservation extends \Pimcore\Model\AbstractModel
     /**
      * @param $code
      * @param \Pimcore\Bundle\EcommerceFrameworkBundle\CartManager\ICart $cart
+     *
      * @return bool|Reservation
      */
     public static function get($code, \Pimcore\Bundle\EcommerceFrameworkBundle\CartManager\ICart $cart = null)
@@ -46,6 +47,7 @@ class Reservation extends \Pimcore\Model\AbstractModel
 
     /**
      * Check whether the reservation object contains a reservations.
+     *
      * @return bool
      */
     public function check($cart_id)
@@ -69,6 +71,7 @@ class Reservation extends \Pimcore\Model\AbstractModel
     /**
      * @param string $code
      * @param \Pimcore\Bundle\EcommerceFrameworkBundle\CartManager\ICart $cart
+     *
      * @return bool
      */
     public static function releaseToken($code, \Pimcore\Bundle\EcommerceFrameworkBundle\CartManager\ICart $cart = null)
@@ -140,6 +143,7 @@ class Reservation extends \Pimcore\Model\AbstractModel
 
     /**
      * @param string $code
+     *
      * @return bool|int
      */
     public static function getReservationCount($code)

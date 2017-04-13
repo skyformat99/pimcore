@@ -29,7 +29,6 @@ class SelectRelation extends \Pimcore\Bundle\EcommerceFrameworkBundle\FilterServ
     {
         $field = $this->getField($filterDefinition);
 
-
         $values = $productList->getGroupByValues($field, true);
 
         $objects = [];
@@ -79,7 +78,6 @@ class SelectRelation extends \Pimcore\Bundle\EcommerceFrameworkBundle\FilterServ
 
         $value = trim($value);
         $currentFilter[$field] = $value;
-
 
         if (!empty($value)) {
             $productList->addCondition([$value], $field);

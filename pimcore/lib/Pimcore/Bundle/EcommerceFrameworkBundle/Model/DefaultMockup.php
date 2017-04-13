@@ -52,6 +52,7 @@ class DefaultMockup implements IProduct
     {
         return $this->params[$key];
     }
+
     /**
      * @param mixed $params
      *
@@ -84,8 +85,6 @@ class DefaultMockup implements IProduct
         return $this;
     }
 
-
-
     /**
      * @return mixed
      */
@@ -93,8 +92,6 @@ class DefaultMockup implements IProduct
     {
         return $this->id;
     }
-
-
 
     public function getRelationAttribute($attributeName)
     {
@@ -117,7 +114,6 @@ class DefaultMockup implements IProduct
         }
     }
 
-
     public function __call($method, $args)
     {
         if (substr($method, 0, 3) == "get") {
@@ -125,7 +121,6 @@ class DefaultMockup implements IProduct
             if (is_array($this->params) && array_key_exists($attributeName, $this->params)) {
                 return $this->params[$attributeName];
             }
-
 
             if (is_array($this->relations) && array_key_exists($attributeName, $this->relations)) {
                 $relation = $this->getRelationAttribute($attributeName);
@@ -148,7 +143,6 @@ class DefaultMockup implements IProduct
             throw new \Exception("Object with {$this->id} not found.");
         }
     }
-
 
     public function getOriginalObject()
     {

@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    User
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -23,7 +24,6 @@ use Pimcore\Model;
  */
 class Listing extends Model\User\Listing\AbstractListing
 {
-
     /**
      * @var string
      */
@@ -31,6 +31,7 @@ class Listing extends Model\User\Listing\AbstractListing
 
     /**
      * Alias for $this->getItems()
+     *
      * @return array
      */
     public function getRoles()

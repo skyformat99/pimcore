@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Element
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -17,8 +18,8 @@
 namespace Pimcore\Model\Element\Note;
 
 use Pimcore\Model;
-use Pimcore\Model\Document;
 use Pimcore\Model\Asset;
+use Pimcore\Model\Document;
 use Pimcore\Model\Object;
 
 /**
@@ -26,9 +27,9 @@ use Pimcore\Model\Object;
  */
 class Dao extends Model\Dao\AbstractDao
 {
-
     /**
      * @param $id
+     *
      * @throws \Exception
      */
     public function getById($id)
@@ -83,7 +84,7 @@ class Dao extends Model\Dao\AbstractDao
     /**
      * Save object to database
      *
-     * @return boolean
+     * @return bool
      *
      * @todo: not all save methods return a boolean, why this one?
      */

@@ -52,7 +52,6 @@ abstract class AbstractFilterType
         $this->renderer = $renderer;
     }
 
-
     protected function getField(AbstractFilterDefinitionType $filterDefinition)
     {
         $field = $filterDefinition->getField();
@@ -75,15 +74,16 @@ abstract class AbstractFilterType
         return null;
     }
 
-
     /**
      * renders and returns the rendered html snippet for the current filter
      * based on settings in the filter definition and the current filter params.
      *
      * @abstract
+     *
      * @param AbstractFilterDefinitionType $filterDefinition
      * @param IProductList $productList
      * @param $currentFilter
+     *
      * @return string
      */
     abstract public function getFilterFrontend(AbstractFilterDefinitionType $filterDefinition, IProductList $productList, $currentFilter);
@@ -92,11 +92,13 @@ abstract class AbstractFilterType
      * adds necessary conditions to the product list implementation based on the currently set filter params.
      *
      * @abstract
+     *
      * @param AbstractFilterDefinitionType $filterDefinition
      * @param IProductList $productList
      * @param $currentFilter
      * @param $params
      * @param bool $isPrecondition
+     *
      * @return array
      */
     abstract public function addCondition(AbstractFilterDefinitionType $filterDefinition, IProductList $productList, $currentFilter, $params, $isPrecondition = false);
@@ -112,9 +114,9 @@ abstract class AbstractFilterType
         //by default do thing here
     }
 
-
     /**
      * sort result
+     *
      * @param AbstractFilterDefinitionType $filterDefinition
      * @param array $result
      *
@@ -130,6 +132,7 @@ abstract class AbstractFilterType
      *
      * @param $script string
      * @param $parameterBag array
+     *
      * @return string
      */
     protected function render($script, $parameterBag)

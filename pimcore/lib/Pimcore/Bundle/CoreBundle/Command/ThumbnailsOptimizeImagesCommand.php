@@ -16,9 +16,7 @@ namespace Pimcore\Bundle\CoreBundle\Command;
 
 use Pimcore\Console\AbstractCommand;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Pimcore\Model\Asset;
 
 class ThumbnailsOptimizeImagesCommand extends AbstractCommand
 {
@@ -43,7 +41,7 @@ class ThumbnailsOptimizeImagesCommand extends AbstractCommand
                 $originalFilesize = filesize($file);
                 \Pimcore\Image\Optimizer::optimize($file);
 
-                $savedBytes = ($originalFilesize-filesize($file));
+                $savedBytes = ($originalFilesize - filesize($file));
                 $savedBytesTotal += $savedBytes;
 
                 $this->output->writeln("Optimized image: " . $file . " saved " . formatBytes($savedBytes));

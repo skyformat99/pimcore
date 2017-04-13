@@ -21,6 +21,7 @@ trait ResponseInjectionTrait
 {
     /**
      * @param Response $response
+     *
      * @return bool
      */
     protected function isHtmlResponse(Response $response)

@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -17,15 +18,14 @@
 namespace Pimcore\Model\Object\ClassDefinition\Data;
 
 use Pimcore\Model;
-use Pimcore\Model\Object;
 use Pimcore\Model\Asset;
 use Pimcore\Model\Document;
 use Pimcore\Model\Element;
+use Pimcore\Model\Object;
 use Pimcore\Tool\Serialize;
 
 class Link extends Model\Object\ClassDefinition\Data
 {
-
     /**
      * Static type of this element
      *
@@ -56,9 +56,11 @@ class Link extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object\ClassDefinition\Data::getDataForResource
+     *
      * @param Object\Data\Link $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForResource($data, $object = null, $params = [])
@@ -81,9 +83,11 @@ class Link extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object\ClassDefinition\Data::getDataFromResource
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return Object\Data\Link
      */
     public function getDataFromResource($data, $object = null, $params = [])
@@ -108,9 +112,11 @@ class Link extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object\ClassDefinition\Data::getDataForQueryResource
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForQueryResource($data, $object = null, $params = [])
@@ -120,9 +126,11 @@ class Link extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object\ClassDefinition\Data::getDataForEditmode
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForEditmode($data, $object = null, $params = [])
@@ -137,9 +145,11 @@ class Link extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Model\Object\ClassDefinition\Data::getDataFromEditmode
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataFromEditmode($data, $object = null, $params = [])
@@ -156,9 +166,11 @@ class Link extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object\ClassDefinition\Data::getVersionPreview
+     *
      * @param string $data
      * @param null|Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getVersionPreview($data, $object = null, $params = [])
@@ -170,7 +182,8 @@ class Link extends Model\Object\ClassDefinition\Data
      * Checks if data is valid for current data field
      *
      * @param mixed $data
-     * @param boolean $omitMandatoryCheck
+     * @param bool $omitMandatoryCheck
+     *
      * @throws \Exception
      */
     public function checkValidity($data, $omitMandatoryCheck = false)
@@ -196,6 +209,7 @@ class Link extends Model\Object\ClassDefinition\Data
 
     /**
      * @param $data
+     *
      * @return array
      */
     public function resolveDependencies($data)
@@ -233,6 +247,7 @@ class Link extends Model\Object\ClassDefinition\Data
      *
      * @param mixed $data
      * @param array $tags
+     *
      * @return array
      */
     public function getCacheTags($data, $tags = [])
@@ -262,9 +277,12 @@ class Link extends Model\Object\ClassDefinition\Data
 
     /**
      * converts object data to a simple string value or CSV Export
+     *
      * @abstract
+     *
      * @param Object\AbstractObject $object
      * @param array $params
+     *
      * @return string
      */
     public function getForCsvExport($object, $params = [])
@@ -279,9 +297,11 @@ class Link extends Model\Object\ClassDefinition\Data
 
     /**
      * fills object field data values from CSV Import String
+     *
      * @param string $importValue
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return Object\ClassDefinition\Data\Link
      */
     public function getFromCsvImport($importValue, $object = null, $params = [])
@@ -297,6 +317,7 @@ class Link extends Model\Object\ClassDefinition\Data
     /**
      * @param $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForSearchIndex($object, $params = [])
@@ -311,8 +332,10 @@ class Link extends Model\Object\ClassDefinition\Data
 
     /**
      * converts data to be exposed via webservices
+     *
      * @param string $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function getForWebserviceExport($object, $params = [])
@@ -322,7 +345,7 @@ class Link extends Model\Object\ClassDefinition\Data
             $keys = get_object_vars($data);
             foreach ($keys as $key => $value) {
                 $method = "get" . ucfirst($key);
-                if (!method_exists($data, $method) or $key=="object") {
+                if (!method_exists($data, $method) or $key == "object") {
                     unset($keys[$key]);
                 }
             }
@@ -338,7 +361,9 @@ class Link extends Model\Object\ClassDefinition\Data
      * @param null $relatedObject
      * @param mixed $params
      * @param null $idMapper
+     *
      * @return mixed|void
+     *
      * @throws \Exception
      */
     public function getFromWebserviceImport($value, $relatedObject = null, $params = [], $idMapper = null)
@@ -367,7 +392,6 @@ class Link extends Model\Object\ClassDefinition\Data
             if ($idMapper) {
                 $id = $idMapper->getMappedId($value['internalType'], $id);
             }
-
 
             $element = Element\Service::getElementById($value['internalType'], $id);
             if (!$element) {
@@ -411,6 +435,7 @@ class Link extends Model\Object\ClassDefinition\Data
     /** True if change is allowed in edit mode.
      * @param string $object
      * @param mixed $params
+     *
      * @return bool
      */
     public function isDiffChangeAllowed($object, $params = [])
@@ -420,9 +445,11 @@ class Link extends Model\Object\ClassDefinition\Data
 
     /** Generates a pretty version preview (similar to getVersionPreview) can be either html or
      * a image URL. See the ObjectMerger plugin documentation for details
+     *
      * @param $data
      * @param null $object
      * @param mixed $params
+     *
      * @return array|string
      */
     public function getDiffVersionPreview($data, $object = null, $params = [])
@@ -446,9 +473,11 @@ class Link extends Model\Object\ClassDefinition\Data
      *  "object" => array(...),
      *  "asset" => array(...)
      * )
+     *
      * @param mixed $object
      * @param array $idMapping
      * @param array $params
+     *
      * @return Element\ElementInterface
      */
     public function rewriteIds($object, $idMapping, $params = [])

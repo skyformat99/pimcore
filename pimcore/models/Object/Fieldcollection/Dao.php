@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object\Fieldcollection
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -24,7 +25,6 @@ use Pimcore\Model\Object;
  */
 class Dao extends Model\Dao\AbstractDao
 {
-
     /**
      * @param Object\Concrete $object
      */
@@ -35,13 +35,13 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * @param Object\Concrete $object
+     *
      * @return array
      */
     public function load(Object\Concrete $object)
     {
         $fieldDef = $object->getClass()->getFieldDefinition($this->model->getFieldname());
         $values = [];
-
 
         foreach ($fieldDef->getAllowedTypes() as $type) {
             try {
@@ -120,7 +120,7 @@ class Dao extends Model\Dao\AbstractDao
 
         foreach ($fieldDef->getAllowedTypes() as $type) {
             try {
-                /** @var  $definition Definition */
+                /** @var $definition Definition */
                 $definition = Object\Fieldcollection\Definition::getByKey($type);
             } catch (\Exception $e) {
                 continue;

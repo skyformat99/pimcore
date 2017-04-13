@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Document
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -17,19 +18,18 @@
 namespace Pimcore\Model\Document;
 
 use Pimcore\Model;
-use Pimcore\Model\Document;
 use Pimcore\Model\Asset;
+use Pimcore\Model\Document;
 
 /**
  * @method \Pimcore\Model\Document\Link\Dao getDao()
  */
 class Link extends Model\Document
 {
-
     /**
      * Contains the ID of the internal ID
      *
-     * @var integer
+     * @var int
      */
     public $internal;
 
@@ -61,7 +61,6 @@ class Link extends Model\Document
      */
     public $linktype = "internal";
 
-
     /**
      * static type of this object
      *
@@ -76,9 +75,9 @@ class Link extends Model\Document
      */
     public $href = "";
 
-
     /**
      * @see Document::resolveDependencies
+     *
      * @return array
      */
     public function resolveDependencies()
@@ -103,6 +102,7 @@ class Link extends Model\Document
      * Resolves dependencies and create tags for caching out of them
      *
      * @param array $tags
+     *
      * @return array
      */
     public function getCacheTags($tags = [])
@@ -121,7 +121,6 @@ class Link extends Model\Document
 
         return $tags;
     }
-
 
     /**
      * Returns the plain text path of the link
@@ -144,7 +143,6 @@ class Link extends Model\Document
         return $path;
     }
 
-
     /**
      * Returns the path of the link including the anchor and parameters
      *
@@ -164,11 +162,11 @@ class Link extends Model\Document
         return $path;
     }
 
-
     /**
      * getProperty method should be used instead
      *
      * @deprecated
+     *
      * @return string
      */
     public function getTarget()
@@ -180,7 +178,9 @@ class Link extends Model\Document
      * setProperty method should be used instead
      *
      * @deprecated
+     *
      * @param string $target
+     *
      * @return string
      */
     public function setTarget($target)
@@ -193,7 +193,7 @@ class Link extends Model\Document
     /**
      * Returns the id of the internal document|asset which is linked
      *
-     * @return integer
+     * @return int
      */
     public function getInternal()
     {
@@ -221,7 +221,8 @@ class Link extends Model\Document
     }
 
     /**
-     * @param integer $internal
+     * @param int $internal
+     *
      * @return $this
      */
     public function setInternal($internal)
@@ -238,6 +239,7 @@ class Link extends Model\Document
 
     /**
      * @param string $direct
+     *
      * @return $this
      */
     public function setDirect($direct)
@@ -249,6 +251,7 @@ class Link extends Model\Document
 
     /**
      * @param string $linktype
+     *
      * @return $this
      */
     public function setLinktype($linktype)
@@ -262,6 +265,7 @@ class Link extends Model\Document
      * getProperty method should be used instead
      *
      * @deprecated
+     *
      * @return string
      */
     public function getName()
@@ -273,7 +277,9 @@ class Link extends Model\Document
      * setProperty method should be used instead
      *
      * @deprecated
+     *
      * @param string $name
+     *
      * @return $this
      */
     public function setName($name)
@@ -291,9 +297,9 @@ class Link extends Model\Document
         return $this->internalType;
     }
 
-
     /**
      * @param string $type
+     *
      * @return $this
      */
     public function setInternalType($type)
@@ -321,6 +327,7 @@ class Link extends Model\Document
 
     /**
      * @param $object
+     *
      * @return $this
      */
     public function setObject($object)
@@ -346,11 +353,11 @@ class Link extends Model\Document
         return $this->object;
     }
 
-
     /**
      * getProperty method should be used instead
      *
      * @deprecated
+     *
      * @return string
      */
     public function getParameters()
@@ -360,6 +367,7 @@ class Link extends Model\Document
 
     /**
      * @param $parameters
+     *
      * @return $this
      */
     public function setParameters($parameters)
@@ -373,6 +381,7 @@ class Link extends Model\Document
      * getProperty method should be used instead
      *
      * @deprecated
+     *
      * @return string
      */
     public function getAnchor()
@@ -382,6 +391,7 @@ class Link extends Model\Document
 
     /**
      * @param $anchor
+     *
      * @return $this
      */
     public function setAnchor($anchor)
@@ -401,6 +411,7 @@ class Link extends Model\Document
 
     /**
      * @param $title
+     *
      * @return $this
      */
     public function setTitle($title)
@@ -414,6 +425,7 @@ class Link extends Model\Document
      * getProperty method should be used instead
      *
      * @deprecated
+     *
      * @return string
      */
     public function getAccesskey()
@@ -423,6 +435,7 @@ class Link extends Model\Document
 
     /**
      * @param $accesskey
+     *
      * @return $this
      */
     public function setAccesskey($accesskey)
@@ -436,6 +449,7 @@ class Link extends Model\Document
      * getProperty method should be used instead
      *
      * @deprecated
+     *
      * @return string
      */
     public function getRel()
@@ -445,6 +459,7 @@ class Link extends Model\Document
 
     /**
      * @param $rel
+     *
      * @return $this
      */
     public function setRel($rel)
@@ -458,6 +473,7 @@ class Link extends Model\Document
      * getProperty method should be used instead
      *
      * @deprecated
+     *
      * @return string
      */
     public function getTabindex()
@@ -467,6 +483,7 @@ class Link extends Model\Document
 
     /**
      * @param $tabindex
+     *
      * @return $this
      */
     public function setTabindex($tabindex)
@@ -492,9 +509,6 @@ class Link extends Model\Document
         return '<a href="' . $this->getLink() . '" ' . implode(" ", $attribs) . '>' . htmlspecialchars($this->getProperty("navigation_name")) . '</a>';
     }
 
-    /**
-     *
-     */
     public function __sleep()
     {
         $finalVars = [];

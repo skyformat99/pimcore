@@ -32,10 +32,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AdminController implements EventedControllerInterface
 {
-
     /**
      * @Route("/user/tree-get-childs-by-id")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function treeGetChildsByIdAction(Request $request)
@@ -60,6 +61,7 @@ class UserController extends AdminController implements EventedControllerInterfa
 
     /**
      * @param $user
+     *
      * @return array
      */
     protected function getTreeNodeConfig($user)
@@ -101,7 +103,9 @@ class UserController extends AdminController implements EventedControllerInterfa
 
     /**
      * @Route("/user/add")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function addAction(Request $request)
@@ -110,7 +114,7 @@ class UserController extends AdminController implements EventedControllerInterfa
 
         try {
             $type = $request->get("type");
-            ;
+
             $className = User\Service::getClassNameForType($type);
             $user = $className::create([
                 "parentId" => intval($request->get("parentId")),
@@ -186,7 +190,9 @@ class UserController extends AdminController implements EventedControllerInterfa
      * @param $node
      * @param $currentList
      * @param $roleMode
+     *
      * @return array
+     *
      * @throws \Exception
      */
     protected function populateChildNodes($node, &$currentList, $roleMode)
@@ -217,8 +223,11 @@ class UserController extends AdminController implements EventedControllerInterfa
 
     /**
      * @Route("/user/delete")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
+     *
      * @throws \Exception
      */
     public function deleteAction(Request $request)
@@ -251,8 +260,11 @@ class UserController extends AdminController implements EventedControllerInterfa
 
     /**
      * @Route("/user/update")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
+     *
      * @throws \Exception
      */
     public function updateAction(Request $request)
@@ -333,8 +345,11 @@ class UserController extends AdminController implements EventedControllerInterfa
 
     /**
      * @Route("/user/get")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
+     *
      * @throws \Exception
      */
     public function getAction(Request $request)
@@ -423,7 +438,9 @@ class UserController extends AdminController implements EventedControllerInterfa
 
     /**
      * @Route("/user/get-minimal")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function getMinimalAction(Request $request)
@@ -443,7 +460,9 @@ class UserController extends AdminController implements EventedControllerInterfa
 
     /**
      * @Route("/user/upload-current-user-image")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function uploadCurrentUserImageAction(Request $request)
@@ -462,10 +481,11 @@ class UserController extends AdminController implements EventedControllerInterfa
         }
     }
 
-
     /**
      * @Route("/user/update-current-user")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function updateCurrentUserAction(Request $request)
@@ -486,7 +506,6 @@ class UserController extends AdminController implements EventedControllerInterfa
 
                 if (!empty($values["new_password"])) {
                     $oldPasswordCheck = false;
-
 
                     if (empty($values["old_password"])) {
                         // if the user want to reset the password, the old password isn't required
@@ -528,7 +547,9 @@ class UserController extends AdminController implements EventedControllerInterfa
 
     /**
      * @Route("/user/get-current-user")
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function getCurrentUserAction(Request $request)
@@ -554,12 +575,13 @@ class UserController extends AdminController implements EventedControllerInterfa
         return $response;
     }
 
-
     /* ROLES */
 
     /**
      * @Route("/user/role-tree-get-childs-by-id")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function roleTreeGetChildsByIdAction(Request $request)
@@ -580,6 +602,7 @@ class UserController extends AdminController implements EventedControllerInterfa
 
     /**
      * @param $role
+     *
      * @return array
      */
     protected function getRoleTreeNodeConfig($role)
@@ -616,7 +639,9 @@ class UserController extends AdminController implements EventedControllerInterfa
 
     /**
      * @Route("/user/role-get")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function roleGetAction(Request $request)
@@ -656,8 +681,11 @@ class UserController extends AdminController implements EventedControllerInterfa
 
     /**
      * @Route("/user/upload-image")
+     *
      * @param Request $request
+     *
      * @throws \Exception
+     *
      * @return JsonResponse
      */
     public function uploadImageAction(Request $request)
@@ -690,7 +718,9 @@ class UserController extends AdminController implements EventedControllerInterfa
 
     /**
      * @Route("/user/get-image")
+     *
      * @param Request $request
+     *
      * @return BinaryFileResponse
      */
     public function getImageAction(Request $request)
@@ -716,8 +746,11 @@ class UserController extends AdminController implements EventedControllerInterfa
 
     /**
      * @Route("/user/get-token-login-link")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
+     *
      * @throws \Exception
      */
     public function getTokenLoginLinkAction(Request $request)
@@ -741,7 +774,9 @@ class UserController extends AdminController implements EventedControllerInterfa
 
     /**
      * @Route("/user/search")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function searchAction(Request $request)

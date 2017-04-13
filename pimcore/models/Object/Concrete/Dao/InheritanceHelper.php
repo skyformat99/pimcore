@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -21,30 +22,14 @@ use Pimcore\Model\Object;
 
 class InheritanceHelper
 {
-
-    /**
-     *
-     */
     const STORE_TABLE = "object_store_";
 
-    /**
-     *
-     */
     const QUERY_TABLE = "object_query_";
 
-    /**
-     *
-     */
     const RELATION_TABLE = "object_relations_";
 
-    /**
-     *
-     */
     const OBJECTS_TABLE = 'objects';
 
-    /**
-     *
-     */
     const ID_FIELD = "oo_id";
 
     /**
@@ -97,7 +82,6 @@ class InheritanceHelper
      */
     protected static $runtimeCache = [];
 
-
     /**
      * @param $classId
      * @param null $idField
@@ -135,7 +119,6 @@ class InheritanceHelper
         }
     }
 
-
     /**
      * Enable or disable the runtime cache
      *
@@ -154,10 +137,6 @@ class InheritanceHelper
         self::$runtimeCache = [];
     }
 
-
-    /**
-     *
-     */
     public function resetFieldsToCheck()
     {
         $this->fields = [];
@@ -198,6 +177,7 @@ class InheritanceHelper
     /**
      * @param $oo_id
      * @param bool $createMissingChildrenRows
+     *
      * @throws \Exception
      */
     public function doUpdate($oo_id, $createMissingChildrenRows = false)
@@ -205,8 +185,6 @@ class InheritanceHelper
         if (empty($this->fields) && empty($this->relations) && !$createMissingChildrenRows) {
             return;
         }
-
-
 
         $fields = implode("`,`", $this->fields);
         if (!empty($fields)) {
@@ -269,6 +247,7 @@ class InheritanceHelper
 
     /** Currently solely used for object bricks. If a brick is removed, this info must be propagated to all
      * child elements.
+     *
      * @param $objectId
      */
     public function doDelete($objectId)
@@ -318,7 +297,6 @@ class InheritanceHelper
 
         $toBeRemovedItemIds = [];
 
-
         // now iterate over all affected elements and check if the object even has a brick. If it doesn't, then
         // remove the query row entirely ...
         if ($affectedIds) {
@@ -357,6 +335,7 @@ class InheritanceHelper
      * @param $currentParentId
      * @param string $fields
      * @param null $parentIdGroups
+     *
      * @return array
      */
     protected function buildTree($currentParentId, $fields = "", $parentIdGroups = null)
@@ -413,6 +392,7 @@ class InheritanceHelper
 
     /**
      * @param $node
+     *
      * @return mixed
      */
     protected function getRelationsForNode($node)
@@ -458,7 +438,6 @@ class InheritanceHelper
             }
         }
     }
-
 
     /**
      * @param $currentNode
@@ -519,6 +498,7 @@ class InheritanceHelper
      * @param $oo_id
      * @param $ids
      * @param $fieldname
+     *
      * @throws \Exception
      */
     protected function updateQueryTable($oo_id, $ids, $fieldname)

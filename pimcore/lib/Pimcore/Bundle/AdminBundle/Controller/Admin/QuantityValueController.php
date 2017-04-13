@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -26,8 +27,11 @@ class QuantityValueController extends AdminController
 {
     /**
      * @Route("/quantity-value/unit-proxy")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
+     *
      * @throws \Exception
      */
     public function unitProxyAction(Request $request)
@@ -113,6 +117,7 @@ class QuantityValueController extends AdminController
 
     /**
      * @param $comparison
+     *
      * @return mixed
      */
     private function getOperator($comparison)
@@ -126,10 +131,11 @@ class QuantityValueController extends AdminController
         return $mapper[$comparison];
     }
 
-
     /**
      * @Route("/quantity-value/unit-list")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function unitListAction(Request $request)

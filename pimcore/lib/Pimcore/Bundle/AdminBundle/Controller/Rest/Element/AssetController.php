@@ -48,6 +48,7 @@ class AssetController extends AbstractElementController
      * @param int|null $id
      *
      * @return JsonResponse
+     *
      * @throws ResponseException
      */
     public function getAction(Request $request, $id = null)
@@ -166,6 +167,7 @@ class AssetController extends AbstractElementController
      * @param int|null $id
      *
      * @return JsonResponse
+     *
      * @throws ResponseException
      */
     public function deleteAction(Request $request, $id = null)

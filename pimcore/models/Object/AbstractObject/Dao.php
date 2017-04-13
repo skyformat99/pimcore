@@ -10,15 +10,16 @@
  *
  * @category   Pimcore
  * @package    Object
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Object\AbstractObject;
 
+use Pimcore\Logger;
 use Pimcore\Model;
 use Pimcore\Model\Object;
-use Pimcore\Logger;
 
 /**
  * @property \Pimcore\Model\Object\AbstractObject $model
@@ -28,7 +29,8 @@ class Dao extends Model\Element\Dao
     /**
      * Get the data for the object from database for the given id
      *
-     * @param integer $id
+     * @param int $id
+     *
      * @throws \Exception
      */
     public function getById($id)
@@ -48,6 +50,7 @@ class Dao extends Model\Element\Dao
      * Get the data for the object from database for the given path
      *
      * @param string $path
+     *
      * @throws \Exception
      */
     public function getByPath($path)
@@ -68,11 +71,10 @@ class Dao extends Model\Element\Dao
         }
     }
 
-
     /**
      * Create a new record for the object in database
      *
-     * @return boolean
+     * @return bool
      */
     public function create()
     {
@@ -142,7 +144,6 @@ class Dao extends Model\Element\Dao
         $this->db->delete("objects", ["o_id" => $this->model->getId()]);
     }
 
-
     public function updateWorkspaces()
     {
         $this->db->update("users_workspaces_object", [
@@ -156,6 +157,7 @@ class Dao extends Model\Element\Dao
      * Updates the paths for children, children's properties and children's permissions in the database
      *
      * @param string $oldPath
+     *
      * @return null|array
      *
      * @todo: calls deprecated ::hasChilds
@@ -180,11 +182,9 @@ class Dao extends Model\Element\Dao
             //update object child properties paths
             $this->db->query("update properties set cpath = replace(cpath," . $this->db->quote($oldPath . "/") . "," . $this->db->quote($this->model->getRealFullPath() . "/") . ") where cpath like " . $this->db->quote($oldPath . "/%") . ";");
 
-
             return $objects;
         }
     }
-
 
     /**
      * deletes all properties for the object from database
@@ -211,11 +211,11 @@ class Dao extends Model\Element\Dao
         return $path;
     }
 
-
     /**
      * Get the properties for the object from database and assign it
      *
-     * @param boolean $onlyInherited
+     * @param bool $onlyInherited
+     *
      * @return array
      */
     public function getProperties($onlyInherited = false)
@@ -275,7 +275,9 @@ class Dao extends Model\Element\Dao
 
     /**
      * @deprecated
+     *
      * @param array $objectTypes
+     *
      * @return bool
      */
     public function hasChilds($objectTypes = [Object::OBJECT_TYPE_OBJECT, Object::OBJECT_TYPE_FOLDER])
@@ -287,7 +289,8 @@ class Dao extends Model\Element\Dao
      * Quick test if there are childs
      *
      * @param array $objectTypes
-     * @return boolean
+     *
+     * @return bool
      */
     public function hasChildren($objectTypes = [Object::OBJECT_TYPE_OBJECT, Object::OBJECT_TYPE_FOLDER])
     {
@@ -300,7 +303,8 @@ class Dao extends Model\Element\Dao
      * Quick test if there are siblings
      *
      * @param array $objectTypes
-     * @return boolean
+     *
+     * @return bool
      */
     public function hasSiblings($objectTypes = [Object::OBJECT_TYPE_OBJECT, Object::OBJECT_TYPE_FOLDER])
     {
@@ -314,7 +318,8 @@ class Dao extends Model\Element\Dao
      *
      * @param array $objectTypes
      * @param Model\User $user
-     * @return integer
+     *
+     * @return int
      */
     public function getChildAmount($objectTypes = [Object::OBJECT_TYPE_OBJECT, Object::OBJECT_TYPE_FOLDER], $user = null)
     {
@@ -335,6 +340,7 @@ class Dao extends Model\Element\Dao
 
     /**
      * @param $id
+     *
      * @return mixed
      */
     public function getTypeById($id)
@@ -363,13 +369,9 @@ class Dao extends Model\Element\Dao
             return true;
         }
 
-
         return false;
     }
 
-    /**
-     *
-     */
     public function unlockPropagate()
     {
         $lockIds = $this->db->fetchCol("SELECT o_id from objects WHERE o_path LIKE " . $this->db->quote($this->model->getRealFullPath() . "/%") . " OR o_id = " . $this->model->getId());
@@ -424,6 +426,7 @@ class Dao extends Model\Element\Dao
     /**
      * @param $type
      * @param $user
+     *
      * @return bool
      */
     public function isAllowed($type, $user)
@@ -464,6 +467,7 @@ class Dao extends Model\Element\Dao
      * @param $type
      * @param $user
      * @param bool $quote
+     *
      * @return mixed|null
      */
     public function getPermissions($type, $user, $quote = true)
@@ -530,6 +534,7 @@ class Dao extends Model\Element\Dao
      * @param $type
      * @param $user
      * @param bool $quote
+     *
      * @return array
      */
     public function getChildPermissions($type, $user, $quote = true)

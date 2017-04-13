@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -30,7 +31,7 @@ class Input extends Model\Object\ClassDefinition\Data
     public $fieldtype = "input";
 
     /**
-     * @var integer
+     * @var int
      */
     public $width;
 
@@ -51,7 +52,7 @@ class Input extends Model\Object\ClassDefinition\Data
     /**
      * Column length
      *
-     * @var integer
+     * @var int
      */
     public $columnLength = 190;
 
@@ -68,7 +69,7 @@ class Input extends Model\Object\ClassDefinition\Data
     public $regex = "";
 
     /**
-     * @return integer
+     * @return int
      */
     public function getWidth()
     {
@@ -76,7 +77,8 @@ class Input extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @param integer $width
+     * @param int $width
+     *
      * @return $this
      */
     public function setWidth($width)
@@ -88,9 +90,11 @@ class Input extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Model\Object\ClassDefinition\Data::getDataForResource
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForResource($data, $object = null, $params = [])
@@ -100,9 +104,11 @@ class Input extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Model\Object\ClassDefinition\Data::getDataFromResource
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataFromResource($data, $object = null, $params = [])
@@ -112,9 +118,11 @@ class Input extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Model\Object\ClassDefinition\Data::getDataForQueryResource
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForQueryResource($data, $object = null, $params = [])
@@ -124,9 +132,11 @@ class Input extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Model\Object\ClassDefinition\Data::getDataForEditmode
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForEditmode($data, $object = null, $params = [])
@@ -136,9 +146,11 @@ class Input extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Model\Object\ClassDefinition\Data::getDataFromEditmode
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataFromEditmode($data, $object = null, $params = [])
@@ -147,7 +159,7 @@ class Input extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getColumnLength()
     {
@@ -156,6 +168,7 @@ class Input extends Model\Object\ClassDefinition\Data
 
     /**
      * @param $columnLength
+     *
      * @return $this
      */
     public function setColumnLength($columnLength)
@@ -203,7 +216,8 @@ class Input extends Model\Object\ClassDefinition\Data
      * Checks if data is valid for current data field
      *
      * @param mixed $data
-     * @param boolean $omitMandatoryCheck
+     * @param bool $omitMandatoryCheck
+     *
      * @throws \Exception
      */
     public function checkValidity($data, $omitMandatoryCheck = false)

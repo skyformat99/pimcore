@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Document
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -39,7 +40,7 @@ class Areablock extends Model\Document\Tag
     /**
      * Current step of the block while iteration
      *
-     * @var integer
+     * @var int
      */
     public $current = 0;
 
@@ -48,9 +49,9 @@ class Areablock extends Model\Document\Tag
      */
     public $currentIndex;
 
-
     /**
      * @see Document\Tag\TagInterface::getType
+     *
      * @return string
      */
     public function getType()
@@ -60,6 +61,7 @@ class Areablock extends Model\Document\Tag
 
     /**
      * @see Document\Tag\TagInterface::getData
+     *
      * @return mixed
      */
     public function getData()
@@ -107,9 +109,6 @@ class Areablock extends Model\Document\Tag
         $this->end();
     }
 
-    /**
-     *
-     */
     public function loop()
     {
         $disabled = false;
@@ -167,9 +166,6 @@ class Areablock extends Model\Document\Tag
         }
     }
 
-    /**
-     *
-     */
     public function content()
     {
         // create info object and assign it to the view
@@ -209,7 +205,9 @@ class Areablock extends Model\Document\Tag
 
     /**
      * @see Document\Tag\TagInterface::setDataFromResource
+     *
      * @param mixed $data
+     *
      * @return $this
      */
     public function setDataFromResource($data)
@@ -224,7 +222,9 @@ class Areablock extends Model\Document\Tag
 
     /**
      * @see Document\Tag\TagInterface::setDataFromEditmode
+     *
      * @param mixed $data
+     *
      * @return $this
      */
     public function setDataFromEditmode($data)
@@ -234,9 +234,6 @@ class Areablock extends Model\Document\Tag
         return $this;
     }
 
-    /**
-     *
-     */
     public function blockConstruct()
     {
         // set the current block suffix for the child elements (0, 1, 3, ...) | this will be removed in Pimcore_View_Helper_Tag::tag
@@ -245,9 +242,6 @@ class Areablock extends Model\Document\Tag
         \Pimcore\Cache\Runtime::set("pimcore_tag_block_numeration", $suffixes);
     }
 
-    /**
-     *
-     */
     public function blockDestruct()
     {
         $suffixes = \Pimcore\Cache\Runtime::get("pimcore_tag_block_numeration");
@@ -413,6 +407,7 @@ class Areablock extends Model\Document\Tag
 
     /**
      * @param array $options
+     *
      * @return $this
      */
     public function setOptions($options)
@@ -466,7 +461,6 @@ class Areablock extends Model\Document\Tag
         if (empty($options["limit"])) {
             $options["limit"] = 1000000;
         }
-
 
         $this->options = $options;
 
@@ -539,7 +533,7 @@ class Areablock extends Model\Document\Tag
     /**
      * Return the amount of block elements
      *
-     * @return integer
+     * @return int
      */
     public function getCount()
     {
@@ -549,17 +543,17 @@ class Areablock extends Model\Document\Tag
     /**
      * Return current iteration step
      *
-     * @return integer
+     * @return int
      */
     public function getCurrent()
     {
-        return $this->current-1;
+        return $this->current - 1;
     }
 
     /**
      * Return current index
      *
-     * @return integer
+     * @return int
      */
     public function getCurrentIndex()
     {
@@ -583,12 +577,12 @@ class Areablock extends Model\Document\Tag
         return !(bool) count($this->indices);
     }
 
-
     /**
      * @param Model\Webservice\Data\Document\Element $wsElement
      * @param $document
      * @param mixed $params
      * @param null $idMapper
+     *
      * @throws \Exception
      *
      * @todo replace and with &&
@@ -596,8 +590,8 @@ class Areablock extends Model\Document\Tag
     public function getFromWebserviceImport($wsElement, $document = null, $params = [], $idMapper = null)
     {
         $data = $wsElement->value;
-        if (($data->indices === null or is_array($data->indices)) and ($data->current==null or is_numeric($data->current))
-            and ($data->currentIndex==null or is_numeric($data->currentIndex))) {
+        if (($data->indices === null or is_array($data->indices)) and ($data->current == null or is_numeric($data->current))
+            and ($data->currentIndex == null or is_numeric($data->currentIndex))) {
             $indices = $data->indices;
             if ($indices instanceof \stdclass) {
                 $indices = (array) $indices;
@@ -627,6 +621,7 @@ class Areablock extends Model\Document\Tag
      * @deprecated Only used in legacy mode
      *
      * @param $name
+     *
      * @return bool
      */
     public function isBrickEnabled($name)
@@ -650,6 +645,7 @@ class Areablock extends Model\Document\Tag
      * @deprecated Only used in legacy mode
      *
      * @param $name
+     *
      * @return string
      */
     public function getPathForBrick($name)
@@ -665,6 +661,7 @@ class Areablock extends Model\Document\Tag
      * @deprecated Only used in legacy mode
      *
      * @param $name
+     *
      * @throws \Exception
      */
     public function getBrickConfig($name)
@@ -719,7 +716,7 @@ class Areablock extends Model\Document\Tag
         $list = [];
         foreach ($this->getData() as $index => $item) {
             if ($item['type'] == $name) {
-                $list[ $index ] = new Areablock\Item($doc, $this->getName(), $item['key']);
+                $list[$index] = new Areablock\Item($doc, $this->getName(), $item['key']);
             }
         }
 

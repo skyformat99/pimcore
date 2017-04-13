@@ -15,8 +15,8 @@
 namespace Pimcore\Helper;
 
 use Pimcore\Mail as MailClient;
-use Pimcore\Tool;
 use Pimcore\Model;
+use Pimcore\Tool;
 use TijsVerkoyen\CssToInlineStyles\CssToInlineStyles;
 
 class Mail
@@ -24,7 +24,9 @@ class Mail
     /**
      * @param $type
      * @param MailClient $mail
+     *
      * @return string
+     *
      * @throws \Exception
      */
     public static function getDebugInformation($type, MailClient $mail)
@@ -63,7 +65,6 @@ class Mail
             $debugInformation = "\r\n  \r\nDebug Information:  \r\n  \r\n";
             if ($mail->getFrom()) {
                 $debugInformation .= 'From: ' . self::formatDebugReceivers($mail->getFrom()) . "\r\n";
-                ;
             }
 
             //generating text debug info
@@ -80,11 +81,11 @@ class Mail
         return $debugInformation;
     }
 
-
     /**
      * Return the basic css styles for the html debug information
      *
      * @static
+     *
      * @return string
      */
     public static function getDebugInformationCssStyle()
@@ -123,6 +124,7 @@ CSS;
      * Helper to format the receivers for the debug email and logging
      *
      * @param array $receivers
+     *
      * @return string
      */
     protected static function formatDebugReceivers(array $receivers)
@@ -140,9 +142,9 @@ CSS;
         return $tmpString;
     }
 
-
     /**
      * @param MailClient $mail
+     *
      * @return Model\Tool\Email\Log
      */
     public static function logEmail(MailClient $mail)
@@ -172,7 +174,6 @@ CSS;
             $emailLog->setFrom(self::formatDebugReceivers($mailFrom));
         }
 
-
         $html = $mail->getBody();
         if ($html) {
             $emailLog->setBodyHtml($html);
@@ -182,7 +183,6 @@ CSS;
         if ($text) {
             $emailLog->setBodyText($text->getBody());
         }
-
 
         foreach (['To', 'Cc', 'Bcc'] as $key) {
             $getterName = "get" . $key;
@@ -204,7 +204,9 @@ CSS;
      * @param $string
      * @param null $document
      * @param null $hostUrl
+     *
      * @return mixed
+     *
      * @throws \Exception
      */
     public static function setAbsolutePaths($string, $document = null, $hostUrl = null)
@@ -266,11 +268,12 @@ CSS;
         return $string;
     }
 
-
     /**
      * @param $string
      * @param null $document
+     *
      * @return mixed
+     *
      * @throws \Exception
      */
     public static function embedAndModifyCss($string, $document = null)
@@ -324,13 +327,14 @@ CSS;
         return $string;
     }
 
-
     /**
      * Normalizes the css content (replaces images with the full path including the host)
      *
      * @static
+     *
      * @param string $content
      * @param array $fileInfo
+     *
      * @return string
      */
     public static function normalizeCssContent($content, array $fileInfo)
@@ -358,11 +362,12 @@ CSS;
         return $content;
     }
 
-
     /**
      * @param $path
      * @param null $document
+     *
      * @return array
+     *
      * @throws \Exception
      */
     public static function getNormalizedFileInfo($path, $document = null)
@@ -378,7 +383,6 @@ CSS;
         } else {
             $fileInfo['fileUrl'] = $hostUrl . $path;
         }
-
 
         $fileInfo['fileExtension'] = substr($path, strrpos($path, '.') + 1);
         $netUrl = new \Net_URL2($fileInfo['fileUrl']);

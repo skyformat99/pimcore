@@ -15,13 +15,12 @@
 namespace Pimcore\Helper;
 
 use Pimcore\Config;
-use Pimcore\Tool\Serialize;
 use Pimcore\File;
 use Pimcore\Model\User;
+use Pimcore\Tool\Serialize;
 
 class Dashboard
 {
-
     /**
      * @var User
      */
@@ -101,13 +100,13 @@ class Dashboard
 
     /**
      * @param string $key
+     *
      * @return mixed
      */
     public function getDashboard($key = "welcome")
     {
         $dashboards = $this->loadFile();
         $dashboard = $dashboards[$key];
-
 
         if ($dashboard) {
             $disabledPortlets = array_keys($this->getDisabledPortlets());
@@ -154,7 +153,6 @@ class Dashboard
         unset($this->dashboards[$key]);
         File::put($this->getConfigFile(), Serialize::serialize($this->dashboards));
     }
-
 
     /**
      * @return array

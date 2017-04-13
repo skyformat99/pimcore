@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -29,7 +30,6 @@ use Pimcore\Tool\Admin as AdminTool;
  */
 class Service extends Model\Element\Service
 {
-
     /**
      * @var array
      */
@@ -59,7 +59,9 @@ class Service extends Model\Element\Service
      * finds all objects which hold a reference to a specific user
      *
      * @static
-     * @param  integer $userId
+     *
+     * @param  int $userId
+     *
      * @return Concrete[]
      */
     public static function getObjectsReferencingUser($userId)
@@ -106,6 +108,7 @@ class Service extends Model\Element\Service
     /**
      * @param $target
      * @param $source
+     *
      * @return mixed
      */
     public function copyRecursive($target, $source)
@@ -152,10 +155,10 @@ class Service extends Model\Element\Service
         return $new;
     }
 
-
     /**
      * @param  AbstractObject $target
      * @param  AbstractObject $source
+     *
      * @return AbstractObject copied object
      */
     public function copyAsChild($target, $source)
@@ -193,7 +196,9 @@ class Service extends Model\Element\Service
     /**
      * @param $target
      * @param $source
+     *
      * @return AbstractObject
+     *
      * @throws \Exception
      */
     public function copyContents($target, $source)
@@ -224,12 +229,13 @@ class Service extends Model\Element\Service
         return $target;
     }
 
-
     /**
      * Language only user for classification store !!!
+     *
      * @param  AbstractObject $object
      * @param null $fields
      * @param null $requestedLanguage
+     *
      * @return array
      */
     public static function gridObjectData($object, $fields = null, $requestedLanguage = null)
@@ -271,7 +277,7 @@ class Service extends Model\Element\Service
                         $keyid = $groupKeyId[1];
                         $getter = "get" . ucfirst($field);
                         if (method_exists($object, $getter)) {
-                            /** @var  $classificationStoreData Classificationstore */
+                            /** @var $classificationStoreData Classificationstore */
                             $classificationStoreData = $object->$getter();
                             $fielddata = $classificationStoreData->getLocalizedKeyValue($groupId, $keyid, $requestedLanguage, true, true);
 
@@ -374,6 +380,7 @@ class Service extends Model\Element\Service
      * @param $object
      * @param $user
      * @param $type
+     *
      * @return array|null
      */
     public static function getLanguagePermissions($object, $user, $type)
@@ -405,12 +412,12 @@ class Service extends Model\Element\Service
     /**
      * @param $classId
      * @param $permissionSet
+     *
      * @return array|null
      */
     public static function getLayoutPermissions($classId, $permissionSet)
     {
         $layoutPermissions = null;
-
 
         if (!is_null($permissionSet)) {
             // backwards compatibility. If all entries are null, then the workspace rule was set up with
@@ -445,6 +452,7 @@ class Service extends Model\Element\Service
     /**
      * @param ClassDefinition $class
      * @param $bricktype
+     *
      * @return int|null|string
      */
     public static function getFieldForBrickType(ClassDefinition $class, $bricktype)
@@ -465,11 +473,13 @@ class Service extends Model\Element\Service
      * gets value for given object and getter, including inherited values
      *
      * @static
+     *
      * @param $object
      * @param $key
      * @param null $brickType
      * @param null $brickKey
      * @param null $fieldDefinition
+     *
      * @return \stdclass, value and objectid where the value comes from
      */
     private static function getValueForObject($object, $key, $brickType = null, $brickKey = null, $fieldDefinition = null)
@@ -510,6 +520,7 @@ class Service extends Model\Element\Service
 
     /**
      * @param Concrete $object
+     *
      * @return AbstractObject|null
      */
     public static function hasInheritableParentObject(Concrete $object)
@@ -525,6 +536,7 @@ class Service extends Model\Element\Service
      * call the getters of each object field, in case some of the are lazy loading and we need the data to be loaded
      *
      * @static
+     *
      * @param  Concrete $object
      */
     public static function loadAllObjectFields($object)
@@ -543,11 +555,11 @@ class Service extends Model\Element\Service
         }
     }
 
-
     /**
      *
      * @param string $filterJson
      * @param ClassDefinition $class
+     *
      * @return string
      */
     public static function getFeatureFilters($filterJson, $class)
@@ -629,7 +641,6 @@ class Service extends Model\Element\Service
             "conditions" => $conditions
         ];
 
-
         return $result;
     }
 
@@ -637,6 +648,7 @@ class Service extends Model\Element\Service
      *
      * @param string $filterJson
      * @param ClassDefinition $class
+     *
      * @return string
      */
     public static function getFilterCondition($filterJson, $class)
@@ -691,7 +703,6 @@ class Service extends Model\Element\Service
                     if ($localized instanceof ClassDefinition\Data\Localizedfields) {
                         $field = $localized->getFieldDefinition($filterField);
                     }
-
 
                     //if the definition doesn't exist check for object brick
                     $keyParts = explode("~", $filterField);
@@ -763,8 +774,10 @@ class Service extends Model\Element\Service
 
     /**
      * @static
+     *
      * @param $object
      * @param $fieldname
+     *
      * @return array
      */
     public static function getOptionsForSelectField($object, $fieldname)
@@ -799,8 +812,10 @@ class Service extends Model\Element\Service
 
     /**
      * alias of getOptionsForMultiSelectField
+     *
      * @param $object
      * @param $fieldname
+     *
      * @return array
      */
     public static function getOptionsForMultiSelectField($object, $fieldname)
@@ -810,8 +825,10 @@ class Service extends Model\Element\Service
 
     /**
      * @static
+     *
      * @param $path
      * @param null $type
+     *
      * @return bool
      */
     public static function pathExists($path, $type = null)
@@ -832,7 +849,6 @@ class Service extends Model\Element\Service
         return false;
     }
 
-
     /**
      * Rewrites id from source to target, $rewriteConfig contains
      * array(
@@ -843,8 +859,10 @@ class Service extends Model\Element\Service
      *  "object" => array(...),
      *  "asset" => array(...)
      * )
+     *
      * @param $object
      * @param $rewriteConfig
+     *
      * @return AbstractObject
      */
     public static function rewriteIds($object, $rewriteConfig)
@@ -875,6 +893,7 @@ class Service extends Model\Element\Service
 
     /**
      * @param Concrete $object
+     *
      * @return array
      */
     public static function getValidLayouts(Concrete $object)
@@ -930,6 +949,7 @@ class Service extends Model\Element\Service
      * @param $layout
      * @param $targetList
      * @param $insideLocalizedField
+     *
      * @return mixed
      */
     public static function extractLocalizedFieldDefinitions($layout, $targetList, $insideLocalizedField)
@@ -951,9 +971,9 @@ class Service extends Model\Element\Service
         return $targetList;
     }
 
-
     /** Calculates the super layout definition for the given object.
      * @param Concrete $object
+     *
      * @return mixed
      */
     public static function getSuperLayoutDefinition(Concrete $object)
@@ -976,14 +996,11 @@ class Service extends Model\Element\Service
             $layout->setNoteditable(false);
         }
 
-
         if ($layout instanceof Model\Object\ClassDefinition\Data\Fieldcollections) {
             unset($layout->disallowAddRemove);
             unset($layout->disallowReorder);
             $layout->layoutId = -1;
         }
-
-
 
         if (method_exists($layout, "getChilds")) {
             $children = $layout->getChilds();
@@ -998,6 +1015,7 @@ class Service extends Model\Element\Service
     /**
      * @param $masterDefinition
      * @param $layout
+     *
      * @return bool
      */
     private static function synchronizeCustomLayoutFieldWithMaster($masterDefinition, &$layout)
@@ -1019,7 +1037,7 @@ class Service extends Model\Element\Service
             $children = $layout->getChilds();
             if (is_array($children)) {
                 $count = count($children);
-                for ($i = $count  -1; $i >= 0; $i--) {
+                for ($i = $count - 1; $i >= 0; $i--) {
                     $child = $children[$i];
                     if (!self::synchronizeCustomLayoutFieldWithMaster($masterDefinition, $child)) {
                         unset($children[$i]);
@@ -1053,6 +1071,7 @@ class Service extends Model\Element\Service
     /**
      * @param $classId
      * @param $objectId
+     *
      * @return mixed|null
      */
     public static function getCustomGridFieldDefinitions($classId, $objectId)
@@ -1080,7 +1099,6 @@ class Service extends Model\Element\Service
 
         $childPermissions = $object->getChildPermissions(null, $user);
         $permissionList = array_merge($permissionList, $childPermissions);
-
 
         $layoutDefinitions = [];
 
@@ -1186,6 +1204,7 @@ class Service extends Model\Element\Service
     /**
      * @param $layout
      * @param $fieldDefinitions
+     *
      * @return bool
      */
     private static function doFilterCustomGridFieldDefinitions(&$layout, $fieldDefinitions)
@@ -1203,7 +1222,7 @@ class Service extends Model\Element\Service
             $children = $layout->getChilds();
             if (is_array($children)) {
                 $count = count($children);
-                for ($i = $count  -1; $i >= 0; $i--) {
+                for ($i = $count - 1; $i >= 0; $i--) {
                     $child = $children[$i];
                     if (!self::doFilterCustomGridFieldDefinitions($child, $fieldDefinitions)) {
                         unset($children[$i]);
@@ -1216,10 +1235,10 @@ class Service extends Model\Element\Service
         return true;
     }
 
-
     /**  Determines the custom layout definition (if necessary) for the given class
      * @param ClassDefinition $class
      * @param int $objectId
+     *
      * @return array layout
      */
     public static function getCustomLayoutDefinitionForGridColumnConfig(ClassDefinition $class, $objectId)
@@ -1240,7 +1259,6 @@ class Service extends Model\Element\Service
             return $result;
         }
 
-
         $mergedFieldDefinition = self::getCustomGridFieldDefinitions($class->getId(), $objectId);
         if (is_array($mergedFieldDefinition)) {
             if ($mergedFieldDefinition["localizedfields"]) {
@@ -1251,7 +1269,6 @@ class Service extends Model\Element\Service
                     }
                 }
             }
-
 
             self::doFilterCustomGridFieldDefinitions($layoutDefinitions, $mergedFieldDefinition);
             $result["layoutDefinition"] = $layoutDefinitions;
@@ -1264,7 +1281,9 @@ class Service extends Model\Element\Service
     /**
      * @param $item
      * @param int $nr
+     *
      * @return mixed|string
+     *
      * @throws \Exception
      */
     public static function getUniqueKey($item, $nr = 0)
@@ -1323,6 +1342,7 @@ class Service extends Model\Element\Service
      * @param $object
      * @param array $params
      * @param $data Model\Object\Data\CalculatedValue
+     *
      * @return mixed|null
      */
     public static function getCalculatedFieldValueForEditMode($object, $params = [], $data)
@@ -1366,10 +1386,10 @@ class Service extends Model\Element\Service
         return $result;
     }
 
-
     /**
      * @param $object
      * @param $data Model\Object\Data\CalculatedValue
+     *
      * @return mixed|null
      */
     public static function getCalculatedFieldValue($object, $data)

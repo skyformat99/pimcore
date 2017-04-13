@@ -11,6 +11,7 @@ class ClassManager extends Module
 {
     /**
      * @param string $name
+     *
      * @return ClassDefinition|null
      */
     public function getClass($name)
@@ -22,6 +23,7 @@ class ClassManager extends Module
 
     /**
      * @param string $name
+     *
      * @return bool
      */
     public function hasClass($name)
@@ -76,6 +78,7 @@ class ClassManager extends Module
 
     /**
      * @param string $name
+     *
      * @return FieldcollectionDefinition
      */
     public function getFieldcollection($name)
@@ -90,6 +93,7 @@ class ClassManager extends Module
 
     /**
      * @param string $name
+     *
      * @return bool
      */
     public function hasFieldCollection($name)
@@ -128,6 +132,7 @@ class ClassManager extends Module
 
     /**
      * @param $name
+     *
      * @return ObjectbrickDefinition|null
      */
     public function getObjectbrick($name)
@@ -142,6 +147,7 @@ class ClassManager extends Module
 
     /**
      * @param string $name
+     *
      * @return bool
      */
     public function hasObjectbrick($name)
@@ -213,6 +219,7 @@ class ClassManager extends Module
      * Load JSON for file
      *
      * @param string $filename
+     *
      * @return string
      */
     protected function loadJson($filename)
@@ -229,6 +236,7 @@ class ClassManager extends Module
      * Resolve filename to reource path
      *
      * @param string $filename
+     *
      * @return string
      */
     protected function resolveFilePath($filename)

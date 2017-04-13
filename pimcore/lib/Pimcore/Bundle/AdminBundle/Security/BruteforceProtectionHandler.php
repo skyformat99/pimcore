@@ -130,6 +130,7 @@ class BruteforceProtectionHandler implements LoggerAwareInterface
      * log file (e.g. inject a newline).
      *
      * @param string|null $username
+     *
      * @return string|null
      */
     protected function normalizeUsername($username = null)

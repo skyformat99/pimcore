@@ -22,13 +22,14 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class IndexController
+ *
  * @Route("/index")
  */
 class IndexController extends AdminController
 {
-
     /**
      * @Route("/get-filter-groups")
+     *
      * @return \Pimcore\Bundle\AdminBundle\HttpFoundation\JsonResponse
      */
     public function getFilterGroupsAction()
@@ -56,6 +57,7 @@ class IndexController extends AdminController
 
     /**
      * @Route("/get-values-for-filter-field")
+     *
      * @return \Pimcore\Bundle\AdminBundle\HttpFoundation\JsonResponse
      */
     public function getValuesForFilterFieldAction(Request $request)
@@ -90,7 +92,6 @@ class IndexController extends AdminController
                 $data = $helper->getGroupByValuesForFilterGroup($columnGroup, $productList, $request->get("field"));
             }
 
-
             return $this->json(["data" => array_values($data)]);
         } catch (\Exception $e) {
             return $this->json(["message" => $e->getMessage()]);
@@ -99,7 +100,9 @@ class IndexController extends AdminController
 
     /**
      * @Route("/get-fields")
+     *
      * @param Request $request
+     *
      * @return \Pimcore\Bundle\AdminBundle\HttpFoundation\JsonResponse
      */
     public function getFieldsAction(Request $request)
@@ -126,7 +129,6 @@ class IndexController extends AdminController
             $indexColumns = [];
         }
 
-
         $fields = [];
 
         if ($request->get("add_empty") == "true") {
@@ -151,6 +153,7 @@ class IndexController extends AdminController
 
     /**
      * @Route("/get-all-tenants")
+     *
      * @return \Pimcore\Bundle\AdminBundle\HttpFoundation\JsonResponse
      */
     public function getAllTenantsAction()

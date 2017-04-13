@@ -16,7 +16,6 @@ namespace Pimcore\Bundle\EcommerceFrameworkBundle\VoucherService;
 
 class Statistic extends \Pimcore\Model\AbstractModel
 {
-
     /**
      * @var int
      */
@@ -32,6 +31,7 @@ class Statistic extends \Pimcore\Model\AbstractModel
 
     /**
      * @param int $id
+     *
      * @return bool|Statistic
      */
     public function getById($id)
@@ -49,6 +49,7 @@ class Statistic extends \Pimcore\Model\AbstractModel
 
     /**
      * @param $seriesId
+     *
      * @throws \Exception
      *
      * @return bool
@@ -78,6 +79,7 @@ class Statistic extends \Pimcore\Model\AbstractModel
 
     /**
      * @param $seriesId
+     *
      * @return bool
      */
     public static function increaseUsageStatistic($seriesId)
@@ -91,10 +93,10 @@ class Statistic extends \Pimcore\Model\AbstractModel
         }
     }
 
-
     /**
      * @param int $duration days
      * @param string|null $seriesId
+     *
      * @return bool
      */
     public static function cleanUpStatistics($duration, $seriesId = null)

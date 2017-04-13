@@ -10,16 +10,14 @@
  *
  * @category   Pimcore
  * @package    EcommerceFramework
+ *
  * @copyright  Copyright (c) 2009-2016 pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
-
-
 $workingDirectory = getcwd();
 chdir(__DIR__);
 include_once("../../../pimcore/cli/startup.php");
 chdir($workingDirectory);
-
 
 function processPHPContent($fileContent, $license)
 {
@@ -47,7 +45,6 @@ function processPHPContent($fileContent, $license)
 
     return $fileContent;
 }
-
 
 function processTEXTContent($fileContent, $license)
 {
@@ -121,15 +118,14 @@ foreach ($iterator as $path) {
      * @var $path SplFileInfo
      */
     if (preg_match($excludePatterns_flattened, $path, $matches) === 1) {
-        print($path->__toString() . " -> exclude" . PHP_EOL);
+        print $path->__toString() . " -> exclude" . PHP_EOL;
     } else {
-        print($path->__toString() . " -> include" . PHP_EOL);
+        print $path->__toString() . " -> include" . PHP_EOL;
         if (!$path->isDir()) {
             $files[$path->getExtension()][] = $path->getPath() . "/" . $path->getFilename();
         }
     }
 }
-
 
 //php files
 foreach ($files['php'] as $file) {
@@ -140,7 +136,6 @@ foreach ($files['php'] as $file) {
     file_put_contents($file, $fileContent);
     echo "done\n";
 }
-
 
 //css files
 foreach ($files['css'] as $file) {
@@ -162,7 +157,6 @@ foreach ($files['txt'] as $file) {
     echo "done\n";
 }
 
-
 //js files
 foreach ($files['js'] as $file) {
     echo "process file " . $file . "...";
@@ -172,7 +166,5 @@ foreach ($files['js'] as $file) {
     file_put_contents($file, $fileContent);
     echo "done\n";
 }
-
-
 
 die("done.\n\n");

@@ -15,12 +15,12 @@
 namespace Pimcore\Tool;
 
 use Pimcore\Document\Newsletter\SendingParamContainer;
-use Pimcore\Mail;
-use Pimcore\Tool;
-use Pimcore\Model\Object;
-use Pimcore\Model\Document;
-use Pimcore\Model;
 use Pimcore\Logger;
+use Pimcore\Mail;
+use Pimcore\Model;
+use Pimcore\Model\Document;
+use Pimcore\Model\Object;
+use Pimcore\Tool;
 
 class Newsletter
 {
@@ -36,6 +36,7 @@ class Newsletter
      * @param Document\Newsletter $newsletterDocument
      * @param SendingParamContainer|null $sendingContainer
      * @param string|null $hostUrl
+     *
      * @return Mail
      */
     public static function prepareMail(Document\Newsletter $newsletterDocument, SendingParamContainer $sendingContainer = null, $hostUrl = null)
@@ -114,7 +115,6 @@ class Newsletter
         if (!empty($mailAddress)) {
             $mail->setTo($mailAddress);
 
-
             $mailer = null;
             //check if newsletter specific mailer is needed
             if (\Pimcore\Config::getSystemConfig()->newsletter->usespecific) {
@@ -131,6 +131,7 @@ class Newsletter
 
     /**
      * @param $email
+     *
      * @return mixed
      */
     protected static function obfuscateEmail($email)
@@ -210,6 +211,7 @@ class Newsletter
 
     /**
      * @param null $classId
+     *
      * @throws \Exception
      */
     public function __construct($classId = null)
@@ -238,6 +240,7 @@ class Newsletter
 
     /**
      * @param array $params
+     *
      * @return bool
      */
     public function checkParams($params)
@@ -255,7 +258,9 @@ class Newsletter
 
     /**
      * @param $params
+     *
      * @return mixed
+     *
      * @throws \Exception
      */
     public function subscribe($params)
@@ -320,6 +325,7 @@ class Newsletter
      * @param $object
      * @param $mailDocument
      * @param array $params
+     *
      * @throws \Exception
      */
     public function sendConfirmationMail($object, $mailDocument, $params = [])
@@ -344,6 +350,7 @@ class Newsletter
 
     /**
      * @param $token
+     *
      * @return bool
      */
     public function getObjectByToken($token)
@@ -371,6 +378,7 @@ class Newsletter
 
     /**
      * @param string $token
+     *
      * @return bool
      */
     public function confirm($token)
@@ -395,6 +403,7 @@ class Newsletter
 
     /**
      * @param string $token
+     *
      * @return bool
      */
     public function unsubscribeByToken($token)
@@ -409,6 +418,7 @@ class Newsletter
 
     /**
      * @param string $email
+     *
      * @return bool
      */
     public function unsubscribeByEmail($email)
@@ -426,9 +436,9 @@ class Newsletter
         return false;
     }
 
-
     /**
      * @param $object
+     *
      * @return bool
      */
     public function unsubscribe($object)
@@ -471,6 +481,7 @@ class Newsletter
      * exists in the database.
      *
      * @param array $params
+     *
      * @return bool
      */
     public function isEmailExists($params)

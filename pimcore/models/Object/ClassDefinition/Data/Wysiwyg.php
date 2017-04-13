@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -17,8 +18,8 @@
 namespace Pimcore\Model\Object\ClassDefinition\Data;
 
 use Pimcore\Model;
-use Pimcore\Model\Object;
 use Pimcore\Model\Element;
+use Pimcore\Model\Object;
 use Pimcore\Tool\Text;
 
 class Wysiwyg extends Model\Object\ClassDefinition\Data
@@ -33,12 +34,12 @@ class Wysiwyg extends Model\Object\ClassDefinition\Data
     public $fieldtype = "wysiwyg";
 
     /**
-     * @var integer
+     * @var int
      */
     public $width;
 
     /**
-     * @var integer
+     * @var int
      */
     public $height;
 
@@ -69,7 +70,7 @@ class Wysiwyg extends Model\Object\ClassDefinition\Data
     public $toolbarConfig = "";
 
     /**
-     * @return integer
+     * @return int
      */
     public function getWidth()
     {
@@ -77,7 +78,7 @@ class Wysiwyg extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getHeight()
     {
@@ -85,7 +86,8 @@ class Wysiwyg extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @param integer $width
+     * @param int $width
+     *
      * @return $this
      */
     public function setWidth($width)
@@ -96,7 +98,8 @@ class Wysiwyg extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @param integer $height
+     * @param int $height
+     *
      * @return $this
      */
     public function setHeight($height)
@@ -128,9 +131,11 @@ class Wysiwyg extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object\ClassDefinition\Data::getDataForResource
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForResource($data, $object = null, $params = [])
@@ -140,9 +145,11 @@ class Wysiwyg extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object\ClassDefinition\Data::getDataFromResource
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataFromResource($data, $object = null, $params = [])
@@ -152,9 +159,11 @@ class Wysiwyg extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object\ClassDefinition\Data::getDataForQueryResource
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForQueryResource($data, $object = null, $params = [])
@@ -171,12 +180,13 @@ class Wysiwyg extends Model\Object\ClassDefinition\Data
         return $data;
     }
 
-
     /**
      * @see Object\ClassDefinition\Data::getDataForEditmode
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForEditmode($data, $object = null, $params = [])
@@ -186,9 +196,11 @@ class Wysiwyg extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Model\Object\ClassDefinition\Data::getDataFromEditmode
+     *
      * @param string $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataFromEditmode($data, $object = null, $params = [])
@@ -209,6 +221,7 @@ class Wysiwyg extends Model\Object\ClassDefinition\Data
      *
      * @param mixed $data
      * @param array $tags
+     *
      * @return array
      */
     public function getCacheTags($data, $tags = [])
@@ -216,12 +229,12 @@ class Wysiwyg extends Model\Object\ClassDefinition\Data
         return Text::getCacheTagsOfWysiwygText($data, $tags);
     }
 
-
     /**
      * Checks if data is valid for current data field
      *
      * @param mixed $data
-     * @param boolean $omitMandatoryCheck
+     * @param bool $omitMandatoryCheck
+     *
      * @throws \Exception
      */
     public function checkValidity($data, $omitMandatoryCheck = false)
@@ -243,6 +256,7 @@ class Wysiwyg extends Model\Object\ClassDefinition\Data
     /**
      * @param Object\Concrete $object
      * @param array $params
+     *
      * @return string
      */
     public function preGetData($object, $params = [])
@@ -263,9 +277,11 @@ class Wysiwyg extends Model\Object\ClassDefinition\Data
 
     /** Generates a pretty version preview (similar to getVersionPreview) can be either html or
      * a image URL. See the ObjectMerger plugin documentation for details
+     *
      * @param $data
      * @param null $object
      * @param mixed $params
+     *
      * @return array|string
      */
     public function getDiffVersionPreview($data, $object = null, $params = [])
@@ -281,7 +297,6 @@ class Wysiwyg extends Model\Object\ClassDefinition\Data
         }
     }
 
-
     /**
      * Rewrites id from source to target, $idMapping contains
      * array(
@@ -292,9 +307,11 @@ class Wysiwyg extends Model\Object\ClassDefinition\Data
      *  "object" => array(...),
      *  "asset" => array(...)
      * )
+     *
      * @param mixed $object
      * @param array $idMapping
      * @param array $params
+     *
      * @return Element\ElementInterface
      */
     public function rewriteIds($object, $idMapping, $params = [])

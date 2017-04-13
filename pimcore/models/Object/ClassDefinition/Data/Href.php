@@ -10,18 +10,19 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Object\ClassDefinition\Data;
 
+use Pimcore\Logger;
 use Pimcore\Model;
-use Pimcore\Model\Object;
 use Pimcore\Model\Asset;
 use Pimcore\Model\Document;
 use Pimcore\Model\Element;
-use Pimcore\Logger;
+use Pimcore\Model\Object;
 
 class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
 {
@@ -35,7 +36,7 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
     public $fieldtype = "href";
 
     /**
-     * @var integer
+     * @var int
      */
     public $width;
 
@@ -68,13 +69,13 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
 
     /**
      *
-     * @var boolean
+     * @var bool
      */
     public $objectsAllowed;
 
-     /**
+    /**
      *
-     * @var boolean
+     * @var bool
      */
     public $assetsAllowed;
 
@@ -85,9 +86,9 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
      */
     public $assetTypes;
 
-     /**
+    /**
      *
-     * @var boolean
+     * @var bool
      */
     public $documentsAllowed;
 
@@ -99,7 +100,7 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
     public $documentTypes;
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getObjectsAllowed()
     {
@@ -107,7 +108,8 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
     }
 
     /**
-     * @param boolean $objectsAllowed
+     * @param bool $objectsAllowed
+     *
      * @return $this
      */
     public function setObjectsAllowed($objectsAllowed)
@@ -118,7 +120,7 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getDocumentsAllowed()
     {
@@ -126,7 +128,8 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
     }
 
     /**
-     * @param boolean $documentsAllowed
+     * @param bool $documentsAllowed
+     *
      * @return $this
      */
     public function setDocumentsAllowed($documentsAllowed)
@@ -135,7 +138,6 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
 
         return $this;
     }
-
 
     /**
      * @return array
@@ -147,6 +149,7 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
 
     /**
      * @param array $documentTypes
+     *
      * @return $this
      */
     public function setDocumentTypes($documentTypes)
@@ -158,7 +161,7 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
 
     /**
      *
-     * @return boolean
+     * @return bool
      */
     public function getAssetsAllowed()
     {
@@ -167,7 +170,8 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
 
     /**
      *
-     * @param boolean $assetsAllowed
+     * @param bool $assetsAllowed
+     *
      * @return $this
      */
     public function setAssetsAllowed($assetsAllowed)
@@ -187,6 +191,7 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
 
     /**
      * @param array $assetTypes
+     *
      * @return $this
      */
     public function setAssetTypes($assetTypes)
@@ -198,9 +203,11 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
 
     /**
      * @see Object\ClassDefinition\Data::getDataForResource
+     *
      * @param Asset | Document | Object\AbstractObject $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return array
      */
     public function getDataForResource($data, $object = null, $params = [])
@@ -221,10 +228,12 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
 
     /**
      * @see Object\ClassDefinition\Data::getDataFromResource
+     *
      * @param array $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
      * @param bool $notRelationTable
+     *
      * @return Asset|Document|Object\AbstractObject
      */
     public function getDataFromResource($data, $object = null, $params = [], $notRelationTable = false)
@@ -242,9 +251,11 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
 
     /**
      * @see Object\ClassDefinition\Data::getDataForQueryResource
+     *
      * @param Asset|Document|Object\AbstractObject $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return array
      */
     public function getDataForQueryResource($data, $object = null, $params = [])
@@ -260,9 +271,11 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
 
     /**
      * @see Object\ClassDefinition\Data::getDataForEditmode
+     *
      * @param Asset|Document|Object\AbstractObject $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return array
      */
     public function getDataForEditmode($data, $object = null, $params = [])
@@ -283,9 +296,11 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
 
     /**
      * @see Model\Object\ClassDefinition\Data::getDataFromEditmode
+     *
      * @param array $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return Asset|Document|Object\AbstractObject
      */
     public function getDataFromEditmode($data, $object = null, $params = [])
@@ -301,6 +316,7 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
      * @param $data
      * @param null $object
      * @param array $params
+     *
      * @return string
      */
     public function getDataForGrid($data, $object = null, $params = [])
@@ -312,9 +328,11 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
 
     /**
      * @see Object\ClassDefinition\Data::getVersionPreview
+     *
      * @param Document | Asset | Object\AbstractObject $data
      * @param null|Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getVersionPreview($data, $object = null, $params = [])
@@ -325,7 +343,7 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getWidth()
     {
@@ -333,7 +351,8 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
     }
 
     /**
-     * @param integer $width
+     * @param int $width
+     *
      * @return $this
      */
     public function setWidth($width)
@@ -347,7 +366,8 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
      * Checks if data is valid for current data field
      *
      * @param mixed $data
-     * @param boolean $omitMandatoryCheck
+     * @param bool $omitMandatoryCheck
+     *
      * @throws \Exception
      */
     public function checkValidity($data, $omitMandatoryCheck = false)
@@ -355,7 +375,6 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
         if (!$omitMandatoryCheck and $this->getMandatory() and empty($data)) {
             throw new Element\ValidationException("Empty mandatory field [ ".$this->getName()." ]");
         }
-
 
         if ($data instanceof Document) {
             $allow = $this->allowDocumentRelation($data);
@@ -377,9 +396,12 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
 
     /**
      * converts object data to a simple string value or CSV Export
+     *
      * @abstract
+     *
      * @param Object\AbstractObject $object
      * @param array $params
+     *
      * @return string
      */
     public function getForCsvExport($object, $params = [])
@@ -396,6 +418,7 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
      * @param $importValue
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return mixed|null|Asset|Document|Element\ElementInterface
      */
     public function getFromCsvImport($importValue, $object = null, $params = [])
@@ -403,7 +426,7 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
         $value = null;
 
         $values = explode(":", $importValue);
-        if (count($values)==2) {
+        if (count($values) == 2) {
             $type = $values[0];
             $path = $values[1];
             $value = Element\Service::getElementByPath($type, $path);
@@ -426,6 +449,7 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
      *
      * @param mixed $data
      * @param array $tags
+     *
      * @return array
      */
     public function getCacheTags($data, $tags = [])
@@ -447,6 +471,7 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
 
     /**
      * @param $data
+     *
      * @return array
      */
     public function resolveDependencies($data)
@@ -466,8 +491,10 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
 
     /**
      * converts data to be exposed via webservices
+     *
      * @param string $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function getForWebserviceExport($object, $params = [])
@@ -489,7 +516,9 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
      * @param null $relatedObject
      * @param mixed $params
      * @param null $idMapper
+     *
      * @return mixed|void
+     *
      * @throws \Exception
      */
     public function getFromWebserviceImport($value, $relatedObject = null, $params = [], $idMapper = null)
@@ -528,6 +557,7 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
     /**
      * @param $object
      * @param array $params
+     *
      * @return null|Object\Fieldcollection\Data\AbstractData|Object\Concrete|Object\Objectbrick\Data\
      */
     public function preGetData($object, $params = [])
@@ -565,6 +595,7 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
      * @param $object
      * @param $data
      * @param array $params
+     *
      * @return mixed
      */
     public function preSetData($object, $data, $params = [])
@@ -580,6 +611,7 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
 
     /**
      * @param $assetUploadPath
+     *
      * @return $this
      */
     public function setAssetUploadPath($assetUploadPath)
@@ -600,6 +632,7 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
     /** True if change is allowed in edit mode.
      * @param string $object
      * @param mixed $params
+     *
      * @return bool
      */
     public function isDiffChangeAllowed($object, $params = [])
@@ -617,9 +650,11 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
      *  "object" => array(...),
      *  "asset" => array(...)
      * )
+     *
      * @param mixed $object
      * @param array $idMapping
      * @param array $params
+     *
      * @return Element\ElementInterface
      */
     public function rewriteIds($object, $idMapping, $params = [])
@@ -642,7 +677,6 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
         $this->relationType = $masterDefinition->relationType;
     }
 
-
     /**
      * @return string
      */
@@ -655,6 +689,7 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
      * @param mixed $value
      * @param Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function marshal($value, $object = null, $params = [])
@@ -674,6 +709,7 @@ class Href extends Model\Object\ClassDefinition\Data\Relations\AbstractRelations
      * @param mixed $value
      * @param Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function unmarshal($value, $object = null, $params = [])

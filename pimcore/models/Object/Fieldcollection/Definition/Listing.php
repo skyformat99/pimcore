@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object\Fieldcollection
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -18,7 +19,6 @@ namespace Pimcore\Model\Object\Fieldcollection\Definition;
 
 class Listing
 {
-
     /**
      * @return array
      */

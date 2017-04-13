@@ -18,7 +18,6 @@ use Pimcore\File;
 
 class Simple
 {
-
     /**
      * @param $name
      * @param $message

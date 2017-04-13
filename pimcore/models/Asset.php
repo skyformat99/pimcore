@@ -10,21 +10,21 @@
  *
  * @category   Pimcore
  * @package    Asset
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model;
 
+use Pimcore\Config;
 use Pimcore\Event\AssetEvents;
 use Pimcore\Event\FrontendEvents;
 use Pimcore\Event\Model\AssetEvent;
+use Pimcore\File;
+use Pimcore\Logger;
 use Pimcore\Tool;
 use Pimcore\Tool\Mime;
-use Pimcore\File;
-use Pimcore\Config;
-use Pimcore\Model\Element;
-use Pimcore\Logger;
 use Symfony\Component\EventDispatcher\GenericEvent;
 
 /**
@@ -37,6 +37,7 @@ class Asset extends Element\AbstractElement
 
     /**
      * possible types of an asset
+     *
      * @var array
      */
     public static $types = ["folder", "image", "text", "audio", "video", "document", "archive", "unknown"];
@@ -44,14 +45,14 @@ class Asset extends Element\AbstractElement
     /**
      * Unique ID
      *
-     * @var integer
+     * @var int
      */
     public $id;
 
     /**
      * ID of the parent asset
      *
-     * @var integer
+     * @var int
      */
     public $parentId;
 
@@ -91,14 +92,14 @@ class Asset extends Element\AbstractElement
     /**
      * Timestamp of creation
      *
-     * @var integer
+     * @var int
      */
     public $creationDate;
 
     /**
      * Timestamp of modification
      *
-     * @var integer
+     * @var int
      */
     public $modificationDate;
 
@@ -110,14 +111,14 @@ class Asset extends Element\AbstractElement
     /**
      * ID of the owner user
      *
-     * @var integer
+     * @var int
      */
     public $userOwner = 0;
 
     /**
      * ID of the user who make the latest changes
      *
-     * @var integer
+     * @var int
      */
     public $userModification = 0;
 
@@ -142,6 +143,7 @@ class Asset extends Element\AbstractElement
 
     /**
      * enum('self','propagate') nullable
+     *
      * @var string
      */
     public $locked;
@@ -176,7 +178,7 @@ class Asset extends Element\AbstractElement
     /**
      * Indicator if there are childs
      *
-     * @var boolean
+     * @var bool
      */
     public $hasChilds;
 
@@ -190,7 +192,7 @@ class Asset extends Element\AbstractElement
     /**
      * Indicator if document has siblings or not
      *
-     * @var boolean
+     * @var bool
      */
     public $hasSiblings;
 
@@ -203,6 +205,7 @@ class Asset extends Element\AbstractElement
 
     /**
      * Indicator if data has changed
+     *
      * @var bool
      */
     protected $_dataChanged = false;
@@ -218,7 +221,9 @@ class Asset extends Element\AbstractElement
 
     /**
      * Static helper to get an asset by the passed path
+     *
      * @param string $path
+     *
      * @return Asset|Asset\Archive|Asset\Audio|Asset\Document|Asset\Folder|Asset\Image|Asset\Text|Asset\Unknown|Asset\Video
      */
     public static function getByPath($path)
@@ -226,7 +231,7 @@ class Asset extends Element\AbstractElement
         $path = Element\Service::correctPath($path);
 
         try {
-            $asset = new Asset();
+            $asset = new self();
 
             if (Tool::isValidPath($path)) {
                 $asset->getDao()->getByPath($path);
@@ -242,8 +247,10 @@ class Asset extends Element\AbstractElement
 
     /**
      * Static helper to get an asset by the passed ID
-     * @param integer $id
+     *
+     * @param int $id
      * @param bool $force
+     *
      * @return Asset|Asset\Archive|Asset\Audio|Asset\Document|Asset\Folder|Asset\Image|Asset\Text|Asset\Unknown|Asset\Video
      */
     public static function getById($id, $force = false)
@@ -265,7 +272,7 @@ class Asset extends Element\AbstractElement
 
         try {
             if ($force || !($asset = \Pimcore\Cache::load($cacheKey))) {
-                $asset = new Asset();
+                $asset = new self();
                 $asset->getDao()->getById($id);
 
                 $className = "Pimcore\\Model\\Asset\\" . ucfirst($asset->getType());
@@ -285,7 +292,6 @@ class Asset extends Element\AbstractElement
             return null;
         }
 
-
         if (!$asset) {
             return null;
         }
@@ -296,9 +302,10 @@ class Asset extends Element\AbstractElement
     /**
      * Helper to quickly create a new asset
      *
-     * @param integer $parentId
+     * @param int $parentId
      * @param array $data
-     * @param boolean $save
+     * @param bool $save
+     *
      * @return Asset
      */
     public static function create($parentId, $data = [], $save = true)
@@ -351,14 +358,14 @@ class Asset extends Element\AbstractElement
             $asset->save();
         }
 
-
         return $asset;
     }
 
-
     /**
      * @param array $config
+     *
      * @return mixed
+     *
      * @throws \Exception
      */
     public static function getList($config = [])
@@ -376,6 +383,7 @@ class Asset extends Element\AbstractElement
 
     /**
      * @param array $config
+     *
      * @return int total count
      */
     public static function getTotalCount($config = [])
@@ -390,11 +398,12 @@ class Asset extends Element\AbstractElement
         }
     }
 
-
     /**
      * returns the asset type of a filename and mimetype
+     *
      * @param $mimeType
      * @param $filename
+     *
      * @return int|string
      */
     public static function getTypeFromMimeMapping($mimeType, $filename)
@@ -448,6 +457,7 @@ class Asset extends Element\AbstractElement
 
     /**
      * @return $this
+     *
      * @throws \Exception
      */
     public function save()
@@ -466,7 +476,7 @@ class Asset extends Element\AbstractElement
         // if a transaction fails it gets restarted $maxRetries times, then the exception is thrown out
         // this is especially useful to avoid problems with deadlocks in multi-threaded environments (forked workers, ...)
         $maxRetries = 5;
-        for ($retries=0; $retries<$maxRetries; $retries++) {
+        for ($retries=0; $retries < $maxRetries; $retries++) {
             $this->beginTransaction();
 
             try {
@@ -508,10 +518,10 @@ class Asset extends Element\AbstractElement
                 }
 
                 // we try to start the transaction $maxRetries times again (deadlocks, ...)
-                if ($retries < ($maxRetries-1)) {
-                    $run = $retries+1;
+                if ($retries < ($maxRetries - 1)) {
+                    $run = $retries + 1;
                     $waitTime = 100000; // microseconds
-                    Logger::warn("Unable to finish transaction (" . $run . ". run) because of the following reason '" . $e->getMessage() . "'. --> Retrying in " . $waitTime . " microseconds ... (" . ($run+1) . " of " . $maxRetries . ")");
+                    Logger::warn("Unable to finish transaction (" . $run . ". run) because of the following reason '" . $e->getMessage() . "'. --> Retrying in " . $waitTime . " microseconds ... (" . ($run + 1) . " of " . $maxRetries . ")");
 
                     usleep($waitTime); // wait specified time until we restart the transaction
                 } else {
@@ -559,11 +569,11 @@ class Asset extends Element\AbstractElement
                 throw new \Exception("ParentID and ID is identical, an element can't be the parent of itself.");
             }
 
-            if ($this->getFilename()  === '..' || $this->getFilename() === '.') {
+            if ($this->getFilename() === '..' || $this->getFilename() === '.') {
                 throw new \Exception('Cannot create asset called ".." or "."');
             }
 
-            $parent = Asset::getById($this->getParentId());
+            $parent = self::getById($this->getParentId());
             if ($parent) {
                 // use the parent's path from the database here (getCurrentFullPath), to ensure the path really exists and does not rely on the path
                 // that is currently in the parent object (in memory), because this might have changed but wasn't not saved
@@ -587,8 +597,8 @@ class Asset extends Element\AbstractElement
         }
 
         if (Asset\Service::pathExists($this->getRealFullPath())) {
-            $duplicate = Asset::getByPath($this->getRealFullPath());
-            if ($duplicate instanceof Asset  and $duplicate->getId() != $this->getId()) {
+            $duplicate = self::getByPath($this->getRealFullPath());
+            if ($duplicate instanceof self and $duplicate->getId() != $this->getId()) {
                 throw new \Exception("Duplicate full path [ " . $this->getRealFullPath() . " ] - cannot save asset");
             }
         }
@@ -686,7 +696,6 @@ class Asset extends Element\AbstractElement
             }
         }
 
-
         // save properties
         $this->getProperties();
         $this->getDao()->deleteAllProperties();
@@ -742,7 +751,9 @@ class Asset extends Element\AbstractElement
     /**
      * @param bool $setModificationDate
      * @param bool $callPluginHook
+     *
      * @return null|Version
+     *
      * @throws \Exception
      */
     public function saveVersion($setModificationDate = true, $callPluginHook = true)
@@ -848,7 +859,7 @@ class Asset extends Element\AbstractElement
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function hasChildren()
     {
@@ -907,6 +918,7 @@ class Asset extends Element\AbstractElement
 
     /**
      * Returns true if the element is locked
+     *
      * @return string
      */
     public function getLocked()
@@ -916,6 +928,7 @@ class Asset extends Element\AbstractElement
 
     /**
      * @param  $locked
+     *
      * @return $this
      */
     public function setLocked($locked)
@@ -974,7 +987,6 @@ class Asset extends Element\AbstractElement
             $version->delete();
         }
 
-
         // remove permissions
         $this->getDao()->deleteAllPermissions();
 
@@ -983,7 +995,6 @@ class Asset extends Element\AbstractElement
 
         // remove all metadata
         $this->getDao()->deleteAllMetadata();
-
 
         // remove all tasks
         $this->getDao()->deleteAllTasks();
@@ -1019,7 +1030,6 @@ class Asset extends Element\AbstractElement
         }
     }
 
-
     /**
      * @return Dependency
      */
@@ -1033,7 +1043,7 @@ class Asset extends Element\AbstractElement
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getCreationDate()
     {
@@ -1041,7 +1051,7 @@ class Asset extends Element\AbstractElement
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -1067,7 +1077,7 @@ class Asset extends Element\AbstractElement
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getModificationDate()
     {
@@ -1075,7 +1085,7 @@ class Asset extends Element\AbstractElement
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getParentId()
     {
@@ -1099,7 +1109,8 @@ class Asset extends Element\AbstractElement
     }
 
     /**
-     * @param integer $creationDate
+     * @param int $creationDate
+     *
      * @return $this
      */
     public function setCreationDate($creationDate)
@@ -1110,7 +1121,8 @@ class Asset extends Element\AbstractElement
     }
 
     /**
-     * @param integer $id
+     * @param int $id
+     *
      * @return $this
      */
     public function setId($id)
@@ -1122,6 +1134,7 @@ class Asset extends Element\AbstractElement
 
     /**
      * @param string $filename
+     *
      * @return $this
      */
     public function setFilename($filename)
@@ -1132,7 +1145,8 @@ class Asset extends Element\AbstractElement
     }
 
     /**
-     * @param integer $modificationDate
+     * @param int $modificationDate
+     *
      * @return $this
      */
     public function setModificationDate($modificationDate)
@@ -1143,7 +1157,8 @@ class Asset extends Element\AbstractElement
     }
 
     /**
-     * @param integer $parentId
+     * @param int $parentId
+     *
      * @return $this
      */
     public function setParentId($parentId)
@@ -1156,6 +1171,7 @@ class Asset extends Element\AbstractElement
 
     /**
      * @param string $path
+     *
      * @return $this
      */
     public function setPath($path)
@@ -1167,6 +1183,7 @@ class Asset extends Element\AbstractElement
 
     /**
      * @param string $type
+     *
      * @return $this
      */
     public function setType($type)
@@ -1191,6 +1208,7 @@ class Asset extends Element\AbstractElement
 
     /**
      * @param mixed $data
+     *
      * @return $this
      */
     public function setData($data)
@@ -1201,7 +1219,6 @@ class Asset extends Element\AbstractElement
 
         return $this;
     }
-
 
     /**
      * @return resource
@@ -1228,6 +1245,7 @@ class Asset extends Element\AbstractElement
 
     /**
      * @param $stream
+     *
      * @return $this
      */
     public function setStream($stream)
@@ -1247,9 +1265,6 @@ class Asset extends Element\AbstractElement
         return $this;
     }
 
-    /**
-     *
-     */
     protected function closeStream()
     {
         if (is_resource($this->stream)) {
@@ -1260,7 +1275,9 @@ class Asset extends Element\AbstractElement
 
     /**
      * @param string $type
+     *
      * @return null|string
+     *
      * @throws \Exception
      */
     public function getChecksum($type = "md5")
@@ -1289,6 +1306,7 @@ class Asset extends Element\AbstractElement
 
     /**
      * @param bool $changed
+     *
      * @return $this
      */
     public function setDataChanged($changed = true)
@@ -1297,7 +1315,6 @@ class Asset extends Element\AbstractElement
 
         return $this;
     }
-
 
     /**
      * @return Property[]
@@ -1323,6 +1340,7 @@ class Asset extends Element\AbstractElement
 
     /**
      * @param array $properties
+     *
      * @return $this
      */
     public function setProperties($properties)
@@ -1338,6 +1356,7 @@ class Asset extends Element\AbstractElement
      * @param $data
      * @param bool $inherited
      * @param bool $inheritable
+     *
      * @return $this
      */
     public function setProperty($name, $type, $data, $inherited = false, $inheritable = false)
@@ -1359,7 +1378,7 @@ class Asset extends Element\AbstractElement
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getUserOwner()
     {
@@ -1367,7 +1386,7 @@ class Asset extends Element\AbstractElement
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getUserModification()
     {
@@ -1375,7 +1394,8 @@ class Asset extends Element\AbstractElement
     }
 
     /**
-     * @param integer $userOwner
+     * @param int $userOwner
+     *
      * @return $this
      */
     public function setUserOwner($userOwner)
@@ -1386,7 +1406,8 @@ class Asset extends Element\AbstractElement
     }
 
     /**
-     * @param integer $userModification
+     * @param int $userModification
+     *
      * @return $this
      */
     public function setUserModification($userModification)
@@ -1410,6 +1431,7 @@ class Asset extends Element\AbstractElement
 
     /**
      * @param array $versions
+     *
      * @return $this
      */
     public function setVersions($versions)
@@ -1421,6 +1443,7 @@ class Asset extends Element\AbstractElement
 
     /**
      * returns the path to a temp file
+     *
      * @return string
      */
     public function getTemporaryFile()
@@ -1443,6 +1466,7 @@ class Asset extends Element\AbstractElement
     /**
      * @param string $key
      * @param mixed $value
+     *
      * @return $this
      */
     public function setCustomSetting($key, $value)
@@ -1454,6 +1478,7 @@ class Asset extends Element\AbstractElement
 
     /**
      * @param $key
+     *
      * @return null
      */
     public function getCustomSetting($key)
@@ -1485,6 +1510,7 @@ class Asset extends Element\AbstractElement
 
     /**
      * @param array $customSettings
+     *
      * @return $this
      */
     public function setCustomSettings($customSettings)
@@ -1516,6 +1542,7 @@ class Asset extends Element\AbstractElement
 
     /**
      * @param string $mimetype
+     *
      * @return $this
      */
     public function setMimetype($mimetype)
@@ -1538,7 +1565,7 @@ class Asset extends Element\AbstractElement
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getHasMetaData()
     {
@@ -1546,7 +1573,7 @@ class Asset extends Element\AbstractElement
     }
 
     /**
-     * @param boolean $hasMetaData
+     * @param bool $hasMetaData
      */
     public function setHasMetaData($hasMetaData)
     {
@@ -1587,6 +1614,7 @@ class Asset extends Element\AbstractElement
     /**
      * @param null $name
      * @param null $language
+     *
      * @return array
      */
     public function getMetadata($name = null, $language = null)
@@ -1598,7 +1626,6 @@ class Asset extends Element\AbstractElement
 
             return $metaData["data"];
         };
-
 
         if ($name) {
             if ($language === null) {
@@ -1651,6 +1678,7 @@ class Asset extends Element\AbstractElement
 
     /**
      * @param $scheduledTasks
+     *
      * @return $this
      */
     public function setScheduledTasks($scheduledTasks)
@@ -1660,9 +1688,6 @@ class Asset extends Element\AbstractElement
         return $this;
     }
 
-    /**
-     *
-     */
     public function saveScheduledTasks()
     {
         $this->getScheduledTasks();
@@ -1684,6 +1709,7 @@ class Asset extends Element\AbstractElement
      *
      * @param string $format ('GB','MB','KB','B')
      * @param int $precision
+     *
      * @return string
      */
     public function getFileSize($format = 'noformatting', $precision = 2)
@@ -1727,7 +1753,7 @@ class Asset extends Element\AbstractElement
     public function getParent()
     {
         if ($this->parent === null) {
-            $this->setParent(Asset::getById($this->getParentId()));
+            $this->setParent(self::getById($this->getParentId()));
         }
 
         return $this->parent;
@@ -1735,12 +1761,13 @@ class Asset extends Element\AbstractElement
 
     /**
      * @param Asset $parent
+     *
      * @return $this
      */
     public function setParent($parent)
     {
         $this->parent = $parent;
-        if ($parent instanceof Asset) {
+        if ($parent instanceof self) {
             $this->parentId = $parent->getId();
         }
 
@@ -1771,10 +1798,6 @@ class Asset extends Element\AbstractElement
         return $path;
     }
 
-
-    /**
-     *
-     */
     public function __sleep()
     {
         $finalVars = [];
@@ -1790,7 +1813,6 @@ class Asset extends Element\AbstractElement
             $blockedVars = ["scheduledTasks", "dependencies", "userPermissions", "hasChilds", "versions", "childs", "properties", "stream", "parent"];
         }
 
-
         foreach ($parentVars as $key) {
             if (!in_array($key, $blockedVars)) {
                 $finalVars[] = $key;
@@ -1800,14 +1822,11 @@ class Asset extends Element\AbstractElement
         return $finalVars;
     }
 
-    /**
-     *
-     */
     public function __wakeup()
     {
         if (isset($this->_fulldump)) {
             // set current key and path this is necessary because the serialized data can have a different path than the original element (element was renamed or moved)
-            $originalElement = Asset::getById($this->getId());
+            $originalElement = self::getById($this->getId());
             if ($originalElement) {
                 $this->setFilename($originalElement->getFilename());
                 $this->setPath($originalElement->getRealPath());
@@ -1823,9 +1842,6 @@ class Asset extends Element\AbstractElement
         }
     }
 
-    /**
-     *
-     */
     public function removeInheritedProperties()
     {
         $myProperties = $this->getProperties();
@@ -1841,9 +1857,6 @@ class Asset extends Element\AbstractElement
         $this->setProperties($myProperties);
     }
 
-    /**
-     *
-     */
     public function renewInheritedProperties()
     {
         $this->removeInheritedProperties();

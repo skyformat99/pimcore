@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object\Objectbrick
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -24,10 +25,10 @@ use Pimcore\Model\Object;
  */
 class Dao extends Model\Object\Fieldcollection\Definition\Dao
 {
-
     /**
      * @param Object\ClassDefinition $class
      * @param bool $query
+     *
      * @return string
      */
     public function getTableName(Object\ClassDefinition $class, $query = false)
@@ -87,8 +88,6 @@ class Dao extends Model\Object\Fieldcollection\Definition\Dao
 
         foreach ($this->model->getFieldDefinitions() as $value) {
             $key = $value->getName();
-
-
 
             // if a datafield requires more than one column in the query table
             if (is_array($value->getQueryColumnType())) {

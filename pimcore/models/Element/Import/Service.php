@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Element
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -17,15 +18,14 @@
 namespace Pimcore\Model\Element\Import;
 
 use Pimcore\Model;
-use Pimcore\Tool;
-use Pimcore\Model\Webservice;
-use Pimcore\Model\Element;
 use Pimcore\Model\Asset;
+use Pimcore\Model\Element;
 use Pimcore\Model\Object;
+use Pimcore\Model\Webservice;
+use Pimcore\Tool;
 
 class Service
 {
-
     /**
      * @var Webservice\Service
      */
@@ -69,17 +69,18 @@ class Service
 
     /**
      * @throws \Exception
+     *
      * @param  $rootElement
      * @param  $apiKey
      * @param  $path
      * @param  $apiElement
      * @param  bool $overwrite
      * @param  $elementCounter
+     *
      * @return Element\ElementInterface
      */
     public function create($rootElement, $apiKey, $path, $apiElement, $overwrite, $elementCounter)
     {
-
 
         //correct relative path
         if (strpos($path, "/") !== 0) {
@@ -215,7 +216,6 @@ class Service
         //todo save type and id for later rollback
         $this->importInfo[Element\Service::getType($element) . "_" . $element->getId()] = ["id" => $element->getId(), "type" => Element\Service::getType($element), "fullpath" => $element->getRealFullPath()];
 
-
         return $element;
     }
 
@@ -308,7 +308,7 @@ class Service
                                         $collectionItem->value["internal"] = $idMapping[$collectionItem->value["internalType"]][$collectionItem->value["internal"]];
                                     } elseif ($collectionItem->type == "href" and $collectionItem->value["id"]) {
                                         $collectionItem->value["id"] = $idMapping[$collectionItem->value["type"]][$collectionItem->value["id"]];
-                                    } elseif (($collectionItem->type == "objects" or $collectionItem->type == "multihref") and is_array($collectionItem->value) and count($collectionItem->value)>0) {
+                                    } elseif (($collectionItem->type == "objects" or $collectionItem->type == "multihref") and is_array($collectionItem->value) and count($collectionItem->value) > 0) {
                                         for ($i=0; $i < count($collectionItem->value); $i++) {
                                             if ($collectionItem->value[$i]["id"]) {
                                                 $collectionItem->value[$i]["id"] = $idMapping[$collectionItem->value[$i]["type"]][$collectionItem->value[$i]["id"]];
@@ -339,7 +339,9 @@ class Service
     /**
      * @param $element
      * @param bool $creation
+     *
      * @return $this
+     *
      * @throws \Exception
      */
     public function setModificationParams($element, $creation = false)

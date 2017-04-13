@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -17,12 +18,11 @@
 namespace Pimcore\Model\Object\ClassDefinition\Data;
 
 use Pimcore\Model;
-use Pimcore\Model\Object;
 use Pimcore\Model\Asset;
+use Pimcore\Model\Object;
 
 class Video extends Model\Object\ClassDefinition\Data
 {
-
     /**
      * Static type of this element
      *
@@ -31,14 +31,14 @@ class Video extends Model\Object\ClassDefinition\Data
     public $fieldtype = "video";
 
     /**
-     * @var integer
+     * @var int
      */
     public $width;
 
     /**
      * Type for the column to query
      *
-     * @var integer
+     * @var int
      */
     public $height;
 
@@ -64,7 +64,7 @@ class Video extends Model\Object\ClassDefinition\Data
     public $phpdocType = "\\Pimcore\\Model\\Object\\Data\\Video";
 
     /**
-     * @return integer
+     * @return int
      */
     public function getWidth()
     {
@@ -72,7 +72,8 @@ class Video extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @param integer $width
+     * @param int $width
+     *
      * @return $this
      */
     public function setWidth($width)
@@ -83,7 +84,7 @@ class Video extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getHeight()
     {
@@ -91,7 +92,8 @@ class Video extends Model\Object\ClassDefinition\Data
     }
 
     /**
-     * @param integer $height
+     * @param int $height
+     *
      * @return $this
      */
     public function setHeight($height)
@@ -103,10 +105,12 @@ class Video extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object\ClassDefinition\Data::getDataForResource
+     *
      * @param Asset $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
-     * @return integer|null
+     *
+     * @return int|null
      */
     public function getDataForResource($data, $object = null, $params = [])
     {
@@ -129,9 +133,11 @@ class Video extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object\ClassDefinition\Data::getDataFromResource
-     * @param integer $data
+     *
+     * @param int $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return Asset
      */
     public function getDataFromResource($data, $object = null, $params = [])
@@ -168,10 +174,12 @@ class Video extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object\ClassDefinition\Data::getDataForQueryResource
+     *
      * @param Asset $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
-     * @return integer|null
+     *
+     * @return int|null
      */
     public function getDataForQueryResource($data, $object = null, $params = [])
     {
@@ -180,10 +188,12 @@ class Video extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object\ClassDefinition\Data::getDataForEditmode
+     *
      * @param Asset $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
-     * @return integer
+     *
+     * @return int
      */
     public function getDataForEditmode($data, $object = null, $params = [])
     {
@@ -203,9 +213,11 @@ class Video extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Model\Object\ClassDefinition\Data::getDataFromEditmode
-     * @param integer $data
+     *
+     * @param int $data
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return Asset
      */
     public function getDataFromEditmode($data, $object = null, $params = [])
@@ -244,6 +256,7 @@ class Video extends Model\Object\ClassDefinition\Data
      * @param $data
      * @param null $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function getDataForGrid($data, $object = null, $params = [])
@@ -255,9 +268,11 @@ class Video extends Model\Object\ClassDefinition\Data
 
     /**
      * @see Object\ClassDefinition\Data::getVersionPreview
+     *
      * @param Asset\Image $data
      * @param null|Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getVersionPreview($data, $object = null, $params = [])
@@ -271,9 +286,12 @@ class Video extends Model\Object\ClassDefinition\Data
 
     /**
      * converts object data to a simple string value or CSV Export
+     *
      * @abstract
+     *
      * @param Object\AbstractObject $object
      * @param array $params
+     *
      * @return string
      */
     public function getForCsvExport($object, $params = [])
@@ -295,6 +313,7 @@ class Video extends Model\Object\ClassDefinition\Data
      * @param $importValue
      * @param null|Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return mixed|null
      */
     public function getFromCsvImport($importValue, $object = null, $params = [])
@@ -324,6 +343,7 @@ class Video extends Model\Object\ClassDefinition\Data
     /**
      * @param $object
      * @param mixed $params
+     *
      * @return string
      */
     public function getDataForSearchIndex($object, $params = [])
@@ -343,6 +363,7 @@ class Video extends Model\Object\ClassDefinition\Data
      *
      * @param mixed $data
      * @param array $tags
+     *
      * @return array
      */
     public function getCacheTags($data, $tags = [])
@@ -366,6 +387,7 @@ class Video extends Model\Object\ClassDefinition\Data
 
     /**
      * @param $data
+     *
      * @return array
      */
     public function resolveDependencies($data)
@@ -389,11 +411,12 @@ class Video extends Model\Object\ClassDefinition\Data
         return $dependencies;
     }
 
-
-        /**
+    /**
      * converts data to be exposed via webservices
+     *
      * @param string $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function getForWebserviceExport($object, $params = [])
@@ -404,13 +427,14 @@ class Video extends Model\Object\ClassDefinition\Data
         }
     }
 
-
     /**
      * converts data to be imported via webservices
+     *
      * @param mixed $value
      * @param mixed $relatedObject
      * @param mixed $params
      * @param $idMapper
+     *
      * @return mixed
      */
     public function getFromWebserviceImport($value, $relatedObject = null, $params = [], $idMapper = null)
@@ -423,6 +447,7 @@ class Video extends Model\Object\ClassDefinition\Data
     /** True if change is allowed in edit mode.
      * @param string $object
      * @param mixed $params
+     *
      * @return bool
      */
     public function isDiffChangeAllowed($object, $params = [])
@@ -432,9 +457,11 @@ class Video extends Model\Object\ClassDefinition\Data
 
     /** Generates a pretty version preview (similar to getVersionPreview) can be either html or
      * a image URL. See the ObjectMerger plugin documentation for details
+     *
      * @param $data
      * @param null $object
      * @param mixed $params
+     *
      * @return array|string
      */
     public function getDiffVersionPreview($data, $object = null, $params = [])
@@ -460,6 +487,7 @@ class Video extends Model\Object\ClassDefinition\Data
      * @param $object
      * @param $idMapping
      * @param array $params
+     *
      * @return mixed
      */
     public function rewriteIds($object, $idMapping, $params = [])
@@ -485,6 +513,7 @@ class Video extends Model\Object\ClassDefinition\Data
      * @param mixed $value
      * @param Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function marshal($value, $object = null, $params = [])
@@ -529,6 +558,7 @@ class Video extends Model\Object\ClassDefinition\Data
      * @param mixed $value
      * @param Model\Object\AbstractObject $object
      * @param mixed $params
+     *
      * @return mixed
      */
     public function unmarshal($value, $object = null, $params = [])

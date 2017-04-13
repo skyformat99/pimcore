@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Webservice
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -62,7 +63,6 @@ class Newsletter extends Model\Webservice\Data\Document\Snippet
      * @var string
      */
     public $trackingParameterName = "";
-
 
     /**
      * @var string

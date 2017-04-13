@@ -67,6 +67,7 @@ class Currency
 
     /**
      * Currency constructor.
+     *
      * @param $currencyShortName string
      */
     public function __construct($currencyShortName)
@@ -78,6 +79,7 @@ class Currency
     /**
      * @param float $value
      * @param string $pattern
+     *
      * @return string
      */
     public function toCurrency($value, $pattern = 'default')

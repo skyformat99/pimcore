@@ -15,10 +15,10 @@
 namespace Pimcore\Bundle\CoreBundle\Command;
 
 use Pimcore\Console\AbstractCommand;
+use Pimcore\Model\Asset;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Pimcore\Model\Asset;
 
 class ThumbnailsImageCommand extends AbstractCommand
 {
@@ -64,7 +64,6 @@ class ThumbnailsImageCommand extends AbstractCommand
             $allowedThumbs = explode(",", $input->getOption("thumbnails"));
         }
 
-
         // get only images
         $conditions = ["type = 'image'"];
 
@@ -83,9 +82,9 @@ class ThumbnailsImageCommand extends AbstractCommand
         $total = $list->getTotalCount();
         $perLoop = 10;
 
-        for ($i=0; $i<(ceil($total/$perLoop)); $i++) {
+        for ($i=0; $i < (ceil($total / $perLoop)); $i++) {
             $list->setLimit($perLoop);
-            $list->setOffset($i*$perLoop);
+            $list->setOffset($i * $perLoop);
 
             $images = $list->load();
             foreach ($images as $image) {

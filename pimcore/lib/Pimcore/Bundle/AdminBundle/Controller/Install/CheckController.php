@@ -17,7 +17,6 @@ namespace Pimcore\Bundle\AdminBundle\Controller\Install;
 use Pimcore\Controller\EventedControllerInterface;
 use Pimcore\Model\User;
 use Pimcore\Tool\Requirements;
-use Pimcore\Update;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,10 +27,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CheckController extends Controller implements EventedControllerInterface
 {
-
     /**
      * @Route("/check")
+     *
      * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction(Request $request)
@@ -39,7 +39,6 @@ class CheckController extends Controller implements EventedControllerInterface
         $checksPHP = Requirements::checkPhp();
         $checksFS = Requirements::checkFilesystem();
         $checksApps = Requirements::checkExternalApplications();
-
 
         $db = null;
 
@@ -90,6 +89,7 @@ class CheckController extends Controller implements EventedControllerInterface
 
     /**
      * @param FilterControllerEvent $event
+     *
      * @return Response|void
      */
     public function onKernelController(FilterControllerEvent $event)

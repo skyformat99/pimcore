@@ -99,6 +99,7 @@ class CartTaxManagementTest extends \Codeception\Test\Unit
 
     /**
      * @param ICart $cart
+     *
      * @return CartPriceCalculator
      */
     private function setUpCartCalculator(ICart $cart, $withModificators = false, $taxes = [])
@@ -132,7 +133,6 @@ class CartTaxManagementTest extends \Codeception\Test\Unit
         $this->assertEquals(2, count($items), "item count");
         $this->assertEquals(3, $cart->getItemAmount(), "item amount");
 
-
         $calculator = $this->setUpCartCalculator($cart);
         $subTotal = $calculator->getSubTotal();
         $grandTotal = $calculator->getGrandTotal();
@@ -143,7 +143,6 @@ class CartTaxManagementTest extends \Codeception\Test\Unit
         $this->assertEquals(250, $grandTotal->getGrossAmount(), "grandtotal gross");
         $this->assertEquals(250, $grandTotal->getNetAmount(), "grandtotal net");
     }
-
 
     public function testCartWithTaxEntriesCombine()
     {
@@ -158,7 +157,6 @@ class CartTaxManagementTest extends \Codeception\Test\Unit
 
         $this->assertEquals(2, count($items), "item count");
         $this->assertEquals(3, $cart->getItemAmount(), "item amount");
-
 
         $calculator = $this->setUpCartCalculator($cart);
         $subTotal = $calculator->getSubTotal();
@@ -182,7 +180,6 @@ class CartTaxManagementTest extends \Codeception\Test\Unit
         $this->assertEquals(24, round($taxEntries['2-15']->getAmount(), 2), "grandtotal taxentry 2 amount");
     }
 
-
     public function testPriceSystemWithTaxEntriesOneAfterAnother()
     {
         $product = $this->setUpProduct(100, [1 => 10, 2 => 15], TaxEntry::CALCULATION_MODE_ONE_AFTER_ANOTHER);
@@ -196,7 +193,6 @@ class CartTaxManagementTest extends \Codeception\Test\Unit
 
         $this->assertEquals(2, count($items), "item count");
         $this->assertEquals(3, $cart->getItemAmount(), "item amount");
-
 
         $calculator = $this->setUpCartCalculator($cart);
         $subTotal = $calculator->getSubTotal();
@@ -219,8 +215,6 @@ class CartTaxManagementTest extends \Codeception\Test\Unit
         $this->assertEquals(26.09, round($taxEntries['2-15']->getAmount(), 2), "grandtotal taxentry 2 amount");
     }
 
-
-
     public function testCartWithoutTaxEntriesWithModificators()
     {
         $product = $this->setUpProduct(100);
@@ -235,7 +229,6 @@ class CartTaxManagementTest extends \Codeception\Test\Unit
         $this->assertEquals(2, count($items), "item count");
         $this->assertEquals(3, $cart->getItemAmount(), "item amount");
 
-
         $calculator = $this->setUpCartCalculator($cart, true);
         $subTotal = $calculator->getSubTotal();
         $grandTotal = $calculator->getGrandTotal();
@@ -246,7 +239,6 @@ class CartTaxManagementTest extends \Codeception\Test\Unit
         $this->assertEquals(260, $grandTotal->getGrossAmount(), "grandtotal gross");
         $this->assertEquals(260, $grandTotal->getNetAmount(), "grandtotal net");
     }
-
 
     public function testCartWithTaxEntriesCombineWithModificators()
     {
@@ -261,7 +253,6 @@ class CartTaxManagementTest extends \Codeception\Test\Unit
 
         $this->assertEquals(2, count($items), "item count");
         $this->assertEquals(3, $cart->getItemAmount(), "item amount");
-
 
         $calculator = $this->setUpCartCalculator($cart, true, ["shipping" => 20]);
         $subTotal = $calculator->getSubTotal();
@@ -287,7 +278,6 @@ class CartTaxManagementTest extends \Codeception\Test\Unit
         $this->assertEquals(1.67, round($taxEntries['shipping-20']->getAmount(), 2), "grandtotal taxentry 3 amount");
     }
 
-
     public function testPriceSystemWithTaxEntriesOneAfterAnotherWithModificators()
     {
         $product = $this->setUpProduct(100, [1 => 10, 2 => 15], TaxEntry::CALCULATION_MODE_ONE_AFTER_ANOTHER);
@@ -301,7 +291,6 @@ class CartTaxManagementTest extends \Codeception\Test\Unit
 
         $this->assertEquals(2, count($items), "item count");
         $this->assertEquals(3, $cart->getItemAmount(), "item amount");
-
 
         $calculator = $this->setUpCartCalculator($cart, true, ["shipping" => 20]);
         $subTotal = $calculator->getSubTotal();

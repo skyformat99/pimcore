@@ -15,12 +15,12 @@
 namespace Pimcore\Bundle\CoreBundle\Command;
 
 use Pimcore\Console\AbstractCommand;
+use Pimcore\Logger;
+use Pimcore\Model\Asset;
+use Pimcore\Model\Version;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Pimcore\Model\Asset;
-use Pimcore\Model\Version;
-use Pimcore\Logger;
 
 class ThumbnailsVideoCommand extends AbstractCommand
 {
@@ -68,7 +68,6 @@ class ThumbnailsVideoCommand extends AbstractCommand
             $allowedThumbs = explode(",", $input->getOption("thumbnails"));
         }
 
-
         // get only images
         $conditions = ["type = 'video'"];
 
@@ -87,9 +86,9 @@ class ThumbnailsVideoCommand extends AbstractCommand
         $total = $list->getTotalCount();
         $perLoop = 10;
 
-        for ($i=0; $i<(ceil($total/$perLoop)); $i++) {
+        for ($i=0; $i < (ceil($total / $perLoop)); $i++) {
             $list->setLimit($perLoop);
-            $list->setOffset($i*$perLoop);
+            $list->setOffset($i * $perLoop);
 
             $videos = $list->load();
             foreach ($videos as $video) {

@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Asset
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -17,8 +18,8 @@
 namespace Pimcore\Model\Asset;
 
 use Pimcore\Event\FrontendEvents;
-use Pimcore\Model;
 use Pimcore\Logger;
+use Pimcore\Model;
 use Symfony\Component\EventDispatcher\GenericEvent;
 
 /**
@@ -26,7 +27,6 @@ use Symfony\Component\EventDispatcher\GenericEvent;
  */
 class Video extends Model\Asset
 {
-
     /**
      * @var string
      */
@@ -48,9 +48,6 @@ class Video extends Model\Asset
         parent::update();
     }
 
-    /**
-     *
-     */
     public function delete()
     {
         parent::delete();
@@ -81,6 +78,7 @@ class Video extends Model\Asset
 
     /**
      * @param string $config
+     *
      * @return Video\Thumbnail\Config|null
      */
     public function getThumbnailConfig($config)
@@ -101,6 +99,7 @@ class Video extends Model\Asset
      *
      * @param $thumbnailName
      * @param array $onlyFormats
+     *
      * @return string
      */
     public function getThumbnail($thumbnailName, $onlyFormats = [])
@@ -142,7 +141,9 @@ class Video extends Model\Asset
      * @param $thumbnailName
      * @param null $timeOffset
      * @param null $imageAsset
+     *
      * @return mixed|string
+     *
      * @throws \Exception
      */
     public function getImageThumbnail($thumbnailName, $timeOffset = null, $imageAsset = null)
@@ -158,6 +159,7 @@ class Video extends Model\Asset
 
     /**
      * @return null
+     *
      * @throws \Exception
      */
     protected function getDurationFromBackend()

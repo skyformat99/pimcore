@@ -10,19 +10,19 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Object\ClassDefinition\Data;
 
-use Pimcore\Model;
 use Egulias\EmailValidator\EmailValidator;
 use Egulias\EmailValidator\Validation\RFCValidation;
+use Pimcore\Model;
 
 class Email extends Model\Object\ClassDefinition\Data\Input
 {
-
     /**
      * @var string
      */
@@ -31,6 +31,7 @@ class Email extends Model\Object\ClassDefinition\Data\Input
     /**
      * @param mixed $data
      * @param bool $omitMandatoryCheck
+     *
      * @throws Model\Element\ValidationException
      */
     public function checkValidity($data, $omitMandatoryCheck = false)

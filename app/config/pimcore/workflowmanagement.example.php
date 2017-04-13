@@ -213,7 +213,6 @@ return [
                 ]
             ]
 
-
         ],
 
         "transitionDefinitions" => [
@@ -261,7 +260,6 @@ return [
             ]
 
         ],
-
 
     ]
 ];

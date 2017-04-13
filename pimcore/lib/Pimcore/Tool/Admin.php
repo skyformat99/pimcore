@@ -25,7 +25,9 @@ class Admin
      * Finds the translation file for a given language
      *
      * @static
+     *
      * @param  string $language
+     *
      * @return string
      */
     public static function getLanguageFile($language)
@@ -40,6 +42,7 @@ class Admin
      * finds installed languages
      *
      * @static
+     *
      * @return array
      */
     public static function getLanguages()
@@ -70,7 +73,9 @@ class Admin
 
     /**
      * @static
+     *
      * @param  $scriptContent
+     *
      * @return mixed
      */
     public static function getMinimizedScriptPath($scriptContent)
@@ -89,9 +94,9 @@ class Admin
         return "/admin/misc/script-proxy?" . array_toquerystring($params);
     }
 
-
     /**
      * @param $file
+     *
      * @return \stdClass
      */
     public static function determineCsvDialect($file)
@@ -99,7 +104,7 @@ class Admin
 
         // minimum 10 lines, to be sure take more
         $sample = "";
-        for ($i=0; $i<10; $i++) {
+        for ($i=0; $i < 10; $i++) {
             $sample .= implode("", array_slice(file($file), 0, 11)); // grab 20 lines
         }
 
@@ -119,9 +124,9 @@ class Admin
         return $dialect;
     }
 
-
     /**
      * @static
+     *
      * @return string
      */
     public static function getMaintenanceModeFile()
@@ -131,6 +136,7 @@ class Admin
 
     /**
      * @param null $sessionId
+     *
      * @throws \Exception
      */
     public static function activateMaintenanceMode($sessionId = null)
@@ -164,6 +170,7 @@ class Admin
 
     /**
      * @static
+     *
      * @return bool
      */
     public static function isInMaintenanceMode()
@@ -184,6 +191,7 @@ class Admin
 
     /**
      * @static
+     *
      * @return \Pimcore\Model\User
      */
     public static function getCurrentUser()
@@ -205,6 +213,7 @@ class Admin
      * @param User $user
      * @param string|array $languages
      * @param bool $returnLanguageArray
+     *
      * @return string
      */
     public static function reorderWebsiteLanguages($user, $languages, $returnLanguageArray = false)

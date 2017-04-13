@@ -86,6 +86,7 @@ class UsageStatisticsListener implements EventSubscriberInterface
 
     /**
      * @param Request $request
+     *
      * @return array
      */
     protected function getParams(Request $request)

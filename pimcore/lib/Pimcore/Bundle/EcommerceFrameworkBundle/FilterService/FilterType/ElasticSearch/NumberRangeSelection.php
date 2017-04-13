@@ -42,7 +42,6 @@ class NumberRangeSelection extends \Pimcore\Bundle\EcommerceFrameworkBundle\Filt
 
         $currentFilter[$field] = $value;
 
-
         if (!empty($value)) {
             $range = [];
             if (!empty($value['from'])) {

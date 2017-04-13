@@ -10,26 +10,26 @@
  *
  * @category   Pimcore
  * @package    Dependency
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Dependency;
 
+use Pimcore\Logger;
 use Pimcore\Model;
 use Pimcore\Model\Element;
-use Pimcore\Logger;
 
 /**
  * @property \Pimcore\Model\Dependency $model
  */
 class Dao extends Model\Dao\AbstractDao
 {
-
     /**
      * Loads the relations for the given sourceId and type
      *
-     * @param integer $id
+     * @param int $id
      * @param string $type
      */
     public function getBySourceId($id = null, $type = null)
@@ -63,6 +63,7 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * Clear all relations in the database
+     *
      * @param Element\ElementInterface $element
      */
     public function cleanAllForElement($element)
@@ -88,7 +89,6 @@ class Dao extends Model\Dao\AbstractDao
             Logger::error($e);
         }
     }
-
 
     /**
      * Clear all relations in the database for current source id

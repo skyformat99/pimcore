@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -20,9 +21,9 @@ use Pimcore\Model\Object;
 
 class Service
 {
-
     /**
      * @param $keyConfig
+     *
      * @return Object\ClassDefinition\Data
      */
     public static function getFieldDefinitionFromKeyConfig($keyConfig)
@@ -38,6 +39,7 @@ class Service
     /**
      * @param $definition
      * @param $type
+     *
      * @return Object\ClassDefinition\Data
      */
     public static function getFieldDefinitionFromJson($definition, $type)
@@ -50,7 +52,7 @@ class Service
             $type = "input";
         }
         $className = "\\Pimcore\\Model\\Object\\ClassDefinition\\Data\\" . ucfirst($type);
-        /** @var  $dataDefinition \Pimcore\Model\Object\ClassDefinition\Data */
+        /** @var $dataDefinition \Pimcore\Model\Object\ClassDefinition\Data */
         $dataDefinition = new $className();
 
         $dataDefinition->setValues($definition);

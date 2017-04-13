@@ -10,24 +10,25 @@
  *
  * @category   Pimcore
  * @package    Tool
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Tool\Lock;
 
-use Pimcore\Model;
 use Pimcore\Logger;
+use Pimcore\Model;
 
 /**
  * @property \Pimcore\Model\Tool\Lock $model
  */
 class Dao extends Model\Dao\AbstractDao
 {
-
     /**
      * @param $key
      * @param int $expire
+     *
      * @return bool
      */
     public function isLocked($key, $expire = 120)
@@ -41,7 +42,7 @@ class Dao extends Model\Dao\AbstractDao
         // a lock is only valid for a certain time (default: 2 minutes)
         if (!$lock) {
             return false;
-        } elseif (is_array($lock) && array_key_exists("id", $lock) && $lock["date"] < (time()-$expire)) {
+        } elseif (is_array($lock) && array_key_exists("id", $lock) && $lock["date"] < (time() - $expire)) {
             if ($expire > 0) {
                 Logger::debug("Lock '" . $key . "' expired (expiry time: " . $expire . ", lock date: " . $lock["date"] . " / current time: " . time() . ")");
                 $this->release($key);
@@ -57,6 +58,7 @@ class Dao extends Model\Dao\AbstractDao
      * @param $key
      * @param int $expire
      * @param int $refreshInterval
+     *
      * @return bool
      */
     public function acquire($key, $expire = 120, $refreshInterval = 1)

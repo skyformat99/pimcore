@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -29,6 +30,7 @@ class Fieldcontainer extends Model\Object\ClassDefinition\Layout
 
     /**
      * Width of input field labels
+     *
      * @var int
      */
     public $labelWidth = 100;
@@ -45,6 +47,7 @@ class Fieldcontainer extends Model\Object\ClassDefinition\Layout
 
     /**
      * @param $labelWidth
+     *
      * @return $this
      */
     public function setLabelWidth($labelWidth)
@@ -66,6 +69,7 @@ class Fieldcontainer extends Model\Object\ClassDefinition\Layout
 
     /**
      * @param $layout
+     *
      * @return $this
      */
     public function setLayout($layout)
@@ -85,6 +89,7 @@ class Fieldcontainer extends Model\Object\ClassDefinition\Layout
 
     /**
      * @param $fieldLabel
+     *
      * @return $this
      */
     public function setFieldLabel($fieldLabel)

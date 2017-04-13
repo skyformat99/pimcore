@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Object
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -24,7 +25,6 @@ use Pimcore\Model\Object;
  */
 abstract class Concrete extends Model\Object\Listing
 {
-
     /**
      * @var int
      */
@@ -43,10 +43,10 @@ abstract class Concrete extends Model\Object\Listing
     /**
      * do not use the localized views for this list (in the case the class contains localized fields),
      * conditions on localized fields are not possible
+     *
      * @var bool
      */
     public $ignoreLocalizedFields = false;
-
 
     /**
      * @throws \Exception
@@ -59,8 +59,10 @@ abstract class Concrete extends Model\Object\Listing
 
     /**
      * @todo remove always true
+     *
      * @param string $key
-     * @return boolean
+     *
+     * @return bool
      */
     public function isValidOrderKey($key)
     {
@@ -68,7 +70,7 @@ abstract class Concrete extends Model\Object\Listing
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getClassId()
     {
@@ -85,6 +87,7 @@ abstract class Concrete extends Model\Object\Listing
 
     /**
      * @param $classId
+     *
      * @return $this
      */
     public function setClassId($classId)
@@ -96,6 +99,7 @@ abstract class Concrete extends Model\Object\Listing
 
     /**
      * @param $className
+     *
      * @return $this
      */
     public function setClassName($className)
@@ -117,6 +121,7 @@ abstract class Concrete extends Model\Object\Listing
 
     /**
      * @param mixed $locale
+     *
      * @return $this
      */
     public function setLocale($locale)
@@ -136,6 +141,7 @@ abstract class Concrete extends Model\Object\Listing
 
     /**
      * @param bool $ignoreLocalizedFields
+     *
      * @return $this
      */
     public function setIgnoreLocalizedFields($ignoreLocalizedFields)
@@ -153,9 +159,9 @@ abstract class Concrete extends Model\Object\Listing
         return $this->ignoreLocalizedFields;
     }
 
-
     /**
      * field collection queries
+     *
      * @var array
      */
     private $fieldCollectionConfigs = [];
@@ -163,6 +169,7 @@ abstract class Concrete extends Model\Object\Listing
     /**
      * @param $type
      * @param null $fieldname
+     *
      * @throws \Exception
      */
     public function addFieldCollection($type, $fieldname = null)
@@ -173,12 +180,13 @@ abstract class Concrete extends Model\Object\Listing
 
         Object\Fieldcollection\Definition::getByKey($type);
         $this->fieldCollectionConfigs[] = ["type" => $type, "fieldname" => $fieldname];
-        ;
     }
 
     /**
      * @param $fieldCollections
+     *
      * @return $this
+     *
      * @throws \Exception
      */
     public function setFieldCollections($fieldCollections)
@@ -198,15 +206,16 @@ abstract class Concrete extends Model\Object\Listing
         return $this->fieldCollectionConfigs;
     }
 
-
     /**
      * object brick queries
+     *
      * @var array
      */
     private $objectBrickConfigs = [];
 
     /**
      * @param $type
+     *
      * @throws \Exception
      */
     public function addObjectbrick($type)
@@ -223,7 +232,9 @@ abstract class Concrete extends Model\Object\Listing
 
     /**
      * @param $objectbricks
+     *
      * @return $this
+     *
      * @throws \Exception
      */
     public function setObjectbricks($objectbricks)

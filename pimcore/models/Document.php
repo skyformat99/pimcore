@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Document
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  *
@@ -20,11 +21,10 @@ namespace Pimcore\Model;
 use Pimcore\Event\DocumentEvents;
 use Pimcore\Event\FrontendEvents;
 use Pimcore\Event\Model\DocumentEvent;
+use Pimcore\Logger;
 use Pimcore\Model\Document\Listing;
-use Pimcore\Model\Element;
 use Pimcore\Tool;
 use Pimcore\Tool\Frontend as FrontendTool;
-use Pimcore\Logger;
 use Symfony\Component\EventDispatcher\GenericEvent;
 
 /**
@@ -37,6 +37,7 @@ class Document extends Element\AbstractElement
 
     /**
      * possible types of a document
+     *
      * @var array
      */
     public static $types = ["folder", "page", "snippet", "link", "hardlink", "email", "newsletter", "printpage", "printcontainer"];
@@ -81,14 +82,14 @@ class Document extends Element\AbstractElement
     /**
      * ID of the document
      *
-     * @var integer
+     * @var int
      */
     public $id;
 
     /**
      * ID of the parent document, on root document this is null
      *
-     * @var integer
+     * @var int
      */
     public $parentId;
 
@@ -124,7 +125,7 @@ class Document extends Element\AbstractElement
     /**
      * Sorter index in the tree, can also be used for generating a navigation and so on
      *
-     * @var integer
+     * @var int
      */
     public $index;
 
@@ -138,28 +139,28 @@ class Document extends Element\AbstractElement
     /**
      * timestamp of creationdate
      *
-     * @var integer
+     * @var int
      */
     public $creationDate;
 
     /**
      * timestamp of modificationdate
      *
-     * @var integer
+     * @var int
      */
     public $modificationDate;
 
     /**
      * User-ID of the owner
      *
-     * @var integer
+     * @var int
      */
     public $userOwner = 0;
 
     /**
      * User-ID of the user last modified the document
      *
-     * @var integer
+     * @var int
      */
     public $userModification = 0;
 
@@ -192,7 +193,7 @@ class Document extends Element\AbstractElement
     /**
      * Indicator of document has childs or not.
      *
-     * @var boolean
+     * @var bool
      */
     public $hasChilds;
 
@@ -206,7 +207,7 @@ class Document extends Element\AbstractElement
     /**
      * Indicator if document has siblings or not
      *
-     * @var boolean
+     * @var bool
      */
     public $hasSiblings;
 
@@ -219,6 +220,7 @@ class Document extends Element\AbstractElement
 
     /**
      * get possible types
+     *
      * @return array
      */
     public static function getTypes()
@@ -228,7 +230,9 @@ class Document extends Element\AbstractElement
 
     /**
      * Static helper to get a Document by it's path
+     *
      * @param string $path
+     *
      * @return Document|Document\Email|Document\Folder|Document\Hardlink|Document\Link|Document\Page|Document\Printcontainer|Document\Printpage|Document\Snippet
      */
     public static function getByPath($path)
@@ -236,7 +240,7 @@ class Document extends Element\AbstractElement
         $path = Element\Service::correctPath($path);
 
         try {
-            $document = new Document();
+            $document = new self();
             // validate path
             if (Tool::isValidPath($path)) {
                 $document->getDao()->getByPath($path);
@@ -252,8 +256,10 @@ class Document extends Element\AbstractElement
 
     /**
      * Static helper to get a Document by it's ID
-     * @param integer $id
+     *
+     * @param int $id
      * @param bool $force
+     *
      * @return Document|Document\Email|Document\Folder|Document\Hardlink|Document\Link|Document\Page|Document\Printcontainer|Document\Printpage|Document\Snippet|Document\Newsletter
      */
     public static function getById($id, $force = false)
@@ -275,7 +281,7 @@ class Document extends Element\AbstractElement
 
         try {
             if ($force || !($document = \Pimcore\Cache::load($cacheKey))) {
-                $document = new Document();
+                $document = new self();
                 $document->getDao()->getById($id);
 
                 $className = "Pimcore\\Model\\Document\\" . ucfirst($document->getType());
@@ -304,7 +310,6 @@ class Document extends Element\AbstractElement
             return null;
         }
 
-
         if (!$document) {
             return null;
         }
@@ -315,9 +320,10 @@ class Document extends Element\AbstractElement
     /**
      * Static helper to quickly create a new document
      *
-     * @param integer $parentId
+     * @param int $parentId
      * @param array $data
-     * @param boolean $save
+     * @param bool $save
+     *
      * @return Document
      */
     public static function create($parentId, $data = [], $save = true)
@@ -336,12 +342,13 @@ class Document extends Element\AbstractElement
         return $document;
     }
 
-
     /**
      * Returns the documents list instance.
      *
      * @param array $config
+     *
      * @return Listing
+     *
      * @throws \Exception
      */
     public static function getList($config = [])
@@ -362,6 +369,7 @@ class Document extends Element\AbstractElement
      * Get total count of documents.
      *
      * @param array $config
+     *
      * @return int count
      */
     public static function getTotalCount($config = [])
@@ -376,11 +384,11 @@ class Document extends Element\AbstractElement
         }
     }
 
-
     /**
      * Save the document.
      *
      * @return Document
+     *
      * @throws \Exception
      */
     public function save()
@@ -399,7 +407,7 @@ class Document extends Element\AbstractElement
         // if a transaction fails it gets restarted $maxRetries times, then the exception is thrown out
         // this is especially useful to avoid problems with deadlocks in multi-threaded environments (forked workers, ...)
         $maxRetries = 5;
-        for ($retries=0; $retries<$maxRetries; $retries++) {
+        for ($retries=0; $retries < $maxRetries; $retries++) {
             $this->beginTransaction();
 
             try {
@@ -441,10 +449,10 @@ class Document extends Element\AbstractElement
                 }
 
                 // we try to start the transaction $maxRetries times again (deadlocks, ...)
-                if ($retries < ($maxRetries-1)) {
-                    $run = $retries+1;
+                if ($retries < ($maxRetries - 1)) {
+                    $run = $retries + 1;
                     $waitTime = 100000; // microseconds
-                    Logger::warn("Unable to finish transaction (" . $run . ". run) because of the following reason '" . $e->getMessage() . "'. --> Retrying in " . $waitTime . " microseconds ... (" . ($run+1) . " of " . $maxRetries . ")");
+                    Logger::warn("Unable to finish transaction (" . $run . ". run) because of the following reason '" . $e->getMessage() . "'. --> Retrying in " . $waitTime . " microseconds ... (" . ($run + 1) . " of " . $maxRetries . ")");
 
                     usleep($waitTime); // wait specified time until we restart the transaction
                 } else {
@@ -494,7 +502,7 @@ class Document extends Element\AbstractElement
                 throw new \Exception("ParentID and ID is identical, an element can't be the parent of itself.");
             }
 
-            $parent = Document::getById($this->getParentId());
+            $parent = self::getById($this->getParentId());
             if ($parent) {
                 // use the parent's path from the database here (getCurrentFullPath), to ensure the path really exists and does not rely on the path
                 // that is currently in the parent object (in memory), because this might have changed but wasn't not saved
@@ -517,8 +525,8 @@ class Document extends Element\AbstractElement
         }
 
         if (Document\Service::pathExists($this->getRealFullPath())) {
-            $duplicate = Document::getByPath($this->getRealFullPath());
-            if ($duplicate instanceof Document  and $duplicate->getId() != $this->getId()) {
+            $duplicate = self::getByPath($this->getRealFullPath());
+            if ($duplicate instanceof self and $duplicate->getId() != $this->getId()) {
                 throw new \Exception("Duplicate full path [ " . $this->getRealFullPath() . " ] - cannot save document");
             }
         }
@@ -624,6 +632,7 @@ class Document extends Element\AbstractElement
      * set the children of the document
      *
      * @param $children
+     *
      * @return array
      *
      * @todo: replace and with &&
@@ -631,7 +640,7 @@ class Document extends Element\AbstractElement
     public function setChildren($children)
     {
         $this->childs=$children;
-        if (is_array($children) and count($children>0)) {
+        if (is_array($children) and count($children > 0)) {
             $this->hasChilds=true;
         } elseif ($children === null) {
             $this->hasChilds = null;
@@ -644,7 +653,9 @@ class Document extends Element\AbstractElement
 
     /**
      * Get a list of the Childs (not recursivly)
+     *
      * @param bool
+     *
      * @return array
      */
     public function getChildren($unpublished = false)
@@ -661,11 +672,10 @@ class Document extends Element\AbstractElement
         return $this->childs;
     }
 
-
     /**
      * Returns true if the document has at least one child
      *
-     * @return boolean
+     * @return bool
      */
     public function hasChildren()
     {
@@ -684,6 +694,7 @@ class Document extends Element\AbstractElement
      * Get a list of the sibling documents
      *
      * @param bool $unpublished
+     *
      * @return array
      */
     public function getSiblings($unpublished = false)
@@ -722,6 +733,7 @@ class Document extends Element\AbstractElement
 
     /**
      * Returns true if the element is locked
+     *
      * @return string
      */
     public function getLocked()
@@ -737,6 +749,7 @@ class Document extends Element\AbstractElement
      * Mark the document as locked.
      *
      * @param  $locked
+     *
      * @return Document
      */
     public function setLocked($locked)
@@ -827,7 +840,7 @@ class Document extends Element\AbstractElement
             $parent = $this;
             while ($parent) {
                 if ($hardlinkId = $documentService->getDocumentIdFromHardlinkInSameSite(Site::getCurrentSite(), $parent)) {
-                    $hardlink = Document::getById($hardlinkId);
+                    $hardlink = self::getById($hardlinkId);
                     if (FrontendTool::isDocumentInCurrentSite($hardlink)) {
                         $siteRootPath = Site::getCurrentSite()->getRootPath();
                         $siteRootPath = preg_quote($siteRootPath);
@@ -881,6 +894,7 @@ class Document extends Element\AbstractElement
 
     /**
      * @param $path
+     *
      * @return mixed
      */
     protected function prepareFrontendPath($path)
@@ -901,7 +915,7 @@ class Document extends Element\AbstractElement
     /**
      * Returns the document creation date.
      *
-     * @return integer
+     * @return int
      */
     public function getCreationDate()
     {
@@ -911,7 +925,7 @@ class Document extends Element\AbstractElement
     /**
      * Returns the document id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -931,7 +945,7 @@ class Document extends Element\AbstractElement
     /**
      * Return the document modification date.
      *
-     * @return integer
+     * @return int
      */
     public function getModificationDate()
     {
@@ -941,7 +955,7 @@ class Document extends Element\AbstractElement
     /**
      * Returns the id of the parent document.
      *
-     * @return integer
+     * @return int
      */
     public function getParentId()
     {
@@ -1002,7 +1016,8 @@ class Document extends Element\AbstractElement
     /**
      * Set the creation date of the document.
      *
-     * @param integer $creationDate
+     * @param int $creationDate
+     *
      * @return Document
      */
     public function setCreationDate($creationDate)
@@ -1015,7 +1030,8 @@ class Document extends Element\AbstractElement
     /**
      * Set the id of the document.
      *
-     * @param integer $id
+     * @param int $id
+     *
      * @return Document
      */
     public function setId($id)
@@ -1028,7 +1044,8 @@ class Document extends Element\AbstractElement
     /**
      * Set the document key.
      *
-     * @param integer $key
+     * @param int $key
+     *
      * @return Document
      */
     public function setKey($key)
@@ -1038,11 +1055,11 @@ class Document extends Element\AbstractElement
         return $this;
     }
 
-
     /**
      * Set the document modification date.
      *
-     * @param integer $modificationDate
+     * @param int $modificationDate
+     *
      * @return Document
      */
     public function setModificationDate($modificationDate)
@@ -1052,11 +1069,11 @@ class Document extends Element\AbstractElement
         return $this;
     }
 
-
     /**
      * Set the parent id of the document.
      *
-     * @param integer $parentId
+     * @param int $parentId
+     *
      * @return Document
      */
     public function setParentId($parentId)
@@ -1071,6 +1088,7 @@ class Document extends Element\AbstractElement
      * Set the document path.
      *
      * @param string $path
+     *
      * @return Document
      */
     public function setPath($path)
@@ -1083,7 +1101,7 @@ class Document extends Element\AbstractElement
     /**
      * Returns the document index.
      *
-     * @return integer
+     * @return int
      */
     public function getIndex()
     {
@@ -1093,7 +1111,8 @@ class Document extends Element\AbstractElement
     /**
      * Set the document index.
      *
-     * @param integer $index
+     * @param int $index
+     *
      * @return Document
      */
     public function setIndex($index)
@@ -1116,7 +1135,8 @@ class Document extends Element\AbstractElement
     /**
      * Set the document type.
      *
-     * @param integer $type
+     * @param int $type
+     *
      * @return Document
      */
     public function setType($type)
@@ -1129,7 +1149,7 @@ class Document extends Element\AbstractElement
     /**
      * Returns id of the user last modified the document.
      *
-     * @return integer
+     * @return int
      */
     public function getUserModification()
     {
@@ -1139,7 +1159,7 @@ class Document extends Element\AbstractElement
     /**
      * Returns the id of the owner user.
      *
-     * @return integer
+     * @return int
      */
     public function getUserOwner()
     {
@@ -1149,7 +1169,8 @@ class Document extends Element\AbstractElement
     /**
      * Set id of the user last modified the document.
      *
-     * @param integer $userModification
+     * @param int $userModification
+     *
      * @return Document
      */
     public function setUserModification($userModification)
@@ -1162,7 +1183,8 @@ class Document extends Element\AbstractElement
     /**
      * Set the id of the owner user.
      *
-     * @param integer $userOwner
+     * @param int $userOwner
+     *
      * @return Document
      */
     public function setUserOwner($userOwner)
@@ -1175,7 +1197,7 @@ class Document extends Element\AbstractElement
     /**
      * Checks if the document is published.
      *
-     * @return boolean
+     * @return bool
      */
     public function isPublished()
     {
@@ -1185,7 +1207,7 @@ class Document extends Element\AbstractElement
     /**
      * Checks if the document is published.
      *
-     * @return boolean
+     * @return bool
      */
     public function getPublished()
     {
@@ -1195,7 +1217,8 @@ class Document extends Element\AbstractElement
     /**
      * Set the publish status of the document.
      *
-     * @param integer $published
+     * @param int $published
+     *
      * @return Document
      */
     public function setPublished($published)
@@ -1233,6 +1256,7 @@ class Document extends Element\AbstractElement
      * Set document properties.
      *
      * @param array $properties
+     *
      * @return Document
      */
     public function setProperties($properties)
@@ -1250,6 +1274,7 @@ class Document extends Element\AbstractElement
      * @param mixed $data
      * @param bool $inherited
      * @param bool $inheritable
+     *
      * @return Document
      */
     public function setProperty($name, $type, $data, $inherited = false, $inheritable = true)
@@ -1278,7 +1303,7 @@ class Document extends Element\AbstractElement
     public function getParent()
     {
         if ($this->parent === null) {
-            $this->setParent(Document::getById($this->getParentId()));
+            $this->setParent(self::getById($this->getParentId()));
         }
 
         return $this->parent;
@@ -1288,21 +1313,19 @@ class Document extends Element\AbstractElement
      * Set the parent document instance.
      *
      * @param Document $parent
+     *
      * @return Document
      */
     public function setParent($parent)
     {
         $this->parent = $parent;
-        if ($parent instanceof Document) {
+        if ($parent instanceof self) {
             $this->parentId = $parent->getId();
         }
 
         return $this;
     }
 
-    /**
-     *
-     */
     public function __sleep()
     {
         $finalVars = [];
@@ -1318,7 +1341,6 @@ class Document extends Element\AbstractElement
             $blockedVars = ["dependencies", "userPermissions", "childs", "hasChilds", "versions", "scheduledTasks", "properties", "parent"];
         }
 
-
         foreach ($parentVars as $key) {
             if (!in_array($key, $blockedVars)) {
                 $finalVars[] = $key;
@@ -1328,14 +1350,11 @@ class Document extends Element\AbstractElement
         return $finalVars;
     }
 
-    /**
-     *
-     */
     public function __wakeup()
     {
         if (isset($this->_fulldump)) {
             // set current key and path this is necessary because the serialized data can have a different path than the original element (element was renamed or moved)
-            $originalElement = Document::getById($this->getId());
+            $originalElement = self::getById($this->getId());
             if ($originalElement) {
                 $this->setKey($originalElement->getKey());
                 $this->setPath($originalElement->getRealPath());
@@ -1385,7 +1404,6 @@ class Document extends Element\AbstractElement
         $inheritedProperties = $this->getDao()->getProperties(true);
         $this->setProperties(array_merge($inheritedProperties, $myProperties));
     }
-
 
     /**
      * returns true if document should be rendered with legacy stack

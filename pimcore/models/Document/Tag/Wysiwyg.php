@@ -10,6 +10,7 @@
  *
  * @category   Pimcore
  * @package    Document
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
@@ -26,7 +27,6 @@ include_once(PIMCORE_PATH . "/lib/simple_html_dom.php");
  */
 class Wysiwyg extends Model\Document\Tag
 {
-
     /**
      * Contains the text
      *
@@ -34,9 +34,9 @@ class Wysiwyg extends Model\Document\Tag
      */
     public $text;
 
-
     /**
      * @see TagInterface::getType
+     *
      * @return string
      */
     public function getType()
@@ -46,6 +46,7 @@ class Wysiwyg extends Model\Document\Tag
 
     /**
      * @see TagInterface::getData
+     *
      * @return mixed
      */
     public function getData()
@@ -65,6 +66,7 @@ class Wysiwyg extends Model\Document\Tag
 
     /**
      * @see TagInterface::frontend
+     *
      * @return string
      */
     public function frontend()
@@ -74,7 +76,9 @@ class Wysiwyg extends Model\Document\Tag
 
     /**
      * @see TagInterface::setDataFromResource
+     *
      * @param mixed $data
+     *
      * @return $this
      */
     public function setDataFromResource($data)
@@ -84,10 +88,11 @@ class Wysiwyg extends Model\Document\Tag
         return $this;
     }
 
-
     /**
      * @see TagInterface::setDataFromEditmode
+     *
      * @param mixed $data
+     *
      * @return $this
      */
     public function setDataFromEditmode($data)
@@ -98,19 +103,19 @@ class Wysiwyg extends Model\Document\Tag
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isEmpty()
     {
         return empty($this->text);
     }
 
-
     /**
      * @param Model\Webservice\Data\Document\Element $wsElement
      * @param $document
      * @param mixed $params
      * @param null $idMapper
+     *
      * @throws \Exception
      */
     public function getFromWebserviceImport($wsElement, $document = null, $params = [], $idMapper = null)
@@ -131,17 +136,16 @@ class Wysiwyg extends Model\Document\Tag
         return Text::getDependenciesOfWysiwygText($this->text);
     }
 
-
     /**
      * @param $ownerDocument
      * @param array $blockedTags
+     *
      * @return array
      */
     public function getCacheTags($ownerDocument, $blockedTags = [])
     {
         return Text::getCacheTagsOfWysiwygText($this->text, $blockedTags);
     }
-
 
     /**
      * Rewrites id from source to target, $idMapping contains
@@ -153,7 +157,9 @@ class Wysiwyg extends Model\Document\Tag
      *  "object" => array(...),
      *  "asset" => array(...)
      * )
+     *
      * @param array $idMapping
+     *
      * @return string|null
      *
      * @todo: no rewriteIds method ever returns anything, why this one?

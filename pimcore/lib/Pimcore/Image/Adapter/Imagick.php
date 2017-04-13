@@ -14,15 +14,13 @@
 
 namespace Pimcore\Image\Adapter;
 
-use Pimcore\Image\Adapter;
-use Pimcore\File;
 use Pimcore\Config;
+use Pimcore\File;
+use Pimcore\Image\Adapter;
 use Pimcore\Logger;
 
 class Imagick extends Adapter
 {
-
-
     /**
      * @var string
      */
@@ -46,6 +44,7 @@ class Imagick extends Adapter
     /**
      * @param $imagePath
      * @param array $options
+     *
      * @return $this|bool|self
      */
     public function load($imagePath, $options = [])
@@ -137,7 +136,6 @@ class Imagick extends Adapter
             return false;
         }
 
-
         $this->setModified(false);
 
         return $this;
@@ -147,7 +145,9 @@ class Imagick extends Adapter
      * @param $path
      * @param null $format
      * @param null $quality
+     *
      * @return $this|mixed
+     *
      * @throws \Exception
      */
     public function save($path, $format = null, $quality = null)
@@ -339,7 +339,7 @@ class Imagick extends Adapter
         $draw = new \ImagickDraw();
         $draw->setFillColor("#ff0000");
         $draw->setfillopacity(.01);
-        $draw->point(floor($this->getWidth()/2), floor($this->getHeight()/2)); // place it in the middle of the image
+        $draw->point(floor($this->getWidth() / 2), floor($this->getHeight() / 2)); // place it in the middle of the image
         $this->resource->drawImage($draw);
 
         setlocale(LC_ALL, $currentLocale); // see setlocale() above, for details ;-)
@@ -404,6 +404,7 @@ class Imagick extends Adapter
     /**
      * @param  $width
      * @param  $height
+     *
      * @return self
      */
     public function resize($width, $height)
@@ -452,6 +453,7 @@ class Imagick extends Adapter
      * @param  $y
      * @param  $width
      * @param  $height
+     *
      * @return self
      */
     public function crop($x, $y, $width, $height)
@@ -469,11 +471,11 @@ class Imagick extends Adapter
         return $this;
     }
 
-
     /**
      * @param $width
      * @param $height
      * @param  bool $forceResize
+     *
      * @return $this
      */
     public function frame($width, $height, $forceResize = false)
@@ -484,7 +486,6 @@ class Imagick extends Adapter
 
         $x = ($width - $this->getWidth()) / 2;
         $y = ($height - $this->getHeight()) / 2;
-
 
         $newImage = $this->createImage($width, $height);
         $newImage->compositeImage($this->resource, \Imagick::COMPOSITE_DEFAULT, $x, $y);
@@ -502,6 +503,7 @@ class Imagick extends Adapter
 
     /**
      * @param  $tolerance
+     *
      * @return self
      */
     public function trim($tolerance)
@@ -521,6 +523,7 @@ class Imagick extends Adapter
 
     /**
      * @param  $color
+     *
      * @return self
      */
     public function setBackgroundColor($color)
@@ -542,6 +545,7 @@ class Imagick extends Adapter
      * @param $width
      * @param $height
      * @param string $color
+     *
      * @return Imagick
      */
     protected function createImage($width, $height, $color = "transparent")
@@ -553,9 +557,9 @@ class Imagick extends Adapter
         return $newImage;
     }
 
-
     /**
      * @param $angle
+     *
      * @return $this
      */
     public function rotate($angle)
@@ -573,10 +577,10 @@ class Imagick extends Adapter
         return $this;
     }
 
-
     /**
      * @param $width
      * @param $height
+     *
      * @return $this
      */
     public function roundCorners($width, $height)
@@ -592,10 +596,10 @@ class Imagick extends Adapter
         return $this;
     }
 
-
     /**
      * @param $image
      * @param null|string $mode
+     *
      * @return $this
      */
     public function setBackgroundImage($image, $mode = null)
@@ -632,6 +636,7 @@ class Imagick extends Adapter
      * @param int $alpha Opacity in a scale of 0 (transparent) to 100 (opaque)
      * @param string $composite
      * @param string $origin Origin of the X and Y coordinates (top-left, top-right, bottom-left, bottom-right or center)
+     *
      * @return Imagick
      */
     public function addOverlay($image, $x = 0, $y = 0, $alpha = 100, $composite = "COMPOSITE_DEFAULT", $origin = 'top-left')
@@ -671,7 +676,7 @@ class Imagick extends Adapter
                 $y = $this->resource->getImageHeight() - $newImage->getImageHeight() - $y;
             } elseif ($origin == 'center') {
                 $x = round($this->resource->getImageWidth() / 2) - round($newImage->getImageWidth() / 2) + $x;
-                $y = round($this->resource->getImageHeight() / 2) -round($newImage->getImageHeight() / 2) + $y;
+                $y = round($this->resource->getImageHeight() / 2) - round($newImage->getImageHeight() / 2) + $y;
             }
 
             $newImage->evaluateImage(\Imagick::EVALUATE_MULTIPLY, $alpha, \Imagick::CHANNEL_ALPHA);
@@ -686,6 +691,7 @@ class Imagick extends Adapter
     /**
      * @param $image
      * @param string $composite
+     *
      * @return $this
      */
     public function addOverlayFit($image, $composite = "COMPOSITE_DEFAULT")
@@ -704,6 +710,7 @@ class Imagick extends Adapter
 
     /**
      * @param  $image
+     *
      * @return self
      */
     public function applyMask($image)
@@ -726,7 +733,6 @@ class Imagick extends Adapter
 
         return $this;
     }
-
 
     /**
      * @return self
@@ -757,6 +763,7 @@ class Imagick extends Adapter
      * @param float $sigma
      * @param float $amount
      * @param float $threshold
+     *
      * @return $this|Adapter
      */
     public function sharpen($radius = 0, $sigma = 1.0, $amount = 1.0, $threshold = 0.05)
@@ -772,6 +779,7 @@ class Imagick extends Adapter
     /**
      * @param int $radius
      * @param float $sigma
+     *
      * @return $this|Adapter
      */
     public function gaussianBlur($radius = 0, $sigma = 1.0)
@@ -787,6 +795,7 @@ class Imagick extends Adapter
      * @param int $brightness
      * @param int $saturation
      * @param int $hue
+     *
      * @return $this
      */
     public function brightnessSaturation($brightness = 100, $saturation = 100, $hue = 100)
@@ -800,6 +809,7 @@ class Imagick extends Adapter
 
     /**
      * @param $mode
+     *
      * @return $this|Adapter
      */
     public function mirror($mode)
@@ -819,6 +829,7 @@ class Imagick extends Adapter
 
     /**
      * @param null $imagePath
+     *
      * @return bool
      */
     public function isVectorGraphic($imagePath = null)

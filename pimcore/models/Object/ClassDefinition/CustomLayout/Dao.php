@@ -10,14 +10,15 @@
  *
  * @category   Pimcore
  * @package    Object|Class
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Object\ClassDefinition\CustomLayout;
 
-use Pimcore\Model;
 use Pimcore\File;
+use Pimcore\Model;
 use Pimcore\Tool\Serialize;
 
 /**
@@ -25,7 +26,6 @@ use Pimcore\Tool\Serialize;
  */
 class Dao extends Model\Dao\AbstractDao
 {
-
     /**
      * @var Model\Object\ClassDefinition\CustomLayout
      */
@@ -38,6 +38,7 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * @param null $id
+     *
      * @throws \Exception
      */
     public function getById($id = null)
@@ -57,8 +58,6 @@ class Dao extends Model\Dao\AbstractDao
         }
     }
 
-
-
     /**
      * Save object to database
      *
@@ -74,11 +73,10 @@ class Dao extends Model\Dao\AbstractDao
         return;
     }
 
-
     /**
      * Save layout to database
      *
-     * @return boolean
+     * @return bool
      *
      * @todo: update() and create() don't return anything
      */

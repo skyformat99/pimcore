@@ -16,7 +16,6 @@ namespace Pimcore;
 
 class Version
 {
-
     /**
      * @var string
      */
@@ -26,7 +25,6 @@ class Version
      * @var int
      */
     public static $revision = 39;
-
 
     /**
      * @return string

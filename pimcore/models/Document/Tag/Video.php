@@ -10,16 +10,17 @@
  *
  * @category   Pimcore
  * @package    Document
+ *
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace Pimcore\Model\Document\Tag;
 
-use Pimcore\Model;
-use Pimcore\Tool;
-use Pimcore\Model\Asset;
 use Pimcore\Logger;
+use Pimcore\Model;
+use Pimcore\Model\Asset;
+use Pimcore\Tool;
 
 /**
  * @method \Pimcore\Model\Document\Tag\Dao getDao()
@@ -35,12 +36,14 @@ class Video extends Model\Document\Tag
 
     /**
      * one of asset, youtube, vimeo, dailymotion
+     *
      * @var string
      */
     public $type = "asset";
 
     /**
      * asset ID of poster image
+     *
      * @var int
      */
     public $poster;
@@ -57,6 +60,7 @@ class Video extends Model\Document\Tag
 
     /**
      * @param $title
+     *
      * @return $this
      */
     public function setTitle($title)
@@ -81,6 +85,7 @@ class Video extends Model\Document\Tag
 
     /**
      * @param $description
+     *
      * @return $this
      */
     public function setDescription($description)
@@ -105,6 +110,7 @@ class Video extends Model\Document\Tag
 
     /**
      * @see TagInterface::getType
+     *
      * @return string
      */
     public function getType()
@@ -114,6 +120,7 @@ class Video extends Model\Document\Tag
 
     /**
      * @see TagInterface::getData
+     *
      * @return mixed
      */
     public function getData()
@@ -135,9 +142,6 @@ class Video extends Model\Document\Tag
         ];
     }
 
-    /**
-     *
-     */
     public function getDataForResource()
     {
         return [
@@ -151,6 +155,7 @@ class Video extends Model\Document\Tag
 
     /**
      * @see TagInterface::frontend
+     *
      * @return string
      */
     public function frontend()
@@ -177,7 +182,6 @@ class Video extends Model\Document\Tag
 
         return $this->getEmptyCode();
     }
-
 
     /**
      * @return array
@@ -233,9 +237,9 @@ class Video extends Model\Document\Tag
         return $sane;
     }
 
-
     /**
      * @see TagInterface::admin
+     *
      * @return string
      */
     public function admin()
@@ -251,7 +255,9 @@ class Video extends Model\Document\Tag
 
     /**
      * @see TagInterface::setDataFromResource
+     *
      * @param mixed $data
+     *
      * @return $this
      */
     public function setDataFromResource($data)
@@ -271,7 +277,9 @@ class Video extends Model\Document\Tag
 
     /**
      * @see TagInterface::setDataFromEditmode
+     *
      * @param mixed $data
+     *
      * @return $this
      */
     public function setDataFromEditmode($data)
@@ -337,6 +345,7 @@ class Video extends Model\Document\Tag
 
     /**
      * @param bool $inAdmin
+     *
      * @return string
      */
     public function getAssetCode($inAdmin = false)
@@ -416,13 +425,14 @@ class Video extends Model\Document\Tag
 
     /**
      * @param string $message
+     *
      * @return string
      */
     public function getErrorCode($message = "")
     {
         $width = $this->getWidth();
         if (strpos($this->getWidth(), "%") === false) {
-            $width = ($this->getWidth()-1) . "px";
+            $width = ($this->getWidth() - 1) . "px";
         }
 
         // only display error message in debug mode
@@ -432,7 +442,7 @@ class Video extends Model\Document\Tag
 
         $code = '
         <div id="pimcore_video_' . $this->getName() . '" class="pimcore_tag_video">
-            <div class="pimcore_tag_video_error" style="text-align:center; width: ' . $width . '; height: ' . ($this->getHeight()-1) . 'px; border:1px solid #000; background: url(/pimcore/static6/img/filetype-not-supported.png) no-repeat center center #fff;">
+            <div class="pimcore_tag_video_error" style="text-align:center; width: ' . $width . '; height: ' . ($this->getHeight() - 1) . 'px; border:1px solid #000; background: url(/pimcore/static6/img/filetype-not-supported.png) no-repeat center center #fff;">
                 ' . $message . '
             </div>
         </div>';
@@ -465,7 +475,7 @@ class Video extends Model\Document\Tag
             //get youtube id if form urls like  http://www.youtube.com/embed/youtubeId
             if (strpos($this->id, 'embed') !== false) {
                 $explodedPath = explode('/', $parts['path']);
-                $youtubeId = $explodedPath[array_search('embed', $explodedPath)+1];
+                $youtubeId = $explodedPath[array_search('embed', $explodedPath) + 1];
             }
 
             if ($parts["host"] == "youtu.be") {
@@ -526,12 +536,12 @@ class Video extends Model\Document\Tag
                 if (in_array($key, $valid_youtube_prams)) {
                     if (is_bool($value)) {
                         if ($value) {
-                            $additional_params.="&".$key."=1";
+                            $additional_params .= "&".$key."=1";
                         } else {
-                            $additional_params.="&".$key."=0";
+                            $additional_params .= "&".$key."=0";
                         }
                     } else {
-                        $additional_params.="&".$key."=".$value;
+                        $additional_params .= "&".$key."=".$value;
                     }
                 }
             }
@@ -598,12 +608,12 @@ class Video extends Model\Document\Tag
                     if (in_array($key, $valid_vimeo_prams)) {
                         if (is_bool($value)) {
                             if ($value) {
-                                $additional_params.="&".$key."=1";
+                                $additional_params .= "&".$key."=1";
                             } else {
-                                $additional_params.="&".$key."=0";
+                                $additional_params .= "&".$key."=0";
                             }
                         } else {
-                            $additional_params.="&".$key."=".$value;
+                            $additional_params .= "&".$key."=".$value;
                         }
                     }
                 }
@@ -674,12 +684,12 @@ class Video extends Model\Document\Tag
                     if (in_array($key, $valid_dailymotion_prams)) {
                         if (is_bool($value)) {
                             if ($value) {
-                                $additional_params.="&".$key."=1";
+                                $additional_params .= "&".$key."=1";
                             } else {
-                                $additional_params.="&".$key."=0";
+                                $additional_params .= "&".$key."=0";
                             }
                         } else {
-                            $additional_params.="&".$key."=".$value;
+                            $additional_params .= "&".$key."=".$value;
                         }
                     }
                 }
@@ -699,6 +709,7 @@ class Video extends Model\Document\Tag
     /**
      * @param array $urls
      * @param null $thumbnail
+     *
      * @return string
      */
     public function getHtml5Code($urls = [], $thumbnail = null)
@@ -711,15 +722,15 @@ class Video extends Model\Document\Tag
             $durationParts = ["PT"];
 
             // hours
-            if ($duration/3600 >= 1) {
-                $hours = floor($duration/3600);
+            if ($duration / 3600 >= 1) {
+                $hours = floor($duration / 3600);
                 $durationParts[] = $hours . "H";
                 $duration = $duration - $hours * 3600;
             }
 
             // minutes
-            if ($duration/60 >= 1) {
-                $minutes = floor($duration/60);
+            if ($duration / 60 >= 1) {
+                $minutes = floor($duration / 60);
                 $durationParts[] = $minutes . "M";
                 $duration = $duration - $minutes * 60;
             }
@@ -801,6 +812,7 @@ class Video extends Model\Document\Tag
 
     /**
      * @param null $thumbnail
+     *
      * @return string
      */
     public function getProgressCode($thumbnail = null)
@@ -828,7 +840,7 @@ class Video extends Model\Document\Tag
                     box-shadow: 2px 2px 5px #333;
                     border-radius:20px;
                     margin: 0 20px 0 20px;
-                    top: ' . (($this->getHeight()-106)/2) . 'px;
+                    top: ' . (($this->getHeight() - 106) / 2) . 'px;
                     left: 50%;
                     margin-left:-66px;
                     position:absolute;
@@ -856,7 +868,7 @@ class Video extends Model\Document\Tag
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isEmpty()
     {
@@ -872,6 +884,7 @@ class Video extends Model\Document\Tag
      * @param $document
      * @param mixed $params
      * @param null $idMapper
+     *
      * @throws \Exception
      */
     public function getFromWebserviceImport($wsElement, $document = null, $params = [], $idMapper = null)
@@ -893,7 +906,6 @@ class Video extends Model\Document\Tag
             }
         }
     }
-
 
     /**
      * @return string
@@ -923,6 +935,7 @@ class Video extends Model\Document\Tag
 
     /**
      * @param $config
+     *
      * @return string
      */
     public function getImageThumbnail($config)
@@ -940,6 +953,7 @@ class Video extends Model\Document\Tag
 
     /**
      * @param $config
+     *
      * @return array
      */
     public function getThumbnail($config)
@@ -953,6 +967,7 @@ class Video extends Model\Document\Tag
 
     /**
      * @param mixed $id
+     *
      * @return Video
      */
     public function setId($id)
@@ -980,6 +995,7 @@ class Video extends Model\Document\Tag
      *  "object" => array(...),
      *  "asset" => array(...)
      * )
+     *
      * @param array $idMapping
      */
     public function rewriteIds($idMapping)

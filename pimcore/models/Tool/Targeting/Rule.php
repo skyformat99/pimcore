@@ -38,12 +38,12 @@ class Rule extends Model\AbstractModel
     /**
      * @var string
      */
-    public $description = "";
+    public $description = '';
 
     /**
      * @var string
      */
-    public $scope = "hit";
+    public $scope = 'hit';
 
     /**
      * @var bool
@@ -80,7 +80,7 @@ class Rule extends Model\AbstractModel
             $targetId = (int) $target;
         }
 
-        if (array_key_exists("_ptc", $_GET) && intval($targetId) == intval($_GET["_ptc"])) {
+        if (array_key_exists('_ptc', $_GET) && intval($targetId) == intval($_GET['_ptc'])) {
             return true;
         }
 
@@ -97,7 +97,7 @@ class Rule extends Model\AbstractModel
             $value = true;
         }
 
-        $targetingService = \Pimcore::getContainer()->get("pimcore.event_listener.frontend.targeting");
+        $targetingService = \Pimcore::getContainer()->get('pimcore.event_listener.frontend.targeting');
         $targetingService->addEvent($key, $value);
     }
 

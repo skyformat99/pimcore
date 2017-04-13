@@ -34,47 +34,47 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function getById($id)
     {
-        $data = $this->db->fetchRow("SELECT * FROM notes WHERE id = ?", $id);
+        $data = $this->db->fetchRow('SELECT * FROM notes WHERE id = ?', $id);
 
-        if (!$data["id"]) {
-            throw new \Exception("Note item with id " . $id . " not found");
+        if (!$data['id']) {
+            throw new \Exception('Note item with id ' . $id . ' not found');
         }
         $this->assignVariablesToModel($data);
 
         // get key-value data
-        $keyValues = $this->db->fetchAll("SELECT * FROM notes_data WHERE id = ?", [$id]);
+        $keyValues = $this->db->fetchAll('SELECT * FROM notes_data WHERE id = ?', [$id]);
         $preparedData = [];
 
         foreach ($keyValues as $keyValue) {
-            $data = $keyValue["data"];
-            $type = $keyValue["type"];
-            $name = $keyValue["name"];
+            $data = $keyValue['data'];
+            $type = $keyValue['type'];
+            $name = $keyValue['name'];
 
-            if ($type == "document") {
+            if ($type == 'document') {
                 if ($data) {
                     $data = Document::getById($data);
                 }
-            } elseif ($type == "asset") {
+            } elseif ($type == 'asset') {
                 if ($data) {
                     $data = Asset::getById($data);
                 }
-            } elseif ($type == "object") {
+            } elseif ($type == 'object') {
                 if ($data) {
                     $data = Object\AbstractObject::getById($data);
                 }
-            } elseif ($type == "date") {
+            } elseif ($type == 'date') {
                 if ($data > 0) {
                     $date = new \DateTime();
                     $date->setTimestamp($data);
                     $data = $date;
                 }
-            } elseif ($type == "bool") {
+            } elseif ($type == 'bool') {
                 $data = (bool) $data;
             }
 
             $preparedData[$name] = [
-                "data" => $data,
-                "type" => $type
+                'data' => $data,
+                'type' => $type
             ];
         }
 
@@ -94,12 +94,12 @@ class Dao extends Model\Dao\AbstractDao
 
         // save main table
         foreach ($version as $key => $value) {
-            if (in_array($key, $this->getValidTableColumns("notes"))) {
+            if (in_array($key, $this->getValidTableColumns('notes'))) {
                 $data[$key] = $value;
             }
         }
 
-        $this->db->insertOrUpdate("notes", $data);
+        $this->db->insertOrUpdate('notes', $data);
 
         $lastInsertId = $this->db->lastInsertId();
         if (!$this->model->getId() && $lastInsertId) {
@@ -109,34 +109,34 @@ class Dao extends Model\Dao\AbstractDao
         // save data table
         $this->deleteData();
         foreach ($this->model->getData() as $name => $meta) {
-            $data = $meta["data"];
-            $type = $meta["type"];
+            $data = $meta['data'];
+            $type = $meta['type'];
 
-            if ($type == "document") {
+            if ($type == 'document') {
                 if ($data instanceof Document) {
                     $data = $data->getId();
                 }
-            } elseif ($type == "asset") {
+            } elseif ($type == 'asset') {
                 if ($data instanceof Asset) {
                     $data = $data->getId();
                 }
-            } elseif ($type == "object") {
+            } elseif ($type == 'object') {
                 if ($data instanceof Object\AbstractObject) {
                     $data = $data->getId();
                 }
-            } elseif ($type == "date") {
+            } elseif ($type == 'date') {
                 if ($data instanceof \DateTimeInterface) {
                     $data = $data->getTimestamp();
                 }
-            } elseif ($type == "bool") {
+            } elseif ($type == 'bool') {
                 $data = (bool) $data;
             }
 
-            $this->db->insert("notes_data", [
-                "id" => $this->model->getId(),
-                "name" => $name,
-                "type" => $type,
-                "data" => $data
+            $this->db->insert('notes_data', [
+                'id' => $this->model->getId(),
+                'name' => $name,
+                'type' => $type,
+                'data' => $data
             ]);
         }
 
@@ -148,12 +148,12 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function delete()
     {
-        $this->db->delete("notes", ["id" => $this->model->getId()]);
+        $this->db->delete('notes', ['id' => $this->model->getId()]);
         $this->deleteData();
     }
 
     protected function deleteData()
     {
-        $this->db->delete("notes_data", ["id" => $this->model->getId()]);
+        $this->db->delete('notes_data', ['id' => $this->model->getId()]);
     }
 }

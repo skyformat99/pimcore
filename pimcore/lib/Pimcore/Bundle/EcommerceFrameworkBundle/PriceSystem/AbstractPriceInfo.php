@@ -95,7 +95,7 @@ namespace Pimcore\Bundle\EcommerceFrameworkBundle\PriceSystem;
       */
      public function getPrice()
      {
-         throw new \Pimcore\Bundle\EcommerceFrameworkBundle\Exception\UnsupportedException(__METHOD__ . " is not supported for " . get_class($this));
+         throw new \Pimcore\Bundle\EcommerceFrameworkBundle\Exception\UnsupportedException(__METHOD__ . ' is not supported for ' . get_class($this));
      }
 
      /**
@@ -105,7 +105,7 @@ namespace Pimcore\Bundle\EcommerceFrameworkBundle\PriceSystem;
       */
      public function getTotalPrice()
      {
-         throw new \Pimcore\Bundle\EcommerceFrameworkBundle\Exception\UnsupportedException(__METHOD__ . " is not supported for " . get_class($this));
+         throw new \Pimcore\Bundle\EcommerceFrameworkBundle\Exception\UnsupportedException(__METHOD__ . ' is not supported for ' . get_class($this));
      }
 
      public function setProduct(\Pimcore\Bundle\EcommerceFrameworkBundle\Model\ICheckoutable $product)

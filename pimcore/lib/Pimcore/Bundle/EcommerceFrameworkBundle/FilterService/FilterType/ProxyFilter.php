@@ -44,10 +44,10 @@ class ProxyFilter extends AbstractFilterType
     {
         parent::__construct($script, $config, $translator, $engine);
         if (!$config->proxyclass) {
-            throw new \Exception("wrong configuration for " .  __CLASS__ . ": config setting proxyclass is missing!");
+            throw new \Exception('wrong configuration for ' .  __CLASS__ . ': config setting proxyclass is missing!');
         }
         if (!$config->field) {
-            throw new \Exception("wrong configuration for " .  __CLASS__ . ": config setting field is missing!");
+            throw new \Exception('wrong configuration for ' .  __CLASS__ . ': config setting field is missing!');
         }
 
         $this->proxy = new $config->proxyclass($script, $config, $translator, $engine);

@@ -38,7 +38,7 @@ class Multiselect extends Model\Document\Tag
      */
     public function getType()
     {
-        return "multiselect";
+        return 'multiselect';
     }
 
     /**
@@ -58,7 +58,7 @@ class Multiselect extends Model\Document\Tag
      */
     public function frontend()
     {
-        return implode(",", $this->values);
+        return implode(',', $this->values);
     }
 
     /**
@@ -66,7 +66,7 @@ class Multiselect extends Model\Document\Tag
      */
     public function getDataEditmode()
     {
-        return implode(",", $this->values);
+        return implode(',', $this->values);
     }
 
     /**
@@ -95,7 +95,7 @@ class Multiselect extends Model\Document\Tag
         if (empty($data)) {
             $this->values = [];
         } elseif (is_string($data)) {
-            $this->values = explode(",", $data);
+            $this->values = explode(',', $data);
         } elseif (is_array($data)) {
             $this->values = $data;
         }
@@ -125,7 +125,7 @@ class Multiselect extends Model\Document\Tag
         if ($data->values === null or is_array($data->values)) {
             $this->values = $data->values;
         } else {
-            throw new \Exception("cannot get values from web service import - invalid data");
+            throw new \Exception('cannot get values from web service import - invalid data');
         }
     }
 }

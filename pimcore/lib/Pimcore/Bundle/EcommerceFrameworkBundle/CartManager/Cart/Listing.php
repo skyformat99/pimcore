@@ -33,7 +33,7 @@ class Listing extends \Pimcore\Model\Listing\AbstractListing
      */
     public function isValidOrderKey($key)
     {
-        if ($key == "userId" || $key == "name") {
+        if ($key == 'userId' || $key == 'name') {
             return true;
         }
 

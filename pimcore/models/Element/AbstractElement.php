@@ -83,7 +83,7 @@ abstract class AbstractElement extends Model\AbstractModel implements ElementInt
     {
         $elementType = Service::getElementType($this);
 
-        return $elementType . "_" . $this->getId();
+        return $elementType . '_' . $this->getId();
     }
 
     /**
@@ -113,7 +113,7 @@ abstract class AbstractElement extends Model\AbstractModel implements ElementInt
         $dependencies = [];
 
         // check for properties
-        if (method_exists($this, "getProperties")) {
+        if (method_exists($this, 'getProperties')) {
             $properties = $this->getProperties();
             foreach ($properties as $property) {
                 $dependencies = array_merge($dependencies, $property->resolveDependencies());
@@ -144,8 +144,8 @@ abstract class AbstractElement extends Model\AbstractModel implements ElementInt
     public function getUserPermissions()
     {
         $elementType = Service::getElementType($this);
-        $vars = get_class_vars("\\Pimcore\\Model\\User\\Workspace\\" . ucfirst($elementType));
-        $ignored = ["userId", "cid", "cpath", "dao"];
+        $vars = get_class_vars('\\Pimcore\\Model\\User\\Workspace\\' . ucfirst($elementType));
+        $ignored = ['userId', 'cid', 'cpath', 'dao'];
         $permissions = [];
 
         foreach ($vars as $name => $defaultValue) {

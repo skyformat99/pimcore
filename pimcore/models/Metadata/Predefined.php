@@ -109,7 +109,7 @@ class Predefined extends Model\AbstractModel
      *
      * @return self
      */
-    public static function getByName($name, $language = "")
+    public static function getByName($name, $language = '')
     {
         try {
             $metadata = new self();
@@ -324,19 +324,19 @@ class Predefined extends Model\AbstractModel
     public function minimize()
     {
         switch ($this->type) {
-            case "document":
-            case "asset":
-            case "object":
+            case 'document':
+            case 'asset':
+            case 'object':
                 {
                     $element = Element\Service::getElementByPath($this->type, $this->data);
                     if ($element) {
                         $this->data = $element->getId();
                     } else {
-                        $this->data = "";
+                        $this->data = '';
                     }
                 }
                 break;
-            case "date":
+            case 'date':
             {
                 if ($this->data && !is_numeric($this->data)) {
                     $this->data = strtotime($this->data);
@@ -350,9 +350,9 @@ class Predefined extends Model\AbstractModel
     public function expand()
     {
         switch ($this->type) {
-            case "document":
-            case "asset":
-            case "object":
+            case 'document':
+            case 'asset':
+            case 'object':
                 {
                 if (is_numeric($this->data)) {
                     $element = Element\Service::getElementById($this->type, $this->data);
@@ -360,7 +360,7 @@ class Predefined extends Model\AbstractModel
                 if ($element) {
                     $this->data = $element->getRealFullPath();
                 } else {
-                    $this->data = "";
+                    $this->data = '';
                 }
             }
 

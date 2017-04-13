@@ -159,7 +159,7 @@ class Hotspotimage
     public function getThumbnail($thumbnailName = null, $deferred = true)
     {
         if (!$this->getImage()) {
-            return "";
+            return '';
         }
 
         $crop = null;
@@ -173,15 +173,15 @@ class Hotspotimage
         }
 
         if ($crop) {
-            $thumbConfig->addItemAt(0, "cropPercent", [
-                "width" => $crop["cropWidth"],
-                "height" => $crop["cropHeight"],
-                "y" => $crop["cropTop"],
-                "x" => $crop["cropLeft"]
+            $thumbConfig->addItemAt(0, 'cropPercent', [
+                'width' => $crop['cropWidth'],
+                'height' => $crop['cropHeight'],
+                'y' => $crop['cropTop'],
+                'x' => $crop['cropLeft']
             ]);
 
             $hash = md5(\Pimcore\Tool\Serialize::serialize($thumbConfig->getItems()));
-            $thumbConfig->setName($thumbConfig->getName() . "_auto_" . $hash);
+            $thumbConfig->setName($thumbConfig->getName() . '_auto_' . $hash);
         }
 
         return $this->getImage()->getThumbnail($thumbConfig, $deferred);
@@ -196,6 +196,6 @@ class Hotspotimage
             return $this->image->__toString();
         }
 
-        return "";
+        return '';
     }
 }

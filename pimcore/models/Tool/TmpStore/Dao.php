@@ -41,13 +41,13 @@ class Dao extends Model\Dao\AbstractDao
                 $data = serialize($data);
             }
 
-            $this->db->insertOrUpdate("tmp_store", [
-                "id" => $id,
-                "data" => $data,
-                "tag" => $tag,
-                "date" => time(),
-                "expiryDate" => (time() + $lifetime),
-                "serialized" => (int) $serialized
+            $this->db->insertOrUpdate('tmp_store', [
+                'id' => $id,
+                'data' => $data,
+                'tag' => $tag,
+                'date' => time(),
+                'expiryDate' => (time() + $lifetime),
+                'serialized' => (int) $serialized
             ]);
 
             return true;
@@ -61,7 +61,7 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function delete($id)
     {
-        $this->db->delete("tmp_store", ["id" => $id]);
+        $this->db->delete('tmp_store', ['id' => $id]);
     }
 
     /**
@@ -71,11 +71,11 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function getById($id)
     {
-        $item = $this->db->fetchRow("SELECT * FROM tmp_store WHERE id = ?", $id);
+        $item = $this->db->fetchRow('SELECT * FROM tmp_store WHERE id = ?', $id);
 
-        if (is_array($item) && array_key_exists("id", $item)) {
-            if ($item["serialized"]) {
-                $item["data"] = unserialize($item["data"]);
+        if (is_array($item) && array_key_exists('id', $item)) {
+            if ($item['serialized']) {
+                $item['data'] = unserialize($item['data']);
             }
 
             $this->assignVariablesToModel($item);
@@ -88,7 +88,7 @@ class Dao extends Model\Dao\AbstractDao
 
     public function cleanup()
     {
-        $this->db->deleteWhere("tmp_store", "expiryDate < " . time());
+        $this->db->deleteWhere('tmp_store', 'expiryDate < ' . time());
     }
 
     /**
@@ -98,7 +98,7 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function getIdsByTag($tag)
     {
-        $items = $this->db->fetchCol("SELECT id FROM tmp_store WHERE tag = ?", [$tag]);
+        $items = $this->db->fetchCol('SELECT id FROM tmp_store WHERE tag = ?', [$tag]);
 
         return $items;
     }

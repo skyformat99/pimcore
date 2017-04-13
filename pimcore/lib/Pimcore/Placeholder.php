@@ -35,7 +35,7 @@ class Placeholder
      *
      * @var string
      */
-    protected static $placeholderClassPrefixes = ['Pimcore_Placeholder_', 'Website_Placeholder_', "\\Pimcore\\Placeholder\\", "\\Website\\Placeholder\\"];
+    protected static $placeholderClassPrefixes = ['Pimcore_Placeholder_', 'Website_Placeholder_', '\\Pimcore\\Placeholder\\', '\\Website\\Placeholder\\'];
 
     /**
      * Contains the document object
@@ -182,7 +182,7 @@ class Placeholder
     {
         $placeholderStack = [];
 
-        $regex = "/" . self::$placeholderPrefix . "([a-z_]+)\(([a-z_0-9]+)[\s,]*(.*?)\)" . self::$placeholderSuffix . "/is";
+        $regex = '/' . self::$placeholderPrefix . "([a-z_]+)\(([a-z_0-9]+)[\s,]*(.*?)\)" . self::$placeholderSuffix . '/is';
         preg_match_all($regex, $contentString, $matches);
 
         if (is_array($matches[1])) {
@@ -195,7 +195,7 @@ class Placeholder
                 if ($placeholderConfigString) {
                     //try to create the json config object
                     try {
-                        $configJsonString = str_replace(["&quot;", "'"], '"', $placeholderConfigString);
+                        $configJsonString = str_replace(['&quot;', "'"], '"', $placeholderConfigString);
                         $placeholderConfig = new \Pimcore\Config\Config(json_decode($configJsonString, true), null, ['ignoreconstants' => true]);
                     } catch (\Exception $e) {
                         Logger::warn('PlaceholderConfig is not a valid JSON string. PlaceholderConfig for ' . $placeholderClass . ' ignored.');

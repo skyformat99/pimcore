@@ -98,7 +98,7 @@ abstract class AbstractPriceSystem implements IPriceSystem
      */
     protected function getDefaultTaxClass()
     {
-        $taxClass =  WebsiteSetting::getByName("defaultTaxClass");
+        $taxClass =  WebsiteSetting::getByName('defaultTaxClass');
 
         if ($taxClass) {
             $taxClass = OnlineShopTaxClass::getById($taxClass->getData());

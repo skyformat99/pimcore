@@ -32,7 +32,7 @@ class Block extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $fieldtype = "block";
+    public $fieldtype = 'block';
 
     /**
      * @var bool
@@ -59,21 +59,21 @@ class Block extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $queryColumnType = "longtext";
+    public $queryColumnType = 'longtext';
 
     /**
      * Type for the column
      *
      * @var string
      */
-    public $columnType = "longtext";
+    public $columnType = 'longtext';
 
     /**
      * Type for the generated phpdoc
      *
      * @var string
      */
-    public $phpdocType = "\\Pimcore\\Model\\Object\\Data\\Block";
+    public $phpdocType = '\\Pimcore\\Model\\Object\\Data\\Block';
 
     /**
      * @var array
@@ -122,18 +122,18 @@ class Block extends Model\Object\ClassDefinition\Data
                     $fd = $this->getFielddefinition($elementName);
                     if (!$fd) {
                         // class definition seems to have changed
-                        Logger::warn("class definition seems to have changed, element name: " . $elementName);
+                        Logger::warn('class definition seems to have changed, element name: ' . $elementName);
                         continue;
                     }
                     $elementData = $blockElement->getData();
-                    $dataForResource = $fd->marshal($elementData, $object, ["raw" => true, "blockmode" => true]);
+                    $dataForResource = $fd->marshal($elementData, $object, ['raw' => true, 'blockmode' => true]);
 //                    $blockElement->setData($fd->unmarshal($dataForResource, $object, ["raw" => true]));
 
                     // do not serialize the block element itself
                     $resultElement[$elementName] = [
-                        "name" => $blockElement->getName(),
-                        "type" => $blockElement->getType(),
-                        "data" => $dataForResource
+                        'name' => $blockElement->getName(),
+                        'type' => $blockElement->getType(),
+                        'data' => $dataForResource
                     ];
                 }
                 $result[] = $resultElement;
@@ -168,26 +168,26 @@ class Block extends Model\Object\ClassDefinition\Data
                     $fd = $this->getFielddefinition($elementName);
                     if (!$fd) {
                         // class definition seems to have changed
-                        Logger::warn("class definition seems to have changed, element name: " . $elementName);
+                        Logger::warn('class definition seems to have changed, element name: ' . $elementName);
                         continue;
                     }
 
                     // do not serialize the block element itself
 //                    $elementData = $blockElement->getData();
-                    $elementData = $blockElementRaw["data"];
+                    $elementData = $blockElementRaw['data'];
 
-                    $dataFromResource = $fd->unmarshal($elementData, $object, ["raw" => true, "blockmode" => true]);
-                    $blockElementRaw["data"] = $dataFromResource;
+                    $dataFromResource = $fd->unmarshal($elementData, $object, ['raw' => true, 'blockmode' => true]);
+                    $blockElementRaw['data'] = $dataFromResource;
 
-                    if ($blockElementRaw["type"] == "localizedfields") {
+                    if ($blockElementRaw['type'] == 'localizedfields') {
                         /** @var $data Object\Localizedfield */
-                        $data = $blockElementRaw["data"];
+                        $data = $blockElementRaw['data'];
                         if ($data) {
                             $data->setObject($object);
-                            $blockElementRaw["data"] = $data;
+                            $blockElementRaw['data'] = $data;
                         }
                     }
-                    $blockElement = new Object\Data\BlockElement($blockElementRaw["name"], $blockElementRaw["type"], $blockElementRaw["data"]);
+                    $blockElement = new Object\Data\BlockElement($blockElementRaw['name'], $blockElementRaw['type'], $blockElementRaw['data']);
                     $items[$elementName] = $blockElement;
                 }
                 $result[] = $items;
@@ -240,7 +240,7 @@ class Block extends Model\Object\ClassDefinition\Data
                     $fd = $this->getFielddefinition($elementName);
                     if (!$fd) {
                         // class definition seems to have changed
-                        Logger::warn("class definition seems to have changed, element name: " . $elementName);
+                        Logger::warn('class definition seems to have changed, element name: ' . $elementName);
                         continue;
                     }
                     $elementData = $blockElement->getData();
@@ -248,8 +248,8 @@ class Block extends Model\Object\ClassDefinition\Data
                     $resultElement[$elementName] = $dataForEditMode;
                 }
                 $result[] = [
-                    "oIndex" => $idx,
-                    "data" => $resultElement
+                    'oIndex' => $idx,
+                    'data' => $resultElement
                 ];
             }
         }
@@ -274,8 +274,8 @@ class Block extends Model\Object\ClassDefinition\Data
         foreach ($data as $rawBlockElement) {
             $resultElement = [];
 
-            $oIndex = $rawBlockElement["oIndex"];
-            $blockElement = $rawBlockElement["data"];
+            $oIndex = $rawBlockElement['oIndex'];
+            $blockElement = $rawBlockElement['data'];
 
             foreach ($blockElement as $elementName => $elementData) {
 
@@ -283,12 +283,12 @@ class Block extends Model\Object\ClassDefinition\Data
                 $fd = $this->getFielddefinition($elementName);
                 $dataFromEditMode = $fd->getDataFromEditmode($elementData, $object,
                     [
-                        "context" => [
-                            "containerType" => "block",
-                            "fieldname" => $this->getName(),
-                            "index" => $count,
-                            "oIndex" => $oIndex,
-                            "classId" => $object->getClassId()
+                        'context' => [
+                            'containerType' => 'block',
+                            'fieldname' => $this->getName(),
+                            'index' => $count,
+                            'oIndex' => $oIndex,
+                            'classId' => $object->getClassId()
                         ]
                     ]
                 );
@@ -316,7 +316,7 @@ class Block extends Model\Object\ClassDefinition\Data
      */
     public function getVersionPreview($data, $object = null, $params = [])
     {
-        return "not supported";
+        return 'not supported';
     }
 
     /**
@@ -356,7 +356,7 @@ class Block extends Model\Object\ClassDefinition\Data
      */
     public function getForWebserviceExport($object, $params = [])
     {
-        return "not supported yet";
+        return 'not supported yet';
     }
 
     /**
@@ -397,7 +397,7 @@ class Block extends Model\Object\ClassDefinition\Data
     public function getDiffVersionPreview($data, $object = null, $params = [])
     {
         if ($data) {
-            return "not supported";
+            return 'not supported';
         }
     }
 
@@ -498,7 +498,7 @@ class Block extends Model\Object\ClassDefinition\Data
     {
         foreach ($data as $key => $value) {
             if (!in_array($key, $blockedKeys)) {
-                $method = "set" . $key;
+                $method = 'set' . $key;
                 if (method_exists($this, $method)) {
                     $this->$method($value);
                 }
@@ -629,7 +629,7 @@ class Block extends Model\Object\ClassDefinition\Data
                 $fd = $this->getFielddefinition($elementName);
                 if (!$fd) {
                     // class definition seems to have changed
-                    Logger::warn("class definition seems to have changed, element name: " . $elementName);
+                    Logger::warn('class definition seems to have changed, element name: ' . $elementName);
                     continue;
                 }
                 $elementData = $blockElement->getData();
@@ -662,7 +662,7 @@ class Block extends Model\Object\ClassDefinition\Data
                 $fd = $this->getFielddefinition($elementName);
                 if (!$fd) {
                     // class definition seems to have changed
-                    Logger::warn("class definition seems to have changed, element name: " . $elementName);
+                    Logger::warn('class definition seems to have changed, element name: ' . $elementName);
                     continue;
                 }
                 $data = $blockElement->getData();

@@ -34,23 +34,23 @@ class Dao extends Model\Dao\AbstractDao
      *
      * @throws \Exception
      */
-    public function save(Object\Concrete $object, $ownertype, $ownername, $position, $type = "object")
+    public function save(Object\Concrete $object, $ownertype, $ownername, $position, $type = 'object')
     {
         $table = $this->getTablename($object);
 
-        $dataTemplate = ["o_id" => $object->getId(),
-            "dest_id" => $this->model->getElement()->getId(),
-            "fieldname" => $this->model->getFieldname(),
-            "ownertype" => $ownertype,
-            "ownername" => $ownername ? $ownername : "",
-            "position" => $position ? $position : "0",
-            "type" => $type ? $type : "object"];
+        $dataTemplate = ['o_id' => $object->getId(),
+            'dest_id' => $this->model->getElement()->getId(),
+            'fieldname' => $this->model->getFieldname(),
+            'ownertype' => $ownertype,
+            'ownername' => $ownername ? $ownername : '',
+            'position' => $position ? $position : '0',
+            'type' => $type ? $type : 'object'];
 
         foreach ($this->model->getColumns() as $column) {
-            $getter = "get" . ucfirst($column);
+            $getter = 'get' . ucfirst($column);
             $data = $dataTemplate;
-            $data["column"] = $column;
-            $data["data"] = $this->model->$getter();
+            $data['column'] = $column;
+            $data['data'] = $this->model->$getter();
             $this->db->insert($table, $data);
         }
     }
@@ -62,7 +62,7 @@ class Dao extends Model\Dao\AbstractDao
      */
     private function getTablename($object)
     {
-        return "object_metadata_" . $object->getClassId();
+        return 'object_metadata_' . $object->getClassId();
     }
 
     /**
@@ -76,22 +76,22 @@ class Dao extends Model\Dao\AbstractDao
      *
      * @return null|Model\Dao\\Pimcore\Model\Object\AbstractObject
      */
-    public function load(Object\Concrete $source, $destination, $fieldname, $ownertype, $ownername, $position, $type = "object")
+    public function load(Object\Concrete $source, $destination, $fieldname, $ownertype, $ownername, $position, $type = 'object')
     {
-        if ($type == "object") {
+        if ($type == 'object') {
             $typeQuery = " AND (type = 'object' or type = '')";
         } else {
-            $typeQuery = " AND type = " . $this->db->quote($type);
+            $typeQuery = ' AND type = ' . $this->db->quote($type);
         }
 
-        $dataRaw = $this->db->fetchAll("SELECT * FROM " . $this->getTablename($source) . " WHERE o_id = ? AND dest_id = ? AND fieldname = ? AND ownertype = ? AND ownername = ? and position = ? " . $typeQuery, [$source->getId(), $destination->getId(), $fieldname, $ownertype, $ownername, $position]);
+        $dataRaw = $this->db->fetchAll('SELECT * FROM ' . $this->getTablename($source) . ' WHERE o_id = ? AND dest_id = ? AND fieldname = ? AND ownertype = ? AND ownername = ? and position = ? ' . $typeQuery, [$source->getId(), $destination->getId(), $fieldname, $ownertype, $ownername, $position]);
         if (!empty($dataRaw)) {
             $this->model->setElement($destination);
             $this->model->setFieldname($fieldname);
             $columns = $this->model->getColumns();
             foreach ($dataRaw as $row) {
                 if (in_array($row['column'], $columns)) {
-                    $setter = "set" . ucfirst($row['column']);
+                    $setter = 'set' . ucfirst($row['column']);
                     $this->model->$setter($row['data']);
                 }
             }
@@ -108,9 +108,9 @@ class Dao extends Model\Dao\AbstractDao
     public function createOrUpdateTable($class)
     {
         $classId = $class->getId();
-        $table = "object_metadata_" . $classId;
+        $table = 'object_metadata_' . $classId;
 
-        $this->db->query("CREATE TABLE IF NOT EXISTS `" . $table . "` (
+        $this->db->query('CREATE TABLE IF NOT EXISTS `' . $table . "` (
               `o_id` int(11) NOT NULL default '0',
               `dest_id` int(11) NOT NULL default '0',
 	          `type` VARCHAR(50) NOT NULL DEFAULT '',

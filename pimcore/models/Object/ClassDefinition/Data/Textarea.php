@@ -28,7 +28,7 @@ class Textarea extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $fieldtype = "textarea";
+    public $fieldtype = 'textarea';
 
     /**
      * @var int
@@ -45,21 +45,21 @@ class Textarea extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $queryColumnType = "longtext";
+    public $queryColumnType = 'longtext';
 
     /**
      * Type for the column
      *
      * @var string
      */
-    public $columnType = "longtext";
+    public $columnType = 'longtext';
 
     /**
      * Type for the generated phpdoc
      *
      * @var string
      */
-    public $phpdocType = "string";
+    public $phpdocType = 'string';
 
     /**
      * @return int
@@ -184,16 +184,16 @@ class Textarea extends Model\Object\ClassDefinition\Data
     {
         if ($data) {
             $value = [];
-            $data = str_replace("\r\n", "<br>", $data);
-            $data = str_replace("\n", "<br>", $data);
-            $data = str_replace("\r", "<br>", $data);
+            $data = str_replace("\r\n", '<br>', $data);
+            $data = str_replace("\n", '<br>', $data);
+            $data = str_replace("\r", '<br>', $data);
 
-            $value["html"] = $data;
-            $value["type"] = "html";
+            $value['html'] = $data;
+            $value['type'] = 'html';
 
             return $value;
         } else {
-            return "";
+            return '';
         }
     }
 }

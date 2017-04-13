@@ -25,7 +25,7 @@ class Listing extends Listing\AbstractListing
     /**
      * @var string
      */
-    public $type = "user";
+    public $type = 'user';
 
     /**
      * Alias for $this->getItems()

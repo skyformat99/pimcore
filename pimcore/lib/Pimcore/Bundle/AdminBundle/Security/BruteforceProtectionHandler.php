@@ -162,7 +162,7 @@ class BruteforceProtectionHandler implements LoggerAwareInterface
 
         if (is_array($lines) && count($lines) > 0) {
             foreach ($lines as $line) {
-                $entries[] = explode(",", $line);
+                $entries[] = explode(',', $line);
             }
         }
 
@@ -195,7 +195,7 @@ class BruteforceProtectionHandler implements LoggerAwareInterface
     protected function readLogFile()
     {
         if (!is_file($this->logFile)) {
-            File::put($this->logFile, "");
+            File::put($this->logFile, '');
         }
 
         if (!is_writable($this->logFile)) {
@@ -218,7 +218,7 @@ class BruteforceProtectionHandler implements LoggerAwareInterface
     {
         $lines = [];
         foreach ($entries as $item) {
-            $lines[] = implode(",", $item);
+            $lines[] = implode(',', $item);
         }
 
         // only save 2000 entries

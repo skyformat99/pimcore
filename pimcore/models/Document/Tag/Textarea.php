@@ -38,7 +38,7 @@ class Textarea extends Model\Document\Tag
      */
     public function getType()
     {
-        return "textarea";
+        return 'textarea';
     }
 
     /**
@@ -61,11 +61,11 @@ class Textarea extends Model\Document\Tag
         $options = $this->getOptions();
 
         $text = $this->text;
-        if (!isset($options["htmlspecialchars"]) || $options["htmlspecialchars"] !== false) {
+        if (!isset($options['htmlspecialchars']) || $options['htmlspecialchars'] !== false) {
             $text = htmlspecialchars($this->text);
         }
 
-        if (isset($options["nl2br"]) && $options["nl2br"]) {
+        if (isset($options['nl2br']) && $options['nl2br']) {
             $text = nl2br($text);
         }
 
@@ -128,7 +128,7 @@ class Textarea extends Model\Document\Tag
         if ($data->text === null or is_string($data->text)) {
             $this->text = $data->text;
         } else {
-            throw new \Exception("cannot get values from web service import - invalid data");
+            throw new \Exception('cannot get values from web service import - invalid data');
         }
     }
 }

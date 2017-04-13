@@ -75,7 +75,7 @@ class FilterService
         if (!$this->filterGroupHelper) {
             $classname = (string)$this->config->helper;
             if (!class_exists($classname)) {
-                Logger::warn("FilterGroupHelper " . $classname . " does not exist, using default implementation.");
+                Logger::warn('FilterGroupHelper ' . $classname . ' does not exist, using default implementation.');
                 $classname = '\Pimcore\Bundle\EcommerceFrameworkBundle\FilterService\FilterGroupHelper';
             }
 

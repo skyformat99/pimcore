@@ -52,7 +52,7 @@ class Dashboard
      */
     protected function getConfigDir()
     {
-        return PIMCORE_CONFIGURATION_DIRECTORY."/portal";
+        return PIMCORE_CONFIGURATION_DIRECTORY.'/portal';
     }
 
     /**
@@ -60,7 +60,7 @@ class Dashboard
      */
     protected function getConfigFile()
     {
-        return $this->getConfigDir()."/dashboards_".$this->getUser()->getId().".psf";
+        return $this->getConfigDir().'/dashboards_'.$this->getUser()->getId().'.psf';
     }
 
     /**
@@ -82,8 +82,8 @@ class Dashboard
 
             if (empty($this->dashboards)) {
                 $perspectiveCfg = Config::getRuntimePerspective();
-                $dasboardCfg = $perspectiveCfg["dashboards"] ? $perspectiveCfg["dashboards"] : [];
-                $this->dashboards = $dasboardCfg["predefined"] ? $dasboardCfg["predefined"] : [];
+                $dasboardCfg = $perspectiveCfg['dashboards'] ? $perspectiveCfg['dashboards'] : [];
+                $this->dashboards = $dasboardCfg['predefined'] ? $dasboardCfg['predefined'] : [];
             }
         }
 
@@ -103,21 +103,21 @@ class Dashboard
      *
      * @return mixed
      */
-    public function getDashboard($key = "welcome")
+    public function getDashboard($key = 'welcome')
     {
         $dashboards = $this->loadFile();
         $dashboard = $dashboards[$key];
 
         if ($dashboard) {
             $disabledPortlets = array_keys($this->getDisabledPortlets());
-            $positions = $dashboard["positions"];
+            $positions = $dashboard['positions'];
             if (is_array($positions)) {
                 foreach ($positions as $columnKey => $column) {
                     if ($column) {
                         foreach ($column as $portletKey => $portletCfg) {
-                            $type = $portletCfg["type"];
+                            $type = $portletCfg['type'];
                             if (in_array($type, $disabledPortlets)) {
-                                unset($dashboard["positions"][$columnKey][$portletKey]);
+                                unset($dashboard['positions'][$columnKey][$portletKey]);
                             }
                         }
                     }
@@ -125,7 +125,7 @@ class Dashboard
             }
         }
 
-        return $dashboard ? $dashboard : ["positions" => [[], []]];
+        return $dashboard ? $dashboard : ['positions' => [[], []]];
     }
 
     /**
@@ -137,7 +137,7 @@ class Dashboard
         $this->loadFile();
 
         if (empty($configuration)) {
-            $configuration = ["positions" => [[], []]];
+            $configuration = ['positions' => [[], []]];
         }
 
         $this->dashboards[$key] = $configuration;
@@ -160,8 +160,8 @@ class Dashboard
     public function getDisabledPortlets()
     {
         $perspectiveCfg = Config::getRuntimePerspective($this->user);
-        $dasboardCfg = $perspectiveCfg["dashboards"] ? $perspectiveCfg["dashboards"] : [];
+        $dasboardCfg = $perspectiveCfg['dashboards'] ? $perspectiveCfg['dashboards'] : [];
 
-        return isset($dasboardCfg["disabledPortlets"]) ? $dasboardCfg["disabledPortlets"] : [];
+        return isset($dasboardCfg['disabledPortlets']) ? $dasboardCfg['disabledPortlets'] : [];
     }
 }

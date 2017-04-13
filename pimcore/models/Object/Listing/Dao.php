@@ -151,21 +151,21 @@ class Dao extends Model\Listing\Dao\AbstractDao
         $condition = $this->model->getCondition();
         $objectTypes = $this->model->getObjectTypes();
 
-        $tableName = method_exists($this, "getTableName") ? $this->getTableName() : "objects";
+        $tableName = method_exists($this, 'getTableName') ? $this->getTableName() : 'objects';
 
         if (!empty($objectTypes)) {
             if (!empty($condition)) {
-                $condition .= " AND ";
+                $condition .= ' AND ';
             }
-            $condition .= " " . $tableName . ".o_type IN ('" . implode("','", $objectTypes) . "')";
+            $condition .= ' ' . $tableName . ".o_type IN ('" . implode("','", $objectTypes) . "')";
         }
 
         if ($condition) {
             if (Object\AbstractObject::doHideUnpublished() && !$this->model->getUnpublished()) {
-                $condition = "(" . $condition . ") AND " . $tableName . ".o_published = 1";
+                $condition = '(' . $condition . ') AND ' . $tableName . '.o_published = 1';
             }
         } elseif (Object\AbstractObject::doHideUnpublished() && !$this->model->getUnpublished()) {
-            $condition = $tableName . ".o_published = 1";
+            $condition = $tableName . '.o_published = 1';
         }
 
         if ($condition) {

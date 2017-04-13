@@ -67,7 +67,7 @@ class ReportAdapter implements AddressSourceAdapterInterface
         $result = $adapter->getData(null, $this->emailFieldName, 'ASC', null, null);
 
         $this->list = $result['data'];
-        $this->elementsTotal = intval($result["total"]);
+        $this->elementsTotal = intval($result['total']);
 
         $this->emailAddresses = [];
         foreach ($this->list as $row) {

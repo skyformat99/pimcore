@@ -28,7 +28,7 @@ class Dao extends Model\Dao\PhpArrayTable
     public function configure()
     {
         parent::configure();
-        $this->setFile("predefined-properties");
+        $this->setFile('predefined-properties');
     }
 
     /**
@@ -42,7 +42,7 @@ class Dao extends Model\Dao\PhpArrayTable
         $propertiesData = $this->db->fetchAll($this->model->getFilter(), $this->model->getOrder());
 
         foreach ($propertiesData as $propertyData) {
-            $properties[] = Property\Predefined::getById($propertyData["id"]);
+            $properties[] = Property\Predefined::getById($propertyData['id']);
         }
 
         $this->model->setProperties($properties);

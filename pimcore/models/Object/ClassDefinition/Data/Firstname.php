@@ -26,5 +26,5 @@ class Firstname extends Model\Object\ClassDefinition\Data\Input
      *
      * @var string
      */
-    public $fieldtype = "firstname";
+    public $fieldtype = 'firstname';
 }

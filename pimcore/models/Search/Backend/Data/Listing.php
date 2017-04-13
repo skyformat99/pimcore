@@ -28,16 +28,16 @@ class Listing extends \Pimcore\Model\Listing\AbstractListing
      * @var array
      */
     public $validOrderKeys = [
-        "id",
-        "fullpath",
-        "maintype",
-        "type",
-        "subtype",
-        "published",
-        "creationDate",
-        "modificationDate",
-        "userOwner",
-        "userModification"
+        'id',
+        'fullpath',
+        'maintype',
+        'type',
+        'subtype',
+        'published',
+        'creationDate',
+        'modificationDate',
+        'userOwner',
+        'userModification'
     ];
 
     /**
@@ -65,7 +65,7 @@ class Listing extends \Pimcore\Model\Listing\AbstractListing
      */
     public function __construct()
     {
-        $this->initDao("\\Pimcore\\Model\\Search\\Backend\\Data\\Listing");
+        $this->initDao('\\Pimcore\\Model\\Search\\Backend\\Data\\Listing');
     }
 
     /**

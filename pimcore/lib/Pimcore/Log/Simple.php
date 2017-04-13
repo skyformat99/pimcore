@@ -34,13 +34,13 @@ class Simple
         if (is_writable($log)) {
             // check for big logfile, empty it if it's bigger than about 200M
             if (filesize($log) > 200000000) {
-                File::put($log, "");
+                File::put($log, '');
             }
 
-            $date = new \DateTime("now");
+            $date = new \DateTime('now');
 
-            $f = fopen($log, "a+");
-            fwrite($f, $date->format(\DateTime::ISO8601) . " : " . $message . "\n");
+            $f = fopen($log, 'a+');
+            fwrite($f, $date->format(\DateTime::ISO8601) . ' : ' . $message . "\n");
             fclose($f);
         }
     }

@@ -39,7 +39,7 @@ abstract class PrintAbstract extends Document\PageSnippet
     /**
      * @var string
      */
-    public $controller = "web2print";
+    public $controller = 'web2print';
 
     /**
      * @param \DateTime $lastGenerated
@@ -129,7 +129,7 @@ abstract class PrintAbstract extends Document\PageSnippet
      */
     public function getPdfFileName()
     {
-        return PIMCORE_TEMPORARY_DIRECTORY . DIRECTORY_SEPARATOR . "web2print-document-" . $this->getId() . ".pdf";
+        return PIMCORE_TEMPORARY_DIRECTORY . DIRECTORY_SEPARATOR . 'web2print-document-' . $this->getId() . '.pdf';
     }
 
     /**
@@ -145,6 +145,6 @@ abstract class PrintAbstract extends Document\PageSnippet
      */
     public function getLockKey()
     {
-        return "web2print_pdf_generation_" . $this->getId();
+        return 'web2print_pdf_generation_' . $this->getId();
     }
 }

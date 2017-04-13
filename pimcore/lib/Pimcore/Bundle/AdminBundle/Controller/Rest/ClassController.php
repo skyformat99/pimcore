@@ -266,7 +266,7 @@ class ClassController extends AbstractRestController
         foreach ($items as $item) {
             $stores[] = $item->getObjectVars();
         }
-        $definition["stores"] = $stores;
+        $definition['stores'] = $stores;
 
         $list = new Object\Classificationstore\CollectionConfig\Listing();
         if ($condition) {
@@ -280,7 +280,7 @@ class ClassController extends AbstractRestController
         foreach ($items as $item) {
             $collections[] = $item->getObjectVars();
         }
-        $definition["collections"] = $collections;
+        $definition['collections'] = $collections;
 
         $list = new Object\Classificationstore\GroupConfig\Listing();
         if ($condition) {
@@ -293,7 +293,7 @@ class ClassController extends AbstractRestController
         foreach ($items as $item) {
             $groups[] = $item->getObjectVars();
         }
-        $definition["groups"] = $groups;
+        $definition['groups'] = $groups;
 
         $list = new Object\Classificationstore\KeyConfig\Listing();
         if ($condition) {
@@ -306,7 +306,7 @@ class ClassController extends AbstractRestController
         foreach ($items as $item) {
             $keys[] = $item->getObjectVars();
         }
-        $definition["keys"] = $keys;
+        $definition['keys'] = $keys;
 
         $list = new Object\Classificationstore\CollectionGroupRelation\Listing();
         if ($condition) {
@@ -320,7 +320,7 @@ class ClassController extends AbstractRestController
         foreach ($items as $item) {
             $relations[] = $item->getObjectVars();
         }
-        $definition["collections2groups"] = $relations;
+        $definition['collections2groups'] = $relations;
 
         $list = new Object\Classificationstore\KeyGroupRelation\Listing();
         if ($condition) {
@@ -334,7 +334,7 @@ class ClassController extends AbstractRestController
         foreach ($items as $item) {
             $relations[] = $item->getObjectVars();
         }
-        $definition["groups2keys"] = $relations;
+        $definition['groups2keys'] = $relations;
 
         return $this->createSuccessResponse($definition);
     }

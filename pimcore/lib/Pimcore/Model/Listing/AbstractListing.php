@@ -65,8 +65,8 @@ abstract class AbstractListing extends AbstractModel
      * @var array
      */
     protected $validOrders = [
-        "ASC",
-        "DESC"
+        'ASC',
+        'DESC'
     ];
 
     /**
@@ -196,7 +196,7 @@ abstract class AbstractListing extends AbstractModel
         if ($quote) {
             $tmpKeys = [];
             foreach ($this->orderKey as $key) {
-                $tmpKeys[] = "`" . $key . "`";
+                $tmpKeys[] = '`' . $key . '`';
             }
             $this->orderKey = $tmpKeys;
         }
@@ -267,7 +267,7 @@ abstract class AbstractListing extends AbstractModel
                 if (!$value['ignore-value']) {
                     if (is_array($value['value'])) {
                         foreach ($value['value'] as $k => $v) {
-                            if ($db->supportsParameters("named")) {
+                            if ($db->supportsParameters('named')) {
                                 $params[$k] = $v;
                             } else {
                                 $params[] = $v;
@@ -334,8 +334,8 @@ abstract class AbstractListing extends AbstractModel
         if ($groupBy) {
             $this->groupBy = $groupBy;
 
-            if ($qoute && strpos($groupBy, "`") !== 0) {
-                $this->groupBy = "`" . $this->groupBy . "`";
+            if ($qoute && strpos($groupBy, '`') !== 0) {
+                $this->groupBy = '`' . $this->groupBy . '`';
             }
         }
 

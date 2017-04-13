@@ -26,7 +26,7 @@ class User extends Model\Object\ClassDefinition\Data\Select
      *
      * @var string
      */
-    public $fieldtype = "user";
+    public $fieldtype = 'user';
 
     /**
      * @return User
@@ -88,8 +88,8 @@ class User extends Model\Object\ClassDefinition\Data\Select
     public function configureOptions()
     {
         $list = new Model\User\Listing();
-        $list->setOrder("asc");
-        $list->setOrderKey("name");
+        $list->setOrder('asc');
+        $list->setOrderKey('name');
         $users = $list->load();
 
         $options = [];
@@ -100,11 +100,11 @@ class User extends Model\Object\ClassDefinition\Data\Select
                     $first = $user->getFirstname();
                     $last = $user->getLastname();
                     if (!empty($first) or !empty($last)) {
-                        $value .= " (" . $first . " " . $last . ")";
+                        $value .= ' (' . $first . ' ' . $last . ')';
                     }
                     $options[] = [
-                        "value" => $user->getId(),
-                        "key" => $value
+                        'value' => $user->getId(),
+                        'key' => $value
                     ];
                 }
             }
@@ -123,13 +123,13 @@ class User extends Model\Object\ClassDefinition\Data\Select
     public function checkValidity($data, $omitMandatoryCheck = false)
     {
         if (!$omitMandatoryCheck and $this->getMandatory() and empty($data)) {
-            throw new Model\Element\ValidationException("Empty mandatory field [ ".$this->getName()." ]");
+            throw new Model\Element\ValidationException('Empty mandatory field [ '.$this->getName().' ]');
         }
 
         if (!empty($data)) {
             $user = Model\User::getById($data);
             if (!$user instanceof Model\User) {
-                throw new Model\Element\ValidationException("Invalid user reference");
+                throw new Model\Element\ValidationException('Invalid user reference');
             }
         }
     }
@@ -142,7 +142,7 @@ class User extends Model\Object\ClassDefinition\Data\Select
      */
     public function getDataForSearchIndex($object, $params = [])
     {
-        return "";
+        return '';
     }
 
     /**

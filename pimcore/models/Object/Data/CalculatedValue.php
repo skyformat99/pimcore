@@ -23,7 +23,7 @@ class CalculatedValue
     public $fieldname;
 
     /** @var string */
-    public $ownerType = "object";
+    public $ownerType = 'object';
 
     /** @var string */
     public $ownerName;

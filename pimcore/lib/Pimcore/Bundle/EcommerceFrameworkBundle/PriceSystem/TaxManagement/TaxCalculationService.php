@@ -22,8 +22,8 @@ use Pimcore\Bundle\EcommerceFrameworkBundle\PriceSystem\IPrice;
  */
 class TaxCalculationService
 {
-    const CALCULATION_FROM_NET = "net";
-    const CALCULATION_FROM_GROSS = "gross";
+    const CALCULATION_FROM_NET = 'net';
+    const CALCULATION_FROM_GROSS = 'gross';
 
     /**
      * Updates taxes in given price by using its tax entries and net or gross amount based on the given $calculationMode
@@ -44,7 +44,7 @@ class TaxCalculationService
             case self::CALCULATION_FROM_GROSS:
                 return $this->calculationFromGross($price);
             default:
-                throw new UnsupportedException("Calculation Mode [" . $calculationMode . "] not supported.");
+                throw new UnsupportedException('Calculation Mode [' . $calculationMode . '] not supported.');
         }
     }
 
@@ -100,7 +100,7 @@ class TaxCalculationService
                 break;
 
             default:
-                throw new UnsupportedException("Combination Mode [" . $price->getTaxEntryCombinationMode() . "] cannot be recalculated.");
+                throw new UnsupportedException('Combination Mode [' . $price->getTaxEntryCombinationMode() . '] cannot be recalculated.');
                 break;
 
         }
@@ -171,7 +171,7 @@ class TaxCalculationService
                 break;
 
             default:
-                throw new UnsupportedException("Combination Mode [" . $price->getTaxEntryCombinationMode() . "] cannot be recalculated.");
+                throw new UnsupportedException('Combination Mode [' . $price->getTaxEntryCombinationMode() . '] cannot be recalculated.');
                 break;
 
         }

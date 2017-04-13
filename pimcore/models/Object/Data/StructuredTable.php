@@ -62,10 +62,10 @@ class StructuredTable
      */
     public function __call($name, $arguments)
     {
-        if (substr($name, 0, 3) == "get") {
+        if (substr($name, 0, 3) == 'get') {
             $key = strtolower(substr($name, 3, strlen($name) - 3));
 
-            $parts = explode("__", $key);
+            $parts = explode('__', $key);
             if (count($parts) == 2) {
                 $row = $parts[0];
                 $col = $parts[1];
@@ -83,10 +83,10 @@ class StructuredTable
             throw new \Exception("Requested data $key not available");
         }
 
-        if (substr($name, 0, 3) == "set") {
+        if (substr($name, 0, 3) == 'set') {
             $key = strtolower(substr($name, 3, strlen($name) - 3));
 
-            $parts = explode("__", $key);
+            $parts = explode('__', $key);
             if (count($parts) == 2) {
                 $row = $parts[0];
                 $col = $parts[1];
@@ -100,7 +100,7 @@ class StructuredTable
                     }
                 }
             } elseif (array_key_exists($key, $this->data)) {
-                throw new \Exception("Setting a whole row is not allowed.");
+                throw new \Exception('Setting a whole row is not allowed.');
             }
 
             throw new \Exception("Requested data $key not available");
@@ -128,19 +128,19 @@ class StructuredTable
      */
     public function __toString()
     {
-        $string = "<table>";
+        $string = '<table>';
 
         foreach ($this->data as $key => $dataRow) {
-            $string .= "<tr>";
+            $string .= '<tr>';
             $string .= "<td><strong>$key</strong></td>";
 
             foreach ($dataRow as $c) {
                 $string .= "<td>$c</td>";
             }
-            $string .= "</tr>";
+            $string .= '</tr>';
         }
 
-        $string .= "</table>";
+        $string .= '</table>';
 
         return $string;
     }
@@ -153,27 +153,27 @@ class StructuredTable
      */
     public function getHtmlTable($rowDefs, $colDefs)
     {
-        $string = "<table>";
+        $string = '<table>';
 
-        $string .= "<tr>";
-        $string .= "<th><strong></strong></th>";
+        $string .= '<tr>';
+        $string .= '<th><strong></strong></th>';
         foreach ($colDefs as $c) {
-            $string .= "<th><strong>" . $c['label'] . "</strong></th>";
+            $string .= '<th><strong>' . $c['label'] . '</strong></th>';
         }
-        $string .= "</tr>";
+        $string .= '</tr>';
 
         foreach ($rowDefs as $r) {
             $dataRow = $this->data[$r['key']];
-            $string .= "<tr>";
-            $string .= "<th><strong>" . $r['label'] . "</strong></th>";
+            $string .= '<tr>';
+            $string .= '<th><strong>' . $r['label'] . '</strong></th>';
 
             foreach ($dataRow as $c) {
                 $string .= "<td>$c</td>";
             }
-            $string .= "</tr>";
+            $string .= '</tr>';
         }
 
-        $string .= "</table>";
+        $string .= '</table>';
 
         return $string;
     }

@@ -38,7 +38,7 @@ class IndexService
     public function __construct($config)
     {
         if (!(string)$config->disableDefaultTenant) {
-            $this->defaultWorker = new DefaultMysql(new \Pimcore\Bundle\EcommerceFrameworkBundle\IndexService\Config\DefaultMysql("default", $config));
+            $this->defaultWorker = new DefaultMysql(new \Pimcore\Bundle\EcommerceFrameworkBundle\IndexService\Config\DefaultMysql('default', $config));
         }
 
         $this->tenantWorkers = [];

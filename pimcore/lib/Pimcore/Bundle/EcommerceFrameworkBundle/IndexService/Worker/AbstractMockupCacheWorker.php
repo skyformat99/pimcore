@@ -43,7 +43,7 @@ abstract class AbstractMockupCacheWorker extends AbstractBatchProcessingWorker
      */
     protected function createMockupCacheKey($objectId)
     {
-        return $this->getMockupCachePrefix() . "_" . $this->name . "_" . $objectId;
+        return $this->getMockupCachePrefix() . '_' . $this->name . '_' . $objectId;
     }
 
     /**
@@ -53,7 +53,7 @@ abstract class AbstractMockupCacheWorker extends AbstractBatchProcessingWorker
      */
     protected function deleteFromMockupCache($objectId)
     {
-        $key = $this->getMockupCachePrefix() . "_" . $this->name . "_" . $objectId;
+        $key = $this->getMockupCachePrefix() . '_' . $this->name . '_' . $objectId;
         \Pimcore\Cache::remove($key);
     }
 
@@ -68,14 +68,14 @@ abstract class AbstractMockupCacheWorker extends AbstractBatchProcessingWorker
     public function saveToMockupCache($objectId, $data = null)
     {
         if (empty($data)) {
-            $data = $this->db->fetchOne("SELECT data FROM " . $this->getStoreTableName() . " WHERE o_id = ? AND tenant = ?", [$objectId, $this->name]);
+            $data = $this->db->fetchOne('SELECT data FROM ' . $this->getStoreTableName() . ' WHERE o_id = ? AND tenant = ?', [$objectId, $this->name]);
             $data = json_decode($data, true);
         }
 
         if ($this->tenantConfig instanceof IMockupConfig) {
             $mockup = $this->tenantConfig->createMockupObject($objectId, $data['data'], $data['relations']);
         } else {
-            throw new InvalidConfigException("Tenant Config is not instance of IMockupConfig");
+            throw new InvalidConfigException('Tenant Config is not instance of IMockupConfig');
         }
 
         $key = $this->createMockupCacheKey($objectId);
@@ -90,7 +90,7 @@ abstract class AbstractMockupCacheWorker extends AbstractBatchProcessingWorker
         $result = \Pimcore\Cache::load($key);
 
         if ($success && $result) {
-            $this->db->query("UPDATE " . $this->getStoreTableName() . " SET crc_index = crc_current WHERE o_id = ? and tenant = ?", [$objectId, $this->name]);
+            $this->db->query('UPDATE ' . $this->getStoreTableName() . ' SET crc_index = crc_current WHERE o_id = ? and tenant = ?', [$objectId, $this->name]);
         } else {
             Logger::err("Element with ID $objectId could not be added to mockup-cache");
         }

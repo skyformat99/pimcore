@@ -30,7 +30,7 @@ class InternalNewsletterDocumentSendCommand extends AbstractCommand
             ->setHidden(true)
             ->setName('internal:newsletter-document-send')
             ->setDescription('For internal use only')
-            ->addArgument("sendingId")->addArgument("hostUrl");
+            ->addArgument('sendingId')->addArgument('hostUrl');
     }
 
     /**
@@ -38,8 +38,8 @@ class InternalNewsletterDocumentSendCommand extends AbstractCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $sendingId = $input->getArgument("sendingId");
-        $hostUrl = $input->getArgument("hostUrl");
+        $sendingId = $input->getArgument('sendingId');
+        $hostUrl = $input->getArgument('hostUrl');
 
         $tmpStore = Model\Tool\TmpStore::get($sendingId);
 
@@ -63,7 +63,7 @@ class InternalNewsletterDocumentSendCommand extends AbstractCommand
         $addressSourceAdapterName = $data['addressSourceAdapterName'];
         $adapterParams = $data['adapterParams'];
 
-        $adapterClass = "\\Pimcore\\Document\\Newsletter\\AddressSourceAdapter\\" . ucfirst($addressSourceAdapterName);
+        $adapterClass = '\\Pimcore\\Document\\Newsletter\\AddressSourceAdapter\\' . ucfirst($addressSourceAdapterName);
 
         /**
          * @var $addressAdapter \Pimcore\Document\Newsletter\AddressSourceAdapterInterface
@@ -106,7 +106,7 @@ class InternalNewsletterDocumentSendCommand extends AbstractCommand
             }
 
             if ($currentCount % $pageSize == 0) {
-                Logger::info("Sending newsletter " . $currentCount . " / " . $totalCount. " [" . $document->getId(). "]");
+                Logger::info('Sending newsletter ' . $currentCount . ' / ' . $totalCount. ' [' . $document->getId(). ']');
                 $data = $tmpStore->getData();
                 $data['progress'] = round($currentCount / $totalCount * 100, 2);
                 $tmpStore->setData($data);
@@ -145,7 +145,7 @@ class InternalNewsletterDocumentSendCommand extends AbstractCommand
 
             $data = $tmpStore->getData();
 
-            Logger::info("Sending newsletter " . $hasElements . " / " . $totalCount. " [" . $document->getId(). "]");
+            Logger::info('Sending newsletter ' . $hasElements . ' / ' . $totalCount. ' [' . $document->getId(). ']');
 
             $data['progress'] = round($offset / $totalCount * 100, 2);
             $tmpStore->setData($data);

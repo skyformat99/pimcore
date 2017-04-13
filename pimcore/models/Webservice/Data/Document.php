@@ -71,7 +71,7 @@ abstract class Document extends Model\Webservice\Data
         parent::map($object);
 
         $keys = get_object_vars($this);
-        if (array_key_exists("childs", $keys)) {
+        if (array_key_exists('childs', $keys)) {
             if ($object->hasChilds()) {
                 $this->childs = [];
                 foreach ($object->getChilds() as $child) {

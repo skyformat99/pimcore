@@ -231,7 +231,7 @@ class DefaultElasticSearch implements IProductList
      * @param string $condition
      * @param string $fieldname - must be set for elastic search
      */
-    public function addCondition($condition, $fieldname = "")
+    public function addCondition($condition, $fieldname = '')
     {
         $this->filterConditions[$fieldname][] = $condition;
         $this->preparedGroupByValuesLoaded = false;
@@ -285,7 +285,7 @@ class DefaultElasticSearch implements IProductList
      * @param $condition
      * @param string $fieldname - must be set for elastic search
      */
-    public function addQueryCondition($condition, $fieldname = "")
+    public function addQueryCondition($condition, $fieldname = '')
     {
         $this->queryConditions[$fieldname][] = $condition;
         $this->preparedGroupByValuesLoaded = false;
@@ -568,10 +568,10 @@ class DefaultElasticSearch implements IProductList
         if ($this->orderKey) {
             if (is_array($this->orderKey)) {
                 foreach ($this->orderKey as $orderKey) {
-                    $params['body']['sort'][] = [$this->tenantConfig->getFieldNameMapped($orderKey[0]) => ($orderKey[1] ?: "asc")];
+                    $params['body']['sort'][] = [$this->tenantConfig->getFieldNameMapped($orderKey[0]) => ($orderKey[1] ?: 'asc')];
                 }
             } else {
-                $params['body']['sort'][] = [$this->tenantConfig->getFieldNameMapped($this->orderKey) => ($this->order ?: "asc")];
+                $params['body']['sort'][] = [$this->tenantConfig->getFieldNameMapped($this->orderKey) => ($this->order ?: 'asc')];
             }
         }
 
@@ -618,7 +618,7 @@ class DefaultElasticSearch implements IProductList
      */
     protected function loadWithoutPriceFilterWithPriceSorting()
     {
-        throw new \Exception("Not implemented yet");
+        throw new \Exception('Not implemented yet');
     }
 
     /**
@@ -630,7 +630,7 @@ class DefaultElasticSearch implements IProductList
      */
     protected function loadWithPriceFilterWithoutPriceSorting()
     {
-        throw new \Exception("Not implemented yet");
+        throw new \Exception('Not implemented yet');
     }
 
     /**
@@ -642,7 +642,7 @@ class DefaultElasticSearch implements IProductList
      */
     protected function loadWithPriceFilterWithPriceSorting()
     {
-        throw new \Exception("Not implemented yet");
+        throw new \Exception('Not implemented yet');
     }
 
     /**
@@ -796,7 +796,7 @@ class DefaultElasticSearch implements IProductList
     public function prepareGroupByValues($fieldname, $countValues = false, $fieldnameShouldBeExcluded = true)
     {
         if ($fieldname) {
-            $this->preparedGroupByValues[$this->tenantConfig->getFieldNameMapped($fieldname)]= ["countValues" => $countValues, "fieldnameShouldBeExcluded" => $fieldnameShouldBeExcluded];
+            $this->preparedGroupByValues[$this->tenantConfig->getFieldNameMapped($fieldname)]= ['countValues' => $countValues, 'fieldnameShouldBeExcluded' => $fieldnameShouldBeExcluded];
             $this->preparedGroupByValuesLoaded = false;
         }
     }
@@ -812,7 +812,7 @@ class DefaultElasticSearch implements IProductList
     public function prepareGroupByRelationValues($fieldname, $countValues = false, $fieldnameShouldBeExcluded = true)
     {
         if ($fieldname) {
-            $this->preparedGroupByValues[$this->tenantConfig->getFieldNameMapped($fieldname)] = ["countValues" => $countValues, "fieldnameShouldBeExcluded" => $fieldnameShouldBeExcluded];
+            $this->preparedGroupByValues[$this->tenantConfig->getFieldNameMapped($fieldname)] = ['countValues' => $countValues, 'fieldnameShouldBeExcluded' => $fieldnameShouldBeExcluded];
             $this->preparedGroupByValuesLoaded = false;
         }
     }
@@ -827,7 +827,7 @@ class DefaultElasticSearch implements IProductList
      */
     public function prepareGroupBySystemValues($fieldname, $countValues = false, $fieldnameShouldBeExcluded = true)
     {
-        $this->preparedGroupByValues[$this->tenantConfig->getFieldNameMapped($fieldname)] = ["countValues" => $countValues, "fieldnameShouldBeExcluded" => $fieldnameShouldBeExcluded];
+        $this->preparedGroupByValues[$this->tenantConfig->getFieldNameMapped($fieldname)] = ['countValues' => $countValues, 'fieldnameShouldBeExcluded' => $fieldnameShouldBeExcluded];
         $this->preparedGroupByValuesLoaded = false;
     }
 
@@ -989,13 +989,13 @@ class DefaultElasticSearch implements IProductList
                     ],
                     'aggs' => [
                         $fieldname => [
-                            "terms" => ['field' => $fieldname, 'size' => 0, "order" => ["_term" => "asc" ]]
+                            'terms' => ['field' => $fieldname, 'size' => 0, 'order' => ['_term' => 'asc' ]]
                         ]
                     ]
                 ];
             } else {
                 $aggregations[$fieldname] = [
-                    "terms" => ['field' => $fieldname, 'size' => 0, "order" => ["_term" => "asc" ]]
+                    'terms' => ['field' => $fieldname, 'size' => 0, 'order' => ['_term' => 'asc' ]]
                 ];
             }
         }
@@ -1004,7 +1004,7 @@ class DefaultElasticSearch implements IProductList
             $params = [];
             $params['index'] = $this->getIndexName();
             $params['type'] = $this->getQueryType();
-            $params['search_type'] = "count";
+            $params['search_type'] = 'count';
             $params['body']['_source'] = false;
             $params['body']['size'] = $this->getLimit();
             $params['body']['from'] = $this->getOffset();

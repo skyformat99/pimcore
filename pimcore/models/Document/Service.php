@@ -124,7 +124,7 @@ class Service extends Model\Element\Service
             return;
         }
 
-        if (method_exists($source, "getElements")) {
+        if (method_exists($source, 'getElements')) {
             $source->getElements();
         }
 
@@ -133,14 +133,14 @@ class Service extends Model\Element\Service
         $new = clone $source;
         $new->id = null;
         $new->setChildren(null);
-        $new->setKey(Element\Service::getSaveCopyName("document", $new->getKey(), $target));
+        $new->setKey(Element\Service::getSaveCopyName('document', $new->getKey(), $target));
         $new->setParentId($target->getId());
         $new->setUserOwner($this->_user->getId());
         $new->setUserModification($this->_user->getId());
         $new->setDao(null);
         $new->setLocked(false);
         $new->setCreationDate(time());
-        if (method_exists($new, "setPrettyUrl")) {
+        if (method_exists($new, 'setPrettyUrl')) {
             $new->setPrettyUrl(null);
         }
 
@@ -175,7 +175,7 @@ class Service extends Model\Element\Service
      */
     public function copyAsChild($target, $source, $enableInheritance = false, $resetIndex = false)
     {
-        if (method_exists($source, "getElements")) {
+        if (method_exists($source, 'getElements')) {
             $source->getElements();
         }
 
@@ -184,7 +184,7 @@ class Service extends Model\Element\Service
         $new = clone $source;
         $new->id = null;
         $new->setChilds(null);
-        $new->setKey(Element\Service::getSaveCopyName("document", $new->getKey(), $target));
+        $new->setKey(Element\Service::getSaveCopyName('document', $new->getKey(), $target));
         $new->setParentId($target->getId());
         $new->setUserOwner($this->_user->getId());
         $new->setUserModification($this->_user->getId());
@@ -197,7 +197,7 @@ class Service extends Model\Element\Service
             $new->setIndex($new->getDao()->getNextIndex());
         }
 
-        if (method_exists($new, "setPrettyUrl")) {
+        if (method_exists($new, 'setPrettyUrl')) {
             $new->setPrettyUrl(null);
         }
 
@@ -231,7 +231,7 @@ class Service extends Model\Element\Service
 
         // check if the type is the same
         if (get_class($source) != get_class($target)) {
-            throw new \Exception("Source and target have to be the same type");
+            throw new \Exception('Source and target have to be the same type');
         }
 
         if ($source instanceof Document\PageSnippet) {
@@ -276,12 +276,12 @@ class Service extends Model\Element\Service
         $data = Element\Service::gridElementData($document);
 
         if ($document instanceof Document\Page) {
-            $data["title"] = $document->getTitle();
-            $data["description"] = $document->getDescription();
+            $data['title'] = $document->getTitle();
+            $data['description'] = $document->getDescription();
         } else {
-            $data["title"] = "";
-            $data["description"] = "";
-            $data["name"] = "";
+            $data['title'] = '';
+            $data['description'] = '';
+            $data['name'] = '';
         }
 
         return $data;
@@ -300,7 +300,7 @@ class Service extends Model\Element\Service
 
         if ($doc instanceof Document\PageSnippet) {
             foreach ($doc->getElements() as $name => $data) {
-                if (method_exists($data, "load")) {
+                if (method_exists($data, 'load')) {
                     $data->load();
                 }
             }
@@ -367,14 +367,14 @@ class Service extends Model\Element\Service
 
         // rewriting elements only for snippets and pages
         if ($document instanceof Document\PageSnippet) {
-            if (array_key_exists("enableInheritance", $params) && $params["enableInheritance"]) {
+            if (array_key_exists('enableInheritance', $params) && $params['enableInheritance']) {
                 $elements = $document->getElements();
                 $changedElements = [];
                 $contentMaster = $document->getContentMasterDocument();
                 if ($contentMaster instanceof Document\PageSnippet) {
                     $contentMasterElements = $contentMaster->getElements();
                     foreach ($contentMasterElements as $contentMasterElement) {
-                        if (method_exists($contentMasterElement, "rewriteIds")) {
+                        if (method_exists($contentMasterElement, 'rewriteIds')) {
                             $element = clone $contentMasterElement;
                             $element->rewriteIds($rewriteConfig);
 
@@ -391,7 +391,7 @@ class Service extends Model\Element\Service
             } else {
                 $elements = $document->getElements();
                 foreach ($elements as &$element) {
-                    if (method_exists($element, "rewriteIds")) {
+                    if (method_exists($element, 'rewriteIds')) {
                         $element->rewriteIds($rewriteConfig);
                     }
                 }
@@ -399,12 +399,12 @@ class Service extends Model\Element\Service
 
             $document->setElements($elements);
         } elseif ($document instanceof Document\Hardlink) {
-            if (array_key_exists("document", $rewriteConfig) && $document->getSourceId() && array_key_exists((int) $document->getSourceId(), $rewriteConfig["document"])) {
-                $document->setSourceId($rewriteConfig["document"][(int) $document->getSourceId()]);
+            if (array_key_exists('document', $rewriteConfig) && $document->getSourceId() && array_key_exists((int) $document->getSourceId(), $rewriteConfig['document'])) {
+                $document->setSourceId($rewriteConfig['document'][(int) $document->getSourceId()]);
             }
         } elseif ($document instanceof Document\Link) {
-            if (array_key_exists("document", $rewriteConfig) && $document->getLinktype() == "internal" && $document->getInternalType() == "document" && array_key_exists((int) $document->getInternal(), $rewriteConfig["document"])) {
-                $document->setInternal($rewriteConfig["document"][(int) $document->getInternal()]);
+            if (array_key_exists('document', $rewriteConfig) && $document->getLinktype() == 'internal' && $document->getInternalType() == 'document' && array_key_exists((int) $document->getInternal(), $rewriteConfig['document'])) {
+                $document->setInternal($rewriteConfig['document'][(int) $document->getInternal()]);
             }
         }
 
@@ -426,8 +426,8 @@ class Service extends Model\Element\Service
     public static function getByUrl($url)
     {
         $urlParts = parse_url($url);
-        if ($urlParts["path"]) {
-            $document = Document::getByPath($urlParts["path"]);
+        if ($urlParts['path']) {
+            $document = Document::getByPath($urlParts['path']);
 
             // search for a page in a site
             if (!$document) {
@@ -435,8 +435,8 @@ class Service extends Model\Element\Service
                 $sitesObjects = $sitesList->load();
 
                 foreach ($sitesObjects as $site) {
-                    if ($site->getRootDocument() && (in_array($urlParts["host"], $site->getDomains()) || $site->getMainDomain() == $urlParts["host"])) {
-                        if ($document = Document::getByPath($site->getRootDocument() . $urlParts["path"])) {
+                    if ($site->getRootDocument() && (in_array($urlParts['host'], $site->getDomains()) || $site->getMainDomain() == $urlParts['host'])) {
+                        if ($document = Document::getByPath($site->getRootDocument() . $urlParts['path'])) {
                             break;
                         }
                     }
@@ -459,9 +459,9 @@ class Service extends Model\Element\Service
     {
         $list = new Listing();
         $list->setUnpublished(true);
-        $key = Element\Service::getValidKey($item->getKey(), "document");
+        $key = Element\Service::getValidKey($item->getKey(), 'document');
         if (!$key) {
-            throw new \Exception("No item key set.");
+            throw new \Exception('No item key set.');
         }
         if ($nr) {
             $key = $key . '_' . $nr;
@@ -469,7 +469,7 @@ class Service extends Model\Element\Service
 
         $parent = $item->getParent();
         if (!$parent) {
-            throw new \Exception("You have to set a parent document to determine a unique Key");
+            throw new \Exception('You have to set a parent document to determine a unique Key');
         }
 
         if (!$item->getId()) {
@@ -501,7 +501,7 @@ class Service extends Model\Element\Service
             $path = urldecode($path->getPathInfo());
         }
 
-        $cacheKey = $ignoreHardlinks . implode("-", $types);
+        $cacheKey = $ignoreHardlinks . implode('-', $types);
         $document = null;
 
         if (isset($this->nearestPathCache[$cacheKey])) {
@@ -510,11 +510,11 @@ class Service extends Model\Element\Service
             $paths    = ['/'];
             $tmpPaths = [];
 
-            $pathParts = explode("/", $path);
+            $pathParts = explode('/', $path);
             foreach ($pathParts as $pathPart) {
                 $tmpPaths[] = $pathPart;
 
-                $t = implode("/", $tmpPaths);
+                $t = implode('/', $tmpPaths);
                 if (!empty($t)) {
                     $paths[] = $t;
                 }
@@ -532,7 +532,7 @@ class Service extends Model\Element\Service
                     $site = Model\Site::getCurrentSite();
 
                     // undo the changed made by the site detection in self::match()
-                    $originalPath = preg_replace("@^" . $site->getRootPath() . "@", "", $p);
+                    $originalPath = preg_replace('@^' . $site->getRootPath() . '@', '', $p);
 
                     $sitePrettyDocId = $this->getDao()->getDocumentIdByPrettyUrlInSite($site, $originalPath);
                     if ($sitePrettyDocId) {

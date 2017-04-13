@@ -31,10 +31,10 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function getByAddress($address)
     {
-        $data = $this->db->fetchRow("SELECT * FROM email_blacklist WHERE address = ?", $address);
+        $data = $this->db->fetchRow('SELECT * FROM email_blacklist WHERE address = ?', $address);
 
-        if (!$data["address"]) {
-            throw new \Exception("blacklist item with address " . $address . " not found");
+        if (!$data['address']) {
+            throw new \Exception('blacklist item with address ' . $address . ' not found');
         }
         $this->assignVariablesToModel($data);
     }
@@ -57,7 +57,7 @@ class Dao extends Model\Dao\AbstractDao
 
         // save main table
         foreach ($version as $key => $value) {
-            if (in_array($key, $this->getValidTableColumns("email_blacklist"))) {
+            if (in_array($key, $this->getValidTableColumns('email_blacklist'))) {
                 if (is_bool($value)) {
                     $value = (int) $value;
                 }
@@ -66,7 +66,7 @@ class Dao extends Model\Dao\AbstractDao
             }
         }
 
-        $this->db->insertOrUpdate("email_blacklist", $data);
+        $this->db->insertOrUpdate('email_blacklist', $data);
 
         return true;
     }
@@ -76,6 +76,6 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function delete()
     {
-        $this->db->delete("email_blacklist", ["address" => $this->model->getAddress()]);
+        $this->db->delete('email_blacklist', ['address' => $this->model->getAddress()]);
     }
 }

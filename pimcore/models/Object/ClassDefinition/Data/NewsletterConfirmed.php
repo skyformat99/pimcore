@@ -26,5 +26,5 @@ class NewsletterConfirmed extends Model\Object\ClassDefinition\Data\Checkbox
      *
      * @var string
      */
-    public $fieldtype = "newsletterConfirmed";
+    public $fieldtype = 'newsletterConfirmed';
 }

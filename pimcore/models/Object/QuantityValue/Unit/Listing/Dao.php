@@ -32,7 +32,7 @@ class Dao extends Model\Listing\Dao\AbstractDao
     {
         $units = [];
 
-        $unitIds = $this->db->fetchCol("SELECT id FROM " . Object\QuantityValue\Unit\Dao::TABLE_NAME .
+        $unitIds = $this->db->fetchCol('SELECT id FROM ' . Object\QuantityValue\Unit\Dao::TABLE_NAME .
                                                  $this->getCondition() . $this->getOrder() . $this->getOffsetLimit());
 
         foreach ($unitIds as $id) {
@@ -49,8 +49,8 @@ class Dao extends Model\Listing\Dao\AbstractDao
      */
     public function getTotalCount()
     {
-        $amount = $this->db->fetchRow("SELECT COUNT(*) as amount FROM `" . Object\QuantityValue\Unit\Dao::TABLE_NAME . "`" . $this->getCondition());
+        $amount = $this->db->fetchRow('SELECT COUNT(*) as amount FROM `' . Object\QuantityValue\Unit\Dao::TABLE_NAME . '`' . $this->getCondition());
 
-        return $amount["amount"];
+        return $amount['amount'];
     }
 }

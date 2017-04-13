@@ -30,10 +30,10 @@ class CheckoutManager implements ICheckoutManager
      * constants for custom environment item names for persisting state of checkout
      * always concatenated with current cart id
      */
-    const CURRENT_STEP = "checkout_current_step";
-    const FINISHED = "checkout_finished";
-    const TRACK_ECOMMERCE = "checkout_trackecommerce";
-    const TRACK_ECOMMERCE_UNIVERSAL = "checkout_trackecommerce_universal";
+    const CURRENT_STEP = 'checkout_current_step';
+    const FINISHED = 'checkout_finished';
+    const TRACK_ECOMMERCE = 'checkout_trackecommerce';
+    const TRACK_ECOMMERCE_UNIVERSAL = 'checkout_trackecommerce_universal';
 
     /**
      * needed for effective access to one specific checkout step
@@ -99,7 +99,7 @@ class CheckoutManager implements ICheckoutManager
     {
         $this->cart = $cart;
 
-        $config = new HelperContainer($config, "checkoutmanager");
+        $config = new HelperContainer($config, 'checkoutmanager');
 
         $this->commitOrderProcessorClassname = $config->commitorderprocessor->class;
         $this->confirmationMail = (string)$config->mails->confirmation;
@@ -111,8 +111,8 @@ class CheckoutManager implements ICheckoutManager
 
         //getting state information for checkout from custom environment items
         $env = Factory::getInstance()->getEnvironment();
-        $this->finished = $env->getCustomItem(self::FINISHED . "_" . $this->cart->getId()) ? $env->getCustomItem(self::FINISHED . "_" . $this->cart->getId()) : false;
-        $this->currentStep = $this->checkoutSteps[$env->getCustomItem(self::CURRENT_STEP . "_" . $this->cart->getId())];
+        $this->finished = $env->getCustomItem(self::FINISHED . '_' . $this->cart->getId()) ? $env->getCustomItem(self::FINISHED . '_' . $this->cart->getId()) : false;
+        $this->currentStep = $this->checkoutSteps[$env->getCustomItem(self::CURRENT_STEP . '_' . $this->cart->getId())];
 
         //if no step is set and cart is not finished -> set current step to first step of checkout
         if (empty($this->currentStep) && !$this->isFinished()) {
@@ -165,11 +165,11 @@ class CheckoutManager implements ICheckoutManager
     public function startOrderPayment()
     {
         if (!$this->isFinished()) {
-            throw new UnsupportedException("Checkout not finished yet.");
+            throw new UnsupportedException('Checkout not finished yet.');
         }
 
         if (!$this->payment) {
-            throw new UnsupportedException("Payment is not activated");
+            throw new UnsupportedException('Payment is not activated');
         }
 
         //Create Order
@@ -177,7 +177,7 @@ class CheckoutManager implements ICheckoutManager
         $order = $orderManager->getOrCreateOrderFromCart($this->cart);
 
         if ($order->getOrderState() == AbstractOrder::ORDER_STATE_COMMITTED) {
-            throw new UnsupportedException("Order already committed");
+            throw new UnsupportedException('Order already committed');
         }
 
         $orderAgent = Factory::getInstance()->getOrderManager()->createOrderAgent($order);
@@ -233,15 +233,15 @@ class CheckoutManager implements ICheckoutManager
             //last step must be committed again in order to restart payment or e.g. commit without payment?
             $this->currentStep = $this->checkoutStepOrder[count($this->checkoutStepOrder) - 1];
 
-            $env->setCustomItem(self::CURRENT_STEP . "_" . $this->cart->getId(), $this->currentStep->getName());
+            $env->setCustomItem(self::CURRENT_STEP . '_' . $this->cart->getId(), $this->currentStep->getName());
         } else {
             $this->cart->delete();
 
-            $env->removeCustomItem(self::CURRENT_STEP . "_" . $this->cart->getId());
+            $env->removeCustomItem(self::CURRENT_STEP . '_' . $this->cart->getId());
 
             //setting e-commerce tracking information to environment for later use in view
-            $env->setCustomItem(self::TRACK_ECOMMERCE . "_" . $order->getOrdernumber(), $this->generateGaEcommerceCode($order));
-            $env->setCustomItem(self::TRACK_ECOMMERCE_UNIVERSAL . "_" . $order->getOrdernumber(), $this->generateUniversalEcommerceCode($order));
+            $env->setCustomItem(self::TRACK_ECOMMERCE . '_' . $order->getOrdernumber(), $this->generateGaEcommerceCode($order));
+            $env->setCustomItem(self::TRACK_ECOMMERCE_UNIVERSAL . '_' . $order->getOrdernumber(), $this->generateUniversalEcommerceCode($order));
         }
         $env->save();
     }
@@ -263,15 +263,15 @@ class CheckoutManager implements ICheckoutManager
         }
 
         if (!$this->payment) {
-            throw new UnsupportedException("Payment is not activated");
+            throw new UnsupportedException('Payment is not activated');
         }
 
         if ($this->isCommitted()) {
-            throw new UnsupportedException("Order already committed.");
+            throw new UnsupportedException('Order already committed.');
         }
 
         if (!$this->isFinished()) {
-            throw new UnsupportedException("Checkout not finished yet.");
+            throw new UnsupportedException('Checkout not finished yet.');
         }
 
         //delegate commit order to commit order processor
@@ -291,15 +291,15 @@ class CheckoutManager implements ICheckoutManager
     public function commitOrderPayment(\Pimcore\Bundle\EcommerceFrameworkBundle\PaymentManager\IStatus $status)
     {
         if (!$this->payment) {
-            throw new UnsupportedException("Payment is not activated");
+            throw new UnsupportedException('Payment is not activated');
         }
 
         if ($this->isCommitted()) {
-            throw new UnsupportedException("Order already committed.");
+            throw new UnsupportedException('Order already committed.');
         }
 
         if (!$this->isFinished()) {
-            throw new UnsupportedException("Checkout not finished yet.");
+            throw new UnsupportedException('Checkout not finished yet.');
         }
 
         //delegate commit order to commit order processor
@@ -317,11 +317,11 @@ class CheckoutManager implements ICheckoutManager
     public function commitOrder()
     {
         if ($this->isCommitted()) {
-            throw new UnsupportedException("Order already committed.");
+            throw new UnsupportedException('Order already committed.');
         }
 
         if (!$this->isFinished()) {
-            throw new UnsupportedException("Checkout not finished yet.");
+            throw new UnsupportedException('Checkout not finished yet.');
         }
 
         //delegate commit order to commit order processor
@@ -344,13 +344,13 @@ class CheckoutManager implements ICheckoutManager
      */
     protected function generateGaEcommerceCode(AbstractOrder $order)
     {
-        $code = "";
+        $code = '';
 
         $shipping = 0;
         $modifications = $order->getPriceModifications();
         if (null !== $modifications) {
             foreach ($modifications as $modification) {
-                if ($modification->getName() == "shipping") {
+                if ($modification->getName() == 'shipping') {
                     $shipping = $modification->getAmount();
                     break;
                 }
@@ -373,13 +373,13 @@ class CheckoutManager implements ICheckoutManager
         $items = $order->getItems();
         if (!empty($items)) {
             foreach ($items as $item) {
-                $category = "";
+                $category = '';
                 $p = $item->getProduct();
-                if ($p && method_exists($p, "getCategories")) {
+                if ($p && method_exists($p, 'getCategories')) {
                     $categories = $p->getCategories();
                     if ($categories) {
                         $category = $categories[0];
-                        if (method_exists($category, "getName")) {
+                        if (method_exists($category, 'getName')) {
                             $category = $category->getName();
                         }
                     }
@@ -389,7 +389,7 @@ class CheckoutManager implements ICheckoutManager
                     _gaq.push(['_addItem',
                         '" . $order->getOrdernumber() . "',                                      // order ID - required
                         '" . $item->getProductNumber() . "',                                     // SKU/code - required
-                        '" . str_replace(["\n"], [" "], $item->getProductName()) . "', // product name
+                        '" . str_replace(["\n"], [' '], $item->getProductName()) . "', // product name
                         '" . $category . "',                                                     // category or variation
                         '" . $item->getTotalPrice() / $item->getAmount() . "',                   // unit price - required
                         '" . $item->getAmount() . "'                                             // quantity - required
@@ -420,7 +420,7 @@ class CheckoutManager implements ICheckoutManager
         $modifications = $order->getPriceModifications();
         if (null !== $modifications) {
             foreach ($modifications as $modification) {
-                if ($modification->getName() == "shipping") {
+                if ($modification->getName() == 'shipping') {
                     $shipping = $modification->getAmount();
                     break;
                 }
@@ -440,13 +440,13 @@ class CheckoutManager implements ICheckoutManager
         $items = $order->getItems();
         if (!empty($items)) {
             foreach ($items as $item) {
-                $category = "";
+                $category = '';
                 $p = $item->getProduct();
-                if ($p && method_exists($p, "getCategories")) {
+                if ($p && method_exists($p, 'getCategories')) {
                     $categories = $p->getCategories();
                     if ($categories) {
                         $category = $categories[0];
-                        if (method_exists($category, "getName")) {
+                        if (method_exists($category, 'getName')) {
                             $category = $category->getName();
                         }
                     }
@@ -455,7 +455,7 @@ class CheckoutManager implements ICheckoutManager
                 $code .= "
                     ga('ecommerce:addItem', {
                       'id': '" . $order->getOrdernumber() . "',                      // Transaction ID. Required.
-                      'name': '" . str_replace(["\n"], [" "], $item->getProductName()) . "',                      // Product name. Required.
+                      'name': '" . str_replace(["\n"], [' '], $item->getProductName()) . "',                      // Product name. Required.
                       'sku': '" . $item->getProductNumber() . "',                     // SKU/code.
                       'category': '" . $category . "',                                // Category or variation.
                       'price': '" . $item->getTotalPrice() / $item->getAmount() . "', // Unit price.
@@ -486,7 +486,7 @@ class CheckoutManager implements ICheckoutManager
 
         // if indexCurrentStep is < index -> there are uncommitted previous steps
         if ($indexCurrentStep < $index) {
-            throw new UnsupportedException("There are uncommitted previous steps.");
+            throw new UnsupportedException('There are uncommitted previous steps.');
         }
 
         //delegate commit to step implementation (for data storage etc.)
@@ -500,7 +500,7 @@ class CheckoutManager implements ICheckoutManager
                 //setting checkout manager to next step
                 $this->currentStep = $this->checkoutStepOrder[$index];
 
-                $env->setCustomItem(self::CURRENT_STEP . "_" . $this->cart->getId(), $this->currentStep->getName());
+                $env->setCustomItem(self::CURRENT_STEP . '_' . $this->cart->getId(), $this->currentStep->getName());
 
                 //checkout NOT finished
                 $this->finished = false;
@@ -508,7 +508,7 @@ class CheckoutManager implements ICheckoutManager
                 //checkout is finished
                 $this->finished = true;
             }
-            $env->setCustomItem(self::FINISHED . "_" . $this->cart->getId(), $this->finished);
+            $env->setCustomItem(self::FINISHED . '_' . $this->cart->getId(), $this->finished);
 
             $this->cart->save();
             $env->save();

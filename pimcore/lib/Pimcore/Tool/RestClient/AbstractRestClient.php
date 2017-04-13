@@ -156,7 +156,7 @@ abstract class AbstractRestClient implements LoggerAwareInterface
      */
     public function setValue($key, $value)
     {
-        $method = "set" . $key;
+        $method = 'set' . $key;
         if (method_exists($this, $method)) {
             $this->$method($value);
         } else {
@@ -515,7 +515,7 @@ abstract class AbstractRestClient implements LoggerAwareInterface
 
         $result = [];
         foreach ($response as $item) {
-            $wsDocument = $this->fillWebserviceData("\\Pimcore\\Model\\Webservice\\Data\\Object\\Listing\\Item", $item);
+            $wsDocument = $this->fillWebserviceData('\\Pimcore\\Model\\Webservice\\Data\\Object\\Listing\\Item', $item);
             if (!$decode) {
                 $result[] = $wsDocument;
             } else {
@@ -553,12 +553,12 @@ abstract class AbstractRestClient implements LoggerAwareInterface
 
         $result = [];
         foreach ($response as $item) {
-            $wsDocument = $this->fillWebserviceData("\\Pimcore\\Model\\Webservice\\Data\\Asset\\Listing\\Item", $item);
+            $wsDocument = $this->fillWebserviceData('\\Pimcore\\Model\\Webservice\\Data\\Asset\\Listing\\Item', $item);
             if (!$decode) {
                 $result[] = $wsDocument;
             } else {
                 $type  = $wsDocument->type;
-                $type  = "\\Pimcore\\Model\\Asset\\" . ucfirst($type);
+                $type  = '\\Pimcore\\Model\\Asset\\' . ucfirst($type);
                 $asset = new $type();
                 $wsDocument->reverseMap($asset);
                 $result[] = $asset;
@@ -593,15 +593,15 @@ abstract class AbstractRestClient implements LoggerAwareInterface
 
         $result = [];
         foreach ($response as $item) {
-            $wsDocument = $this->fillWebserviceData("\\Pimcore\\Model\\Webservice\\Data\\Document\\Listing\\Item", $item);
+            $wsDocument = $this->fillWebserviceData('\\Pimcore\\Model\\Webservice\\Data\\Document\\Listing\\Item', $item);
             if (!$decode) {
                 $result[] = $wsDocument;
             } else {
                 $type = $wsDocument->type;
-                $type = "\\Pimcore\\Model\\Document\\" . ucfirst($type);
+                $type = '\\Pimcore\\Model\\Document\\' . ucfirst($type);
 
                 if (!Tool::classExists($type)) {
-                    throw new Exception("Class " . $type . " does not exist");
+                    throw new Exception('Class ' . $type . ' does not exist');
                 }
 
                 $document = new $type();
@@ -643,21 +643,21 @@ abstract class AbstractRestClient implements LoggerAwareInterface
 
         $response = $response->data;
 
-        $wsDocument = $this->fillWebserviceData("\\Pimcore\\Model\\Webservice\\Data\\Object\\Concrete\\In", $response);
+        $wsDocument = $this->fillWebserviceData('\\Pimcore\\Model\\Webservice\\Data\\Object\\Concrete\\In', $response);
 
         if (!$decode) {
             return $wsDocument;
         }
 
-        if ($wsDocument->type == "folder") {
+        if ($wsDocument->type == 'folder') {
             $object = new Object\Folder();
             $wsDocument->reverseMap($object);
 
             return $object;
-        } elseif ($wsDocument->type == "object" || $wsDocument->type == "variant") {
-            $classname = "Pimcore\\Model\\Object\\" . ucfirst($wsDocument->className);
+        } elseif ($wsDocument->type == 'object' || $wsDocument->type == 'variant') {
+            $classname = 'Pimcore\\Model\\Object\\' . ucfirst($wsDocument->className);
 
-            $object = \Pimcore::getContainer()->get("pimcore.model.factory")->build($classname);
+            $object = \Pimcore::getContainer()->get('pimcore.model.factory')->build($classname);
 
             if ($object instanceof Object\Concrete) {
                 $curTime = microtime(true);
@@ -689,8 +689,8 @@ abstract class AbstractRestClient implements LoggerAwareInterface
         $response = $this->getJsonResponse('GET', sprintf('/document/id/%d', $id));
         $response = $response->data;
 
-        if ($response->type === "folder") {
-            $wsDocument = $this->fillWebserviceData("\\Pimcore\\Model\\Webservice\\Data\\Document\\Folder\\In", $response);
+        if ($response->type === 'folder') {
+            $wsDocument = $this->fillWebserviceData('\\Pimcore\\Model\\Webservice\\Data\\Document\\Folder\\In', $response);
             if (!$decode) {
                 return $wsDocument;
             }
@@ -700,7 +700,7 @@ abstract class AbstractRestClient implements LoggerAwareInterface
             return $doc;
         } else {
             $type  = ucfirst($response->type);
-            $class = "\\Pimcore\\Model\\Webservice\\Data\\Document\\" . $type . "\\In";
+            $class = '\\Pimcore\\Model\\Webservice\\Data\\Document\\' . $type . '\\In';
 
             $wsDocument = $this->fillWebserviceData($class, $response);
             if (!$decode) {
@@ -708,7 +708,7 @@ abstract class AbstractRestClient implements LoggerAwareInterface
             }
 
             if (!empty($type)) {
-                $type     = "\\Pimcore\\Model\\Document\\" . ucfirst($wsDocument->type);
+                $type     = '\\Pimcore\\Model\\Document\\' . ucfirst($wsDocument->type);
                 $document = new $type();
                 $wsDocument->reverseMap($document, $this->getDisableMappingExceptions(), $idMapper);
 
@@ -732,7 +732,7 @@ abstract class AbstractRestClient implements LoggerAwareInterface
      *
      * @throws Exception
      */
-    public function getAssetById($id, $decode = true, $idMapper = null, $light = false, $thumbnail = null, $tolerant = false, $protocol = "http://")
+    public function getAssetById($id, $decode = true, $idMapper = null, $light = false, $thumbnail = null, $tolerant = false, $protocol = 'http://')
     {
         $params = [];
         if ($light) {
@@ -742,8 +742,8 @@ abstract class AbstractRestClient implements LoggerAwareInterface
         $response = $this->getJsonResponse('GET', sprintf('/asset/id/%d', $id), $params);
         $response = $response->data;
 
-        if ($response->type === "folder") {
-            $wsDocument = $this->fillWebserviceData("\\Pimcore\\Model\\Webservice\\Data\\Asset\\Folder\\In", $response);
+        if ($response->type === 'folder') {
+            $wsDocument = $this->fillWebserviceData('\\Pimcore\\Model\\Webservice\\Data\\Asset\\Folder\\In', $response);
             if (!$decode) {
                 return $wsDocument;
             }
@@ -752,16 +752,16 @@ abstract class AbstractRestClient implements LoggerAwareInterface
 
             return $asset;
         } else {
-            $wsDocument = $this->fillWebserviceData("\\Pimcore\\Model\\Webservice\\Data\\Asset\\File\\In", $response);
+            $wsDocument = $this->fillWebserviceData('\\Pimcore\\Model\\Webservice\\Data\\Asset\\File\\In', $response);
             if (!$decode) {
                 return $wsDocument;
             }
 
             $type = $wsDocument->type;
             if (!empty($type)) {
-                $type = "\\Pimcore\\Model\\Asset\\" . ucfirst($type);
+                $type = '\\Pimcore\\Model\\Asset\\' . ucfirst($type);
                 if (!Tool::classExists($type)) {
-                    throw new Exception("Asset class " . $type . " does not exist");
+                    throw new Exception('Asset class ' . $type . ' does not exist');
                 }
 
                 /** @var Asset $asset */
@@ -770,58 +770,58 @@ abstract class AbstractRestClient implements LoggerAwareInterface
 
                 if ($light) {
                     $client = Tool::getHttpClient();
-                    $client->setMethod("GET");
+                    $client->setMethod('GET');
 
                     $assetType = $asset->getType();
                     $data      = null;
 
-                    if ($assetType == "image" && strlen($thumbnail) > 0) {
+                    if ($assetType == 'image' && strlen($thumbnail) > 0) {
                         // try to retrieve thumbnail first
                         // http://example.com/var/tmp/thumb_9__fancybox_thumb
-                        $tmpPath = preg_replace("@^" . preg_quote(PIMCORE_WEB_ROOT, "@") . "@", "", PIMCORE_TEMPORARY_DIRECTORY);
-                        $uri     = $protocol . $this->getHost() . $tmpPath . "/thumb_" . $asset->getId() . "__" . $thumbnail;
+                        $tmpPath = preg_replace('@^' . preg_quote(PIMCORE_WEB_ROOT, '@') . '@', '', PIMCORE_TEMPORARY_DIRECTORY);
+                        $uri     = $protocol . $this->getHost() . $tmpPath . '/thumb_' . $asset->getId() . '__' . $thumbnail;
                         $client->setUri($uri);
 
                         if ($this->getLoggingEnabled()) {
-                            print "    =>" . $uri . "\n";
+                            print '    =>' . $uri . "\n";
                         }
 
                         $result = $client->request();
                         if ($result->getStatus() == 200) {
                             $data = $result->getBody();
                         }
-                        $mimeType = $result->getHeader("Content-Type");
+                        $mimeType = $result->getHeader('Content-Type');
 
                         $filename = $asset->getFilename();
 
                         switch ($mimeType) {
-                            case "image/tiff":
-                                $filename = $this->changeExtension($filename, "tiff");
+                            case 'image/tiff':
+                                $filename = $this->changeExtension($filename, 'tiff');
                                 break;
-                            case "image/jpeg":
-                                $filename = $this->changeExtension($filename, "jpg");
+                            case 'image/jpeg':
+                                $filename = $this->changeExtension($filename, 'jpg');
                                 break;
-                            case "image/gif":
-                                $filename = $this->changeExtension($filename, "gif");
+                            case 'image/gif':
+                                $filename = $this->changeExtension($filename, 'gif');
                                 break;
-                            case "image/png":
-                                $filename = $this->changeExtension($filename, "png");
+                            case 'image/png':
+                                $filename = $this->changeExtension($filename, 'png');
                                 break;
 
                         }
 
-                        Logger::debug("mimeType: " . $mimeType);
+                        Logger::debug('mimeType: ' . $mimeType);
                         $asset->setFilename($filename);
                     }
 
                     if (!$data) {
                         $path     = $wsDocument->path;
                         $filename = $wsDocument->filename;
-                        $uri      = $protocol . $this->getHost() . "/var/assets" . $path . $filename;
+                        $uri      = $protocol . $this->getHost() . '/var/assets' . $path . $filename;
                         $client->setUri($uri);
                         $result = $client->request();
                         if ($result->getStatus() != 200 && !$tolerant) {
-                            throw new Exception("Could not retrieve asset");
+                            throw new Exception('Could not retrieve asset');
                         }
                         $data = $result->getBody();
                     }
@@ -844,9 +844,9 @@ abstract class AbstractRestClient implements LoggerAwareInterface
     {
         $type      = $document->getType();
         $typeUpper = ucfirst($type);
-        $className = "\\Pimcore\\Model\\Webservice\\Data\\Document\\" . $typeUpper . "\\In";
+        $className = '\\Pimcore\\Model\\Webservice\\Data\\Document\\' . $typeUpper . '\\In';
 
-        $wsDocument  = Webservice\Data\Mapper::map($document, $className, "out");
+        $wsDocument  = Webservice\Data\Mapper::map($document, $className, 'out');
         $encodedData = json_encode($wsDocument);
 
         $response = $this->getJsonResponse('POST', '/document', [], [], [], $encodedData);
@@ -863,13 +863,13 @@ abstract class AbstractRestClient implements LoggerAwareInterface
      */
     public function createObjectConcrete(Object\AbstractObject $object)
     {
-        if ($object->getType() === "folder") {
-            $documentType = "\\Pimcore\\Model\\Webservice\\Data\\Object\\Folder\\Out";
+        if ($object->getType() === 'folder') {
+            $documentType = '\\Pimcore\\Model\\Webservice\\Data\\Object\\Folder\\Out';
         } else {
-            $documentType = "\\Pimcore\\Model\\Webservice\\Data\\Object\\Concrete\\Out";
+            $documentType = '\\Pimcore\\Model\\Webservice\\Data\\Object\\Concrete\\Out';
         }
 
-        $wsDocument  = Webservice\Data\Mapper::map($object, $documentType, "out");
+        $wsDocument  = Webservice\Data\Mapper::map($object, $documentType, 'out');
         $encodedData = json_encode($wsDocument);
 
         $response = $this->getJsonResponse('POST', '/object', [], [], [], $encodedData);
@@ -887,13 +887,13 @@ abstract class AbstractRestClient implements LoggerAwareInterface
      */
     public function createAsset(Asset $asset)
     {
-        if ($asset->getType() === "folder") {
-            $documentType = "\\Pimcore\\Model\\Webservice\\Data\\Asset\\Folder\\Out";
+        if ($asset->getType() === 'folder') {
+            $documentType = '\\Pimcore\\Model\\Webservice\\Data\\Asset\\Folder\\Out';
         } else {
-            $documentType = "\\Pimcore\\Model\\Webservice\\Data\\Asset\\File\\Out";
+            $documentType = '\\Pimcore\\Model\\Webservice\\Data\\Asset\\File\\Out';
         }
 
-        $wsDocument  = Webservice\Data\Mapper::map($asset, $documentType, "out");
+        $wsDocument  = Webservice\Data\Mapper::map($asset, $documentType, 'out');
         $encodedData = json_encode($wsDocument);
 
         $response = $this->getJsonResponse('POST', '/asset', [], [], [], $encodedData);
@@ -996,7 +996,7 @@ abstract class AbstractRestClient implements LoggerAwareInterface
             return $response;
         }
 
-        $wsDocument = $this->fillWebserviceData("\\Pimcore\\Model\\Webservice\\Data\\ClassDefinition\\In", $responseData);
+        $wsDocument = $this->fillWebserviceData('\\Pimcore\\Model\\Webservice\\Data\\ClassDefinition\\In', $responseData);
 
         $class = new Object\ClassDefinition();
         $wsDocument->reverseMap($class);
@@ -1017,7 +1017,7 @@ abstract class AbstractRestClient implements LoggerAwareInterface
         $response = $this->getJsonResponse('GET', sprintf('/object-meta/id/%d', $id));
         $response = $response->data;
 
-        $wsDocument = $this->fillWebserviceData("\\Pimcore\\Model\\Webservice\\Data\\ClassDefinition\\In", $response);
+        $wsDocument = $this->fillWebserviceData('\\Pimcore\\Model\\Webservice\\Data\\ClassDefinition\\In', $response);
 
         if (!$decode) {
             return $wsDocument;
@@ -1044,11 +1044,11 @@ abstract class AbstractRestClient implements LoggerAwareInterface
         $response = $this->getJsonResponse('GET', '/asset-count', $params);
         $response = (array)$response;
 
-        if (!$response || !$response["success"]) {
-            throw new Exception("Could not retrieve asset count");
+        if (!$response || !$response['success']) {
+            throw new Exception('Could not retrieve asset count');
         }
 
-        return $response["data"]->totalCount;
+        return $response['data']->totalCount;
     }
 
     /**
@@ -1066,11 +1066,11 @@ abstract class AbstractRestClient implements LoggerAwareInterface
         $response = $this->getJsonResponse('GET', '/document-count', $params);
         $response = (array)$response;
 
-        if (!$response || !$response["success"]) {
-            throw new Exception("Could not retrieve document count");
+        if (!$response || !$response['success']) {
+            throw new Exception('Could not retrieve document count');
         }
 
-        return $response["data"]->totalCount;
+        return $response['data']->totalCount;
     }
 
     /**
@@ -1089,11 +1089,11 @@ abstract class AbstractRestClient implements LoggerAwareInterface
         $response = $this->getJsonResponse('GET', '/object-count', $params);
         $response = (array)$response;
 
-        if (!$response || !$response["success"]) {
-            throw new Exception("Could not retrieve object count");
+        if (!$response || !$response['success']) {
+            throw new Exception('Could not retrieve object count');
         }
 
-        return $response["data"]->totalCount;
+        return $response['data']->totalCount;
     }
 
     /**
@@ -1104,7 +1104,7 @@ abstract class AbstractRestClient implements LoggerAwareInterface
     public function getUser()
     {
         $response = $this->getJsonResponse('GET', '/user');
-        $response = ["success" => true, "data" => $response->data];
+        $response = ['success' => true, 'data' => $response->data];
 
         return $response;
     }
@@ -1238,7 +1238,7 @@ abstract class AbstractRestClient implements LoggerAwareInterface
     private function map($wsData, $data)
     {
         if (!($data instanceof \stdClass)) {
-            throw new Exception("Ws data format error");
+            throw new Exception('Ws data format error');
         }
 
         foreach ($data as $key => $value) {
@@ -1272,10 +1272,10 @@ abstract class AbstractRestClient implements LoggerAwareInterface
      */
     private function fillWebserviceData($class, $data)
     {
-        $class = "\\" . ltrim($class, "\\"); // add global namespace
+        $class = '\\' . ltrim($class, '\\'); // add global namespace
 
         if (!Tool::classExists($class)) {
-            throw new Exception("cannot fill web service data " . $class);
+            throw new Exception('cannot fill web service data ' . $class);
         }
 
         $wsData = new $class();
@@ -1291,9 +1291,9 @@ abstract class AbstractRestClient implements LoggerAwareInterface
      */
     private function changeExtension($filename, $extension)
     {
-        $idx = strrpos($filename, ".");
+        $idx = strrpos($filename, '.');
         if ($idx >= 0) {
-            $filename = substr($filename, 0, $idx) . "." . $extension;
+            $filename = substr($filename, 0, $idx) . '.' . $extension;
         }
 
         return $filename;

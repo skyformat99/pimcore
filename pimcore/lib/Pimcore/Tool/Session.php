@@ -53,7 +53,7 @@ class Session
      *
      * @return mixed
      */
-    public static function useSession($func, $namespace = "pimcore_admin")
+    public static function useSession($func, $namespace = 'pimcore_admin')
     {
         return static::getHandler()->useSessionAttributeBag($func, $namespace);
     }
@@ -119,7 +119,7 @@ class Session
      *
      * @return AttributeBagInterface
      */
-    public static function get($namespace = "pimcore_admin")
+    public static function get($namespace = 'pimcore_admin')
     {
         return static::getHandler()->loadAttributeBag($namespace);
     }
@@ -129,7 +129,7 @@ class Session
      *
      * @return AttributeBagInterface
      */
-    public static function getReadOnly($namespace = "pimcore_admin")
+    public static function getReadOnly($namespace = 'pimcore_admin')
     {
         return static::getHandler()->getReadOnlyAttributeBag($namespace);
     }

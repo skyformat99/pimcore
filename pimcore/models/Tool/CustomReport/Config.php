@@ -27,12 +27,12 @@ class Config extends Model\AbstractModel
     /**
      * @var string
      */
-    public $name = "";
+    public $name = '';
 
     /**
      * @var string
      */
-    public $sql = "";
+    public $sql = '';
 
     /**
      * @var string[]
@@ -47,22 +47,22 @@ class Config extends Model\AbstractModel
     /**
      * @var string
      */
-    public $niceName = "";
+    public $niceName = '';
 
     /**
      * @var string
      */
-    public $group = "";
+    public $group = '';
 
     /**
      * @var string
      */
-    public $groupIconClass = "";
+    public $groupIconClass = '';
 
     /**
      * @var string
      */
-    public $iconClass = "";
+    public $iconClass = '';
 
     /**
      * @var bool
@@ -138,8 +138,8 @@ class Config extends Model\AbstractModel
 
         foreach ($items as $item) {
             $reports[] = [
-                "id" => $item->getName(),
-                "text" => $item->getName()
+                'id' => $item->getName(),
+                'text' => $item->getName()
             ];
         }
 

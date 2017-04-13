@@ -29,5 +29,5 @@ class Snippet extends Model\Document\PageSnippet
      *
      * @var string
      */
-    public $type = "snippet";
+    public $type = 'snippet';
 }

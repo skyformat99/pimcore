@@ -33,25 +33,25 @@ class Dao extends Model\Dao\AbstractDao
     {
         $tableName = $this->model->getDefinition()->getTableName($object->getClass());
         $data = [
-            "o_id" => $object->getId(),
-            "index" => $this->model->getIndex(),
-            "fieldname" => $this->model->getFieldname()
+            'o_id' => $object->getId(),
+            'index' => $this->model->getIndex(),
+            'fieldname' => $this->model->getFieldname()
         ];
 
         try {
             foreach ($this->model->getDefinition()->getFieldDefinitions() as $fd) {
-                $getter = "get" . ucfirst($fd->getName());
+                $getter = 'get' . ucfirst($fd->getName());
 
-                if (method_exists($fd, "save")) {
+                if (method_exists($fd, 'save')) {
                     // for fieldtypes which have their own save algorithm eg. objects, multihref, ...
                     $index = $this->model->getIndex();
                     $fd->save($this->model,
                         [
-                            "context" => [
-                                "containerType" => "fieldcollection",
-                                "containerKey" => $this->model->getType(),
-                                "fieldname" =>  $this->model->getFieldname(),
-                                "index" => $index
+                            'context' => [
+                                'containerType' => 'fieldcollection',
+                                'containerKey' => $this->model->getType(),
+                                'fieldname' =>  $this->model->getFieldname(),
+                                'index' => $index
                             ]
                         ]
                     );

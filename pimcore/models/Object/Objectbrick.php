@@ -126,7 +126,7 @@ class Objectbrick extends Model\AbstractModel
     {
         $getters = [];
         foreach ($this->brickGetters as $bg) {
-            $getters[] = "get" . ucfirst($bg);
+            $getters[] = 'get' . ucfirst($bg);
         }
 
         return $getters;
@@ -170,7 +170,7 @@ class Objectbrick extends Model\AbstractModel
                 if ($brick->getDoDelete()) {
                     $brick->delete($object);
 
-                    $setter = "s" . substr($getter, 1);
+                    $setter = 's' . substr($getter, 1);
                     $this->$setter(null);
 
                     //check if parent object has brick, and if so, create an empty brick to enable inheritance
@@ -186,7 +186,7 @@ class Objectbrick extends Model\AbstractModel
                     AbstractObject::setGetInheritedValues($inheritanceModeBackup);
 
                     if (!empty($parentBrick)) {
-                        $brickType = "\\Pimcore\\Model\\Object\\Objectbrick\\Data\\" . ucfirst($parentBrick->getType());
+                        $brickType = '\\Pimcore\\Model\\Object\\Objectbrick\\Data\\' . ucfirst($parentBrick->getType());
                         $brick = new $brickType($object);
                         $brick->setFieldname($this->getFieldname());
                         $brick->save($object);
@@ -210,7 +210,7 @@ class Objectbrick extends Model\AbstractModel
                     AbstractObject::setGetInheritedValues($inheritanceModeBackup);
 
                     if (!empty($parentBrick)) {
-                        $brickType = "\\Pimcore\\Model\\Object\\Objectbrick\\Data\\" . ucfirst($parentBrick->getType());
+                        $brickType = '\\Pimcore\\Model\\Object\\Objectbrick\\Data\\' . ucfirst($parentBrick->getType());
                         $brick = new $brickType($object);
                         $brick->setFieldname($this->getFieldname());
                         $brick->save($object);

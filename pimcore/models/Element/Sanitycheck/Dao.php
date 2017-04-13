@@ -36,13 +36,13 @@ class Dao extends Model\Dao\AbstractDao
         $sanityCheck = get_object_vars($this->model);
 
         foreach ($sanityCheck as $key => $value) {
-            if (in_array($key, $this->getValidTableColumns("sanitycheck"))) {
+            if (in_array($key, $this->getValidTableColumns('sanitycheck'))) {
                 $data[$key] = $value;
             }
         }
 
         try {
-            $this->db->insertOrUpdate("sanitycheck", $data);
+            $this->db->insertOrUpdate('sanitycheck', $data);
         } catch (\Exception $e) {
             //probably duplicate
         }
@@ -55,12 +55,12 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function delete()
     {
-        $this->db->delete("sanitycheck", ["id" => $this->model->getId(), "type" => $this->model->getType()]);
+        $this->db->delete('sanitycheck', ['id' => $this->model->getId(), 'type' => $this->model->getType()]);
     }
 
     public function getNext()
     {
-        $data = $this->db->fetchRow("SELECT * FROM sanitycheck LIMIT 1");
+        $data = $this->db->fetchRow('SELECT * FROM sanitycheck LIMIT 1');
         if (is_array($data)) {
             $this->assignVariablesToModel($data);
         }

@@ -146,11 +146,11 @@ class DefaultFindologic implements IProductList
         $this->tenantConfig = $tenantConfig;
 
         // init logger
-        $this->logger = \Pimcore::getContainer()->get("monolog.logger.pimcore_ecommerce_findologic");
+        $this->logger = \Pimcore::getContainer()->get('monolog.logger.pimcore_ecommerce_findologic');
 
         // set defaults for required params
-        $this->userIp = $_SERVER['HTTP_X_FORWARDED_FOR'] ?: $_SERVER["REMOTE_ADDR"];
-        $this->referer = $_SERVER["HTTP_REFERER"];
+        $this->userIp = $_SERVER['HTTP_X_FORWARDED_FOR'] ?: $_SERVER['REMOTE_ADDR'];
+        $this->referer = $_SERVER['HTTP_REFERER'];
     }
 
     /**
@@ -194,7 +194,7 @@ class DefaultFindologic implements IProductList
      * @param $condition
      * @param string $fieldname
      */
-    public function addQueryCondition($condition, $fieldname = "")
+    public function addQueryCondition($condition, $fieldname = '')
     {
         $this->products = null;
         $this->queryConditions[$fieldname][] = $condition;
@@ -761,7 +761,7 @@ class DefaultFindologic implements IProductList
 
         // start request
         $start = microtime(true);
-        $client = \Pimcore::getContainer()->get("pimcore.http_client");
+        $client = \Pimcore::getContainer()->get('pimcore.http_client');
         $response = $client->request('GET', $url, [
             'timeout' => $this->timeout
         ]);

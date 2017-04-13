@@ -248,10 +248,10 @@ class TrackingManager implements ITrackingManager
      */
     public function trackCheckoutComplete(AbstractOrder $order)
     {
-        if (!$order->getProperty("os_tracked")) {
+        if (!$order->getProperty('os_tracked')) {
 
             //add property to order object in order to prevent multiple checkout complete tracking
-            $order->setProperty("os_tracked", "bool", true);
+            $order->setProperty('os_tracked', 'bool', true);
             $order->save();
 
             $this->ensureDependencies();

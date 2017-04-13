@@ -13,7 +13,7 @@
  */
 $workingDirectory = getcwd();
 chdir(__DIR__);
-include_once("../../../pimcore/cli/startup.php");
+include_once('../../../pimcore/cli/startup.php');
 chdir($workingDirectory);
 
 \Pimcore\Bundle\EcommerceFrameworkBundle\IndexService\Tool\IndexUpdater::processUpdateIndexQueue();

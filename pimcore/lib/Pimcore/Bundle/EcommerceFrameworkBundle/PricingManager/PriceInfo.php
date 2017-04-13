@@ -103,7 +103,7 @@ class PriceInfo implements IPriceInfo
      */
     protected function environmentHashChanged()
     {
-        $hash = $this->getEnvironment() ? $this->getEnvironment()->getHash() : "";
+        $hash = $this->getEnvironment() ? $this->getEnvironment()->getHash() : '';
         if ($this->priceEnvironmentHash != $hash) {
             $this->validRules = null;
 

@@ -32,10 +32,10 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function getByElement($cid, $ctype)
     {
-        $data = $this->db->fetchRow("SELECT * FROM edit_lock WHERE cid = ? AND ctype = ?", [$cid, $ctype]);
+        $data = $this->db->fetchRow('SELECT * FROM edit_lock WHERE cid = ? AND ctype = ?', [$cid, $ctype]);
 
-        if (!$data["id"]) {
-            throw new \Exception("Lock with cid " . $cid . " and ctype " . $ctype . " not found");
+        if (!$data['id']) {
+            throw new \Exception('Lock with cid ' . $cid . ' and ctype ' . $ctype . ' not found');
         }
 
         $this->assignVariablesToModel($data);
@@ -59,13 +59,13 @@ class Dao extends Model\Dao\AbstractDao
         $version = get_object_vars($this->model);
 
         foreach ($version as $key => $value) {
-            if (in_array($key, $this->getValidTableColumns("edit_lock"))) {
+            if (in_array($key, $this->getValidTableColumns('edit_lock'))) {
                 $data[$key] = $value;
             }
         }
 
         //var_dump($data);exit;
-        $this->db->insertOrUpdate("edit_lock", $data);
+        $this->db->insertOrUpdate('edit_lock', $data);
 
         $lastInsertId = $this->db->lastInsertId();
         if (!$this->model->getId() && $lastInsertId) {
@@ -80,7 +80,7 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function delete()
     {
-        $this->db->delete("edit_lock", ["id" => $this->model->getId()]);
+        $this->db->delete('edit_lock', ['id' => $this->model->getId()]);
     }
 
     /**
@@ -88,6 +88,6 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function clearSession($sessionId)
     {
-        $this->db->delete("edit_lock", ["sessionId" => $sessionId]);
+        $this->db->delete('edit_lock', ['sessionId' => $sessionId]);
     }
 }

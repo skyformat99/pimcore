@@ -38,12 +38,12 @@ class Dao extends Model\Listing\Dao\AbstractDao
     {
         $assets = [];
 
-        $select = $this->getQuery(['id', "type"]);
+        $select = $this->getQuery(['id', 'type']);
         $assetsData = $this->db->fetchAll($select, $this->model->getConditionVariables());
 
         foreach ($assetsData as $assetData) {
-            if ($assetData["type"]) {
-                if ($asset = Model\Asset::getById($assetData["id"])) {
+            if ($assetData['type']) {
+                if ($asset = Model\Asset::getById($assetData['id'])) {
                     $assets[] = $asset;
                 }
             }
@@ -63,7 +63,7 @@ class Dao extends Model\Listing\Dao\AbstractDao
     {
         $select = $this->db->select();
         $select->from(
-            [ "assets" ], $columns
+            [ 'assets' ], $columns
         );
         $this->addConditions($select);
         $this->addOrder($select);
@@ -85,7 +85,7 @@ class Dao extends Model\Listing\Dao\AbstractDao
      */
     public function loadIdList()
     {
-        $select = $this->getQuery(['id', "type"]);
+        $select = $this->getQuery(['id', 'type']);
         $assetIds = $this->db->fetchCol($select, $this->model->getConditionVariables());
 
         return $assetIds;

@@ -22,8 +22,8 @@ use Pimcore\Bundle\EcommerceFrameworkBundle\PriceSystem\TaxManagement\TaxEntry;
  */
 interface IPrice
 {
-    const PRICE_MODE_NET = "net";
-    const PRICE_MODE_GROSS = "gross";
+    const PRICE_MODE_NET = 'net';
+    const PRICE_MODE_GROSS = 'gross';
 
     /**
      * Returns $grossAmount

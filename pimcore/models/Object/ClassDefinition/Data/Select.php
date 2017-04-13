@@ -27,7 +27,7 @@ class Select extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $fieldtype = "select";
+    public $fieldtype = 'select';
 
     /**
      * Available options to select
@@ -51,21 +51,21 @@ class Select extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $queryColumnType = "varchar(190)";
+    public $queryColumnType = 'varchar(190)';
 
     /**
      * Type for the column
      *
      * @var string
      */
-    public $columnType = "varchar(190)";
+    public $columnType = 'varchar(190)';
 
     /**
      * Type for the generated phpdoc
      *
      * @var string
      */
-    public $phpdocType = "string";
+    public $phpdocType = 'string';
 
     /**
      * @return array
@@ -214,13 +214,13 @@ class Select extends Model\Object\ClassDefinition\Data
         $result = [];
 
         $diffdata = [];
-        $diffdata["data"] = $data;
-        $diffdata["disabled"] = false;
-        $diffdata["field"] = $this->getName();
-        $diffdata["key"] = $this->getName();
-        $diffdata["type"] = $this->fieldtype;
+        $diffdata['data'] = $data;
+        $diffdata['disabled'] = false;
+        $diffdata['field'] = $this->getName();
+        $diffdata['key'] = $this->getName();
+        $diffdata['type'] = $this->fieldtype;
 
-        $value = "";
+        $value = '';
         foreach ($this->options as $option) {
             if ($option->value == $data) {
                 $value = $option->key;
@@ -228,8 +228,8 @@ class Select extends Model\Object\ClassDefinition\Data
             }
         }
 
-        $diffdata["value"] = $value;
-        $diffdata["title"] = !empty($this->title) ? $this->title : $this->name;
+        $diffdata['value'] = $value;
+        $diffdata['title'] = !empty($this->title) ? $this->title : $this->name;
 
         $result[] = $diffdata;
 
@@ -247,7 +247,7 @@ class Select extends Model\Object\ClassDefinition\Data
     public function checkValidity($data, $omitMandatoryCheck = false)
     {
         if (!$omitMandatoryCheck && $this->getMandatory() && $this->isEmpty($data)) {
-            throw new Model\Element\ValidationException("Empty mandatory field [ " . $this->getName() . " ]");
+            throw new Model\Element\ValidationException('Empty mandatory field [ ' . $this->getName() . ' ]');
         }
     }
 

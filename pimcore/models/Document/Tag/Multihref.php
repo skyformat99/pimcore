@@ -45,7 +45,7 @@ class Multihref extends Model\Document\Tag implements \Iterator
      */
     public function getType()
     {
-        return "multihref";
+        return 'multihref';
     }
 
     /**
@@ -56,7 +56,7 @@ class Multihref extends Model\Document\Tag implements \Iterator
         if (empty($this->elements)) {
             $this->elements = [];
             foreach ($this->elementIds as $elementId) {
-                $el = Element\Service::getElementById($elementId["type"], $elementId["id"]);
+                $el = Element\Service::getElementById($elementId['type'], $elementId['id']);
                 if ($el instanceof Element\ElementInterface) {
                     $this->elements[] = $el;
                 }
@@ -99,13 +99,13 @@ class Multihref extends Model\Document\Tag implements \Iterator
         if (is_array($this->elements) && count($this->elements) > 0) {
             foreach ($this->elements as $element) {
                 if ($element instanceof Object\Concrete) {
-                    $return[] = [$element->getId(), $element->getRealFullPath(), "object", $element->getClassName()];
+                    $return[] = [$element->getId(), $element->getRealFullPath(), 'object', $element->getClassName()];
                 } elseif ($element instanceof Object\AbstractObject) {
-                    $return[] = [$element->getId(), $element->getRealFullPath(), "object", "folder"];
+                    $return[] = [$element->getId(), $element->getRealFullPath(), 'object', 'folder'];
                 } elseif ($element instanceof Asset) {
-                    $return[] = [$element->getId(), $element->getRealFullPath(), "asset", $element->getType()];
+                    $return[] = [$element->getId(), $element->getRealFullPath(), 'asset', $element->getType()];
                 } elseif ($element instanceof Document) {
-                    $return[] = [$element->getId(), $element->getRealFullPath(), "document", $element->getType()];
+                    $return[] = [$element->getId(), $element->getRealFullPath(), 'document', $element->getType()];
                 }
             }
         }
@@ -121,10 +121,10 @@ class Multihref extends Model\Document\Tag implements \Iterator
     public function frontend()
     {
         $this->setElements();
-        $return = "";
+        $return = '';
 
         foreach ($this->getElements() as $element) {
-            $return .= Element\Service::getElementType($element) . ": " . $element->getFullPath() . "<br />";
+            $return .= Element\Service::getElementType($element) . ': ' . $element->getFullPath() . '<br />';
         }
 
         return $return;
@@ -210,11 +210,11 @@ class Multihref extends Model\Document\Tag implements \Iterator
             foreach ($this->elements as $element) {
                 if ($element instanceof Element\ElementInterface) {
                     $elementType = Element\Service::getElementType($element);
-                    $key = $elementType . "_" . $element->getId();
+                    $key = $elementType . '_' . $element->getId();
 
                     $dependencies[$key] = [
-                        "id" => $element->getId(),
-                        "type" => $elementType
+                        'id' => $element->getId(),
+                        'type' => $elementType
                     ];
                 }
             }
@@ -242,11 +242,11 @@ class Multihref extends Model\Document\Tag implements \Iterator
         $this->elements = [];
 
         foreach ($this->elementIds as &$elementId) {
-            $type = $elementId["type"];
-            $id = $elementId["id"];
+            $type = $elementId['type'];
+            $id = $elementId['id'];
 
             if (array_key_exists($type, $idMapping) and array_key_exists((int) $id, $idMapping[$type])) {
-                $elementId["id"] = $idMapping[$type][$id];
+                $elementId['id'] = $idMapping[$type][$id];
             }
         }
 
@@ -274,7 +274,7 @@ class Multihref extends Model\Document\Tag implements \Iterator
     {
         $finalVars = [];
         $parentVars = parent::__sleep();
-        $blockedVars = ["elements"];
+        $blockedVars = ['elements'];
         foreach ($parentVars as $key) {
             if (!in_array($key, $blockedVars)) {
                 $finalVars[] = $key;

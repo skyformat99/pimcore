@@ -29,12 +29,12 @@ class Printcontainer extends Document\PrintAbstract
      *
      * @var string
      */
-    public $type = "printcontainer";
+    public $type = 'printcontainer';
 
     /**
      * @var string
      */
-    public $action = "container";
+    public $action = 'container';
 
     /**
      * @var
@@ -47,16 +47,16 @@ class Printcontainer extends Document\PrintAbstract
     public function getTreeNodeConfig()
     {
         $tmpDocument = [];
-        $tmpDocument["leaf"] = false;
-        $tmpDocument["expanded"] = $this->hasNoChilds();
-        $tmpDocument["iconCls"] = "pimcore_icon_printcontainer";
-        $tmpDocument["permissions"] = [
-            "view" => $this->isAllowed("view"),
-            "remove" => $this->isAllowed("delete"),
-            "settings" => $this->isAllowed("settings"),
-            "rename" => $this->isAllowed("rename"),
-            "publish" => $this->isAllowed("publish"),
-            "create" => $this->isAllowed("create")
+        $tmpDocument['leaf'] = false;
+        $tmpDocument['expanded'] = $this->hasNoChilds();
+        $tmpDocument['iconCls'] = 'pimcore_icon_printcontainer';
+        $tmpDocument['permissions'] = [
+            'view' => $this->isAllowed('view'),
+            'remove' => $this->isAllowed('delete'),
+            'settings' => $this->isAllowed('settings'),
+            'rename' => $this->isAllowed('rename'),
+            'publish' => $this->isAllowed('publish'),
+            'create' => $this->isAllowed('create')
         ];
 
         return $tmpDocument;

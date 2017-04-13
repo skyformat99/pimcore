@@ -205,10 +205,10 @@ abstract class Adapter
      *
      * @return self
      */
-    public function cover($width, $height, $orientation = "center", $forceResize = false)
+    public function cover($width, $height, $orientation = 'center', $forceResize = false)
     {
         if (empty($orientation)) {
-            $orientation = "center"; // if not set (from GUI for instance) - default value in getByLegacyConfig method of Config object too
+            $orientation = 'center'; // if not set (from GUI for instance) - default value in getByLegacyConfig method of Config object too
         }
         $ratio = $this->getWidth() / $this->getHeight();
 
@@ -218,31 +218,31 @@ abstract class Adapter
             $this->scaleByHeight($height, $forceResize);
         }
 
-        if ($orientation == "center") {
+        if ($orientation == 'center') {
             $cropX = ($this->getWidth() - $width) / 2;
             $cropY = ($this->getHeight() - $height) / 2;
-        } elseif ($orientation == "topleft") {
+        } elseif ($orientation == 'topleft') {
             $cropX = 0;
             $cropY = 0;
-        } elseif ($orientation == "topright") {
+        } elseif ($orientation == 'topright') {
             $cropX = $this->getWidth() - $width;
             $cropY = 0;
-        } elseif ($orientation == "bottomleft") {
+        } elseif ($orientation == 'bottomleft') {
             $cropX = 0;
             $cropY = $this->getHeight() - $height;
-        } elseif ($orientation == "bottomright") {
+        } elseif ($orientation == 'bottomright') {
             $cropX = $this->getWidth() - $width;
             $cropY = $this->getHeight() - $height;
-        } elseif ($orientation == "centerleft") {
+        } elseif ($orientation == 'centerleft') {
             $cropX = 0;
             $cropY = ($this->getHeight() - $height) / 2;
-        } elseif ($orientation == "centerright") {
+        } elseif ($orientation == 'centerright') {
             $cropX = $this->getWidth() - $width;
             $cropY = ($this->getHeight() - $height) / 2;
-        } elseif ($orientation == "topcenter") {
+        } elseif ($orientation == 'topcenter') {
             $cropX = ($this->getWidth() - $width) / 2;
             $cropY = 0;
-        } elseif ($orientation == "bottomcenter") {
+        } elseif ($orientation == 'bottomcenter') {
             $cropX = ($this->getWidth() - $width) / 2;
             $cropY = $this->getHeight() - $height;
         } else {
@@ -253,7 +253,7 @@ abstract class Adapter
         if ($cropX !== null && $cropY !== null) {
             $this->crop($cropX, $cropY, $width, $height);
         } else {
-            Logger::error("Cropping not processed, because X or Y is not defined or null, proceeding with next step");
+            Logger::error('Cropping not processed, because X or Y is not defined or null, proceeding with next step');
         }
 
         return $this;
@@ -345,7 +345,7 @@ abstract class Adapter
      *
      * @return self
      */
-    public function addOverlay($image, $x = 0, $y = 0, $alpha = 100, $composite = "COMPOSITE_DEFAULT", $origin = 'top-left')
+    public function addOverlay($image, $x = 0, $y = 0, $alpha = 100, $composite = 'COMPOSITE_DEFAULT', $origin = 'top-left')
     {
         return $this;
     }
@@ -356,7 +356,7 @@ abstract class Adapter
      *
      * @return $this
      */
-    public function addOverlayFit($image, $composite = "COMPOSITE_DEFAULT")
+    public function addOverlayFit($image, $composite = 'COMPOSITE_DEFAULT')
     {
         return $this;
     }
@@ -384,7 +384,7 @@ abstract class Adapter
         if ($this->isVectorGraphic()) {
             // rasterize before cropping
             $dimensions = $this->getVectorRasterDimensions();
-            $this->resize($dimensions["width"], $dimensions["height"]);
+            $this->resize($dimensions['width'], $dimensions['height']);
         }
 
         $originalWidth = $this->getWidth();
@@ -493,12 +493,12 @@ abstract class Adapter
 
     protected function reinitializeImage()
     {
-        $tmpFile = PIMCORE_SYSTEM_TEMP_DIRECTORY . "/" . uniqid() . "_pimcore_image_tmp_file.png";
+        $tmpFile = PIMCORE_SYSTEM_TEMP_DIRECTORY . '/' . uniqid() . '_pimcore_image_tmp_file.png';
         $this->tmpFiles[] = $tmpFile;
 
-        $format = "png32";
+        $format = 'png32';
         if ($this->isPreserveColor() || $this->isPreserveMetaData()) {
-            $format = "original";
+            $format = 'original';
         }
 
         $this->reinitializing = true;
@@ -533,8 +533,8 @@ abstract class Adapter
         $factor = $targetWidth / $this->getWidth();
 
         return [
-            "width" => $this->getWidth() * $factor,
-            "height" => $this->getHeight() * $factor
+            'width' => $this->getWidth() * $factor,
+            'height' => $this->getHeight() * $factor
         ];
     }
 
@@ -543,7 +543,7 @@ abstract class Adapter
      *
      * @return $this
      */
-    public function setColorspace($type = "RGB")
+    public function setColorspace($type = 'RGB')
     {
         return $this;
     }

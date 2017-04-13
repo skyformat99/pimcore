@@ -355,7 +355,7 @@ class Agent implements IOrderAgent
         // and set current payment information to null (so a new one is created)
         if ($currentPaymentInformation && $currentPaymentInformation->getInternalPaymentId() != $currentInternalPaymentId) {
             $currentPaymentInformation->setPaymentState($order::ORDER_STATE_ABORTED);
-            $currentPaymentInformation->setMessage($currentPaymentInformation->getMessage() . " - cancelled due to change of order fingerprint");
+            $currentPaymentInformation->setMessage($currentPaymentInformation->getMessage() . ' - cancelled due to change of order fingerprint');
 
             $currentPaymentInformation = null;
         }
@@ -390,7 +390,7 @@ class Agent implements IOrderAgent
             $paymentInfoCount = $order->getPaymentInfo() ? $order->getPaymentInfo()->getCount() : 0;
         }
 
-        return "payment_" . $this->getFingerprintOfOrder() . "-" . $paymentInfoCount . "~" . $order->getId();
+        return 'payment_' . $this->getFingerprintOfOrder() . '-' . $paymentInfoCount . '~' . $order->getId();
     }
 
     /**
@@ -416,7 +416,7 @@ class Agent implements IOrderAgent
             $fingerprintParts[] = $item->getAmount();
         }
 
-        return crc32(strtolower(implode(".", $fingerprintParts)));
+        return crc32(strtolower(implode('.', $fingerprintParts)));
     }
 
     /**
@@ -436,7 +436,7 @@ class Agent implements IOrderAgent
             $order->setOrderState(null);
             $order->save();
         } else {
-            throw new \Pimcore\Bundle\EcommerceFrameworkBundle\Exception\UnsupportedException("Cancel started order payment not possible");
+            throw new \Pimcore\Bundle\EcommerceFrameworkBundle\Exception\UnsupportedException('Cancel started order payment not possible');
         }
 
         return $order;
@@ -453,7 +453,7 @@ class Agent implements IOrderAgent
     public function updatePayment(\Pimcore\Bundle\EcommerceFrameworkBundle\PaymentManager\IStatus $status)
     {
         //log this for documentation
-        \Pimcore\Log\Simple::log("update-payment", "Update payment called with status: " . print_r($status, true));
+        \Pimcore\Log\Simple::log('update-payment', 'Update payment called with status: ' . print_r($status, true));
 
         $order = $this->getOrder();
         $currentOrderFingerPrint = null;
@@ -475,7 +475,7 @@ class Agent implements IOrderAgent
         }
 
         if (empty($currentPaymentInformation)) {
-            Logger::warn("Payment information with id " . $status->getInternalPaymentId() . " not found, creating new one.");
+            Logger::warn('Payment information with id ' . $status->getInternalPaymentId() . ' not found, creating new one.');
 
             //if payment information not found, create a new in order to document all payment updates
             $currentPaymentInformation = new PaymentInfo();
@@ -487,7 +487,7 @@ class Agent implements IOrderAgent
         $currentPaymentInformation->setPaymentFinish(new \DateTime());
         $currentPaymentInformation->setPaymentReference($status->getPaymentReference());
         $currentPaymentInformation->setPaymentState($status->getStatus());
-        $currentPaymentInformation->setMessage($currentPaymentInformation->getMessage() . " " . $status->getMessage());
+        $currentPaymentInformation->setMessage($currentPaymentInformation->getMessage() . ' ' . $status->getMessage());
         $currentPaymentInformation->setProviderData(json_encode($status->getData()));
 
         // opt. save additional payment data separately
@@ -503,10 +503,10 @@ class Agent implements IOrderAgent
         // check, if order finger print has changed since start payment - if so, throw exception because something wired is going on
         // but finish update order first in order to have logging information
         if ($currentOrderFingerPrint != $status->getInternalPaymentId()) {
-            $currentPaymentInformation->setMessage($currentPaymentInformation->getMessage() . " -> order fingerprint changed since start payment. throwing exception!");
+            $currentPaymentInformation->setMessage($currentPaymentInformation->getMessage() . ' -> order fingerprint changed since start payment. throwing exception!');
             $order->setOrderState(null);
             $order->save();
-            throw new \Pimcore\Bundle\EcommerceFrameworkBundle\Exception\UnsupportedException("order fingerprint changed since start payment. Old internal status = " . $status->getInternalPaymentId() . " -> current internal status id = " . $currentOrderFingerPrint);
+            throw new \Pimcore\Bundle\EcommerceFrameworkBundle\Exception\UnsupportedException('order fingerprint changed since start payment. Old internal status = ' . $status->getInternalPaymentId() . ' -> current internal status id = ' . $currentOrderFingerPrint);
         } else {
             $order->save();
         }

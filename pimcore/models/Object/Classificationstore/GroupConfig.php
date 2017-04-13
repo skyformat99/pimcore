@@ -277,7 +277,7 @@ class GroupConfig extends Model\AbstractModel
     public function getRelations()
     {
         $list = new KeyGroupRelation\Listing();
-        $list->setCondition("groupId = " . $this->id);
+        $list->setCondition('groupId = ' . $this->id);
         $list = $list->load();
 
         return $list;

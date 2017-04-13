@@ -88,6 +88,6 @@ class Geopoint
      */
     public function __toString()
     {
-        return $this->longitude . "; " . $this->latitude;
+        return $this->longitude . '; ' . $this->latitude;
     }
 }

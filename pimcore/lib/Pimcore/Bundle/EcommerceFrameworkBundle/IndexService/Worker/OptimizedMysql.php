@@ -20,8 +20,8 @@ use Pimcore\Logger;
 
 class OptimizedMysql extends AbstractMockupCacheWorker implements IBatchProcessingWorker
 {
-    const STORE_TABLE_NAME = "ecommerceframework_productindex_store";
-    const MOCKUP_CACHE_PREFIX = "ecommerce_mockup";
+    const STORE_TABLE_NAME = 'ecommerceframework_productindex_store';
+    const MOCKUP_CACHE_PREFIX = 'ecommerce_mockup';
 
     /**
      * @var \Pimcore\Bundle\EcommerceFrameworkBundle\IndexService\Config\OptimizedMysql
@@ -67,10 +67,10 @@ class OptimizedMysql extends AbstractMockupCacheWorker implements IBatchProcessi
     {
         try {
             $this->db->beginTransaction();
-            $this->db->deleteWhere($this->tenantConfig->getTablename(), "o_id = " . $this->db->quote($objectId));
-            $this->db->deleteWhere($this->tenantConfig->getRelationTablename(), "src = " . $this->db->quote($objectId));
+            $this->db->deleteWhere($this->tenantConfig->getTablename(), 'o_id = ' . $this->db->quote($objectId));
+            $this->db->deleteWhere($this->tenantConfig->getRelationTablename(), 'src = ' . $this->db->quote($objectId));
             if ($this->tenantConfig->getTenantRelationTablename()) {
-                $this->db->deleteWhere($this->tenantConfig->getTenantRelationTablename(), "o_id = " . $this->db->quote($objectId));
+                $this->db->deleteWhere($this->tenantConfig->getTenantRelationTablename(), 'o_id = ' . $this->db->quote($objectId));
             }
 
             $this->deleteFromMockupCache($objectId);
@@ -110,7 +110,7 @@ class OptimizedMysql extends AbstractMockupCacheWorker implements IBatchProcessi
     public function doUpdateIndex($objectId, $data = null)
     {
         if (empty($data)) {
-            $data = $this->db->fetchOne("SELECT data FROM " . self::STORE_TABLE_NAME . " WHERE o_id = ? AND tenant = ?", [$objectId, $this->name]);
+            $data = $this->db->fetchOne('SELECT data FROM ' . self::STORE_TABLE_NAME . ' WHERE o_id = ? AND tenant = ?', [$objectId, $this->name]);
             $data = json_decode($data, true);
         }
 
@@ -121,7 +121,7 @@ class OptimizedMysql extends AbstractMockupCacheWorker implements IBatchProcessi
                 $this->mySqlHelper->doInsertData($data['data']);
 
                 //insert relation data
-                $this->db->deleteWhere($this->tenantConfig->getRelationTablename(), "src = " . $this->db->quote($objectId));
+                $this->db->deleteWhere($this->tenantConfig->getRelationTablename(), 'src = ' . $this->db->quote($objectId));
                 foreach ($data['relations'] as $rd) {
                     $this->db->insert($this->tenantConfig->getRelationTablename(), $rd);
                 }

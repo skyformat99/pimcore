@@ -101,7 +101,7 @@ class CartPriceCalculator implements ICartPriceCalculator
                 }
 
                 if ($currency->getShortName() != $item->getPrice()->getCurrency()->getShortName()) {
-                    throw new UnsupportedException("Different currencies within one cart are not supported. See cart " . $this->cart->getId() . " and product " . $item->getProduct()->getId() . ")");
+                    throw new UnsupportedException('Different currencies within one cart are not supported. See cart ' . $this->cart->getId() . ' and product ' . $item->getProduct()->getId() . ')');
                 }
 
                 $subTotalNet += $item->getTotalPrice()->getNetAmount();

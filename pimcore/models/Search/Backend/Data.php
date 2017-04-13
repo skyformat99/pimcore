@@ -119,7 +119,7 @@ class Data extends \Pimcore\Model\AbstractModel
     public function getDao()
     {
         if (!$this->dao) {
-            $this->initDao("\\Pimcore\\Model\\Search\\Backend\\Data");
+            $this->initDao('\\Pimcore\\Model\\Search\\Backend\\Data');
         }
 
         return $this->dao;
@@ -376,27 +376,27 @@ class Data extends \Pimcore\Model\AbstractModel
             $this->subtype = $this->type;
         }
 
-        $this->properties = "";
+        $this->properties = '';
         $properties = $element->getProperties();
         if (is_array($properties)) {
             foreach ($properties as $nextProperty) {
                 $pData = (string) $nextProperty->getData();
-                if ($nextProperty->getName() == "bool") {
-                    $pData = $pData ? "true" : "false";
+                if ($nextProperty->getName() == 'bool') {
+                    $pData = $pData ? 'true' : 'false';
                 }
 
-                $this->properties .= $nextProperty->getName() . ":" . $pData ." ";
+                $this->properties .= $nextProperty->getName() . ':' . $pData .' ';
             }
         }
 
-        $this->data = "";
+        $this->data = '';
         if ($element instanceof Document) {
             if ($element instanceof Document\Folder) {
                 $this->data = $element->getKey();
                 $this->published = true;
             } elseif ($element instanceof Document\Link) {
                 $this->published = $element->isPublished();
-                $this->data = $element->getTitle()." ".$element->getHref();
+                $this->data = $element->getTitle().' '.$element->getHref();
             } elseif ($element instanceof Document\PageSnippet) {
                 $this->published = $element->isPublished();
                 $elements = $element->getElements();
@@ -409,14 +409,14 @@ class Data extends \Pimcore\Model\AbstractModel
                             }
 
                             ob_start();
-                            $this->data .= strip_tags($tag->frontend())." ";
+                            $this->data .= strip_tags($tag->frontend()).' ';
                             $this->data .= ob_get_clean();
                         }
                     }
                 }
                 if ($element instanceof Document\Page) {
                     $this->published = $element->isPublished();
-                    $this->data .= " ".$element->getTitle()." ".$element->getDescription()." " . $element->getPrettyUrl();
+                    $this->data .= ' '.$element->getTitle().' '.$element->getDescription().' ' . $element->getPrettyUrl();
                 }
             }
         } elseif ($element instanceof Asset) {
@@ -426,7 +426,7 @@ class Data extends \Pimcore\Model\AbstractModel
             if (is_array($elementMetadata)) {
                 foreach ($elementMetadata as $md) {
                     if (is_scalar($md['data'])) {
-                        $this->data .= " " . $md["name"] . ":" . $md["data"];
+                        $this->data .= ' ' . $md['name'] . ':' . $md['data'];
                     }
                 }
             }
@@ -436,9 +436,9 @@ class Data extends \Pimcore\Model\AbstractModel
                     try {
                         $contentText = $element->getText();
                         $contentText = Encoding::toUTF8($contentText);
-                        $contentText = str_replace(["\r\n", "\r", "\n", "\t", "\f"], " ", $contentText);
-                        $contentText = preg_replace("/[ ]+/", " ", $contentText);
-                        $this->data .= " " . $contentText;
+                        $contentText = str_replace(["\r\n", "\r", "\n", "\t", "\f"], ' ', $contentText);
+                        $contentText = preg_replace('/[ ]+/', ' ', $contentText);
+                        $this->data .= ' ' . $contentText;
                     } catch (\Exception $e) {
                         Logger::error($e);
                     }
@@ -447,7 +447,7 @@ class Data extends \Pimcore\Model\AbstractModel
                 try {
                     $contentText = $element->getData();
                     $contentText = Encoding::toUTF8($contentText);
-                    $this->data .= " " . $contentText;
+                    $this->data .= ' ' . $contentText;
                 } catch (\Exception $e) {
                     Logger::error($e);
                 }
@@ -455,7 +455,7 @@ class Data extends \Pimcore\Model\AbstractModel
                 try {
                     $metaData = array_merge($element->getEXIFData(), $element->getIPTCData());
                     foreach ($metaData as $key => $value) {
-                        $this->data .= " " . $key . " : " . $value;
+                        $this->data .= ' ' . $key . ' : ' . $value;
                     }
                 } catch (\Exception $e) {
                     Logger::error($e);
@@ -470,7 +470,7 @@ class Data extends \Pimcore\Model\AbstractModel
 
                 $this->published = $element->isPublished();
                 foreach ($element->getClass()->getFieldDefinitions() as $key => $value) {
-                    $this->data .= $value->getDataForSearchIndex($element)." ";
+                    $this->data .= $value->getDataForSearchIndex($element).' ';
                 }
 
                 Object\AbstractObject::setGetInheritedValues($getInheritedValues);
@@ -479,14 +479,14 @@ class Data extends \Pimcore\Model\AbstractModel
                 $this->published = true;
             }
         } else {
-            Logger::crit("Search\\Backend\\Data received an unknown element!");
+            Logger::crit('Search\\Backend\\Data received an unknown element!');
         }
 
         // replace all occurrences of @ to # because when using InnoDB @ is reserved for the @distance operator
-        $this->data = str_replace("@", "#", $this->data);
+        $this->data = str_replace('@', '#', $this->data);
 
         if ($element instanceof Element\ElementInterface) {
-            $this->data = "ID: " . $element->getId() . "  \nPath: " . $this->getFullPath() . "  \n"  . $this->cleanupData($this->data);
+            $this->data = 'ID: ' . $element->getId() . "  \nPath: " . $this->getFullPath() . "  \n"  . $this->cleanupData($this->data);
         }
 
         return $this;
@@ -501,20 +501,20 @@ class Data extends \Pimcore\Model\AbstractModel
     {
         $data = strip_tags($data);
 
-        $data = html_entity_decode($data, ENT_QUOTES, "UTF-8");
+        $data = html_entity_decode($data, ENT_QUOTES, 'UTF-8');
 
         // we don't remove ".", otherwise it would be impossible to search for email addresses
-        $data = str_replace([",", ":", ";", "'", '"'], " ", $data);
-        $data = str_replace("\r\n", " ", $data);
-        $data = str_replace("\n", " ", $data);
-        $data = str_replace("\r", " ", $data);
-        $data = str_replace("\t", "", $data);
+        $data = str_replace([',', ':', ';', "'", '"'], ' ', $data);
+        $data = str_replace("\r\n", ' ', $data);
+        $data = str_replace("\n", ' ', $data);
+        $data = str_replace("\r", ' ', $data);
+        $data = str_replace("\t", '', $data);
         $data = preg_replace('#[ ]+#', ' ', $data);
 
         // deduplication
-        $arr = explode(" ", $data);
+        $arr = explode(' ', $data);
         $arr = array_unique($arr);
-        $data = implode(" ", $arr);
+        $data = implode(' ', $arr);
 
         return $data;
     }
@@ -547,7 +547,7 @@ class Data extends \Pimcore\Model\AbstractModel
             $this->getDao()->save();
             \Pimcore::getEventDispatcher()->dispatch(SearchBackendEvents::POST_SAVE, new SearchBackendEvent($this));
         } else {
-            throw new \Exception("Search\\Backend\\Data cannot be saved - no id set!");
+            throw new \Exception('Search\\Backend\\Data cannot be saved - no id set!');
         }
     }
 }

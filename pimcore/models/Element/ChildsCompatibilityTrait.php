@@ -26,7 +26,7 @@ trait ChildsCompatibilityTrait
      */
     public function getChilds()
     {
-        $return = call_user_func_array([$this, "getChildren"], func_get_args());
+        $return = call_user_func_array([$this, 'getChildren'], func_get_args());
 
         return $return;
     }
@@ -38,7 +38,7 @@ trait ChildsCompatibilityTrait
      */
     public function setChilds()
     {
-        $return = call_user_func_array([$this, "setChildren"], func_get_args());
+        $return = call_user_func_array([$this, 'setChildren'], func_get_args());
 
         return $return;
     }
@@ -50,7 +50,7 @@ trait ChildsCompatibilityTrait
      */
     public function hasChilds()
     {
-        $return = call_user_func_array([$this, "hasChildren"], func_get_args());
+        $return = call_user_func_array([$this, 'hasChildren'], func_get_args());
 
         return $return;
     }

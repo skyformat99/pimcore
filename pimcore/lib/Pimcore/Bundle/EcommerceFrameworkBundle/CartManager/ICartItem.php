@@ -153,7 +153,7 @@ interface ICartItem
      *
      * @return ICartItem
      */
-    public static function getByCartIdItemKey($cartId, $itemKey, $parentKey = "");
+    public static function getByCartIdItemKey($cartId, $itemKey, $parentKey = '');
 
     /**
      * @static

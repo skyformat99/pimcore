@@ -96,8 +96,8 @@ class Note extends Model\AbstractModel
     public function addData($name, $type, $data)
     {
         $this->data[$name] = [
-            "type" => $type,
-            "data" => $data
+            'type' => $type,
+            'data' => $data
         ];
     }
 

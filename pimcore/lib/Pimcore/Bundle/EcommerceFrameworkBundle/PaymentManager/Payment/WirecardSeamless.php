@@ -58,13 +58,13 @@ class WirecardSeamless implements IPayment
         $this->partial = $config->partial;
         $this->js = $config->js;
 
-        $this->URL_WIRECARD_CHECKOUT = "https://checkout.wirecard.com";
-        $this->URL_DATASTORAGE_INIT = $this->URL_WIRECARD_CHECKOUT . "/seamless/dataStorage/init";
-        $this->URL_DATASTORAGE_READ = $this->URL_WIRECARD_CHECKOUT . "/seamless/dataStorage/read";
-        $this->URL_FRONTEND_INIT = $this->URL_WIRECARD_CHECKOUT . "/seamless/frontend/init";
+        $this->URL_WIRECARD_CHECKOUT = 'https://checkout.wirecard.com';
+        $this->URL_DATASTORAGE_INIT = $this->URL_WIRECARD_CHECKOUT . '/seamless/dataStorage/init';
+        $this->URL_DATASTORAGE_READ = $this->URL_WIRECARD_CHECKOUT . '/seamless/dataStorage/read';
+        $this->URL_FRONTEND_INIT = $this->URL_WIRECARD_CHECKOUT . '/seamless/frontend/init';
 
-        $WEBSITE_URL = rtrim($_SERVER['SERVER_NAME'] . ":" . $_SERVER['SERVER_PORT'] . $_SERVER['REQUEST_URI'], '/') . '/';
-        $this->WEBSITE_URL = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? "https://$WEBSITE_URL" : "http://$WEBSITE_URL";
+        $WEBSITE_URL = rtrim($_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . $_SERVER['REQUEST_URI'], '/') . '/';
+        $this->WEBSITE_URL = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ? "https://$WEBSITE_URL" : "http://$WEBSITE_URL";
 
         $this->CHECKOUT_WINDOW_NAME = 'wirecard_checkout';
     }
@@ -99,7 +99,7 @@ class WirecardSeamless implements IPayment
             'customerId' => $this->settings->customerId,
             'shopId' => $this->settings->shopId,
             'orderIdent' => $this->encodeOrderIdent($orderIdent),
-            'returnUrl' => $this->WEBSITE_URL . "frontend/fallback_return.php",
+            'returnUrl' => $this->WEBSITE_URL . 'frontend/fallback_return.php',
             'language' => $config['language'] ?: 'de',
             'javascriptScriptVersion' => 'pci3'
         ];
@@ -296,27 +296,27 @@ class WirecardSeamless implements IPayment
             throw new \Exception(sprintf('required fields are missing! required: %s', implode(', ', array_keys(array_diff_key($required, $check)))));
         }
 
-        $fingerprintString = ""; // contains the values for computing the fingerprint
+        $fingerprintString = ''; // contains the values for computing the fingerprint
         $mandatoryFingerPrintFields = 0; // contains the number of received mandatory fields for the fingerprint
         $secretUsed = 0; // flag which contains 0 if secret has not been used or 1 if secret has been used
-        $order = explode(",", $response['responseFingerprintOrder']);
+        $order = explode(',', $response['responseFingerprintOrder']);
 
         $secret = $this->settings->secret;
         for ($i = 0; $i < count($order); $i++) {
             $key = $order[$i];
-            $value = isset($response[$order[$i]]) ? $response[$order[$i]] : "";
+            $value = isset($response[$order[$i]]) ? $response[$order[$i]] : '';
             // checks if there are enough fields in the responsefingerprint
-            if ((strcmp($key, "paymentState")) == 0 && (strlen($value) > 0)) {
+            if ((strcmp($key, 'paymentState')) == 0 && (strlen($value) > 0)) {
                 $mandatoryFingerPrintFields++;
             }
-            if ((strcmp($key, "orderNumber")) == 0 && (strlen($value) > 0)) {
+            if ((strcmp($key, 'orderNumber')) == 0 && (strlen($value) > 0)) {
                 $mandatoryFingerPrintFields++;
             }
-            if ((strcmp($key, "paymentType")) == 0 && (strlen($value) > 0)) {
+            if ((strcmp($key, 'paymentType')) == 0 && (strlen($value) > 0)) {
                 $mandatoryFingerPrintFields++;
             }
             // adds secret to fingerprint string
-            if (strcmp($key, "secret") == 0) {
+            if (strcmp($key, 'secret') == 0) {
                 $fingerprintString .= $secret;
                 $secretUsed = 1;
             } else {
@@ -326,7 +326,7 @@ class WirecardSeamless implements IPayment
         }
 
         // computes the fingerprint from the fingerprint string
-        $fingerprint = hash("sha512", $fingerprintString);
+        $fingerprint = hash('sha512', $fingerprintString);
 
         Logger::debug('#wirecard fingerprint: ' . $fingerprintString);
         Logger::debug('#wirecard response fingerprint: ' . $response['responseFingerprint']);
@@ -335,7 +335,7 @@ class WirecardSeamless implements IPayment
             && ($mandatoryFingerPrintFields == 3)
             && ($secretUsed == 1))
         ) {
-            throw new \Exception("The verification of the response data was not successful.");
+            throw new \Exception('The verification of the response data was not successful.');
         }
 
         // restore price object for payment status
@@ -502,7 +502,7 @@ class WirecardSeamless implements IPayment
             $seed .= func_get_arg($i);
         }
 
-        return hash("sha512", $seed);
+        return hash('sha512', $seed);
     }
 
     /**
@@ -546,7 +546,7 @@ class WirecardSeamless implements IPayment
                 $cart->setId($cartId[1]);
 
                 $env = Factory::getInstance()->getEnvironment();
-                $env->setCustomItem(CheckoutManager::FINISHED . "_" . $cart->getId(), true);
+                $env->setCustomItem(CheckoutManager::FINISHED . '_' . $cart->getId(), true);
 
                 return $cart;
             }
@@ -583,7 +583,7 @@ class WirecardSeamless implements IPayment
             $requestFingerprintSeed .= $requestFingerprintOrder;
         }
 
-        $requestFingerprint = hash("sha512", $requestFingerprintSeed);
+        $requestFingerprint = hash('sha512', $requestFingerprintSeed);
 
         if ($withOrder) {
             return [$requestFingerprint, $requestFingerprintOrder];

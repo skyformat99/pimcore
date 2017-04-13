@@ -388,7 +388,7 @@ class QueryBuilder
         }
 
         if (!array_key_exists($correlationName, $this->_parts[self::FROM])) {
-            throw new \Exception("No table has been specified for the FROM clause");
+            throw new \Exception('No table has been specified for the FROM clause');
         }
 
         $this->_tableCols($correlationName, $cols);
@@ -418,7 +418,7 @@ class QueryBuilder
     {
         if (!is_array($select)) {
             throw new \Exception(
-                "union() only accepts an array of QueryBuilder instances of sql query strings."
+                'union() only accepts an array of QueryBuilder instances of sql query strings.'
             );
         }
 
@@ -938,7 +938,7 @@ class QueryBuilder
         }
 
         if (count($this->_parts[self::UNION])) {
-            throw new \Exception("Invalid use of table with " . self::SQL_UNION);
+            throw new \Exception('Invalid use of table with ' . self::SQL_UNION);
         }
 
         if (empty($name)) {
@@ -1044,7 +1044,7 @@ class QueryBuilder
     public function _joinUsing($type, $name, $cond, $cols = '*', $schema = null)
     {
         if (empty($this->_parts[self::FROM])) {
-            throw new \Exception("You can only perform a joinUsing after specifying a FROM table");
+            throw new \Exception('You can only perform a joinUsing after specifying a FROM table');
         }
 
         $join  = $this->_adapter->quoteIdentifier(key($this->_parts[self::FROM]), true);
@@ -1172,14 +1172,14 @@ class QueryBuilder
     protected function _where($condition, $value = null, $type = null, $bool = true)
     {
         if (count($this->_parts[self::UNION])) {
-            throw new \Exception("Invalid use of where clause with " . self::SQL_UNION);
+            throw new \Exception('Invalid use of where clause with ' . self::SQL_UNION);
         }
 
         if ($value !== null) {
             $condition = $this->_adapter->quoteInto($condition, $value, $type);
         }
 
-        $cond = "";
+        $cond = '';
         if ($this->_parts[self::WHERE]) {
             if ($bool === true) {
                 $cond = self::SQL_AND . ' ';

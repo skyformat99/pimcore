@@ -200,7 +200,7 @@ class Breadcrumbs extends AbstractHelper
             $html = $this->htmlify($active);
         } else {
             $html = $active->getLabel();
-            $html = htmlspecialchars($html, ENT_COMPAT, "UTF-8");
+            $html = htmlspecialchars($html, ENT_COMPAT, 'UTF-8');
         }
 
         // walk back to root

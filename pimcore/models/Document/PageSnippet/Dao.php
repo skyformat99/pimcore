@@ -31,7 +31,7 @@ abstract class Dao extends Model\Document\Dao
      */
     public function deleteAllElements()
     {
-        $this->db->delete("documents_elements", ["documentId" => $this->model->getId()]);
+        $this->db->delete('documents_elements', ['documentId' => $this->model->getId()]);
     }
 
     /**
@@ -41,20 +41,20 @@ abstract class Dao extends Model\Document\Dao
      */
     public function getElements()
     {
-        $elementsRaw = $this->db->fetchAll("SELECT * FROM documents_elements WHERE documentId = ?", [$this->model->getId()]);
+        $elementsRaw = $this->db->fetchAll('SELECT * FROM documents_elements WHERE documentId = ?', [$this->model->getId()]);
 
         $elements = [];
         $loader   = \Pimcore::getContainer()->get('pimcore.implementation_loader.document.tag');
 
         foreach ($elementsRaw as $elementRaw) {
             /** @var Document\Tag $element */
-            $element = $loader->build($elementRaw["type"]);
-            $element->setName($elementRaw["name"]);
+            $element = $loader->build($elementRaw['type']);
+            $element->setName($elementRaw['name']);
             $element->setDocumentId($this->model->getId());
-            $element->setDataFromResource($elementRaw["data"]);
+            $element->setDataFromResource($elementRaw['data']);
 
-            $elements[$elementRaw["name"]] = $element;
-            $this->model->setElement($elementRaw["name"], $element);
+            $elements[$elementRaw['name']] = $element;
+            $this->model->setElement($elementRaw['name'], $element);
         }
 
         return $elements;
@@ -90,8 +90,8 @@ abstract class Dao extends Model\Document\Dao
     {
         $versionData = $this->db->fetchRow("SELECT id,date FROM versions WHERE cid = ? AND ctype='document' ORDER BY `id` DESC LIMIT 1", $this->model->getId());
 
-        if ($versionData && $versionData["id"] && ($versionData["date"] > $this->model->getModificationDate() || $force)) {
-            $version = Version::getById($versionData["id"]);
+        if ($versionData && $versionData['id'] && ($versionData['date'] > $this->model->getModificationDate() || $force)) {
+            $version = Version::getById($versionData['id']);
 
             return $version;
         }
@@ -108,7 +108,7 @@ abstract class Dao extends Model\Document\Dao
     {
         try {
             parent::delete();
-            $this->db->delete("documents_elements", ["documentId" => $this->model->getId()]);
+            $this->db->delete('documents_elements', ['documentId' => $this->model->getId()]);
         } catch (\Exception $e) {
             throw $e;
         }

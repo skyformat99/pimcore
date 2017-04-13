@@ -20,8 +20,8 @@ use Pimcore\Logger;
 
 class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchProcessingWorker
 {
-    const STORE_TABLE_NAME = "ecommerceframework_productindex_store_elastic";
-    const MOCKUP_CACHE_PREFIX = "ecommerce_mockup_elastic";
+    const STORE_TABLE_NAME = 'ecommerceframework_productindex_store_elastic';
+    const MOCKUP_CACHE_PREFIX = 'ecommerce_mockup_elastic';
 
     /**
      * Default value for the mapping of custom attributes
@@ -139,7 +139,7 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
         if (empty($this->elasticSearchClient)) {
             $builder =  \Elasticsearch\ClientBuilder::create();
             if ($this->tenantConfig->getClientConfig('logging')) {
-                $logger = \Pimcore::getContainer()->get("monolog.logger.pimcore_ecommerce_es");
+                $logger = \Pimcore::getContainer()->get('monolog.logger.pimcore_ecommerce_es');
                 $builder->setLogger($logger);
             }
             $builder->setHosts($this->tenantConfig->getElasticSearchClientParams()['hosts']);
@@ -188,7 +188,7 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
             return $params;
         }
 
-        throw new \Exception("Unknown Type for mapping params");
+        throw new \Exception('Unknown Type for mapping params');
     }
 
     protected function doCreateOrUpdateIndexStructures($exceptionOnFailure = false)
@@ -202,7 +202,7 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
             $result = $esClient->indices()->create(['index' => $this->getIndexNameVersion(), 'body' => ['settings' => $this->tenantConfig->getIndexSettings()]]);
             Logger::info('Index-Actions - creating new Index. Name: ' . $this->getIndexNameVersion());
             if (!$result['acknowledged']) {
-                throw new \Exception("Index creation failed. IndexName: " . $this->getIndexNameVersion());
+                throw new \Exception('Index creation failed. IndexName: ' . $this->getIndexNameVersion());
             }
 
             //index didn't exist -> reset index queue to make sure all products get reindexed
@@ -246,7 +246,7 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
 
         // index created return "true" and mapping creation returns array
         if ((is_array($result) && !$result['acknowledged']) || (is_bool($result) && !$result)) {
-            throw new \Exception("Index creation failed");
+            throw new \Exception('Index creation failed');
         }
     }
 
@@ -262,7 +262,7 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
         //add system attributes
         $systemAttributesMapping = [];
         foreach ($this->getSystemAttributes(true) as $name => $type) {
-            $systemAttributesMapping[$name] = ["type" => $type, "store" => true, "index" => "not_analyzed"];
+            $systemAttributesMapping[$name] = ['type' => $type, 'store' => true, 'index' => 'not_analyzed'];
         }
         $mappingAttributes['system'] = ['type' => 'object', 'dynamic' => false, 'properties' => $systemAttributesMapping];
 
@@ -289,7 +289,7 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
                         $interpreter = $attribute->interpreter;
                         $interpreterObject = new $interpreter();
                         if ($interpreterObject instanceof \Pimcore\Bundle\EcommerceFrameworkBundle\IndexService\Interpreter\IRelationInterpreter) {
-                            $type = "long";
+                            $type = 'long';
                             $isRelation = true;
                         }
                     }
@@ -298,7 +298,7 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
                         $mapper = new $attribute->mapper();
                         $mapping = $mapper->getMapping();
                     } else {
-                        $mapping = ["type" => $type, "store" => $this->getStoreCustomAttributes(), "index" => 'not_analyzed'];
+                        $mapping = ['type' => $type, 'store' => $this->getStoreCustomAttributes(), 'index' => 'not_analyzed'];
                         if ($attribute->analyzer) {
                             $mapping['index'] = 'analyzed';
                             $mapping['analyzer'] = $attribute->analyzer;
@@ -306,7 +306,7 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
                     }
 
                     if ($type == 'object') { //object doesn't support index or store
-                        $mapping = ["type" => $type];
+                        $mapping = ['type' => $type];
                     }
 
                     if ($attribute->store == 'false' || $attribute->store == '0') {
@@ -332,18 +332,18 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
     public function getSystemAttributes($includeTypes = false)
     {
         $systemAttributes = [
-            "o_id" => "long",
-            "o_classId" => "string",
-            "o_parentId" => "long",
-            "o_virtualProductId" => "long",
-            "o_virtualProductActive" => "boolean",
-            "o_type" => "string",
-            "categoryIds" => "long",
-            "categoryPaths" => "string",
-            "parentCategoryIds" => "long",
-            "priceSystemName" => "string",
-            "active" => "boolean",
-            "inProductList" => "boolean"];
+            'o_id' => 'long',
+            'o_classId' => 'string',
+            'o_parentId' => 'long',
+            'o_virtualProductId' => 'long',
+            'o_virtualProductActive' => 'boolean',
+            'o_type' => 'string',
+            'categoryIds' => 'long',
+            'categoryPaths' => 'string',
+            'parentCategoryIds' => 'long',
+            'priceSystemName' => 'string',
+            'active' => 'boolean',
+            'inProductList' => 'boolean'];
 
         if ($includeTypes) {
             return $systemAttributes;
@@ -455,7 +455,7 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
     protected function doUpdateIndex($objectId, $data = null)
     {
         if (empty($data)) {
-            $data = $this->db->fetchOne("SELECT data FROM " . $this->getStoreTableName() . " WHERE o_id = ? AND tenant = ?", [$objectId, $this->name]);
+            $data = $this->db->fetchOne('SELECT data FROM ' . $this->getStoreTableName() . ' WHERE o_id = ? AND tenant = ?', [$objectId, $this->name]);
             $data = json_decode($data, true);
         }
 
@@ -478,8 +478,8 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
             }
 
             //fix categories to array
-            $indexSystemData['categoryIds'] = array_values(array_filter(explode(",", $indexSystemData['categoryIds'])));
-            $indexSystemData['parentCategoryIds'] = array_values(array_filter(explode(",", $indexSystemData['parentCategoryIds'])));
+            $indexSystemData['categoryIds'] = array_values(array_filter(explode(',', $indexSystemData['categoryIds'])));
+            $indexSystemData['parentCategoryIds'] = array_values(array_filter(explode(',', $indexSystemData['parentCategoryIds'])));
 
             //add relation attributes
             foreach ($data['relations'] as $relation) {
@@ -522,7 +522,7 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
         if (sizeof($this->bulkIndexData)) {
             $esClient = $this->getElasticSearchClient();
             $responses = $esClient->bulk([
-                "body" => $this->bulkIndexData
+                'body' => $this->bulkIndexData
             ]);
 
             // save update status
@@ -600,12 +600,12 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
     {
         //make sure reindex mode can only be started once
         if ($this->isInReindexMode()) {
-            throw new \Exception("For given tenant " . $this->name . " system is already in reindex mode - cannot be started once more.");
+            throw new \Exception('For given tenant ' . $this->name . ' system is already in reindex mode - cannot be started once more.');
         }
 
         // increment version and recreate index structures
         $this->indexVersion++;
-        Logger::info("Index-Actions - Start Reindex Mode - Version Number: " . $this->indexVersion.' Index Name: ' . $this->getIndexNameVersion());
+        Logger::info('Index-Actions - Start Reindex Mode - Version Number: ' . $this->indexVersion.' Index Name: ' . $this->getIndexNameVersion());
 
         //set the new version here so other processes write in the new index
         $result = file_put_contents($this->getVersionFile(), $this->indexVersion);
@@ -628,23 +628,23 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
             $result = $esClient->indices()->getAlias(['index' => $this->indexName]);
         } catch (\Exception $e) {
             Logger::error($e);
-            throw new \Exception("Index alias with name " . $this->indexName . " not found! " . $e);
+            throw new \Exception('Index alias with name ' . $this->indexName . ' not found! ' . $e);
         }
 
         reset($result);
         $currentIndexName = key($result);
-        $currentIndexVersion = str_replace($this->indexName . "-", "", $currentIndexName);
+        $currentIndexVersion = str_replace($this->indexName . '-', '', $currentIndexName);
 
         if ($currentIndexVersion < $this->getIndexVersion()) {
-            Logger::info("Index-Actions - currently in reindex mode for " . $this->indexName);
+            Logger::info('Index-Actions - currently in reindex mode for ' . $this->indexName);
 
             return true;
         } elseif ($currentIndexVersion == $this->getIndexVersion()) {
-            Logger::info("Index-Actions - currently NOT in reindex mode for " . $this->indexName);
+            Logger::info('Index-Actions - currently NOT in reindex mode for ' . $this->indexName);
 
             return false;
         } else {
-            throw new \Exception("Index-Actions - something weird happened - CurrentIndexVersion of Alias is bigger than IndexVersion in File: " . $currentIndexVersion . " vs. " . $this->getIndexVersion());
+            throw new \Exception('Index-Actions - something weird happened - CurrentIndexVersion of Alias is bigger than IndexVersion in File: ' . $currentIndexVersion . ' vs. ' . $this->getIndexVersion());
         }
     }
 
@@ -660,7 +660,7 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
             Logger::info('Index-Actions - in completeReindexMode');
 
             // check if all entries are updated
-            $query = "SELECT EXISTS(SELECT 1 FROM " . $this->getStoreTableName() . " WHERE tenant = ? AND (in_preparation_queue = 1 OR crc_current != crc_index) LIMIT 1);";
+            $query = 'SELECT EXISTS(SELECT 1 FROM ' . $this->getStoreTableName() . ' WHERE tenant = ? AND (in_preparation_queue = 1 OR crc_current != crc_index) LIMIT 1);';
             $result = $this->db->fetchOne($query, [$this->name]);
 
             if ($result == 0) {
@@ -668,7 +668,7 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
                 $this->switchIndexAlias();
             } else {
                 //there are entries left --> re-index not finished yet
-                Logger::info("Index-Actions - Re-Indexing is not finished, still re-indexing for version number: " . $this->indexVersion);
+                Logger::info('Index-Actions - Re-Indexing is not finished, still re-indexing for version number: ' . $this->indexVersion);
             }
         }
     }
@@ -700,17 +700,17 @@ class DefaultElasticSearch extends AbstractMockupCacheWorker implements IBatchPr
         $result = $esClient->indices()->updateAliases($params);
         if (!$result['acknowledged']) {
             //set current index version
-            throw new \Exception("Switching Alias failed for " . $this->getIndexNameVersion());
+            throw new \Exception('Switching Alias failed for ' . $this->getIndexNameVersion());
         }
 
         //delete old indices
         $stats = $esClient->indices()->stats();
         foreach ($stats['indices'] as $key => $data) {
-            preg_match("/".$this->indexName.'-(\d+)/', $key, $matches);
+            preg_match('/'.$this->indexName.'-(\d+)/', $key, $matches);
             if (!is_null($matches[1])) {
                 $version = (int)$matches[1];
                 if ($version != $this->indexVersion) {
-                    Logger::info("Index-Actions - Delete old Index " . $this->indexName.'-'.$version);
+                    Logger::info('Index-Actions - Delete old Index ' . $this->indexName.'-'.$version);
                     $esClient->indices()->delete(['index' => $this->indexName.'-'.$version]);
                 }
             }

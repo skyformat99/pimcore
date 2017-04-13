@@ -79,10 +79,10 @@ abstract class AbstractModel
     public function initDao($key = null, $forceDetection = false)
     {
         $myClass = get_class($this);
-        $cacheKey = $myClass . ($key ? ("-" . $key) : "");
+        $cacheKey = $myClass . ($key ? ('-' . $key) : '');
         $dao = null;
 
-        $forbiddenClassNames = ["Pimcore\\Resource"];
+        $forbiddenClassNames = ['Pimcore\\Resource'];
 
         if (!$forceDetection && array_key_exists($cacheKey, self::$daoClassCache)) {
             $dao = self::$daoClassCache[$cacheKey];
@@ -92,9 +92,9 @@ abstract class AbstractModel
             array_unshift($classes, $myClass);
 
             foreach ($classes as $class) {
-                $delimiter = "_"; // old prefixed class style
-                if (strpos($class, "\\")) {
-                    $delimiter = "\\"; // that's the new with namespaces
+                $delimiter = '_'; // old prefixed class style
+                if (strpos($class, '\\')) {
+                    $delimiter = '\\'; // that's the new with namespaces
                 }
 
                 $classParts = explode($delimiter, $class);
@@ -103,8 +103,8 @@ abstract class AbstractModel
 
                 for ($i = 0; $i < $length; $i++) {
                     $classNames = [
-                        implode($delimiter, $classParts) . $delimiter . "Dao",
-                        implode($delimiter, $classParts) . $delimiter . "Resource"
+                        implode($delimiter, $classParts) . $delimiter . 'Dao',
+                        implode($delimiter, $classParts) . $delimiter . 'Resource'
                     ];
 
                     foreach ($classNames as $tmpClassName) {
@@ -129,29 +129,29 @@ abstract class AbstractModel
                 }
             }
         } elseif ($key) {
-            $delimiter = "_"; // old prefixed class style
-            if (strpos($key, "\\") !== false) {
-                $delimiter = "\\"; // that's the new with namespaces
+            $delimiter = '_'; // old prefixed class style
+            if (strpos($key, '\\') !== false) {
+                $delimiter = '\\'; // that's the new with namespaces
             }
 
-            $dao = $key . $delimiter . "Dao";
+            $dao = $key . $delimiter . 'Dao';
 
             self::$daoClassCache[$cacheKey] = $dao;
         }
 
         if (!$dao) {
-            Logger::critical("No dao implementation found for: " . $myClass);
-            throw new \Exception("No dao implementation found for: " . $myClass);
+            Logger::critical('No dao implementation found for: ' . $myClass);
+            throw new \Exception('No dao implementation found for: ' . $myClass);
         }
 
-        $dao = "\\" . ltrim($dao, "\\");
+        $dao = '\\' . ltrim($dao, '\\');
 
         $this->dao = new $dao();
         $this->dao->setModel($this);
 
         $this->dao->configure();
 
-        if (method_exists($this->dao, "init")) {
+        if (method_exists($this->dao, 'init')) {
             $this->dao->init();
         }
     }
@@ -180,10 +180,10 @@ abstract class AbstractModel
      */
     public function setValue($key, $value)
     {
-        $method = "set" . $key;
+        $method = 'set' . $key;
         if (method_exists($this, $method)) {
             $this->$method($value);
-        } elseif (method_exists($this, "set" . preg_replace("/^o_/", "", $key))) {
+        } elseif (method_exists($this, 'set' . preg_replace('/^o_/', '', $key))) {
             // compatibility mode for objects (they do not have any set_oXyz() methods anymore)
             $this->$method($value);
         }
@@ -197,7 +197,7 @@ abstract class AbstractModel
     public function __sleep()
     {
         $finalVars = [];
-        $blockedVars = ["dao", "_fulldump"]; // _fulldump is a temp var which is used to trigger a full serialized dump in __sleep eg. in Document, \Object_Abstract
+        $blockedVars = ['dao', '_fulldump']; // _fulldump is a temp var which is used to trigger a full serialized dump in __sleep eg. in Document, \Object_Abstract
         $vars = get_object_vars($this);
         foreach ($vars as $key => $value) {
             if (!in_array($key, $blockedVars)) {
@@ -235,8 +235,8 @@ abstract class AbstractModel
                 throw $e;
             }
         } else {
-            Logger::error("Class: " . get_class($this) . " => call to undefined method " . $method);
-            throw new \Exception("Call to undefined method " . $method . " in class " . get_class($this));
+            Logger::error('Class: ' . get_class($this) . ' => call to undefined method ' . $method);
+            throw new \Exception('Call to undefined method ' . $method . ' in class ' . get_class($this));
         }
     }
 

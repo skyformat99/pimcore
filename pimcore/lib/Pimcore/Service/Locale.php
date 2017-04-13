@@ -65,7 +65,7 @@ class Locale
             return $defaultLocale;
         }
 
-        return "";
+        return '';
     }
 
     /**

@@ -24,23 +24,23 @@ class Installer extends AbstractInstaller
      * @var array - contains all tables that need to be created
      */
     private static $tables = [
-        "ecommerceframework_cart" =>
-            "CREATE TABLE `ecommerceframework_cart` (
+        'ecommerceframework_cart' =>
+            'CREATE TABLE `ecommerceframework_cart` (
               `id` int(20) NOT NULL AUTO_INCREMENT,
               `userid` int(20) NOT NULL,
               `name` varchar(250) COLLATE utf8_bin DEFAULT NULL,
               `creationDateTimestamp` int(10) NOT NULL,
               `modificationDateTimestamp` int(10) NOT NULL,
               PRIMARY KEY (`id`)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;",
-        "ecommerceframework_cartcheckoutdata" =>
-            "CREATE TABLE `ecommerceframework_cartcheckoutdata` (
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;',
+        'ecommerceframework_cartcheckoutdata' =>
+            'CREATE TABLE `ecommerceframework_cartcheckoutdata` (
               `cartId` int(20) NOT NULL,
               `key` varchar(150) COLLATE utf8_bin NOT NULL,
               `data` longtext,
               PRIMARY KEY (`cartId`,`key`)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;",
-        "ecommerceframework_cartitem" =>
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;',
+        'ecommerceframework_cartitem' =>
             "CREATE TABLE `ecommerceframework_cartitem` (
               `productId` int(20) NOT NULL,
               `cartId` int(20) NOT NULL,
@@ -52,14 +52,14 @@ class Installer extends AbstractInstaller
               `sortIndex` INT(10) UNSIGNED NULL DEFAULT '0',
               PRIMARY KEY (`itemKey`,`cartId`,`parentItemKey`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;",
-        "ecommerceframework_vouchertoolkit_statistics" =>
+        'ecommerceframework_vouchertoolkit_statistics' =>
             "CREATE TABLE `ecommerceframework_vouchertoolkit_statistics` (
                 `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
                 `voucherSeriesId` BIGINT(20) NOT NULL,
                 `date` DATE NOT NULL,
                 PRIMARY KEY (`id`)
             ) COLLATE='utf8_general_ci' ENGINE=InnoDB ;",
-        "ecommerceframework_vouchertoolkit_tokens" =>
+        'ecommerceframework_vouchertoolkit_tokens' =>
             "CREATE TABLE `ecommerceframework_vouchertoolkit_tokens` (
                 `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
                 `voucherSeriesId` BIGINT(20) NULL DEFAULT NULL,
@@ -71,7 +71,7 @@ class Installer extends AbstractInstaller
                 PRIMARY KEY (`id`),
                 UNIQUE INDEX `token` (`token`)
             ) COLLATE='utf8_general_ci' ENGINE=InnoDB;",
-        "ecommerceframework_vouchertoolkit_reservations" =>
+        'ecommerceframework_vouchertoolkit_reservations' =>
             "CREATE TABLE `ecommerceframework_vouchertoolkit_reservations` (
                 `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
                 `token` VARCHAR(250) NOT NULL,
@@ -80,7 +80,7 @@ class Installer extends AbstractInstaller
                 PRIMARY KEY (`id`),
                 INDEX `token` (`token`)
             ) COLLATE='utf8_general_ci' ENGINE=InnoDB;",
-        "ecommerceframework_pricing_rule" =>
+        'ecommerceframework_pricing_rule' =>
             "CREATE TABLE IF NOT EXISTS `ecommerceframework_pricing_rule` (
                 `id` INT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
                 `name` VARCHAR(50) NULL DEFAULT NULL,
@@ -102,15 +102,15 @@ class Installer extends AbstractInstaller
      * @var array - contains all classes that need to be created
      */
     private static $classes = [
-        "FilterDefinition" => PIMCORE_PATH . '/lib/Pimcore/Bundle/EcommerceFrameworkBundle/install/class_source/class_FilterDefinition_export.json',
-        "OnlineShopOrderItem" => PIMCORE_PATH . '/lib/Pimcore/Bundle/EcommerceFrameworkBundle/install/class_source/class_OnlineShopOrderItem_export.json',
-        "OnlineShopVoucherSeries" => PIMCORE_PATH . '/lib/Pimcore/Bundle/EcommerceFrameworkBundle/install/class_source/class_OnlineShopVoucherSeries_export.json',
-        "OnlineShopVoucherToken" => PIMCORE_PATH . '/lib/Pimcore/Bundle/EcommerceFrameworkBundle/install/class_source/class_OnlineShopVoucherToken_export.json',
-        "OnlineShopOrder" => PIMCORE_PATH . '/lib/Pimcore/Bundle/EcommerceFrameworkBundle/install/class_source/class_OnlineShopOrder_export.json',
-        "OfferToolCustomProduct" => PIMCORE_PATH . '/lib/Pimcore/Bundle/EcommerceFrameworkBundle/install/class_source/class_OfferToolCustomProduct_export.json',
-        "OfferToolOfferItem" => PIMCORE_PATH . '/lib/Pimcore/Bundle/EcommerceFrameworkBundle/install/class_source/class_OfferToolOfferItem_export.json',
-        "OfferToolOffer" => PIMCORE_PATH . '/lib/Pimcore/Bundle/EcommerceFrameworkBundle/install/class_source/class_OfferToolOffer_export.json',
-        "OnlineShopTaxClass" => PIMCORE_PATH . '/lib/Pimcore/Bundle/EcommerceFrameworkBundle/install/class_source/class_OnlineShopTaxClass_export.json'
+        'FilterDefinition' => PIMCORE_PATH . '/lib/Pimcore/Bundle/EcommerceFrameworkBundle/install/class_source/class_FilterDefinition_export.json',
+        'OnlineShopOrderItem' => PIMCORE_PATH . '/lib/Pimcore/Bundle/EcommerceFrameworkBundle/install/class_source/class_OnlineShopOrderItem_export.json',
+        'OnlineShopVoucherSeries' => PIMCORE_PATH . '/lib/Pimcore/Bundle/EcommerceFrameworkBundle/install/class_source/class_OnlineShopVoucherSeries_export.json',
+        'OnlineShopVoucherToken' => PIMCORE_PATH . '/lib/Pimcore/Bundle/EcommerceFrameworkBundle/install/class_source/class_OnlineShopVoucherToken_export.json',
+        'OnlineShopOrder' => PIMCORE_PATH . '/lib/Pimcore/Bundle/EcommerceFrameworkBundle/install/class_source/class_OnlineShopOrder_export.json',
+        'OfferToolCustomProduct' => PIMCORE_PATH . '/lib/Pimcore/Bundle/EcommerceFrameworkBundle/install/class_source/class_OfferToolCustomProduct_export.json',
+        'OfferToolOfferItem' => PIMCORE_PATH . '/lib/Pimcore/Bundle/EcommerceFrameworkBundle/install/class_source/class_OfferToolOfferItem_export.json',
+        'OfferToolOffer' => PIMCORE_PATH . '/lib/Pimcore/Bundle/EcommerceFrameworkBundle/install/class_source/class_OfferToolOffer_export.json',
+        'OnlineShopTaxClass' => PIMCORE_PATH . '/lib/Pimcore/Bundle/EcommerceFrameworkBundle/install/class_source/class_OnlineShopTaxClass_export.json'
     ];
 
     /**
@@ -185,7 +185,7 @@ class Installer extends AbstractInstaller
 
             return true;
         } catch (\Exception $e) {
-            Logger::warn("Ecommerce Framework cannot be installed because: " . $e);
+            Logger::warn('Ecommerce Framework cannot be installed because: ' . $e);
         }
 
         return false;
@@ -204,7 +204,7 @@ class Installer extends AbstractInstaller
         $existingTables = [];
         foreach (self::$tables as $name => $statement) {
             try {
-                $result = $db->query("DESCRIBE TABLE " . $db->quoteIdentifier($name))->fetchAll;
+                $result = $db->query('DESCRIBE TABLE ' . $db->quoteIdentifier($name))->fetchAll;
             } catch (\Exception $e) {
                 //nothing to do
             }
@@ -213,7 +213,7 @@ class Installer extends AbstractInstaller
             }
         }
         if (!empty($existingTables)) {
-            throw new \Exception("Table(s) " . implode(", ", $existingTables) . " already exist. Please remove them first.");
+            throw new \Exception('Table(s) ' . implode(', ', $existingTables) . ' already exist. Please remove them first.');
         }
 
         //check classes
@@ -225,7 +225,7 @@ class Installer extends AbstractInstaller
             }
         }
         if (!empty($existingClasses)) {
-            throw new \Exception("Class(es) " . implode(", ", $existingClasses) . " already exist. Please remove them first.");
+            throw new \Exception('Class(es) ' . implode(', ', $existingClasses) . ' already exist. Please remove them first.');
         }
 
         //check fieldcollections
@@ -242,7 +242,7 @@ class Installer extends AbstractInstaller
             }
         }
         if (!empty($existingFieldCollections)) {
-            throw new \Exception("Fieldcollection(s) " . implode(", ", $existingFieldCollections) . " already exist. Please remove them first.");
+            throw new \Exception('Fieldcollection(s) ' . implode(', ', $existingFieldCollections) . ' already exist. Please remove them first.');
         }
 
         //check object bricks
@@ -259,7 +259,7 @@ class Installer extends AbstractInstaller
             }
         }
         if (!empty($existingObjectBricks)) {
-            throw new \Exception("Fieldcollection(s) " . implode(", ", $existingObjectBricks) . " already exist. Please remove them first.");
+            throw new \Exception('Fieldcollection(s) ' . implode(', ', $existingObjectBricks) . ' already exist. Please remove them first.');
         }
     }
 
@@ -357,8 +357,8 @@ class Installer extends AbstractInstaller
     private function copyConfigFile()
     {
         //copy config file
-        if (!is_file(PIMCORE_CUSTOM_CONFIGURATION_DIRECTORY . "/EcommerceFrameworkConfig.php")) {
-            copy(__DIR__ . "/../install/EcommerceFrameworkConfig_sample.php", PIMCORE_CUSTOM_CONFIGURATION_DIRECTORY . "/EcommerceFrameworkConfig.php");
+        if (!is_file(PIMCORE_CUSTOM_CONFIGURATION_DIRECTORY . '/EcommerceFrameworkConfig.php')) {
+            copy(__DIR__ . '/../install/EcommerceFrameworkConfig_sample.php', PIMCORE_CUSTOM_CONFIGURATION_DIRECTORY . '/EcommerceFrameworkConfig.php');
         }
     }
 
@@ -404,13 +404,13 @@ class Installer extends AbstractInstaller
     public function uninstall()
     {
         $db = \Pimcore\Db::get();
-        $db->query("DROP TABLE IF EXISTS `ecommerceframework_cart`");
-        $db->query("DROP TABLE IF EXISTS `ecommerceframework_cartcheckoutdata`");
-        $db->query("DROP TABLE IF EXISTS `ecommerceframework_cartitem`");
-        $db->query("DROP TABLE IF EXISTS `ecommerceframework_vouchertoolkit_reservations`");
-        $db->query("DROP TABLE IF EXISTS `ecommerceframework_vouchertoolkit_tokens`");
-        $db->query("DROP TABLE IF EXISTS `ecommerceframework_vouchertoolkit_statistics`");
-        $db->query("DROP TABLE IF EXISTS `ecommerceframework_pricing_rule`");
+        $db->query('DROP TABLE IF EXISTS `ecommerceframework_cart`');
+        $db->query('DROP TABLE IF EXISTS `ecommerceframework_cartcheckoutdata`');
+        $db->query('DROP TABLE IF EXISTS `ecommerceframework_cartitem`');
+        $db->query('DROP TABLE IF EXISTS `ecommerceframework_vouchertoolkit_reservations`');
+        $db->query('DROP TABLE IF EXISTS `ecommerceframework_vouchertoolkit_tokens`');
+        $db->query('DROP TABLE IF EXISTS `ecommerceframework_vouchertoolkit_statistics`');
+        $db->query('DROP TABLE IF EXISTS `ecommerceframework_pricing_rule`');
 
         //remove permissions
         $key = 'bundle_ecommerce_pricing_rules';
@@ -441,7 +441,7 @@ class Installer extends AbstractInstaller
         $result = null;
         try {
             if (Config::getSystemConfig()) {
-                $result = \Pimcore\Db::get()->query("DESCRIBE ecommerceframework_cartitem")->fetchAll();
+                $result = \Pimcore\Db::get()->query('DESCRIBE ecommerceframework_cartitem')->fetchAll();
             }
         } catch (\Exception $e) {
         }

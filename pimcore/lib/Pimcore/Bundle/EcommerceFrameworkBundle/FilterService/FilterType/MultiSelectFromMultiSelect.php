@@ -47,20 +47,20 @@ class MultiSelectFromMultiSelect extends \Pimcore\Bundle\EcommerceFrameworkBundl
                     if ($values[$e]) {
                         $values[$e]['count'] += $v['count'];
                     } else {
-                        $values[$e] = ['value' => $e, "count" => $v['count']];
+                        $values[$e] = ['value' => $e, 'count' => $v['count']];
                     }
                 }
             }
         }
 
         return $this->render($script, [
-            "hideFilter" => $filterDefinition->getRequiredFilterField() && empty($currentFilter[$filterDefinition->getRequiredFilterField()]),
-            "label" => $filterDefinition->getLabel(),
-            "currentValue" => $currentFilter[$field],
-            "values" => array_values($values),
-            "fieldname" => $field,
-            "metaData" => $filterDefinition->getMetaData(),
-            "resultCount" => $productList->count()
+            'hideFilter' => $filterDefinition->getRequiredFilterField() && empty($currentFilter[$filterDefinition->getRequiredFilterField()]),
+            'label' => $filterDefinition->getLabel(),
+            'currentValue' => $currentFilter[$field],
+            'values' => array_values($values),
+            'fieldname' => $field,
+            'metaData' => $filterDefinition->getMetaData(),
+            'resultCount' => $productList->count()
         ]);
     }
 
@@ -84,7 +84,7 @@ class MultiSelectFromMultiSelect extends \Pimcore\Bundle\EcommerceFrameworkBundl
             if (is_array($preSelect)) {
                 $value = $preSelect;
             } else {
-                $value = explode(",", $preSelect);
+                $value = explode(',', $preSelect);
             }
 
             foreach ($value as $key => $v) {
@@ -103,7 +103,7 @@ class MultiSelectFromMultiSelect extends \Pimcore\Bundle\EcommerceFrameworkBundl
         if (!empty($value)) {
             $quotedValues = [];
             foreach ($value as $v) {
-                $v =   "%" . IWorker::MULTISELECT_DELIMITER  . $v .  IWorker::MULTISELECT_DELIMITER . "%" ;
+                $v =   '%' . IWorker::MULTISELECT_DELIMITER  . $v .  IWorker::MULTISELECT_DELIMITER . '%' ;
                 $quotedValues[] = $field . ' like '.$productList->quote($v);
             }
 
@@ -116,7 +116,7 @@ class MultiSelectFromMultiSelect extends \Pimcore\Bundle\EcommerceFrameworkBundl
 
             if (!empty($quotedValues)) {
                 if ($isPrecondition) {
-                    $productList->addCondition($quotedValues, "PRECONDITION_" . $field);
+                    $productList->addCondition($quotedValues, 'PRECONDITION_' . $field);
                 } else {
                     $productList->addCondition($quotedValues, $field);
                 }

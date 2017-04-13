@@ -26,7 +26,7 @@ class Listing extends \Pimcore\Model\Listing\AbstractListing
      */
     public function isValidOrderKey($key)
     {
-        if ($key == "key" || $key == "cartId") {
+        if ($key == 'key' || $key == 'cartId') {
             return true;
         }
 

@@ -41,7 +41,7 @@ abstract class Dao extends Model\Dao\AbstractDao
                     break;
                 }
                 if (in_array($obj->getId(), $parentIds)) {
-                    throw new \Exception("detected infinite loop while resolving all parents from " . $this->model->getId() . " on " . $obj->getId());
+                    throw new \Exception('detected infinite loop while resolving all parents from ' . $this->model->getId() . ' on ' . $obj->getId());
                 }
 
                 $parentIds[] = $obj->getId();

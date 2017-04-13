@@ -36,7 +36,7 @@ class AbstractOfferToolProduct extends \Pimcore\Model\Object\Concrete implements
      */
     public function getOSName()
     {
-        throw new UnsupportedException("getOSName is not supported for " . get_class($this));
+        throw new UnsupportedException('getOSName is not supported for ' . get_class($this));
     }
 
     /**
@@ -48,7 +48,7 @@ class AbstractOfferToolProduct extends \Pimcore\Model\Object\Concrete implements
      */
     public function getOSProductNumber()
     {
-        throw new UnsupportedException("getOSProductNumber is not supported for " . get_class($this));
+        throw new UnsupportedException('getOSProductNumber is not supported for ' . get_class($this));
     }
 
     /**
@@ -61,7 +61,7 @@ class AbstractOfferToolProduct extends \Pimcore\Model\Object\Concrete implements
      */
     public function getAvailabilitySystemName()
     {
-        return "none";
+        return 'none';
     }
 
     /**
@@ -84,7 +84,7 @@ class AbstractOfferToolProduct extends \Pimcore\Model\Object\Concrete implements
      */
     public function getPriceSystemName()
     {
-        return "defaultOfferToolPriceSystem";
+        return 'defaultOfferToolPriceSystem';
     }
 
     /**
@@ -169,6 +169,6 @@ class AbstractOfferToolProduct extends \Pimcore\Model\Object\Concrete implements
      */
     public function getProductGroup()
     {
-        throw new UnsupportedException("getProductGroup is not implemented for " . get_class($this));
+        throw new UnsupportedException('getProductGroup is not implemented for ' . get_class($this));
     }
 }

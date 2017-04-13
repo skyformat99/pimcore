@@ -27,7 +27,7 @@ class StructuredTable extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $fieldtype = "structuredTable";
+    public $fieldtype = 'structuredTable';
 
     /**
      * @var int
@@ -78,7 +78,7 @@ class StructuredTable extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $phpdocType = "\\Pimcore\\Model\\Object\\Data\\StructuredTable";
+    public $phpdocType = '\\Pimcore\\Model\\Object\\Data\\StructuredTable';
 
     /**
      * @return int
@@ -253,8 +253,8 @@ class StructuredTable extends Model\Object\ClassDefinition\Data
 
             foreach ($this->getRows() as $r) {
                 foreach ($this->getCols() as $c) {
-                    $name = $r['key'] . "#" . $c['key'];
-                    $resourceData[$this->getName() . "__" . $name] = $data[$r['key']][$c['key']];
+                    $name = $r['key'] . '#' . $c['key'];
+                    $resourceData[$this->getName() . '__' . $name] = $data[$r['key']][$c['key']];
                 }
             }
         }
@@ -276,8 +276,8 @@ class StructuredTable extends Model\Object\ClassDefinition\Data
         $structuredData = [];
         foreach ($this->getRows() as $r) {
             foreach ($this->getCols() as $c) {
-                $name = $r['key'] . "#" . $c['key'];
-                $structuredData[$r['key']][$c['key']] = $data[$this->getName() . "__" . $name];
+                $name = $r['key'] . '#' . $c['key'];
+                $structuredData[$r['key']][$c['key']] = $data[$this->getName() . '__' . $name];
             }
         }
 
@@ -317,8 +317,8 @@ class StructuredTable extends Model\Object\ClassDefinition\Data
                 $data = $data->getData();
                 foreach ($this->getRows() as $r) {
                     $editArrayItem = [];
-                    $editArrayItem["__row_identifyer"] = $r['key'];
-                    $editArrayItem["__row_label"] = $r['label'];
+                    $editArrayItem['__row_identifyer'] = $r['key'];
+                    $editArrayItem['__row_label'] = $r['label'];
                     foreach ($this->getCols() as $c) {
                         $editArrayItem[$c['key']] = $data[$r['key']][$c['key']];
                     }
@@ -412,12 +412,12 @@ class StructuredTable extends Model\Object\ClassDefinition\Data
                 }
             }
             if ($empty) {
-                throw new Model\Element\ValidationException("Empty mandatory field [ ".$this->getName()." ]");
+                throw new Model\Element\ValidationException('Empty mandatory field [ '.$this->getName().' ]');
             }
         }
 
         if (!empty($data) and !$data instanceof Object\Data\StructuredTable) {
-            throw new Model\Element\ValidationException("invalid table data");
+            throw new Model\Element\ValidationException('invalid table data');
         }
     }
 
@@ -436,11 +436,11 @@ class StructuredTable extends Model\Object\ClassDefinition\Data
         $value = $this->getDataFromObjectParam($object, $params);
 
         if ($value instanceof Object\Data\StructuredTable) {
-            $string = "";
+            $string = '';
             $dataArray = $value->getData();
             foreach ($this->getRows() as $r) {
                 foreach ($this->getCols() as $c) {
-                    $string .= $dataArray[$r['key']][$c['key']] . "##";
+                    $string .= $dataArray[$r['key']][$c['key']] . '##';
                 }
             }
 
@@ -459,7 +459,7 @@ class StructuredTable extends Model\Object\ClassDefinition\Data
      */
     public function getFromCsvImport($importValue, $object = null, $params = [])
     {
-        $dataArray = explode("##", $importValue);
+        $dataArray = explode('##', $importValue);
 
         $i = 0;
         $dataTable = [];
@@ -492,7 +492,7 @@ class StructuredTable extends Model\Object\ClassDefinition\Data
             $dataArray = $table->getData();
             foreach ($this->getRows() as $r) {
                 foreach ($this->getCols() as $c) {
-                    $name = $r['key'] . "#" . $c['key'];
+                    $name = $r['key'] . '#' . $c['key'];
                     $webserviceArray[$name] = $dataArray[$r['key']][$c['key']];
                 }
             }
@@ -525,14 +525,14 @@ class StructuredTable extends Model\Object\ClassDefinition\Data
                 $dataArray = [];
                 foreach ($this->getRows() as $r) {
                     foreach ($this->getCols() as $c) {
-                        $name = $r['key'] . "#" . $c['key'];
+                        $name = $r['key'] . '#' . $c['key'];
                         $dataArray[$r['key']][$c['key']] = $value[$name];
                     }
                 }
 
                 return new Object\Data\StructuredTable($dataArray);
             } else {
-                throw new \Exception("cannot get values from web service import - invalid data");
+                throw new \Exception('cannot get values from web service import - invalid data');
             }
         }
     }
@@ -575,7 +575,7 @@ class StructuredTable extends Model\Object\ClassDefinition\Data
 
         foreach ($rows as $r) {
             foreach ($cols as $c) {
-                $name = $r['key'] . "#" . $c['key'];
+                $name = $r['key'] . '#' . $c['key'];
 
                 $col = new \stdClass();
                 $col->name = $name;
@@ -600,9 +600,9 @@ class StructuredTable extends Model\Object\ClassDefinition\Data
     protected function typeMapper($type, $length = null)
     {
         $mapper = [
-            "text" => "varchar(".($length > 0 ? $length : "190").")",
-            "number" => "double",
-            "bool" => "tinyint(1)"
+            'text' => 'varchar('.($length > 0 ? $length : '190').')',
+            'number' => 'double',
+            'bool' => 'tinyint(1)'
         ];
 
         return $mapper[$type];
@@ -643,11 +643,11 @@ class StructuredTable extends Model\Object\ClassDefinition\Data
     public function getDiffDataForEditMode($data, $object = null, $params = [])
     {
         $defaultData = parent::getDiffDataForEditMode($data, $object, $params);
-        $html =  $defaultData[0]["value"];
+        $html =  $defaultData[0]['value'];
         $value = [];
-        $value["html"] = $html;
-        $value["type"] = "html";
-        $defaultData[0]["value"] = $value;
+        $value['html'] = $html;
+        $value['type'] = 'html';
+        $defaultData[0]['value'] = $value;
 
         return $defaultData;
     }

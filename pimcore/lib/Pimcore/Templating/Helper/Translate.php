@@ -41,7 +41,7 @@ class Translate extends Helper
      */
     public function getName()
     {
-        return "translate";
+        return 'translate';
     }
 
     /**

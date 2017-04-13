@@ -23,7 +23,7 @@ class IndexFieldSelectionField extends Textarea
      *
      * @var string
      */
-    public $fieldtype = "indexFieldSelectionField";
+    public $fieldtype = 'indexFieldSelectionField';
 
     public $specificPriceField = false;
     public $showAllFields = false;
@@ -85,7 +85,7 @@ class IndexFieldSelectionField extends Textarea
     public function getDataFromEditmode($data, $object = null, $params = [])
     {
         if (is_array($data)) {
-            $data = implode(",", $data);
+            $data = implode(',', $data);
         }
 
         return $data;

@@ -38,7 +38,7 @@ class Select extends Model\Document\Tag
      */
     public function getType()
     {
-        return "select";
+        return 'select';
     }
 
     /**
@@ -111,7 +111,7 @@ class Select extends Model\Document\Tag
         if ($data->text === null or is_string($data->text)) {
             $this->text = $data->text;
         } else {
-            throw new \Exception("cannot get values from web service import - invalid data");
+            throw new \Exception('cannot get values from web service import - invalid data');
         }
     }
 }

@@ -30,7 +30,7 @@ class DefaultMockup implements IProduct
         $this->relations = [];
         if ($relations) {
             foreach ($relations as $relation) {
-                $this->relations[$relation['fieldname']][] = ["id" => $relation['dest'], "type" => $relation['type']];
+                $this->relations[$relation['fieldname']][] = ['id' => $relation['dest'], 'type' => $relation['type']];
             }
         }
     }
@@ -116,7 +116,7 @@ class DefaultMockup implements IProduct
 
     public function __call($method, $args)
     {
-        if (substr($method, 0, 3) == "get") {
+        if (substr($method, 0, 3) == 'get') {
             $attributeName = lcfirst(substr($method, 3));
             if (is_array($this->params) && array_key_exists($attributeName, $this->params)) {
                 return $this->params[$attributeName];
@@ -159,7 +159,7 @@ class DefaultMockup implements IProduct
      */
     public function getOSName()
     {
-        return $this->__call("getOSName", []);
+        return $this->__call('getOSName', []);
     }
 
     /**
@@ -170,6 +170,6 @@ class DefaultMockup implements IProduct
      */
     public function getOSProductNumber()
     {
-        return $this->__call("getOSProductNumber", []);
+        return $this->__call('getOSProductNumber', []);
     }
 }

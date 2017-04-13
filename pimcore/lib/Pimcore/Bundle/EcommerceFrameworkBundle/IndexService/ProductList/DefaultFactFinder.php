@@ -230,7 +230,7 @@ class DefaultFactFinder implements IProductList
         $this->tenantConfig = $tenantConfig;
 
         // init logger
-        $this->logger = \Pimcore::getContainer()->get("monolog.logger.pimcore_ecommerce_factfinder");
+        $this->logger = \Pimcore::getContainer()->get('monolog.logger.pimcore_ecommerce_factfinder');
     }
 
     /**
@@ -274,7 +274,7 @@ class DefaultFactFinder implements IProductList
      * @param $condition
      * @param string $fieldname
      */
-    public function addQueryCondition($condition, $fieldname = "")
+    public function addQueryCondition($condition, $fieldname = '')
     {
         $this->products = null;
         $this->queryConditions[$fieldname][] = $condition;
@@ -431,7 +431,7 @@ class DefaultFactFinder implements IProductList
         $data = $this->sendRequest();
 
         if (!is_array($data)) {
-            throw new \Exception("Got no data from Factfinder " .print_r($data, true));
+            throw new \Exception('Got no data from Factfinder ' .print_r($data, true));
         }
 
         if (array_key_exists('error', $data)) {
@@ -740,12 +740,12 @@ class DefaultFactFinder implements IProductList
         // start request
         $this->getLogger()->info('Request: ' . $url);
 
-        $client = \Pimcore::getContainer()->get("pimcore.http_client");
+        $client = \Pimcore::getContainer()->get('pimcore.http_client');
         $response = $client->request('GET', $url);
 
         $factFinderTimeout = $response->getHeader('X-FF-Timeout');
         if ($factFinderTimeout === 'true') {
-            $errorMessage = "FactFinder Read timeout:" . $url.' X-FF-RefKey: ' . $response->getHeader('X-FF-RefKey').' Tried: ' . ($trys + 1);
+            $errorMessage = 'FactFinder Read timeout:' . $url.' X-FF-RefKey: ' . $response->getHeader('X-FF-RefKey').' Tried: ' . ($trys + 1);
             $this->getLogger()->err($errorMessage);
             $trys++;
             if ($trys > 2) {

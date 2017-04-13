@@ -104,12 +104,12 @@ class Predefined extends Model\AbstractModel
      */
     public static function getByKey($key)
     {
-        $cacheKey = "property_predefined_" . $key;
+        $cacheKey = 'property_predefined_' . $key;
 
         try {
             $property = \Pimcore\Cache\Runtime::get($cacheKey);
             if (!$property) {
-                throw new \Exception("Predefined property in registry is null");
+                throw new \Exception('Predefined property in registry is null');
             }
         } catch (\Exception $e) {
             try {

@@ -101,13 +101,13 @@ CODE;
 
                 // search for the end <head> tag, and insert the google tag manager code before
                 // this method is much faster than using simple_html_dom and uses less memory
-                $headEndPosition = stripos($content, "</head>");
+                $headEndPosition = stripos($content, '</head>');
                 if ($headEndPosition !== false) {
-                    $content = substr_replace($content, $codeHead."</head>", $headEndPosition, 7);
+                    $content = substr_replace($content, $codeHead.'</head>', $headEndPosition, 7);
                 }
 
                 // insert code after the opening <body> tag
-                $content = preg_replace("@<body(>|.*?[^?]>)@", "<body$1\n\n" . $codeBody, $content);
+                $content = preg_replace('@<body(>|.*?[^?]>)@', "<body$1\n\n" . $codeBody, $content);
 
                 $response->setContent($content);
             }

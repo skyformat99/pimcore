@@ -26,7 +26,7 @@ class Hardlink extends Model\Webservice\Data\Document
      *
      * @var string
      */
-    public $type = "hardlink";
+    public $type = 'hardlink';
 
     /**
      * @var int

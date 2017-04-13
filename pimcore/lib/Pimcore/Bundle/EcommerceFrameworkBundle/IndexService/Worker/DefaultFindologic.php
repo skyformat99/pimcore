@@ -24,9 +24,9 @@ use Pimcore\Logger;
  */
 class DefaultFindologic extends AbstractMockupCacheWorker implements IWorker, IBatchProcessingWorker
 {
-    const STORE_TABLE_NAME = "ecommerceframework_productindex_store_findologic";
-    const EXPORT_TABLE_NAME = "ecommerceframework_productindex_export_findologic";
-    const MOCKUP_CACHE_PREFIX = "ecommerce_mockup_findologic";
+    const STORE_TABLE_NAME = 'ecommerceframework_productindex_store_findologic';
+    const EXPORT_TABLE_NAME = 'ecommerceframework_productindex_export_findologic';
+    const MOCKUP_CACHE_PREFIX = 'ecommerce_mockup_findologic';
 
     /**
      * findologic supported fields

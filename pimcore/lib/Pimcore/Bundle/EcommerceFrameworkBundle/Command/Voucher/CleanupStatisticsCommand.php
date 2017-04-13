@@ -24,7 +24,7 @@ class CleanupStatisticsCommand extends AbstractCommand
     protected function configure()
     {
         $this->setName('ecommerce:voucher:cleanup-statistics');
-        $this->setDescription("House keeping for Voucher Usage Statistics - cleans up all old data.");
+        $this->setDescription('House keeping for Voucher Usage Statistics - cleans up all old data.');
     }
 
     /**

@@ -29,7 +29,7 @@ class Password extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $fieldtype = "password";
+    public $fieldtype = 'password';
 
     /**
      * @var int
@@ -41,36 +41,36 @@ class Password extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $queryColumnType = "varchar(190)";
+    public $queryColumnType = 'varchar(190)';
 
     /**
      * Type for the column
      *
      * @var string
      */
-    public $columnType = "varchar(190)";
+    public $columnType = 'varchar(190)';
 
     /**
      * Type for the generated phpdoc
      *
      * @var string
      */
-    public $phpdocType = "string";
+    public $phpdocType = 'string';
 
     /**
      * @var string
      */
-    public $algorithm = "md5";
+    public $algorithm = 'md5';
 
     /**
      * @var string
      */
-    public $salt = "";
+    public $salt = '';
 
     /**
      * @var string
      */
-    public $saltlocation = "";
+    public $saltlocation = '';
 
     /**
      * @return int
@@ -181,7 +181,7 @@ class Password extends Model\Object\ClassDefinition\Data
             : ($object ?: null);
 
         if (null !== $passwordModel) {
-            $setter = "set" . ucfirst($this->getName());
+            $setter = 'set' . ucfirst($this->getName());
             $passwordModel->$setter($hashed);
         }
 
@@ -326,7 +326,7 @@ class Password extends Model\Object\ClassDefinition\Data
      */
     public function getVersionPreview($data, $object = null, $params = [])
     {
-        return "******";
+        return '******';
     }
 
     /**
@@ -338,7 +338,7 @@ class Password extends Model\Object\ClassDefinition\Data
      */
     public function getDataForGrid($data, $object, $params = [])
     {
-        return "******";
+        return '******';
     }
 
     /**
@@ -365,7 +365,7 @@ class Password extends Model\Object\ClassDefinition\Data
      */
     public function getDataForSearchIndex($object, $params = [])
     {
-        return "";
+        return '';
     }
 
     /**
@@ -402,7 +402,7 @@ class Password extends Model\Object\ClassDefinition\Data
      */
     public function getDiffDataFromEditmode($data, $object = null, $params = [])
     {
-        return $data[0]["data"];
+        return $data[0]['data'];
     }
 
     /** See parent class.
@@ -415,18 +415,18 @@ class Password extends Model\Object\ClassDefinition\Data
     public function getDiffDataForEditMode($data, $object = null, $params = [])
     {
         $diffdata = [];
-        $diffdata["data"] = $data;
-        $diffdata["disabled"] = !($this->isDiffChangeAllowed($object, $params));
-        $diffdata["field"] = $this->getName();
-        $diffdata["key"] = $this->getName();
-        $diffdata["type"] = $this->fieldtype;
+        $diffdata['data'] = $data;
+        $diffdata['disabled'] = !($this->isDiffChangeAllowed($object, $params));
+        $diffdata['field'] = $this->getName();
+        $diffdata['key'] = $this->getName();
+        $diffdata['type'] = $this->fieldtype;
 
         if ($data) {
-            $diffdata["value"] = $this->getVersionPreview($data, $object, $params);
+            $diffdata['value'] = $this->getVersionPreview($data, $object, $params);
             // $diffdata["value"] = $data;
         }
 
-        $diffdata["title"] = !empty($this->title) ? $this->title : $this->name;
+        $diffdata['title'] = !empty($this->title) ? $this->title : $this->name;
 
         $result = [];
         $result[] = $diffdata;

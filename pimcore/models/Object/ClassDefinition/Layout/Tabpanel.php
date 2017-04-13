@@ -26,5 +26,5 @@ class Tabpanel extends Model\Object\ClassDefinition\Layout
      *
      * @var string
      */
-    public $fieldtype = "tabpanel";
+    public $fieldtype = 'tabpanel';
 }

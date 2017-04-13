@@ -33,7 +33,7 @@ class Dao extends \Pimcore\Model\Listing\Dao\AbstractDao
     public function load()
     {
         $entries = [];
-        $data = $this->db->fetchAll("SELECT * FROM search_backend_data" .  $this->getCondition() . $this->getGroupBy() . $this->getOrder() . $this->getOffsetLimit(), $this->model->getConditionVariables());
+        $data = $this->db->fetchAll('SELECT * FROM search_backend_data' .  $this->getCondition() . $this->getGroupBy() . $this->getOrder() . $this->getOffsetLimit(), $this->model->getConditionVariables());
 
         foreach ($data as $entryData) {
             if ($entryData['maintype'] == 'document') {
@@ -43,7 +43,7 @@ class Dao extends \Pimcore\Model\Listing\Dao\AbstractDao
             } elseif ($entryData['maintype'] == 'object') {
                 $element = Object::getById($entryData['id']);
             } else {
-                Logger::err("unknown maintype ");
+                Logger::err('unknown maintype ');
             }
             if ($element) {
                 $entry = new Search\Backend\Data();
@@ -69,7 +69,7 @@ class Dao extends \Pimcore\Model\Listing\Dao\AbstractDao
      */
     public function getTotalCount()
     {
-        $amount = $this->db->fetchOne("SELECT COUNT(*) as amount FROM search_backend_data" . $this->getCondition() . $this->getGroupBy(), $this->model->getConditionVariables());
+        $amount = $this->db->fetchOne('SELECT COUNT(*) as amount FROM search_backend_data' . $this->getCondition() . $this->getGroupBy(), $this->model->getConditionVariables());
 
         return $amount;
     }
@@ -83,7 +83,7 @@ class Dao extends \Pimcore\Model\Listing\Dao\AbstractDao
             return count($this->model->getEntries());
         }
 
-        $amount = $this->db->fetchOne("SELECT COUNT(*) as amount FROM search_backend_data "  . $this->getCondition() . $this->getGroupBy() . $this->getOrder() . $this->getOffsetLimit(), $this->model->getConditionVariables());
+        $amount = $this->db->fetchOne('SELECT COUNT(*) as amount FROM search_backend_data '  . $this->getCondition() . $this->getGroupBy() . $this->getOrder() . $this->getOffsetLimit(), $this->model->getConditionVariables());
 
         return $amount;
     }
@@ -94,9 +94,9 @@ class Dao extends \Pimcore\Model\Listing\Dao\AbstractDao
     protected function getCondition()
     {
         if ($cond = $this->model->getCondition()) {
-            return " WHERE " . $cond . " ";
+            return ' WHERE ' . $cond . ' ';
         }
 
-        return "";
+        return '';
     }
 }

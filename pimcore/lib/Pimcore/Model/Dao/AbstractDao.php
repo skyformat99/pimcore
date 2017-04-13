@@ -21,7 +21,7 @@ abstract class AbstractDao implements DaoInterface
 {
     use DaoTrait;
 
-    const CACHEKEY = "system_resource_columns_";
+    const CACHEKEY = 'system_resource_columns_';
 
     /**
      * @var \Pimcore\Db\Connection
@@ -65,11 +65,11 @@ abstract class AbstractDao implements DaoInterface
 
             if (!$columns || !$cache) {
                 $columns = [];
-                $data = $this->db->fetchAll("SHOW COLUMNS FROM " . $table);
+                $data = $this->db->fetchAll('SHOW COLUMNS FROM ' . $table);
                 foreach ($data as $d) {
-                    $columns[] = $d["Field"];
+                    $columns[] = $d['Field'];
                 }
-                Cache::save($columns, $cacheKey, ["system", "resource"], null, 997);
+                Cache::save($columns, $cacheKey, ['system', 'resource'], null, 997);
             }
 
             \Pimcore\Cache\Runtime::set($cacheKey, $columns);
@@ -85,6 +85,6 @@ abstract class AbstractDao implements DaoInterface
     {
         $cacheKey = self::CACHEKEY . $table;
         \Pimcore\Cache\Runtime::getInstance()->offsetUnset($cacheKey);
-        Cache::clearTags(["system", "resource"]);
+        Cache::clearTags(['system', 'resource']);
     }
 }

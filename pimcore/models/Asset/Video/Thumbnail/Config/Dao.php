@@ -27,7 +27,7 @@ class Dao extends Model\Dao\PhpArrayTable
     public function configure()
     {
         parent::configure();
-        $this->setFile("video-thumbnails");
+        $this->setFile('video-thumbnails');
     }
 
     /**
@@ -43,11 +43,11 @@ class Dao extends Model\Dao\PhpArrayTable
 
         $data = $this->db->getById($this->model->getName());
 
-        if (isset($data["id"])) {
+        if (isset($data['id'])) {
             $this->assignVariablesToModel($data);
-            $this->model->setName($data["id"]);
+            $this->model->setName($data['id']);
         } else {
-            throw new \Exception("Thumbnail with id: " . $this->model->getName() . " does not exist");
+            throw new \Exception('Thumbnail with id: ' . $this->model->getName() . ' does not exist');
         }
     }
 
@@ -65,8 +65,8 @@ class Dao extends Model\Dao\PhpArrayTable
         try {
             $dataRaw = get_object_vars($this->model);
             $data = [];
-            $allowedProperties = ["name", "description", "items",
-                "videoBitrate", "audioBitrate", "creationDate", "modificationDate"];
+            $allowedProperties = ['name', 'description', 'items',
+                'videoBitrate', 'audioBitrate', 'creationDate', 'modificationDate'];
 
             foreach ($dataRaw as $key => $value) {
                 if (in_array($key, $allowedProperties)) {

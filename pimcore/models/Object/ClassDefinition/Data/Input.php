@@ -28,7 +28,7 @@ class Input extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $fieldtype = "input";
+    public $fieldtype = 'input';
 
     /**
      * @var int
@@ -40,14 +40,14 @@ class Input extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $queryColumnType = "varchar";
+    public $queryColumnType = 'varchar';
 
     /**
      * Type for the column
      *
      * @var string
      */
-    public $columnType = "varchar";
+    public $columnType = 'varchar';
 
     /**
      * Column length
@@ -61,12 +61,12 @@ class Input extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $phpdocType = "string";
+    public $phpdocType = 'string';
 
     /**
      * @var string
      */
-    public $regex = "";
+    public $regex = '';
 
     /**
      * @return int
@@ -201,7 +201,7 @@ class Input extends Model\Object\ClassDefinition\Data
      */
     public function getColumnType()
     {
-        return $this->columnType . "(" . $this->getColumnLength() . ")";
+        return $this->columnType . '(' . $this->getColumnLength() . ')';
     }
 
     /**
@@ -209,7 +209,7 @@ class Input extends Model\Object\ClassDefinition\Data
      */
     public function getQueryColumnType()
     {
-        return $this->queryColumnType . "(" . $this->getColumnLength() . ")";
+        return $this->queryColumnType . '(' . $this->getColumnLength() . ')';
     }
 
     /**
@@ -223,8 +223,8 @@ class Input extends Model\Object\ClassDefinition\Data
     public function checkValidity($data, $omitMandatoryCheck = false)
     {
         if (!$omitMandatoryCheck && $this->getRegex() && strlen($data) > 0) {
-            if (!preg_match("#" . $this->getRegex() . "#", $data)) {
-                throw new Model\Element\ValidationException("Value in field [ " . $this->getName() . " ] doesn't match input validation '" . $this->getRegex() . "'");
+            if (!preg_match('#' . $this->getRegex() . '#', $data)) {
+                throw new Model\Element\ValidationException('Value in field [ ' . $this->getName() . " ] doesn't match input validation '" . $this->getRegex() . "'");
             }
         }
 

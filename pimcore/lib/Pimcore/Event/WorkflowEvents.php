@@ -53,7 +53,7 @@ final class WorkflowEvents
      *
      * @var string
      */
-    const PRE_RETURN_AVAILABLE_ACTIONS = "pimcore.workflowmanagement.preReturnAvailableActions";
+    const PRE_RETURN_AVAILABLE_ACTIONS = 'pimcore.workflowmanagement.preReturnAvailableActions';
 
     /**
      * Arguments:
@@ -64,7 +64,7 @@ final class WorkflowEvents
      *
      * @var string
      */
-    const ACTION_BEFORE = "pimcore.workflowmanagement.action.before";
+    const ACTION_BEFORE = 'pimcore.workflowmanagement.action.before';
 
     /**
      * Arguments:
@@ -75,7 +75,7 @@ final class WorkflowEvents
      *
      * @var string
      */
-    const ACTION_SUCCESS = "pimcore.workflowmanagement.action.success";
+    const ACTION_SUCCESS = 'pimcore.workflowmanagement.action.success';
 
     /**
      * Arguments:
@@ -87,5 +87,5 @@ final class WorkflowEvents
      *
      * @var string
      */
-    const ACTION_FAILURE = "pimcore.workflowmanagement.action.failure";
+    const ACTION_FAILURE = 'pimcore.workflowmanagement.action.failure';
 }

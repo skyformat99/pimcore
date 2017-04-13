@@ -42,7 +42,7 @@ class Warming
     public static function documents($types = null)
     {
         if (empty($types)) {
-            $types = ["page", "snippet", "folder", "link"];
+            $types = ['page', 'snippet', 'folder', 'link'];
         }
 
         $list = new Document\Listing();
@@ -60,10 +60,10 @@ class Warming
     public static function objects($types = null, $classes = null)
     {
         if (empty($types)) {
-            $types = ["object", "folder", "variant"];
+            $types = ['object', 'folder', 'variant'];
         }
 
-        $classesCondition = "";
+        $classesCondition = '';
         if (!empty($classes)) {
             $classesCondition .= " AND o_className IN ('" . implode("','", $classes) . "')";
         }
@@ -82,7 +82,7 @@ class Warming
     public static function assets($types = null)
     {
         if (empty($types)) {
-            $types = ["folder", "image", "text", "audio", "video", "document", "archive", "unknown"];
+            $types = ['folder', 'image', 'text', 'audio', 'video', 'document', 'archive', 'unknown'];
         }
 
         $list = new Asset\Listing();
@@ -98,7 +98,7 @@ class Warming
      */
     public static function loadElementToCache($element)
     {
-        $cacheKey = Element\Service::getElementType($element) . "_" . $element->getId();
+        $cacheKey = Element\Service::getElementType($element) . '_' . $element->getId();
         Cache::save($element, $cacheKey, [], null, null, true);
     }
 
@@ -110,10 +110,10 @@ class Warming
         $totalCount = $list->getTotalCount();
         $iterations = ceil($totalCount / self::getPerIteration());
 
-        Logger::info("New list of elements queued for storing into the cache with " . $iterations . " iterations and " . $totalCount . " total items");
+        Logger::info('New list of elements queued for storing into the cache with ' . $iterations . ' iterations and ' . $totalCount . ' total items');
 
         for ($i=0; $i < $iterations; $i++) {
-            Logger::info("Starting iteration " . $i . " with offset: " . (self::getPerIteration() * $i));
+            Logger::info('Starting iteration ' . $i . ' with offset: ' . (self::getPerIteration() * $i));
 
             $list->setLimit(self::getPerIteration());
             $list->setOffset(self::getPerIteration() * $i);

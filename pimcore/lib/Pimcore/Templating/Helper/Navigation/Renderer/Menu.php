@@ -505,7 +505,7 @@ class Menu extends AbstractHelper
         $attribs = array_merge($attribs, $page->getCustomHtmlAttribs());
 
         return '<' . $element . $this->_htmlAttribs($attribs) . '>'
-             . htmlspecialchars($label, ENT_COMPAT, "UTF-8")
+             . htmlspecialchars($label, ENT_COMPAT, 'UTF-8')
              . '</' . $element . '>';
     }
 

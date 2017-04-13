@@ -94,7 +94,7 @@ function foldersize($path)
     $cleanPath = rtrim($path, '/'). '/';
 
     foreach ($files as $t) {
-        if ($t != "." && $t != "..") {
+        if ($t != '.' && $t != '..') {
             $currentFile = $cleanPath . $t;
             if (is_dir($currentFile)) {
                 $size = foldersize($currentFile);
@@ -117,14 +117,14 @@ function foldersize($path)
  */
 function replace_pcre_backreferences($string, $values)
 {
-    array_unshift($values, "");
-    $string = str_replace("\\$", "###PCRE_PLACEHOLDER###", $string);
+    array_unshift($values, '');
+    $string = str_replace('\$', '###PCRE_PLACEHOLDER###', $string);
 
     foreach ($values as $key => $value) {
-        $string = str_replace("$".$key, $value, $string);
+        $string = str_replace('$'.$key, $value, $string);
     }
 
-    $string = str_replace("###URLENCODE_PLACEHOLDER###", "$", $string);
+    $string = str_replace('###URLENCODE_PLACEHOLDER###', '$', $string);
 
     return $string;
 }
@@ -138,7 +138,7 @@ function array_htmlspecialchars($array)
 {
     foreach ($array as $key => $value) {
         if (is_string($value) || is_numeric($value)) {
-            $array[$key] = htmlspecialchars($value, ENT_COMPAT, "UTF-8");
+            $array[$key] = htmlspecialchars($value, ENT_COMPAT, 'UTF-8');
         } else {
             if (is_array($value)) {
                 $array[$key] = array_htmlspecialchars($value);
@@ -203,17 +203,17 @@ function urlencode_ignore_slash($var)
         $var = str_replace($scheme . '://', '', $var);
     }
 
-    $placeholder = "x-X-x-ignore-" . md5(microtime()) . "-slash-x-X-x";
-    $var = str_replace("/", $placeholder, $var);
+    $placeholder = 'x-X-x-ignore-' . md5(microtime()) . '-slash-x-X-x';
+    $var = str_replace('/', $placeholder, $var);
     $var = rawurlencode($var);
-    $var = str_replace($placeholder, "/", $var);
+    $var = str_replace($placeholder, '/', $var);
 
     if ($scheme) {
         $var = $scheme . '://' . $var;
     }
 
     // allow @2x for retina thumbnails, ...
-    $var = preg_replace("/%40([\d]+)x\./", "@$1x.", $var);
+    $var = preg_replace("/%40([\d]+)x\./", '@$1x.', $var);
 
     return $var;
 }
@@ -359,7 +359,7 @@ function explode_and_trim($delimiter, $string = '', $limit = '', $useArrayFilter
 function recursiveDelete($directory, $empty = true)
 {
     if (is_dir($directory)) {
-        $directory = rtrim($directory, "/");
+        $directory = rtrim($directory, '/');
 
         if (!file_exists($directory) || !is_dir($directory)) {
             return false;
@@ -367,12 +367,12 @@ function recursiveDelete($directory, $empty = true)
             return false;
         } else {
             $directoryHandle = opendir($directory);
-            $contents = ".";
+            $contents = '.';
 
             while ($contents) {
                 $contents = readdir($directoryHandle);
                 if (strlen($contents) && $contents != '.' && $contents != '..') {
-                    $path = $directory . "/" . $contents;
+                    $path = $directory . '/' . $contents;
 
                     if (is_dir($path)) {
                         recursiveDelete($path);
@@ -492,10 +492,10 @@ function isAssocArray(array $arr)
  */
 function resolvePath($filename)
 {
-    $protocol = "";
+    $protocol = '';
     if (!stream_is_local($filename)) {
-        $protocol = parse_url($filename, PHP_URL_SCHEME) . "://";
-        $filename = str_replace($protocol, "", $filename);
+        $protocol = parse_url($filename, PHP_URL_SCHEME) . '://';
+        $filename = str_replace($protocol, '', $filename);
     }
 
     $filename = str_replace('//', '/', $filename);
@@ -553,7 +553,7 @@ function is_dir_empty($dir)
     }
     $handle = opendir($dir);
     while (false !== ($entry = readdir($handle))) {
-        if ($entry != "." && $entry != "..") {
+        if ($entry != '.' && $entry != '..') {
             return false;
         }
     }
@@ -567,23 +567,23 @@ function is_dir_empty($dir)
  *
  * @return mixed|string
  */
-function var_export_pretty($var, $indent="")
+function var_export_pretty($var, $indent='')
 {
     switch (gettype($var)) {
-        case "string":
+        case 'string':
             return '"' . addcslashes($var, "\\\$\"\r\n\t\v\f") . '"';
-        case "array":
+        case 'array':
             $indexed = array_keys($var) === range(0, count($var) - 1);
             $r = [];
             foreach ($var as $key => $value) {
                 $r[] = "$indent    "
-                    . ($indexed ? "" : var_export_pretty($key) . " => ")
+                    . ($indexed ? '' : var_export_pretty($key) . ' => ')
                     . var_export_pretty($value, "$indent    ");
             }
 
-            return "[\n" . implode(",\n", $r) . "\n" . $indent . "]";
-        case "boolean":
-            return $var ? "TRUE" : "FALSE";
+            return "[\n" . implode(",\n", $r) . "\n" . $indent . ']';
+        case 'boolean':
+            return $var ? 'TRUE' : 'FALSE';
         default:
             return var_export($var, true);
     }

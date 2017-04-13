@@ -46,7 +46,7 @@ class PortalController extends AdminController implements EventedControllerInter
      */
     protected function getCurrentConfiguration(Request $request)
     {
-        return $this->dashboardHelper->getDashboard($request->get("key"));
+        return $this->dashboardHelper->getDashboard($request->get('key'));
     }
 
     /**
@@ -55,7 +55,7 @@ class PortalController extends AdminController implements EventedControllerInter
      */
     protected function saveConfiguration(Request $request, $config)
     {
-        $this->dashboardHelper->saveDashboard($request->get("key"), $config);
+        $this->dashboardHelper->saveDashboard($request->get('key'), $config);
     }
 
     /**
@@ -71,7 +71,7 @@ class PortalController extends AdminController implements EventedControllerInter
 
         $data = [];
         foreach ($dashboards as $key => $config) {
-            if ($key != "welcome") {
+            if ($key != 'welcome') {
                 $data[] = $key;
             }
         }
@@ -91,16 +91,16 @@ class PortalController extends AdminController implements EventedControllerInter
         $this->protectCsrf($request);
 
         $dashboards = $this->dashboardHelper->getAllDashboards();
-        $key = trim($request->get("key"));
+        $key = trim($request->get('key'));
 
         if ($dashboards[$key]) {
-            return $this->json(["success" => false, "message" => "dashboard_already_exists"]);
+            return $this->json(['success' => false, 'message' => 'dashboard_already_exists']);
         } elseif (!empty($key)) {
             $this->dashboardHelper->saveDashboard($key);
 
-            return $this->json(["success" => true]);
+            return $this->json(['success' => true]);
         } else {
-            return $this->json(["success" => false, "message" => "empty"]);
+            return $this->json(['success' => false, 'message' => 'empty']);
         }
     }
 
@@ -113,10 +113,10 @@ class PortalController extends AdminController implements EventedControllerInter
      */
     public function deleteDashboardAction(Request $request)
     {
-        $key = $request->get("key");
+        $key = $request->get('key');
         $this->dashboardHelper->deleteDashboard($key);
 
-        return $this->json(["success" => true]);
+        return $this->json(['success' => true]);
     }
 
     /**
@@ -144,19 +144,19 @@ class PortalController extends AdminController implements EventedControllerInter
         $newConfig = [[], []];
         $colCount = 0;
 
-        foreach ($config["positions"] as $col) {
+        foreach ($config['positions'] as $col) {
             foreach ($col as $row) {
-                if ($row['id'] != $request->get("id")) {
+                if ($row['id'] != $request->get('id')) {
                     $newConfig[$colCount][] = $row;
                 }
             }
             $colCount++;
         }
 
-        $config["positions"] = $newConfig;
+        $config['positions'] = $newConfig;
         $this->saveConfiguration($request, $config);
 
-        return $this->json(["success" => true]);
+        return $this->json(['success' => true]);
     }
 
     /**
@@ -178,11 +178,11 @@ class PortalController extends AdminController implements EventedControllerInter
         }
 
         $nextId = $nextId + 1;
-        $config["positions"][0][] = ["id" => $nextId, "type" => $request->get("type"), "config" => null];
+        $config['positions'][0][] = ['id' => $nextId, 'type' => $request->get('type'), 'config' => null];
 
         $this->saveConfiguration($request, $config);
 
-        return $this->json(["success" => true, "id" => $nextId]);
+        return $this->json(['success' => true, 'id' => $nextId]);
     }
 
     /**
@@ -198,9 +198,9 @@ class PortalController extends AdminController implements EventedControllerInter
         $newConfig = [[], []];
         $colCount = 0;
 
-        foreach ($config["positions"] as $col) {
+        foreach ($config['positions'] as $col) {
             foreach ($col as $row) {
-                if ($row['id'] != $request->get("id")) {
+                if ($row['id'] != $request->get('id')) {
                     $newConfig[$colCount][] = $row;
                 } else {
                     $toMove = $row;
@@ -209,12 +209,12 @@ class PortalController extends AdminController implements EventedControllerInter
             $colCount++;
         }
 
-        array_splice($newConfig[$request->get("column")], $request->get("row"), 0, [$toMove]);
+        array_splice($newConfig[$request->get('column')], $request->get('row'), 0, [$toMove]);
 
-        $config["positions"] = $newConfig;
+        $config['positions'] = $newConfig;
         $this->saveConfiguration($request, $config);
 
-        return $this->json(["success" => true]);
+        return $this->json(['success' => true]);
     }
 
     /**
@@ -226,12 +226,12 @@ class PortalController extends AdminController implements EventedControllerInter
      */
     public function updatePortletConfigAction(Request $request)
     {
-        $key = $request->get("key");
-        $id = $request->get("id");
-        $configuration = $request->get("config");
+        $key = $request->get('key');
+        $id = $request->get('id');
+        $configuration = $request->get('config');
 
         $dashboard = $this->dashboardHelper->getDashboard($key);
-        foreach ($dashboard["positions"] as &$col) {
+        foreach ($dashboard['positions'] as &$col) {
             foreach ($col as &$portlet) {
                 if ($portlet['id'] == $id) {
                     $portlet['config'] = $configuration;
@@ -241,7 +241,7 @@ class PortalController extends AdminController implements EventedControllerInter
         }
         $this->dashboardHelper->saveDashboard($key, $dashboard);
 
-        return $this->json(["success" => true]);
+        return $this->json(['success' => true]);
     }
 
     /**
@@ -254,10 +254,10 @@ class PortalController extends AdminController implements EventedControllerInter
     public function portletFeedAction(Request $request)
     {
         $dashboard = $this->getCurrentConfiguration($request);
-        $id = $request->get("id");
+        $id = $request->get('id');
 
         $portlet = [];
-        foreach ($dashboard["positions"] as $col) {
+        foreach ($dashboard['positions'] as $col) {
             foreach ($col as $row) {
                 if ($row['id'] == $id) {
                     $portlet = $row;
@@ -293,16 +293,16 @@ class PortalController extends AdminController implements EventedControllerInter
                 }
 
                 $entry = [
-                    "title" => $entry->getTitle(),
-                    "description" => $entry->getDescription(),
-                    'authors' => $entry->getValue("author"),
+                    'title' => $entry->getTitle(),
+                    'description' => $entry->getDescription(),
+                    'authors' => $entry->getValue('author'),
                     'link' => $entry->getLink(),
                     'content' => $entry->getDescription()
                 ];
 
                 foreach ($entry as &$content) {
-                    $content = strip_tags($content, "<h1><h2><h3><h4><h5><p><br><a><img><div><b><strong><i>");
-                    $content = preg_replace('/on([a-z]+)([ ]+)?=/i', "data-on$1=", $content);
+                    $content = strip_tags($content, '<h1><h2><h3><h4><h5><p><br><a><img><div><b><strong><i>');
+                    $content = preg_replace('/on([a-z]+)([ ]+)?=/i', 'data-on$1=', $content);
                 }
 
                 $entries[] = $entry;
@@ -310,7 +310,7 @@ class PortalController extends AdminController implements EventedControllerInter
         }
 
         return $this->json([
-            "entries" => $entries
+            'entries' => $entries
         ]);
     }
 
@@ -324,21 +324,21 @@ class PortalController extends AdminController implements EventedControllerInter
     public function portletModifiedDocumentsAction(Request $request)
     {
         $list = Document::getList([
-            "limit" => 10,
-            "order" => "DESC",
-            "orderKey" => "modificationDate"
+            'limit' => 10,
+            'order' => 'DESC',
+            'orderKey' => 'modificationDate'
         ]);
 
         $response = [];
-        $response["documents"] = [];
+        $response['documents'] = [];
 
         foreach ($list as $doc) {
-            $response["documents"][] = [
-                "id" => $doc->getId(),
-                "type" => $doc->getType(),
-                "path" => $doc->getRealFullPath(),
-                "date" => $doc->getModificationDate(),
-                "condition" => "userModification = '".$this->getUser()->getId()."'"
+            $response['documents'][] = [
+                'id' => $doc->getId(),
+                'type' => $doc->getType(),
+                'path' => $doc->getRealFullPath(),
+                'date' => $doc->getModificationDate(),
+                'condition' => "userModification = '".$this->getUser()->getId()."'"
             ];
         }
 
@@ -355,21 +355,21 @@ class PortalController extends AdminController implements EventedControllerInter
     public function portletModifiedAssetsAction(Request $request)
     {
         $list = Asset::getList([
-            "limit" => 10,
-            "order" => "DESC",
-            "orderKey" => "modificationDate"
+            'limit' => 10,
+            'order' => 'DESC',
+            'orderKey' => 'modificationDate'
         ]);
 
         $response = [];
-        $response["assets"] = [];
+        $response['assets'] = [];
 
         foreach ($list as $doc) {
-            $response["assets"][] = [
-                "id" => $doc->getId(),
-                "type" => $doc->getType(),
-                "path" => $doc->getRealFullPath(),
-                "date" => $doc->getModificationDate(),
-                "condition" => "userModification = '".$this->getUser()->getId()."'"
+            $response['assets'][] = [
+                'id' => $doc->getId(),
+                'type' => $doc->getType(),
+                'path' => $doc->getRealFullPath(),
+                'date' => $doc->getModificationDate(),
+                'condition' => "userModification = '".$this->getUser()->getId()."'"
             ];
         }
 
@@ -386,21 +386,21 @@ class PortalController extends AdminController implements EventedControllerInter
     public function portletModifiedObjectsAction(Request $request)
     {
         $list = Object::getList([
-            "limit" => 10,
-            "order" => "DESC",
-            "orderKey" => "o_modificationDate",
-            "condition" => "o_userModification = '".$this->getUser()->getId()."'"
+            'limit' => 10,
+            'order' => 'DESC',
+            'orderKey' => 'o_modificationDate',
+            'condition' => "o_userModification = '".$this->getUser()->getId()."'"
         ]);
 
         $response = [];
-        $response["objects"] = [];
+        $response['objects'] = [];
 
         foreach ($list as $object) {
-            $response["objects"][] = [
-                "id" => $object->getId(),
-                "type" => $object->getType(),
-                "path" => $object->getRealFullPath(),
-                "date" => $object->getModificationDate()
+            $response['objects'][] = [
+                'id' => $object->getId(),
+                'type' => $object->getType(),
+                'path' => $object->getRealFullPath(),
+                'date' => $object->getModificationDate()
             ];
         }
 
@@ -419,7 +419,7 @@ class PortalController extends AdminController implements EventedControllerInter
         $db = \Pimcore\Db::get();
 
         $days = 31;
-        $startDate = mktime(23, 59, 59, date("m"), date("d"), date("Y"));
+        $startDate = mktime(23, 59, 59, date('m'), date('d'), date('Y'));
 
         $data = [];
 
@@ -428,25 +428,25 @@ class PortalController extends AdminController implements EventedControllerInter
             $end = $startDate - ($i * 86400);
             $start = $end - 86399;
 
-            $o = $db->fetchOne("SELECT COUNT(*) AS count FROM objects WHERE o_modificationDate > ".$start . " AND o_modificationDate < ".$end);
-            $a = $db->fetchOne("SELECT COUNT(*) AS count FROM assets WHERE modificationDate > ".$start . " AND modificationDate < ".$end);
-            $d = $db->fetchOne("SELECT COUNT(*) AS count FROM documents WHERE modificationDate > ".$start . " AND modificationDate < ".$end);
+            $o = $db->fetchOne('SELECT COUNT(*) AS count FROM objects WHERE o_modificationDate > '.$start . ' AND o_modificationDate < '.$end);
+            $a = $db->fetchOne('SELECT COUNT(*) AS count FROM assets WHERE modificationDate > '.$start . ' AND modificationDate < '.$end);
+            $d = $db->fetchOne('SELECT COUNT(*) AS count FROM documents WHERE modificationDate > '.$start . ' AND modificationDate < '.$end);
 
             $date = new \DateTime();
             $date->setTimestamp($start);
 
             $data[] = [
-                "timestamp" => $start,
-                "datetext" => $date->format("Y-m-d"),
-                "objects" => (int) $o,
-                "documents" => (int) $d,
-                "assets" => (int) $a
+                'timestamp' => $start,
+                'datetext' => $date->format('Y-m-d'),
+                'objects' => (int) $o,
+                'documents' => (int) $d,
+                'assets' => (int) $a
             ];
         }
 
         $data = array_reverse($data);
 
-        return $this->json(["data" => $data]);
+        return $this->json(['data' => $data]);
     }
 
     /**
@@ -458,26 +458,26 @@ class PortalController extends AdminController implements EventedControllerInter
      */
     public function portletAnalyticsSitesAction(Request $request)
     {
-        $translator = \Pimcore::getContainer()->get("translator");
+        $translator = \Pimcore::getContainer()->get('translator');
 
         $sites = new Site\Listing();
         $data = [
             [
-                "id" => 0,
-                "site" => $translator->trans("main_site", [], "admin")
+                'id' => 0,
+                'site' => $translator->trans('main_site', [], 'admin')
             ]
         ];
 
         foreach ($sites->load() as $site) {
             if (\Pimcore\Google\Analytics::isConfigured($site)) {
                 $data[] = [
-                    "id" => $site->getId(),
-                    "site" => $site->getMainDomain()
+                    'id' => $site->getId(),
+                    'site' => $site->getMainDomain()
                 ];
             }
         }
 
-        return $this->json(["data" => $data]);
+        return $this->json(['data' => $data]);
     }
 
     /**

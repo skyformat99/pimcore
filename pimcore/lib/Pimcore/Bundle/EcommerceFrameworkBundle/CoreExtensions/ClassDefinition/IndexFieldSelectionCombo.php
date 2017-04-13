@@ -27,7 +27,7 @@ class IndexFieldSelectionCombo extends Select
      *
      * @var string
      */
-    public $fieldtype = "indexFieldSelectionCombo";
+    public $fieldtype = 'indexFieldSelectionCombo';
 
     public $specificPriceField = false;
     public $showAllFields = false;
@@ -49,15 +49,15 @@ class IndexFieldSelectionCombo extends Select
 
             foreach ($indexColumns as $c) {
                 $options[] = [
-                    "key" => $c,
-                    "value" => $c
+                    'key' => $c,
+                    'value' => $c
                 ];
             }
 
             if ($this->getSpecificPriceField()) {
                 $options[] = [
-                    "key" => IProductList::ORDERKEY_PRICE,
-                    "value" => IProductList::ORDERKEY_PRICE
+                    'key' => IProductList::ORDERKEY_PRICE,
+                    'value' => IProductList::ORDERKEY_PRICE
                 ];
             }
 

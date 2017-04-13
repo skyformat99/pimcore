@@ -95,7 +95,7 @@ class Classificationstore extends Model\AbstractModel
     public function setObject($object)
     {
         if (!$object instanceof Concrete) {
-            throw new \Exception("not instance of Concrete");
+            throw new \Exception('not instance of Concrete');
         }
         $this->object = $object;
         //$this->setClass($this->getObject()->getClass());
@@ -147,7 +147,7 @@ class Classificationstore extends Model\AbstractModel
             return (string) $language;
         }
 
-        return "default";
+        return 'default';
     }
 
     /**
@@ -161,11 +161,11 @@ class Classificationstore extends Model\AbstractModel
     public function setLocalizedKeyValue($groupId, $keyId, $value, $language = null)
     {
         if (!$groupId) {
-            throw new \Exception("groupId not valid");
+            throw new \Exception('groupId not valid');
         }
 
         if (!$keyId) {
-            throw new \Exception("keyId not valid");
+            throw new \Exception('keyId not valid');
         }
 
         $language  = $this->getLanguage($language);
@@ -279,16 +279,16 @@ class Classificationstore extends Model\AbstractModel
      *
      * @todo: not sure if bool|false is actually allowed in phpdoc?
      */
-    public function getLocalizedKeyValue($groupId, $keyId, $language = "default", $ignoreFallbackLanguage = false, $ignoreDefaultLanguage = false)
+    public function getLocalizedKeyValue($groupId, $keyId, $language = 'default', $ignoreFallbackLanguage = false, $ignoreDefaultLanguage = false)
     {
         $oid = $this->object->getId();
 
         $keyConfig = Model\Object\Classificationstore\DefinitionCache::get($keyId);
 
-        if ($keyConfig->getType() == "calculatedValue") {
+        if ($keyConfig->getType() == 'calculatedValue') {
             $data = new Model\Object\Data\CalculatedValue($this->getFieldname());
             $childDef = Model\Object\Classificationstore\Service::getFieldDefinitionFromKeyConfig($keyConfig);
-            $data->setContextualData("classificationstore", $this->getFieldname(), null, $language, $groupId, $keyId, $childDef);
+            $data->setContextualData('classificationstore', $this->getFieldname(), null, $language, $groupId, $keyId, $childDef);
             $data = Model\Object\Service::getCalculatedFieldValueForEditMode($this->getObject(), [], $data);
 
             return $data;
@@ -310,8 +310,8 @@ class Classificationstore extends Model\AbstractModel
             $data = $this->getFallbackValue($groupId, $keyId, $language, $fieldDefinition);
         }
 
-        if ($fieldDefinition->isEmpty($data) && !$ignoreDefaultLanguage && $language != "default") {
-            $data = $this->items[$groupId][$keyId]["default"];
+        if ($fieldDefinition->isEmpty($data) && !$ignoreDefaultLanguage && $language != 'default') {
+            $data = $this->items[$groupId][$keyId]['default'];
         }
 
         // check for inherited value
@@ -324,15 +324,15 @@ class Classificationstore extends Model\AbstractModel
             if ($allowInherit) {
                 if ($object->getParent() instanceof AbstractObject) {
                     $parent = $object->getParent();
-                    while ($parent && $parent->getType() == "folder") {
+                    while ($parent && $parent->getType() == 'folder') {
                         $parent = $parent->getParent();
                     }
 
-                    if ($parent && ($parent->getType() == "object" || $parent->getType() == "variant")) {
+                    if ($parent && ($parent->getType() == 'object' || $parent->getType() == 'variant')) {
                         if ($parent->getClassId() == $object->getClassId()) {
-                            $method = "getLocalizedfields";
+                            $method = 'getLocalizedfields';
                             if (method_exists($parent, $method)) {
-                                $getter = "get" . ucfirst($this->fieldname);
+                                $getter = 'get' . ucfirst($this->fieldname);
                                 $classificationStore = $parent->$getter();
                                 if ($classificationStore instanceof self) {
                                     if ($classificationStore->object->getId() != $this->object->getId()) {
@@ -346,11 +346,11 @@ class Classificationstore extends Model\AbstractModel
             }
         }
 
-        if ($fieldDefinition && method_exists($fieldDefinition, "preGetData")) {
+        if ($fieldDefinition && method_exists($fieldDefinition, 'preGetData')) {
             $data =  $fieldDefinition->preGetData($this, [
-                "data" => $data,
-                "language" => $language,
-                "name" => $groupId . "-" . $keyId
+                'data' => $data,
+                'language' => $language,
+                'name' => $groupId . '-' . $keyId
             ]);
         }
 

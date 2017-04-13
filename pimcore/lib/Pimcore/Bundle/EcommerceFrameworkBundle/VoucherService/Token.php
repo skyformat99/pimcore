@@ -125,7 +125,7 @@ class Token extends \Pimcore\Model\AbstractModel
     {
         $db = \Pimcore\Db::get();
 
-        $query = "SELECT EXISTS(SELECT id FROM " . self::TABLE_NAME . " WHERE token = ?)";
+        $query = 'SELECT EXISTS(SELECT id FROM ' . self::TABLE_NAME . ' WHERE token = ?)';
 
         $result = $db->fetchOne($query, $code);
 

@@ -27,7 +27,7 @@ class Language extends Model\Object\ClassDefinition\Data\Select
      *
      * @var string
      */
-    public $fieldtype = "language";
+    public $fieldtype = 'language';
 
     /**
      * @var bool
@@ -48,8 +48,8 @@ class Language extends Model\Object\ClassDefinition\Data\Select
             }
 
             $options[] = [
-                "key" => $translation,
-                "value" => $short
+                'key' => $translation,
+                'value' => $short
             ];
         }
 

@@ -45,7 +45,7 @@ class MultiSelectFromMultiSelect extends \Pimcore\Bundle\EcommerceFrameworkBundl
             if (is_array($preSelect)) {
                 $value = $preSelect;
             } else {
-                $value = explode(",", $preSelect);
+                $value = explode(',', $preSelect);
             }
 
             foreach ($value as $key => $v) {
@@ -62,12 +62,12 @@ class MultiSelectFromMultiSelect extends \Pimcore\Bundle\EcommerceFrameworkBundl
         if (!empty($value)) {
             if ($filterDefinition->getUseAndCondition()) {
                 foreach ($value as $entry) {
-                    $productList->addCondition(['term' => ["attributes." . $field => $entry]], $field);
+                    $productList->addCondition(['term' => ['attributes.' . $field => $entry]], $field);
                 }
             } else {
                 $boolArray = [];
                 foreach ($value as $entry) {
-                    $boolArray[] = ['term' => ["attributes." . $field => $entry]];
+                    $boolArray[] = ['term' => ['attributes.' . $field => $entry]];
                 }
 
                 $productList->addCondition(['bool' => ['should' => $boolArray, 'minimum_should_match' => 1]], $field);

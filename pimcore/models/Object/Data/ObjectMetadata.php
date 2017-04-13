@@ -69,7 +69,7 @@ class ObjectMetadata extends Model\AbstractModel
      */
     public function __call($name, $arguments)
     {
-        if (substr($name, 0, 3) == "get") {
+        if (substr($name, 0, 3) == 'get') {
             $key = strtolower(substr($name, 3, strlen($name) - 3));
 
             if (in_array($key, $this->columns)) {
@@ -79,7 +79,7 @@ class ObjectMetadata extends Model\AbstractModel
             throw new \Exception("Requested data $key not available");
         }
 
-        if (substr($name, 0, 3) == "set") {
+        if (substr($name, 0, 3) == 'set') {
             $key = strtolower(substr($name, 3, strlen($name) - 3));
             if (in_array($key, $this->columns)) {
                 $this->data[$key] = $arguments[0];
@@ -95,7 +95,7 @@ class ObjectMetadata extends Model\AbstractModel
      * @param $ownername
      * @param $position
      */
-    public function save($object, $ownertype = "object", $ownername, $position)
+    public function save($object, $ownertype = 'object', $ownername, $position)
     {
         $this->getDao()->save($object, $ownertype, $ownername, $position);
     }

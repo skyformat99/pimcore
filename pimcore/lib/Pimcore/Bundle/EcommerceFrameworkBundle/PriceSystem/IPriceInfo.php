@@ -19,7 +19,7 @@ namespace Pimcore\Bundle\EcommerceFrameworkBundle\PriceSystem;
  */
 interface IPriceInfo
 {
-    const MIN_PRICE = "min";
+    const MIN_PRICE = 'min';
 
     /**
      * returns single price

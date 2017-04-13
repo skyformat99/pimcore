@@ -52,11 +52,11 @@ class Listing extends Model\Listing\AbstractListing implements \Zend_Paginator_A
      * @var array
      */
     public $validOrderKeys = [
-        "o_creationDate",
-        "o_modificationDate",
-        "o_id",
-        "o_key",
-        "o_index"
+        'o_creationDate',
+        'o_modificationDate',
+        'o_id',
+        'o_key',
+        'o_index'
     ];
 
     /**

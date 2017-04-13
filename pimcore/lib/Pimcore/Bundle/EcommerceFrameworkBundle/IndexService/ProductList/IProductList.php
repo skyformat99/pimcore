@@ -23,7 +23,7 @@ use Zend\Paginator\AdapterAggregateInterface;
  */
 interface IProductList extends \Zend_Paginator_Adapter_Interface, \Zend_Paginator_AdapterAggregate, \Iterator, AdapterInterface, AdapterAggregateInterface
 {
-    const ORDERKEY_PRICE = "orderkey_price";
+    const ORDERKEY_PRICE = 'orderkey_price';
 
     const PRODUCT_TYPE_OBJECT = 'object';
     const PRODUCT_TYPE_VARIANT = 'variant';
@@ -32,19 +32,19 @@ interface IProductList extends \Zend_Paginator_Adapter_Interface, \Zend_Paginato
      * Variant mode defines how to consider variants in product list results
      * - does not consider variants in search results
      */
-    const VARIANT_MODE_HIDE = "hide";
+    const VARIANT_MODE_HIDE = 'hide';
 
     /**
      * Variant mode defines how to consider variants in product list results
      * - considers variants in search results and returns objects and variants
      */
-    const VARIANT_MODE_INCLUDE = "include";
+    const VARIANT_MODE_INCLUDE = 'include';
 
     /**
      * Variant mode defines how to consider variants in product list results
      * - considers variants in search results but only returns corresponding objects in search results
      */
-    const VARIANT_MODE_INCLUDE_PARENT_OBJECT = "include_parent_object";
+    const VARIANT_MODE_INCLUDE_PARENT_OBJECT = 'include_parent_object';
 
     /**
      * Returns all products valid for this search
@@ -61,7 +61,7 @@ interface IProductList extends \Zend_Paginator_Adapter_Interface, \Zend_Paginato
      * @param string $condition
      * @param string $fieldname
      */
-    public function addCondition($condition, $fieldname = "");
+    public function addCondition($condition, $fieldname = '');
 
     /**
      * Adds query condition to product list for fulltext search
@@ -71,7 +71,7 @@ interface IProductList extends \Zend_Paginator_Adapter_Interface, \Zend_Paginato
      * @param $condition
      * @param string $fieldname
      */
-    public function addQueryCondition($condition, $fieldname = "");
+    public function addQueryCondition($condition, $fieldname = '');
 
     /**
      * Reset filter condition for fieldname

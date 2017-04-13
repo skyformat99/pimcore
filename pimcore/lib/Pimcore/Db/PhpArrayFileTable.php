@@ -86,7 +86,7 @@ class PhpArrayFileTable
 
             $this->load();
         } else {
-            throw new \Exception($filePath . " is not writeable");
+            throw new \Exception($filePath . ' is not writeable');
         }
     }
 
@@ -102,7 +102,7 @@ class PhpArrayFileTable
             $id = $this->getNextId();
         }
 
-        $data["id"] = $id;
+        $data['id'] = $id;
         $this->data[$id] = $data;
 
         $this->save();

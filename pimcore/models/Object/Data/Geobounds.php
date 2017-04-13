@@ -88,12 +88,12 @@ class Geobounds
      */
     public function __toString()
     {
-        $string = "";
+        $string = '';
         if ($this->nortEast) {
             $string .= $this->nortEast;
         }
         if (!empty($string)) {
-            $string .= " - ";
+            $string .= ' - ';
         }
         if ($this->nortEast) {
             $string .= $this->nortWest;

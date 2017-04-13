@@ -40,7 +40,7 @@ abstract class AbstractConfig implements IConfig
 
         /* include column file configs and replace placeholders */
         foreach ($tenantConfig->columns->toArray() as $columnConfig) {
-            if (!array_key_exists("file", $columnConfig)) {
+            if (!array_key_exists('file', $columnConfig)) {
                 $attributeConfigArray[] = $columnConfig;
                 continue;
             }
@@ -48,7 +48,7 @@ abstract class AbstractConfig implements IConfig
             $includeColumnConfig = include PIMCORE_CUSTOM_CONFIGURATION_DIRECTORY . (string)$columnConfig['file'];
 
             /* if placeholders are defined, check for them in the included config */
-            if (array_key_exists("placeholders", $columnConfig)) {
+            if (array_key_exists('placeholders', $columnConfig)) {
                 $placeholders = $columnConfig['placeholders'];
                 foreach ($includeColumnConfig as $incIndex => $replaceConfig) {
                     foreach ($replaceConfig as $key => $value) {
@@ -210,7 +210,7 @@ abstract class AbstractConfig implements IConfig
         if ($isPrimary) {
             return "int(11) NOT NULL default '0'";
         } else {
-            return "int(11) NOT NULL";
+            return 'int(11) NOT NULL';
         }
     }
 }

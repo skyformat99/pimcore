@@ -27,28 +27,28 @@ class Date extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $fieldtype = "date";
+    public $fieldtype = 'date';
 
     /**
      * Type for the column to query
      *
      * @var string
      */
-    public $queryColumnType = "bigint(20)";
+    public $queryColumnType = 'bigint(20)';
 
     /**
      * Type for the column
      *
      * @var string
      */
-    public $columnType = "bigint(20)";
+    public $columnType = 'bigint(20)';
 
     /**
      * Type for the generated phpdoc
      *
      * @var string
      */
-    public $phpdocType = "\\Carbon\\Carbon";
+    public $phpdocType = '\\Carbon\\Carbon';
 
     /**
      * @var int
@@ -133,7 +133,7 @@ class Date extends Model\Object\ClassDefinition\Data
      */
     protected function getDateFromTimestamp($timestamp)
     {
-        if (\Pimcore\Config::getFlag("zend_date")) {
+        if (\Pimcore\Config::getFlag('zend_date')) {
             $date = new \Pimcore\Date($timestamp);
         } else {
             $date = new \Carbon\Carbon();
@@ -191,7 +191,7 @@ class Date extends Model\Object\ClassDefinition\Data
         if ($data instanceof \Zend_Date) {
             return $data->get(\Zend_Date::DATE_MEDIUM);
         } elseif ($data instanceof \DateTimeInterface) {
-            return $data->format("Y-m-d");
+            return $data->format('Y-m-d');
         }
     }
 
@@ -239,9 +239,9 @@ class Date extends Model\Object\ClassDefinition\Data
     {
         $data = $this->getDataFromObjectParam($object, $params);
         if ($data instanceof \Zend_Date) {
-            return $data->toString("Y-m-d", "php");
+            return $data->toString('Y-m-d', 'php');
         } elseif ($data instanceof \DateTimeInterface) {
-            return $data->format("Y-m-d");
+            return $data->format('Y-m-d');
         }
 
         return null;
@@ -272,7 +272,7 @@ class Date extends Model\Object\ClassDefinition\Data
      */
     public function getDataForSearchIndex($object, $params = [])
     {
-        return "";
+        return '';
     }
 
     /**
@@ -306,7 +306,7 @@ class Date extends Model\Object\ClassDefinition\Data
         } elseif ($timestamp !== false) {
             return $this->getDateFromTimestamp($timestamp);
         } else {
-            throw new \Exception("cannot get values from web service import - invalid data");
+            throw new \Exception('cannot get values from web service import - invalid data');
         }
     }
 
@@ -342,7 +342,7 @@ class Date extends Model\Object\ClassDefinition\Data
      */
     public function getDiffDataFromEditmode($data, $object = null, $params = [])
     {
-        $thedata = $data[0]["data"];
+        $thedata = $data[0]['data'];
         if ($thedata) {
             return $this->getDateFromTimestamp($thedata);
         } else {
@@ -366,13 +366,13 @@ class Date extends Model\Object\ClassDefinition\Data
             $thedata = $data->getTimestamp();
         }
         $diffdata = [];
-        $diffdata["field"] = $this->getName();
-        $diffdata["key"] = $this->getName();
-        $diffdata["type"] = $this->fieldtype;
-        $diffdata["value"] = $this->getVersionPreview($data, $object, $params);
-        $diffdata["data"] = $thedata;
-        $diffdata["title"] = !empty($this->title) ? $this->title : $this->name;
-        $diffdata["disabled"] = false;
+        $diffdata['field'] = $this->getName();
+        $diffdata['key'] = $this->getName();
+        $diffdata['type'] = $this->fieldtype;
+        $diffdata['value'] = $this->getVersionPreview($data, $object, $params);
+        $diffdata['data'] = $thedata;
+        $diffdata['title'] = !empty($this->title) ? $this->title : $this->name;
+        $diffdata['disabled'] = false;
 
         $result[] = $diffdata;
 

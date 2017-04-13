@@ -27,7 +27,7 @@ class Dao extends Model\Dao\PhpArrayTable
     public function configure()
     {
         parent::configure();
-        $this->setFile("staticroutes");
+        $this->setFile('staticroutes');
     }
 
     /**
@@ -41,7 +41,7 @@ class Dao extends Model\Dao\PhpArrayTable
 
         $routes = [];
         foreach ($routesData as $routeData) {
-            $routes[] = Model\Staticroute::getById($routeData["id"]);
+            $routes[] = Model\Staticroute::getById($routeData['id']);
         }
 
         $this->model->setRoutes($routes);

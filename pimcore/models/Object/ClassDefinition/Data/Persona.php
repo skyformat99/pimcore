@@ -27,7 +27,7 @@ class Persona extends Model\Object\ClassDefinition\Data\Select
      *
      * @var string
      */
-    public $fieldtype = "persona";
+    public $fieldtype = 'persona';
 
     /**
      * @see Model\Object\ClassDefinition\Data::getDataFromResource
@@ -74,15 +74,15 @@ class Persona extends Model\Object\ClassDefinition\Data\Select
     public function configureOptions()
     {
         $list = new Tool\Targeting\Persona\Listing();
-        $list->setOrder("asc");
-        $list->setOrderKey("name");
+        $list->setOrder('asc');
+        $list->setOrderKey('name');
         $personas = $list->load();
 
         $options = [];
         foreach ($personas as $persona) {
             $options[] = [
-                "value" => $persona->getId(),
-                "key" => $persona->getName()
+                'value' => $persona->getId(),
+                'key' => $persona->getName()
             ];
         }
 
@@ -100,13 +100,13 @@ class Persona extends Model\Object\ClassDefinition\Data\Select
     public function checkValidity($data, $omitMandatoryCheck = false)
     {
         if (!$omitMandatoryCheck and $this->getMandatory() and empty($data)) {
-            throw new Model\Element\ValidationException("Empty mandatory field [ ".$this->getName()." ]");
+            throw new Model\Element\ValidationException('Empty mandatory field [ '.$this->getName().' ]');
         }
 
         if (!empty($data)) {
             $persona = Tool\Targeting\Persona::getById($data);
             if (!$persona instanceof Tool\Targeting\Persona) {
-                throw new Model\Element\ValidationException("Invalid persona reference");
+                throw new Model\Element\ValidationException('Invalid persona reference');
             }
         }
     }

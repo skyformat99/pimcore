@@ -28,7 +28,7 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $fieldtype = "calculatedValue";
+    public $fieldtype = 'calculatedValue';
 
     /**
      * @var float
@@ -45,7 +45,7 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $queryColumnType = "varchar";
+    public $queryColumnType = 'varchar';
 
     /**
      * Column length
@@ -59,7 +59,7 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $phpdocType = "\\Pimcore\\Model\\Object\\Data\\CalculatedValue";
+    public $phpdocType = '\\Pimcore\\Model\\Object\\Data\\CalculatedValue';
 
     /**
      * @return int
@@ -227,7 +227,7 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
      */
     public function getForCsvExport($object, $params = [])
     {
-        Logger::debug("csv not supported");
+        Logger::debug('csv not supported');
         //TODO
     }
 
@@ -278,7 +278,7 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
      */
     public function getQueryColumnType()
     {
-        return $this->queryColumnType . "(" . $this->getColumnLength() . ")";
+        return $this->queryColumnType . '(' . $this->getColumnLength() . ')';
     }
 
     /**
@@ -308,13 +308,13 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
     public function getGetterCode($class)
     {
         $key = $this->getName();
-        $code = "";
+        $code = '';
 
         $code .= '/**' . "\n";
-        $code .= '* Get ' . str_replace(["/**", "*/", "//"], "", $this->getName()) . " - " . str_replace(["/**", "*/", "//"], "", $this->getTitle()) . "\n";
+        $code .= '* Get ' . str_replace(['/**', '*/', '//'], '', $this->getName()) . ' - ' . str_replace(['/**', '*/', '//'], '', $this->getTitle()) . "\n";
         $code .= '* @return ' . $this->getPhpdocType() . "\n";
         $code .= '*/' . "\n";
-        $code .= "public function get" . ucfirst($key) . " () {\n";
+        $code .= 'public function get' . ucfirst($key) . " () {\n";
 
         $code .= "\t" . '$data' . " = new \\Pimcore\\Model\\Object\\Data\\CalculatedValue('" . $key . "');\n";
         $code .= "\t" . '$data->setContextualData("object", null, null, null);' . "\n";
@@ -337,10 +337,10 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
     {
         $key = $this->getName();
         $code  = '/**' . "\n";
-        $code .= '* Get ' . str_replace(["/**", "*/", "//"], "", $this->getName()) . " - " . str_replace(["/**", "*/", "//"], "", $this->getTitle()) . "\n";
+        $code .= '* Get ' . str_replace(['/**', '*/', '//'], '', $this->getName()) . ' - ' . str_replace(['/**', '*/', '//'], '', $this->getTitle()) . "\n";
         $code .= '* @return ' . $this->getPhpdocType() . "\n";
         $code .= '*/' . "\n";
-        $code .= "public function get" . ucfirst($key) . ' ($language = null) {' . "\n";
+        $code .= 'public function get' . ucfirst($key) . ' ($language = null) {' . "\n";
         $code .= "\t" . 'if (!$language) {' . "\n";
         $code .= "\t\t" . 'try {' . "\n";
         $code .= "\t\t\t" . '$locale = \Pimcore::getContainer()->get("pimcore.locale")->findLocale();'  . "\n";
@@ -374,12 +374,12 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
     public function getGetterCodeObjectbrick($brickClass)
     {
         $key = $this->getName();
-        $code = "";
+        $code = '';
         $code .= '/**' . "\n";
-        $code .= '* Set ' . str_replace(["/**", "*/", "//"], "", $this->getName()) . " - " . str_replace(["/**", "*/", "//"], "", $this->getTitle()) . "\n";
+        $code .= '* Set ' . str_replace(['/**', '*/', '//'], '', $this->getName()) . ' - ' . str_replace(['/**', '*/', '//'], '', $this->getTitle()) . "\n";
         $code .= '* @return ' . $this->getPhpdocType() . "\n";
         $code .= '*/' . "\n";
-        $code .= "public function get" . ucfirst($key) . ' ($language = null) {' . "\n";
+        $code .= 'public function get' . ucfirst($key) . ' ($language = null) {' . "\n";
 
         $code .= "\t" . '$brickDefinition = Object\Objectbrick\Definition::getByKey("' . $brickClass->getKey() . '");' . "\n";
         $code .= "\t" . '$fd = $brickDefinition->getFieldDefinition("' . $key . '");' . "\n";
@@ -405,12 +405,12 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
     {
         $key = $this->getName();
 
-        $code = "";
+        $code = '';
         $code .= '/**' . "\n";
-        $code .= '* Get ' . str_replace(["/**", "*/", "//"], "", $this->getName()) . " - " . str_replace(["/**", "*/", "//"], "", $this->getTitle()) . "\n";
+        $code .= '* Get ' . str_replace(['/**', '*/', '//'], '', $this->getName()) . ' - ' . str_replace(['/**', '*/', '//'], '', $this->getTitle()) . "\n";
         $code .= '* @return ' . $this->getPhpdocType() . "\n";
         $code .= '*/' . "\n";
-        $code .= "public function get" . ucfirst($key) . " () {\n";
+        $code .= 'public function get' . ucfirst($key) . " () {\n";
 
         $code .= "\t" . '$data' . " = new \\Pimcore\\Model\\Object\\Data\\CalculatedValue('" . $key . "');\n";
         $code .= "\t" . '$data->setContextualData("fieldcollection", $this->getFieldname(), $this->getIndex(), null);' . "\n";
@@ -432,14 +432,14 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
     public function getSetterCode($class)
     {
         $key = $this->getName();
-        $code = "";
+        $code = '';
 
         $code .= '/**' . "\n";
-        $code .= '* Set ' . str_replace(["/**", "*/", "//"], "", $this->getName()) . " - " . str_replace(["/**", "*/", "//"], "", $this->getTitle()) . "\n";
+        $code .= '* Set ' . str_replace(['/**', '*/', '//'], '', $this->getName()) . ' - ' . str_replace(['/**', '*/', '//'], '', $this->getTitle()) . "\n";
         $code .= '* @param ' . $this->getPhpdocType() . ' $' . $key . "\n";
-        $code .= "* @return \\Pimcore\\Model\\Object\\" . ucfirst($class->getName()) . "\n";
+        $code .= '* @return \\Pimcore\\Model\\Object\\' . ucfirst($class->getName()) . "\n";
         $code .= '*/' . "\n";
-        $code .= "public function set" . ucfirst($key) . " (" . '$' . $key . ") {\n";
+        $code .= 'public function set' . ucfirst($key) . ' (' . '$' . $key . ") {\n";
 
         $code .= "\t" . 'return $this;' . "\n";
         $code .= "}\n\n";
@@ -458,13 +458,13 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
     {
         $key = $this->getName();
 
-        $code = "";
+        $code = '';
         $code .= '/**' . "\n";
-        $code .= '* Set ' . str_replace(["/**", "*/", "//"], "", $this->getName()) . " - " . str_replace(["/**", "*/", "//"], "", $this->getTitle()) . "\n";
+        $code .= '* Set ' . str_replace(['/**', '*/', '//'], '', $this->getName()) . ' - ' . str_replace(['/**', '*/', '//'], '', $this->getTitle()) . "\n";
         $code .= '* @param ' . $this->getPhpdocType() . ' $' . $key . "\n";
-        $code .= "* @return \\Pimcore\\Model\\Object\\" . ucfirst($brickClass->getKey()) . "\n";
+        $code .= '* @return \\Pimcore\\Model\\Object\\' . ucfirst($brickClass->getKey()) . "\n";
         $code .= '*/' . "\n";
-        $code .= "public function set" . ucfirst($key) . " (" . '$' . $key . ") {\n";
+        $code .= 'public function set' . ucfirst($key) . ' (' . '$' . $key . ") {\n";
 
         $code .= "\t" . 'return $this;' . "\n";
         $code .= "}\n\n";
@@ -482,14 +482,14 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
     public function getSetterCodeFieldcollection($fieldcollectionDefinition)
     {
         $key = $this->getName();
-        $code = "";
+        $code = '';
 
         $code .= '/**' . "\n";
-        $code .= '* Get ' . str_replace(["/**", "*/", "//"], "", $this->getName()) . " - " . str_replace(["/**", "*/", "//"], "", $this->getTitle()) . "\n";
+        $code .= '* Get ' . str_replace(['/**', '*/', '//'], '', $this->getName()) . ' - ' . str_replace(['/**', '*/', '//'], '', $this->getTitle()) . "\n";
         $code .= '* @param ' . $this->getPhpdocType() . ' $' . $key . "\n";
-        $code .= "* @return \\Pimcore\\Model\\Object\\" . ucfirst($fieldcollectionDefinition->getKey()) . "\n";
+        $code .= '* @return \\Pimcore\\Model\\Object\\' . ucfirst($fieldcollectionDefinition->getKey()) . "\n";
         $code .= '*/' . "\n";
-        $code .= "public function set" . ucfirst($key) . " (" . '$' . $key . ") {\n";
+        $code .= 'public function set' . ucfirst($key) . ' (' . '$' . $key . ") {\n";
 
         $code .= "\t" . 'return $this;' . "\n";
         $code .= "}\n\n";
@@ -509,11 +509,11 @@ class CalculatedValue extends Model\Object\ClassDefinition\Data
         $key = $this->getName();
 
         $code  = '/**' . "\n";
-        $code .= '* Set ' . str_replace(["/**", "*/", "//"], "", $this->getName()) . " - " . str_replace(["/**", "*/", "//"], "", $this->getTitle()) . "\n";
+        $code .= '* Set ' . str_replace(['/**', '*/', '//'], '', $this->getName()) . ' - ' . str_replace(['/**', '*/', '//'], '', $this->getTitle()) . "\n";
         $code .= '* @param ' . $this->getPhpdocType() . ' $' . $key . "\n";
-        $code .= "* @return \\Pimcore\\Model\\Object\\" . ucfirst($class->getName()) . "\n";
+        $code .= '* @return \\Pimcore\\Model\\Object\\' . ucfirst($class->getName()) . "\n";
         $code .= '*/' . "\n";
-        $code .= "public function set" . ucfirst($key) . " (" . '$' . $key . ', $language = null) {' . "\n";
+        $code .= 'public function set' . ucfirst($key) . ' (' . '$' . $key . ', $language = null) {' . "\n";
 
         $code .= "\t" . 'return $this;' . "\n";
         $code .= "}\n\n";

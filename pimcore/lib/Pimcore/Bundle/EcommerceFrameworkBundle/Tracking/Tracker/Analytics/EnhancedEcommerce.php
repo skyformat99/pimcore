@@ -130,7 +130,7 @@ class EnhancedEcommerce extends Tracker implements
         $parameterBag['items'] = $items;
         $parameterBag['calls'] = $this->buildCheckoutCalls($items);
 
-        $parameterBag['actionData'] = ["step" => 1];
+        $parameterBag['actionData'] = ['step' => 1];
 
         $result = $this->renderer->render($this->getViewScript('checkout'), $parameterBag);
 
@@ -150,10 +150,10 @@ class EnhancedEcommerce extends Tracker implements
         $parameterBag['items'] = $items;
         $parameterBag['calls'] = [];
         if (!is_null($stepNumber) || !is_null($checkoutOption)) {
-            $actionData = ["step" => $stepNumber];
+            $actionData = ['step' => $stepNumber];
 
             if (!is_null($checkoutOption)) {
-                $actionData["option"] = $checkoutOption;
+                $actionData['option'] = $checkoutOption;
             }
 
             $parameterBag['actionData'] = $actionData;

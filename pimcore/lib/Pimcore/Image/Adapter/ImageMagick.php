@@ -92,9 +92,9 @@ class ImageMagick extends Adapter
     public function load($imagePath, $options = [])
     {
         // support image URLs
-        if (preg_match("@^https?://@", $imagePath)) {
-            $tmpFilename = "imagick_auto_download_" . md5($imagePath) . "." . File::getFileExtension($imagePath);
-            $tmpFilePath = PIMCORE_SYSTEM_TEMP_DIRECTORY . "/" . $tmpFilename;
+        if (preg_match('@^https?://@', $imagePath)) {
+            $tmpFilename = 'imagick_auto_download_' . md5($imagePath) . '.' . File::getFileExtension($imagePath);
+            $tmpFilePath = PIMCORE_SYSTEM_TEMP_DIRECTORY . '/' . $tmpFilename;
 
             $this->tmpFiles[] = $tmpFilePath;
 
@@ -105,7 +105,7 @@ class ImageMagick extends Adapter
         if (!stream_is_local($imagePath)) {
             // imagick is only able to deal with local files
             // if your're using custom stream wrappers this wouldn't work, so we create a temp. local copy
-            $tmpFilePath = PIMCORE_SYSTEM_TEMP_DIRECTORY . "/imagick-tmp-" . uniqid() . "." . File::getFileExtension($imagePath);
+            $tmpFilePath = PIMCORE_SYSTEM_TEMP_DIRECTORY . '/imagick-tmp-' . uniqid() . '.' . File::getFileExtension($imagePath);
             copy($imagePath, $tmpFilePath);
             $imagePath = $tmpFilePath;
             $this->tmpFiles[] = $imagePath;
@@ -350,14 +350,14 @@ class ImageMagick extends Adapter
     public function setBackgroundImage($image, $mode = null, $relativePath = false)
     {
         $imagePath = $relativePath ?
-            PIMCORE_PROJECT_ROOT . "/" . ltrim($image, "/")
+            PIMCORE_PROJECT_ROOT . '/' . ltrim($image, '/')
             : $image;
 
         if (is_file($imagePath)) {
             //if a specified file as a background exists
             //creates the temp file for the background
             $newImage = $this->createTmpImage($imagePath, 'background');
-            if ($mode == "cropTopLeft") {
+            if ($mode == 'cropTopLeft') {
                 //crop the background image
                 $newImage->crop(0, 0, $this->getWidth(), $this->getHeight());
             } else {
@@ -389,11 +389,11 @@ class ImageMagick extends Adapter
      *
      * @return ImageMagick
      */
-    public function addOverlay($image, $x = 0, $y = 0, $alpha = 100, $composite = "COMPOSITE_DEFAULT", $origin = 'top-left')
+    public function addOverlay($image, $x = 0, $y = 0, $alpha = 100, $composite = 'COMPOSITE_DEFAULT', $origin = 'top-left')
     {
         $this->saveIfRequired('overlay_first_step');
 
-        $image = PIMCORE_PROJECT_ROOT . "/" . ltrim($image, "/");
+        $image = PIMCORE_PROJECT_ROOT . '/' . ltrim($image, '/');
         if (is_file($image)) {
             //if a specified file as a overlay exists
             $overlayImage = $this->createTmpImage($image, 'overlay');
@@ -401,17 +401,17 @@ class ImageMagick extends Adapter
 
             //defines the position in order to the origin value
             switch ($origin) {
-                case "top-right":
+                case 'top-right':
                     $x =  $this->getWidth() - $overlayImage->getWidth() - $x;
                     break;
-                case "bottom-left":
+                case 'bottom-left':
                     $y =  $this->getHeight() - $overlayImage->getHeight() - $y;
                     break;
-                case "bottom-right":
+                case 'bottom-right':
                     $x = $this->getWidth() - $overlayImage->getWidth() - $x;
                     $y = $this->getHeight() - $overlayImage->getHeight() - $y;
                     break;
-                case "center":
+                case 'center':
                     $x = round($this->getWidth() / 2) - round($overlayImage->getWidth() / 2) + $x;
                     $y = round($this->getHeight() / 2) - round($overlayImage->getHeight() / 2) + $y;
                     break;
@@ -431,9 +431,9 @@ class ImageMagick extends Adapter
      *
      * @return ImageMagick
      */
-    public function addOverlayFit($image, $composite = "COMPOSITE_DEFAULT")
+    public function addOverlayFit($image, $composite = 'COMPOSITE_DEFAULT')
     {
-        $image = PIMCORE_PROJECT_ROOT . "/" . ltrim($image, "/");
+        $image = PIMCORE_PROJECT_ROOT . '/' . ltrim($image, '/');
         if (is_file($image)) {
             //if a specified file as a overlay exists
             $overlayImage = $this->createTmpImage($image, 'overlay');
@@ -454,13 +454,13 @@ class ImageMagick extends Adapter
      *
      * @return ImageMagick
      */
-    protected function processOverlay(ImageMagick $overlayImage, $composite = "COMPOSITE_DEFAULT", $x = 0, $y = 0, $overlayOpacity = 100)
+    protected function processOverlay(ImageMagick $overlayImage, $composite = 'COMPOSITE_DEFAULT', $x = 0, $y = 0, $overlayOpacity = 100)
     {
         //sets a value used by the compose option
         $allowedComposeOptions = [
             'hardlight', 'exclusion'
         ];
-        $composite = strtolower(substr(strrchr($composite, "_"), 1));
+        $composite = strtolower(substr(strrchr($composite, '_'), 1));
         $composeVal = in_array($composite, $allowedComposeOptions) ? $composite : 'dissolve';
 
         //save current state of the thumbnail to the tmp file
@@ -489,7 +489,7 @@ class ImageMagick extends Adapter
     {
         $this->setForceAlpha(true)->saveIfRequired('mask');
 
-        $image = PIMCORE_PROJECT_ROOT . "/" . ltrim($image, "/");
+        $image = PIMCORE_PROJECT_ROOT . '/' . ltrim($image, '/');
 
         $this->addConvertOption('alpha', 'off')->addConvertOption('compose', 'CopyOpacity')
             ->addConvertOption('composite')
@@ -522,7 +522,7 @@ class ImageMagick extends Adapter
      *
      * @return ImageMagick
      */
-    public function grayscale($method = "Rec601Luma")
+    public function grayscale($method = 'Rec601Luma')
     {
         $this->addConvertOption('grayscale', $method);
 
@@ -536,7 +536,7 @@ class ImageMagick extends Adapter
      */
     public function sepia()
     {
-        $this->addConvertOption('sepia-tone', "85%");
+        $this->addConvertOption('sepia-tone', '85%');
 
         return $this;
     }
@@ -598,9 +598,9 @@ class ImageMagick extends Adapter
      */
     public function mirror($mode)
     {
-        if ($mode == "vertical") {
+        if ($mode == 'vertical') {
             $this->addConvertOption('flip');
-        } elseif ($mode == "horizontal") {
+        } elseif ($mode == 'horizontal') {
             $this->addConvertOption('flop');
         }
 
@@ -806,7 +806,7 @@ class ImageMagick extends Adapter
     protected function setTmpPaths(ImageMagick $image, $suffix)
     {
         $tmpFilename = "imagemagick_{$suffix}_" . md5($this->imagePath) . '.png';
-        $tmpFilepath = PIMCORE_SYSTEM_TEMP_DIRECTORY . "/" . $tmpFilename;
+        $tmpFilepath = PIMCORE_SYSTEM_TEMP_DIRECTORY . '/' . $tmpFilename;
         $image->setOutputPath($tmpFilepath);
 
         return $this;

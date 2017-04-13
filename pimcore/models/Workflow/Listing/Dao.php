@@ -28,7 +28,7 @@ class Dao extends Model\Dao\PhpArrayTable
     public function configure()
     {
         parent::configure();
-        $this->setFile("workflowmanagement");
+        $this->setFile('workflowmanagement');
     }
 
     /**
@@ -42,7 +42,7 @@ class Dao extends Model\Dao\PhpArrayTable
 
         $workflows = [];
         foreach ($workflowsData as $workflowData) {
-            $workflows[] = Model\Workflow::getById($workflowData["id"]);
+            $workflows[] = Model\Workflow::getById($workflowData['id']);
         }
 
         $this->model->setWorkflows($workflows);

@@ -271,7 +271,7 @@ class Manager
             'actions' => $allowedActions
         ]);
         \Pimcore::getEventDispatcher()->dispatch(WorkflowEvents::PRE_RETURN_AVAILABLE_ACTIONS, $event);
-        $allowedActions = $event->getArgument("actions");
+        $allowedActions = $event->getArgument('actions');
 
         return $allowedActions;
     }
@@ -591,7 +591,7 @@ class Manager
             }
         } else {
             //all other elements do not support published or unpublished
-            $task = "publish";
+            $task = 'publish';
         }
 
         try {
@@ -603,12 +603,12 @@ class Manager
             //todo add some support to stop the action given the result from the event
 
             $this->element->setUserModification($this->user->getId());
-            if (($task === "publish" && $this->element->isAllowed("publish")) || ($task === "unpublish" && $this->element->isAllowed("unpublish"))) {
+            if (($task === 'publish' && $this->element->isAllowed('publish')) || ($task === 'unpublish' && $this->element->isAllowed('unpublish'))) {
                 $this->element->save();
             } elseif ($this->element instanceof Concrete || $this->element instanceof Document\PageSnippet) {
                 $this->element->saveVersion();
             } else {
-                throw new \Exception("Operation not allowed for this element");
+                throw new \Exception('Operation not allowed for this element');
             }
 
             //transition the element

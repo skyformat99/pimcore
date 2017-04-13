@@ -77,7 +77,7 @@ abstract class AdminController extends Controller implements AdminControllerInte
                 ]
             );
 
-            throw new AccessDeniedHttpException("Attempt to access " . $permission . ", but has no permission to do so.");
+            throw new AccessDeniedHttpException('Attempt to access ' . $permission . ', but has no permission to do so.');
         }
     }
 

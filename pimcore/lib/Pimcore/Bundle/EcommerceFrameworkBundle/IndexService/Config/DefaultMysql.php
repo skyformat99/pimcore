@@ -29,7 +29,7 @@ class DefaultMysql extends AbstractConfig implements IMysqlConfig
      */
     public function getTablename()
     {
-        return "ecommerceframework_productindex";
+        return 'ecommerceframework_productindex';
     }
 
     /**
@@ -37,7 +37,7 @@ class DefaultMysql extends AbstractConfig implements IMysqlConfig
      */
     public function getRelationTablename()
     {
-        return "ecommerceframework_productindex_relations";
+        return 'ecommerceframework_productindex_relations';
     }
 
     /**
@@ -45,7 +45,7 @@ class DefaultMysql extends AbstractConfig implements IMysqlConfig
      */
     public function getTenantRelationTablename()
     {
-        return "";
+        return '';
     }
 
     /**
@@ -53,7 +53,7 @@ class DefaultMysql extends AbstractConfig implements IMysqlConfig
      */
     public function getJoins()
     {
-        return "";
+        return '';
     }
 
     /**
@@ -61,7 +61,7 @@ class DefaultMysql extends AbstractConfig implements IMysqlConfig
      */
     public function getCondition()
     {
-        return "";
+        return '';
     }
 
     /**
@@ -113,7 +113,7 @@ class DefaultMysql extends AbstractConfig implements IMysqlConfig
         if ($isPrimary) {
             return "int(11) NOT NULL default '0'";
         } else {
-            return "int(11) NOT NULL";
+            return 'int(11) NOT NULL';
         }
     }
 

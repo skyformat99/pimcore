@@ -30,7 +30,7 @@ class Web2PrintPdfCreationCommand extends AbstractCommand
             ->addOption(
                 'processId', 'p',
                 InputOption::VALUE_REQUIRED,
-                "process-id with pdf creation definitions"
+                'process-id with pdf creation definitions'
             )
         ;
     }
@@ -41,6 +41,6 @@ class Web2PrintPdfCreationCommand extends AbstractCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         ini_set('memory_limit', '2048M');
-        Processor::getInstance()->startPdfGeneration($input->getOption("processId"));
+        Processor::getInstance()->startPdfGeneration($input->getOption('processId'));
     }
 }

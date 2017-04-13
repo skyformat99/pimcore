@@ -142,7 +142,7 @@ abstract class AbstractCart extends \Pimcore\Model\AbstractModel implements ICar
     {
         if (!$this->ignoreReadonly) {
             if ($this->isCartReadOnly()) {
-                throw new \Exception("Cart " . $this->getId() . " is readonly.");
+                throw new \Exception('Cart ' . $this->getId() . ' is readonly.');
             }
         }
 
@@ -168,7 +168,7 @@ abstract class AbstractCart extends \Pimcore\Model\AbstractModel implements ICar
             $itemKey = $product->getId();
 
             if (!empty($subProducts)) {
-                $itemKey = $itemKey . "_" . uniqid();
+                $itemKey = $itemKey . '_' . uniqid();
             }
         }
 
@@ -279,7 +279,7 @@ abstract class AbstractCart extends \Pimcore\Model\AbstractModel implements ICar
             $itemKey = $product->getId();
 
             if (!empty($subProducts)) {
-                $itemKey = $itemKey . "_" . uniqid();
+                $itemKey = $itemKey . '_' . uniqid();
             }
         }
 
@@ -847,7 +847,7 @@ abstract class AbstractCart extends \Pimcore\Model\AbstractModel implements ICar
 
         if ($key !== false) {
             if ($service->releaseToken($code, $this)) {
-                unset($this->checkoutData["voucher_" . $code]);
+                unset($this->checkoutData['voucher_' . $code]);
                 $this->save();
 
                 $this->modified();
@@ -855,7 +855,7 @@ abstract class AbstractCart extends \Pimcore\Model\AbstractModel implements ICar
                 return true;
             }
         } else {
-            throw new VoucherServiceException("No Token with code " . $code . " in this cart.", 7);
+            throw new VoucherServiceException('No Token with code ' . $code . ' in this cart.', 7);
         }
     }
 
@@ -895,7 +895,7 @@ abstract class AbstractCart extends \Pimcore\Model\AbstractModel implements ICar
             foreach ($this->getVoucherTokenCodes() as $code) {
                 $reservation = Reservation::get($code, $this);
                 if (!$reservation->check($this->getId()) && !array_key_exists($code, $appliedVoucherCodes)) {
-                    unset($this->checkoutData["voucher_".$code]);
+                    unset($this->checkoutData['voucher_'.$code]);
                 }
             }
         }
@@ -913,7 +913,7 @@ abstract class AbstractCart extends \Pimcore\Model\AbstractModel implements ICar
         if ($item->getProduct() != null) {
             return true;
         } else {
-            Logger::warn("product " . $item->getProductId() . " not found");
+            Logger::warn('product ' . $item->getProductId() . ' not found');
 
             return false;
         }

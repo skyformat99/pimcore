@@ -47,14 +47,14 @@ class Dao extends Model\Dao\AbstractDao
             $id = $this->model->getId();
         }
 
-        $layoutRaw = $this->db->fetchRow("SELECT * FROM custom_layouts WHERE id = ?", $id);
+        $layoutRaw = $this->db->fetchRow('SELECT * FROM custom_layouts WHERE id = ?', $id);
 
-        if ($layoutRaw["id"]) {
+        if ($layoutRaw['id']) {
             $this->assignVariablesToModel($layoutRaw);
 
             $this->model->setLayoutDefinitions($this->getLayoutData());
         } else {
-            throw new \Exception("Layout with ID " . $id . " doesn't exist");
+            throw new \Exception('Layout with ID ' . $id . " doesn't exist");
         }
     }
 
@@ -65,7 +65,7 @@ class Dao extends Model\Dao\AbstractDao
      */
     protected function getLayoutData()
     {
-        $file = PIMCORE_CUSTOMLAYOUT_DIRECTORY . "/custom_definition_". $this->model->getId() .".psf";
+        $file = PIMCORE_CUSTOMLAYOUT_DIRECTORY . '/custom_definition_'. $this->model->getId() .'.psf';
         if (is_file($file)) {
             return Serialize::unserialize(file_get_contents($file));
         }
@@ -99,7 +99,7 @@ class Dao extends Model\Dao\AbstractDao
         $data = [];
 
         foreach ($class as $key => $value) {
-            if (in_array($key, $this->getValidTableColumns("custom_layouts"))) {
+            if (in_array($key, $this->getValidTableColumns('custom_layouts'))) {
                 if (is_array($value) || is_object($value)) {
                     $value = Serialize::serialize($value);
                 } elseif (is_bool($value)) {
@@ -109,12 +109,12 @@ class Dao extends Model\Dao\AbstractDao
             }
         }
 
-        $this->db->update("custom_layouts", $data, ["id" => $this->model->getId()]);
+        $this->db->update('custom_layouts', $data, ['id' => $this->model->getId()]);
 
          // save definition as a serialized file
-        $definitionFile = PIMCORE_CUSTOMLAYOUT_DIRECTORY."/custom_definition_". $this->model->getId() .".psf";
+        $definitionFile = PIMCORE_CUSTOMLAYOUT_DIRECTORY.'/custom_definition_'. $this->model->getId() .'.psf';
         if (!is_writable(dirname($definitionFile)) || (is_file($definitionFile) && !is_writable($definitionFile))) {
-            throw new \Exception("Cannot write definition file in: " . $definitionFile . " please check write permission on this directory.");
+            throw new \Exception('Cannot write definition file in: ' . $definitionFile . ' please check write permission on this directory.');
         }
         File::put($definitionFile, Serialize::serialize($this->model->layoutDefinitions));
     }
@@ -124,7 +124,7 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function create()
     {
-        $this->db->insert("custom_layouts", ["name" => $this->model->getName(), "classId" => $this->model->getClassId()]);
+        $this->db->insert('custom_layouts', ['name' => $this->model->getName(), 'classId' => $this->model->getClassId()]);
 
         $this->model->setId($this->db->lastInsertId());
         $this->model->setCreationDate(time());
@@ -138,7 +138,7 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function delete()
     {
-        $this->db->delete("custom_layouts", ["id" => $this->model->getId()]);
-        @unlink(PIMCORE_CUSTOMLAYOUT_DIRECTORY."/custom_definition_". $this->model->getId() .".psf");
+        $this->db->delete('custom_layouts', ['id' => $this->model->getId()]);
+        @unlink(PIMCORE_CUSTOMLAYOUT_DIRECTORY.'/custom_definition_'. $this->model->getId() .'.psf');
     }
 }

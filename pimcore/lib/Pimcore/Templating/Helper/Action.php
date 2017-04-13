@@ -57,7 +57,7 @@ class Action extends Helper
         }
 
         if (!$module) {
-            $module = "AppBundle";
+            $module = 'AppBundle';
         }
 
         $controller = $this->actionRenderer->createControllerReference(

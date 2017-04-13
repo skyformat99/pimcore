@@ -41,7 +41,7 @@ class IndexController extends AdminController implements EventedControllerInterf
         $debug = \Pimcore::inDebugMode() || in_array(Config::getEnvironment(), ['dev', 'test']);
 
         return $this->json([
-            "success" => (bool) $debug
+            'success' => (bool) $debug
         ]);
     }
 
@@ -55,7 +55,7 @@ class IndexController extends AdminController implements EventedControllerInterf
     public function checkComposerInstalledAction(Request $request)
     {
         return $this->json([
-            "success" => Update::isComposerAvailable()
+            'success' => Update::isComposerAvailable()
         ]);
     }
 
@@ -69,7 +69,7 @@ class IndexController extends AdminController implements EventedControllerInterf
     public function checkFilePermissionsAction(Request $request)
     {
         return $this->json([
-            "success" => Update::isWriteable()
+            'success' => Update::isWriteable()
         ]);
     }
 
@@ -96,7 +96,7 @@ class IndexController extends AdminController implements EventedControllerInterf
      */
     public function getJobsAction(Request $request)
     {
-        $jobs = Update::getJobs($request->get("toRevision"));
+        $jobs = Update::getJobs($request->get('toRevision'));
 
         return $this->json($jobs);
     }
@@ -110,11 +110,11 @@ class IndexController extends AdminController implements EventedControllerInterf
      */
     public function jobParallelAction(Request $request)
     {
-        if ($request->get("type") == "download") {
-            Update::downloadData($request->get("revision"), $request->get("url"));
+        if ($request->get('type') == 'download') {
+            Update::downloadData($request->get('revision'), $request->get('url'));
         }
 
-        return $this->json(["success" => true]);
+        return $this->json(['success' => true]);
     }
 
     /**
@@ -126,29 +126,29 @@ class IndexController extends AdminController implements EventedControllerInterf
      */
     public function jobProceduralAction(Request $request)
     {
-        $status = ["success" => true];
+        $status = ['success' => true];
 
-        if ($request->get("type") == "files") {
-            Update::installData($request->get("revision"), $request->get("updateScript"));
-        } elseif ($request->get("type") == "clearcache") {
+        if ($request->get('type') == 'files') {
+            Update::installData($request->get('revision'), $request->get('updateScript'));
+        } elseif ($request->get('type') == 'clearcache') {
             \Pimcore\Cache::clearAll();
             \Pimcore\Tool::clearSymfonyCache($this->container);
-        } elseif ($request->get("type") == "preupdate") {
-            $status = Update::executeScript($request->get("revision"), "preupdate");
-        } elseif ($request->get("type") == "postupdate") {
-            $status = Update::executeScript($request->get("revision"), "postupdate");
-        } elseif ($request->get("type") == "cleanup") {
+        } elseif ($request->get('type') == 'preupdate') {
+            $status = Update::executeScript($request->get('revision'), 'preupdate');
+        } elseif ($request->get('type') == 'postupdate') {
+            $status = Update::executeScript($request->get('revision'), 'postupdate');
+        } elseif ($request->get('type') == 'cleanup') {
             Update::cleanup();
-        } elseif ($request->get("type") == "composer-dump-autoload") {
+        } elseif ($request->get('type') == 'composer-dump-autoload') {
             $status = Update::composerDumpAutoload();
-        } elseif ($request->get("type") == "composer-update") {
+        } elseif ($request->get('type') == 'composer-update') {
             $status = Update::composerUpdate();
-        } elseif ($request->get("type") == "composer-invalidate-classmaps") {
+        } elseif ($request->get('type') == 'composer-invalidate-classmaps') {
             $status = Update::invalidateComposerAutoloadClassmap();
         }
 
         // we use pure PHP here, otherwise this can cause issues with dependencies that changed during the update
-        header("Content-type: application/json");
+        header('Content-type: application/json');
         echo json_encode($status);
         exit;
     }
@@ -165,7 +165,7 @@ class IndexController extends AdminController implements EventedControllerInterf
 
         Update::clearOPCaches();
 
-        $this->checkPermission("update");
+        $this->checkPermission('update');
     }
 
     /**

@@ -63,22 +63,22 @@ class Pimcore
                 }
             }
 
-            if (!defined("PIMCORE_DEVMODE")) {
-                define("PIMCORE_DEVMODE", (bool) $conf->general->devmode);
+            if (!defined('PIMCORE_DEVMODE')) {
+                define('PIMCORE_DEVMODE', (bool) $conf->general->devmode);
             }
         } catch (\Exception $e) {
             $m = "Couldn't load system configuration";
             Logger::err($m);
 
-            if (!defined("PIMCORE_DEVMODE")) {
-                define("PIMCORE_DEVMODE", false);
+            if (!defined('PIMCORE_DEVMODE')) {
+                define('PIMCORE_DEVMODE', false);
             }
         }
 
         $debug = self::inDebugMode();
 
-        if (!defined("PIMCORE_DEBUG")) {
-            define("PIMCORE_DEBUG", $debug);
+        if (!defined('PIMCORE_DEBUG')) {
+            define('PIMCORE_DEBUG', $debug);
         }
 
         // custom error logging in DEBUG mode & DEVMODE
@@ -96,22 +96,22 @@ class Pimcore
      */
     public static function inDebugMode()
     {
-        if (defined("PIMCORE_DEBUG")) {
+        if (defined('PIMCORE_DEBUG')) {
             return PIMCORE_DEBUG;
         }
 
         $debug = false;
 
-        $debugModeFile = PIMCORE_CONFIGURATION_DIRECTORY . "/debug-mode.php";
+        $debugModeFile = PIMCORE_CONFIGURATION_DIRECTORY . '/debug-mode.php';
         if (file_exists($debugModeFile)) {
             $conf = include $debugModeFile;
-            $debug = $conf["active"];
+            $debug = $conf['active'];
 
             // enable debug mode only for one IP
-            if ($conf["ip"] && $debug) {
+            if ($conf['ip'] && $debug) {
                 $debug = false;
 
-                $debugIpAddresses = explode_and_trim(',', $conf["ip"]);
+                $debugIpAddresses = explode_and_trim(',', $conf['ip']);
                 if (in_array(Tool::getClientIp(), $debugIpAddresses)) {
                     $debug = true;
                 }
@@ -162,7 +162,7 @@ class Pimcore
      */
     public static function getEventDispatcher()
     {
-        return self::getContainer()->get("event_dispatcher");
+        return self::getContainer()->get('event_dispatcher');
     }
 
     /**
@@ -266,15 +266,15 @@ class Pimcore
         Db::close();
 
         $protectedItems = [
-            "pimcore_tag_block_current",
-            "pimcore_tag_block_numeration",
-            "Config_system",
-            "pimcore_admin_user",
-            "Config_website",
-            "pimcore_editmode",
-            "pimcore_error_document",
-            "pimcore_site",
-            "Pimcore_Db"
+            'pimcore_tag_block_current',
+            'pimcore_tag_block_numeration',
+            'Config_system',
+            'pimcore_admin_user',
+            'Config_website',
+            'pimcore_editmode',
+            'pimcore_error_document',
+            'pimcore_site',
+            'Pimcore_Db'
         ];
 
         if (is_array($keepItems) && count($keepItems) > 0) {
@@ -287,7 +287,7 @@ class Pimcore
 
         Cache\Runtime::clear($protectedItems);
 
-        if (class_exists("Pimcore\\Legacy")) {
+        if (class_exists('Pimcore\\Legacy')) {
             // @TODO: should be removed
             Pimcore\Legacy::collectGarbage($protectedItems);
         }
@@ -298,7 +298,7 @@ class Pimcore
         gc_enable();
         $collectedCycles = gc_collect_cycles();
 
-        Logger::debug("garbage collection finished, collected cycles: " . $collectedCycles);
+        Logger::debug('garbage collection finished, collected cycles: ' . $collectedCycles);
     }
 
     /**
@@ -325,24 +325,24 @@ class Pimcore
     public static function initLogger()
     {
         // special request log -> if parameter pimcore_log is set
-        if (array_key_exists("pimcore_log", $_REQUEST) && self::inDebugMode()) {
-            if (empty($_REQUEST["pimcore_log"])) {
-                $requestLogName = date("Y-m-d_H-i-s");
+        if (array_key_exists('pimcore_log', $_REQUEST) && self::inDebugMode()) {
+            if (empty($_REQUEST['pimcore_log'])) {
+                $requestLogName = date('Y-m-d_H-i-s');
             } else {
-                $requestLogName = $_REQUEST["pimcore_log"];
+                $requestLogName = $_REQUEST['pimcore_log'];
             }
 
-            $requestLogFile = PIMCORE_LOG_DIRECTORY . "/request-" . $requestLogName . ".log";
+            $requestLogFile = PIMCORE_LOG_DIRECTORY . '/request-' . $requestLogName . '.log';
             if (!file_exists($requestLogFile)) {
-                File::put($requestLogFile, "");
+                File::put($requestLogFile, '');
             }
 
             $requestDebugHandler = new \Monolog\Handler\StreamHandler($requestLogFile);
 
             foreach (self::getContainer()->getServiceIds() as $id) {
-                if (strpos($id, "monolog.logger.") === 0) {
+                if (strpos($id, 'monolog.logger.') === 0) {
                     $logger = self::getContainer()->get($id);
-                    if ($logger->getName() != "event") {
+                    if ($logger->getName() != 'event') {
                         // replace all handlers
                         $logger->setHandlers([$requestDebugHandler]);
                     }
@@ -356,7 +356,7 @@ class Pimcore
      */
     public static function isLegacyModeAvailable()
     {
-        return class_exists("Pimcore\\Legacy");
+        return class_exists('Pimcore\\Legacy');
     }
 
     /**
@@ -370,9 +370,9 @@ class Pimcore
     public static function __callStatic($name, $arguments)
     {
         if (self::isLegacyModeAvailable()) {
-            return forward_static_call_array("Pimcore\\Legacy::" . $name, $arguments);
+            return forward_static_call_array('Pimcore\\Legacy::' . $name, $arguments);
         }
 
-        throw new \Exception("Call to undefined static method " . $name . " on class Pimcore");
+        throw new \Exception('Call to undefined static method ' . $name . ' on class Pimcore');
     }
 }

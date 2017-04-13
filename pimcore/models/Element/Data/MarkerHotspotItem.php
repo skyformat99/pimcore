@@ -24,12 +24,12 @@ class MarkerHotspotItem implements \ArrayAccess
     /**
      * @var string
      */
-    public $name = "";
+    public $name = '';
 
     /**
      * @var string
      */
-    public $type = "";
+    public $type = '';
 
     /**
      * @var
@@ -42,7 +42,7 @@ class MarkerHotspotItem implements \ArrayAccess
     public function __construct($data)
     {
         foreach ($data as $key => $value) {
-            $setter = "set" . $key;
+            $setter = 'set' . $key;
             if (method_exists($this, $setter)) {
                 $this->$setter($value);
             }
@@ -132,7 +132,7 @@ class MarkerHotspotItem implements \ArrayAccess
     public function offsetGet($offset)
     {
         if ($this->offsetExists($offset)) {
-            if ($offset == "value" && in_array($this->type, ["object", "asset", "document"])) {
+            if ($offset == 'value' && in_array($this->type, ['object', 'asset', 'document'])) {
                 return Model\Element\Service::getElementById($this->type, $this->value);
             } else {
                 return $this->$offset;

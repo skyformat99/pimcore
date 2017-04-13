@@ -29,11 +29,11 @@ class Document
     {
         try {
             if ($adapter) {
-                $adapterClass = "\\Pimcore\\Document\\Adapter\\" . $adapter;
+                $adapterClass = '\\Pimcore\\Document\\Adapter\\' . $adapter;
                 if (Tool::classExists($adapterClass)) {
                     return new $adapterClass();
                 } else {
-                    throw new \Exception("document-transcode adapter `" . $adapter . "´ does not exist.");
+                    throw new \Exception('document-transcode adapter `' . $adapter . '´ does not exist.');
                 }
             } else {
                 if ($adapter = self::getDefaultAdapter()) {
@@ -41,7 +41,7 @@ class Document
                 }
             }
         } catch (\Exception $e) {
-            Logger::crit("Unable to load document adapter: " . $e->getMessage());
+            Logger::crit('Unable to load document adapter: ' . $e->getMessage());
             throw $e;
         }
 
@@ -87,10 +87,10 @@ class Document
      */
     public static function getDefaultAdapter()
     {
-        $adapters = ["LibreOffice", "Ghostscript"];
+        $adapters = ['LibreOffice', 'Ghostscript'];
 
         foreach ($adapters as $adapter) {
-            $adapterClass = "\\Pimcore\\Document\\Adapter\\" . $adapter;
+            $adapterClass = '\\Pimcore\\Document\\Adapter\\' . $adapter;
             if (Tool::classExists($adapterClass)) {
                 try {
                     $adapter = new $adapterClass();

@@ -59,8 +59,8 @@ class Listing extends \Pimcore\Model\Listing\JsonListing
      */
     public static function getByTargetType($type, $subTypes)
     {
-        if ($type != "asset") {
-            throw new \Exception("other types than assets are currently not supported");
+        if ($type != 'asset') {
+            throw new \Exception('other types than assets are currently not supported');
         }
 
         $list = new self();
@@ -71,11 +71,11 @@ class Listing extends \Pimcore\Model\Listing\JsonListing
 
         if (is_array($subTypes)) {
             $list->setFilter(function ($row) use ($subTypes) {
-                if (empty($row["targetSubtype"])) {
+                if (empty($row['targetSubtype'])) {
                     return true;
                 }
 
-                if (in_array($row["targetSubtype"], $subTypes)) {
+                if (in_array($row['targetSubtype'], $subTypes)) {
                     return true;
                 }
 
@@ -99,15 +99,15 @@ class Listing extends \Pimcore\Model\Listing\JsonListing
         $list = new self();
 
         $list->setFilter(function ($row) use ($key, $language, $targetSubtype) {
-            if ($row["name"] != $key) {
+            if ($row['name'] != $key) {
                 return false;
             }
 
-            if ($language && $language != $row["language"]) {
+            if ($language && $language != $row['language']) {
                 return false;
             }
 
-            if ($targetSubtype && $targetSubtype != $row["targetSubtype"]) {
+            if ($targetSubtype && $targetSubtype != $row['targetSubtype']) {
                 return false;
             }
         });

@@ -123,19 +123,19 @@ class ClassDefinition extends Model\AbstractModel
      * @var array
      */
     public $propertyVisibility = [
-        "grid" => [
-            "id" => true,
-            "path" => true,
-            "published" => true,
-            "modificationDate" => true,
-            "creationDate" => true
+        'grid' => [
+            'id' => true,
+            'path' => true,
+            'published' => true,
+            'modificationDate' => true,
+            'creationDate' => true
         ],
-        "search" => [
-            "id" => true,
-            "path" => true,
-            "published" => true,
-            "modificationDate" => true,
-            "creationDate" => true
+        'search' => [
+            'id' => true,
+            'path' => true,
+            'published' => true,
+            'modificationDate' => true,
+            'creationDate' => true
         ]
     ];
 
@@ -149,15 +149,15 @@ class ClassDefinition extends Model\AbstractModel
     public static function getById($id)
     {
         if ($id === null) {
-            throw new \Exception("Class id is null");
+            throw new \Exception('Class id is null');
         }
 
-        $cacheKey = "class_" . $id;
+        $cacheKey = 'class_' . $id;
 
         try {
             $class = \Pimcore\Cache\Runtime::get($cacheKey);
             if (!$class) {
-                throw new \Exception("Class in registry is null");
+                throw new \Exception('Class in registry is null');
             }
         } catch (\Exception $e) {
             try {
@@ -167,7 +167,7 @@ class ClassDefinition extends Model\AbstractModel
                 $class = @include $definitionFile;
 
                 if (!$class instanceof self) {
-                    throw new \Exception("Class definition with name " . $name . " or ID " . $id . " does not exist");
+                    throw new \Exception('Class definition with name ' . $name . ' or ID ' . $id . ' does not exist');
                 }
 
                 $class->setId($id);
@@ -196,7 +196,7 @@ class ClassDefinition extends Model\AbstractModel
             if ($id) {
                 return self::getById($id);
             } else {
-                throw new \Exception("There is no class with the name: " . $name);
+                throw new \Exception('There is no class with the name: ' . $name);
             }
         } catch (\Exception $e) {
             Logger::error($e);
@@ -239,7 +239,7 @@ class ClassDefinition extends Model\AbstractModel
             unset($data->fieldDefinitionsCache);
         }
 
-        if (method_exists($data, "getChilds")) {
+        if (method_exists($data, 'getChilds')) {
             $children = $data->getChilds();
             if (is_array($children)) {
                 foreach ($children as $child) {
@@ -273,7 +273,7 @@ class ClassDefinition extends Model\AbstractModel
         // save definition as a php file
         $definitionFile = $this->getDefinitionFile();
         if (!is_writable(dirname($definitionFile)) || (is_file($definitionFile) && !is_writable($definitionFile))) {
-            throw new \Exception("Cannot write definition file in: " . $definitionFile . " please check write permission on this directory.");
+            throw new \Exception('Cannot write definition file in: ' . $definitionFile . ' please check write permission on this directory.');
         }
 
         $clone = clone $this;
@@ -297,39 +297,39 @@ class ClassDefinition extends Model\AbstractModel
         }
 
         // create class for object
-        $extendClass = "Concrete";
+        $extendClass = 'Concrete';
         if ($this->getParentClass()) {
             $extendClass = $this->getParentClass();
-            $extendClass = "\\" . ltrim($extendClass, "\\");
+            $extendClass = '\\' . ltrim($extendClass, '\\');
         }
 
         // create directory if not exists
-        if (!is_dir(PIMCORE_CLASS_DIRECTORY . "/Object")) {
-            File::mkdir(PIMCORE_CLASS_DIRECTORY . "/Object");
+        if (!is_dir(PIMCORE_CLASS_DIRECTORY . '/Object')) {
+            File::mkdir(PIMCORE_CLASS_DIRECTORY . '/Object');
         }
 
         $cd = '<?php ';
         $cd .= "\n\n";
         $cd .= $infoDocBlock;
         $cd .= "\n\n";
-        $cd .= "namespace Pimcore\\Model\\Object;";
+        $cd .= 'namespace Pimcore\\Model\\Object;';
         $cd .= "\n\n";
         $cd .= "\n\n";
         $cd .= "/**\n";
         if (is_array($this->getFieldDefinitions()) && count($this->getFieldDefinitions())) {
             foreach ($this->getFieldDefinitions() as $key => $def) {
-                if (!(method_exists($def, "isRemoteOwner") and $def->isRemoteOwner())) {
+                if (!(method_exists($def, 'isRemoteOwner') and $def->isRemoteOwner())) {
                     if ($def instanceof Object\ClassDefinition\Data\Localizedfields) {
-                        $cd .= "* @method \\Pimcore\\Model\\Object\\" . ucfirst($this->getName()) . '\Listing getBy' . ucfirst($def->getName()) . ' ($field, $value, $locale = null, $limit = 0) ' . "\n";
+                        $cd .= '* @method \\Pimcore\\Model\\Object\\' . ucfirst($this->getName()) . '\Listing getBy' . ucfirst($def->getName()) . ' ($field, $value, $locale = null, $limit = 0) ' . "\n";
                     } else {
-                        $cd .= "* @method \\Pimcore\\Model\\Object\\" . ucfirst($this->getName()) . '\Listing getBy' . ucfirst($def->getName()) . ' ($value, $limit = 0) ' . "\n";
+                        $cd .= '* @method \\Pimcore\\Model\\Object\\' . ucfirst($this->getName()) . '\Listing getBy' . ucfirst($def->getName()) . ' ($value, $limit = 0) ' . "\n";
                     }
                 }
             }
         }
         $cd .= "*/\n\n";
 
-        $cd .= "class " . ucfirst($this->getName()) . " extends " . $extendClass . " {";
+        $cd .= 'class ' . ucfirst($this->getName()) . ' extends ' . $extendClass . ' {';
         $cd .= "\n\n";
 
         if ($this->getUseTraits()) {
@@ -342,8 +342,8 @@ class ClassDefinition extends Model\AbstractModel
 
         if (is_array($this->getFieldDefinitions()) && count($this->getFieldDefinitions())) {
             foreach ($this->getFieldDefinitions() as $key => $def) {
-                if (!(method_exists($def, "isRemoteOwner") && $def->isRemoteOwner()) && !$def instanceof Object\ClassDefinition\Data\CalculatedValue) {
-                    $cd .= "public $" . $key . ";\n";
+                if (!(method_exists($def, 'isRemoteOwner') && $def->isRemoteOwner()) && !$def instanceof Object\ClassDefinition\Data\CalculatedValue) {
+                    $cd .= 'public $' . $key . ";\n";
                 }
             }
         }
@@ -359,14 +359,14 @@ class ClassDefinition extends Model\AbstractModel
         $cd .= "\t" . '$object = new static();' . "\n";
         $cd .= "\t" . '$object->setValues($values);' . "\n";
         $cd .= "\t" . 'return $object;' . "\n";
-        $cd .= "}";
+        $cd .= '}';
 
         $cd .= "\n\n";
 
         if (is_array($this->getFieldDefinitions()) && count($this->getFieldDefinitions())) {
             $relationTypes = [];
             foreach ($this->getFieldDefinitions() as $key => $def) {
-                if (method_exists($def, "isRemoteOwner") and $def->isRemoteOwner()) {
+                if (method_exists($def, 'isRemoteOwner') and $def->isRemoteOwner()) {
                     continue;
                 }
 
@@ -375,17 +375,17 @@ class ClassDefinition extends Model\AbstractModel
                 $cd .= $def->getSetterCode($this);
 
                 // call the method "classSaved" if exists, this is used to create additional data tables or whatever which depends on the field definition, for example for localizedfields
-                if (method_exists($def, "classSaved")) {
+                if (method_exists($def, 'classSaved')) {
                     $def->classSaved($this);
                 }
 
                 if ($def->isRelationType()) {
-                    $relationTypes[$key] = ["type" => $def->getFieldType()];
+                    $relationTypes[$key] = ['type' => $def->getFieldType()];
                 }
 
                 // collect lazyloaded fields
                 $lazyLoadedFields = [];
-                if (method_exists($def, "getLazyLoading") and $def->getLazyLoading()) {
+                if (method_exists($def, 'getLazyLoading') and $def->getLazyLoading()) {
                     $lazyLoadedFields[] = $key;
                 }
             }
@@ -397,9 +397,9 @@ class ClassDefinition extends Model\AbstractModel
         $cd .= "}\n";
         $cd .= "\n";
 
-        $classFile = PIMCORE_CLASS_DIRECTORY . "/Object/" . ucfirst($this->getName()) . ".php";
+        $classFile = PIMCORE_CLASS_DIRECTORY . '/Object/' . ucfirst($this->getName()) . '.php';
         if (!is_writable(dirname($classFile)) || (is_file($classFile) && !is_writable($classFile))) {
-            throw new \Exception("Cannot write class file in " . $classFile . " please check the rights on this directory");
+            throw new \Exception('Cannot write class file in ' . $classFile . ' please check the rights on this directory');
         }
         File::put($classFile, $cd);
 
@@ -407,15 +407,15 @@ class ClassDefinition extends Model\AbstractModel
         $cd = '<?php ';
 
         $cd .= "\n\n";
-        $cd .= "namespace Pimcore\\Model\\Object\\" . ucfirst($this->getName()) . ";";
+        $cd .= 'namespace Pimcore\\Model\\Object\\' . ucfirst($this->getName()) . ';';
         $cd .= "\n\n";
-        $cd .= "use Pimcore\\Model\\Object;";
+        $cd .= 'use Pimcore\\Model\\Object;';
         $cd .= "\n\n";
         $cd .= "/**\n";
-        $cd .= " * @method Object\\" . ucfirst($this->getName()) . " current()\n";
-        $cd .= " */";
+        $cd .= ' * @method Object\\' . ucfirst($this->getName()) . " current()\n";
+        $cd .= ' */';
         $cd .= "\n\n";
-        $cd .= "class Listing extends Object\\Listing\\Concrete {";
+        $cd .= 'class Listing extends Object\\Listing\\Concrete {';
         $cd .= "\n\n";
 
         $cd .= 'public $classId = ' . $this->getId() . ";\n";
@@ -424,17 +424,17 @@ class ClassDefinition extends Model\AbstractModel
         $cd .= "\n\n";
         $cd .= "}\n";
 
-        File::mkdir(PIMCORE_CLASS_DIRECTORY . "/Object/" . ucfirst($this->getName()));
+        File::mkdir(PIMCORE_CLASS_DIRECTORY . '/Object/' . ucfirst($this->getName()));
 
-        $classListFile = PIMCORE_CLASS_DIRECTORY . "/Object/" . ucfirst($this->getName()) . "/Listing.php";
+        $classListFile = PIMCORE_CLASS_DIRECTORY . '/Object/' . ucfirst($this->getName()) . '/Listing.php';
         if (!is_writable(dirname($classListFile)) || (is_file($classListFile) && !is_writable($classListFile))) {
-            throw new \Exception("Cannot write class file in " . $classListFile . " please check the rights on this directory");
+            throw new \Exception('Cannot write class file in ' . $classListFile . ' please check the rights on this directory');
         }
         File::put($classListFile, $cd);
 
         // empty object cache
         try {
-            Cache::clearTag("class_" . $this->getId());
+            Cache::clearTag('class_' . $this->getId());
         } catch (\Exception $e) {
         }
 
@@ -450,28 +450,28 @@ class ClassDefinition extends Model\AbstractModel
      */
     protected function getInfoDocBlock()
     {
-        $cd = "";
+        $cd = '';
 
-        $cd .= "/** ";
+        $cd .= '/** ';
         $cd .= "\n";
-        $cd .= "* Generated at: " . date('c') . "\n";
-        $cd .= "* Inheritance: " . ($this->getAllowInherit() ? "yes" : "no") . "\n";
-        $cd .= "* Variants: " . ($this->getAllowVariants() ? "yes" : "no") . "\n";
+        $cd .= '* Generated at: ' . date('c') . "\n";
+        $cd .= '* Inheritance: ' . ($this->getAllowInherit() ? 'yes' : 'no') . "\n";
+        $cd .= '* Variants: ' . ($this->getAllowVariants() ? 'yes' : 'no') . "\n";
 
         $user = Model\User::getById($this->getUserModification());
         if ($user) {
-            $cd .= "* Changed by: " . $user->getName() . " (" . $user->getId() . ")" . "\n";
+            $cd .= '* Changed by: ' . $user->getName() . ' (' . $user->getId() . ')' . "\n";
         }
 
-        if (isset($_SERVER["REMOTE_ADDR"])) {
-            $cd .= "* IP: " . $_SERVER["REMOTE_ADDR"] . "\n";
+        if (isset($_SERVER['REMOTE_ADDR'])) {
+            $cd .= '* IP: ' . $_SERVER['REMOTE_ADDR'] . "\n";
         }
 
         if ($this->getDescription()) {
-            $description = str_replace(["/**", "*/", "//"], "", $this->getDescription());
+            $description = str_replace(['/**', '*/', '//'], '', $this->getDescription());
             $description = str_replace("\n", "\n* ", $description);
 
-            $cd .= "* " . $description . "\n";
+            $cd .= '* ' . $description . "\n";
         }
 
         $cd .= "\n\n";
@@ -479,7 +479,7 @@ class ClassDefinition extends Model\AbstractModel
 
         $cd = $this->getInfoDocBlockForFields($this, $cd, 1);
 
-        $cd .= "*/ ";
+        $cd .= '*/ ';
 
         return $cd;
     }
@@ -494,8 +494,8 @@ class ClassDefinition extends Model\AbstractModel
     protected function getInfoDocBlockForFields($definition, $text, $level)
     {
         foreach ($definition->getFieldDefinitions() as $fd) {
-            $text .= str_pad("", $level, "-") . " " . $fd->getName() . " [" . $fd->getFieldtype() . "]\n";
-            if (method_exists($fd, "getFieldDefinitions")) {
+            $text .= str_pad('', $level, '-') . ' ' . $fd->getName() . ' [' . $fd->getFieldtype() . "]\n";
+            if (method_exists($fd, 'getFieldDefinitions')) {
                 $text = $this->getInfoDocBlockForFields($fd, $text, $level + 1);
             }
         }
@@ -509,7 +509,7 @@ class ClassDefinition extends Model\AbstractModel
 
         // delete all objects using this class
         $list = new Listing();
-        $list->setCondition("o_classId = ?", $this->getId());
+        $list->setCondition('o_classId = ?', $this->getId());
         $list->load();
 
         foreach ($list->getObjects() as $o) {
@@ -520,18 +520,18 @@ class ClassDefinition extends Model\AbstractModel
 
         // empty object cache
         try {
-            Cache::clearTag("class_" . $this->getId());
+            Cache::clearTag('class_' . $this->getId());
         } catch (\Exception $e) {
         }
 
         // empty output cache
         try {
-            Cache::clearTag("output");
+            Cache::clearTag('output');
         } catch (\Exception $e) {
         }
 
         $customLayouts = new ClassDefinition\CustomLayout\Listing();
-        $customLayouts->setCondition("classId = " . $this->getId());
+        $customLayouts->setCondition('classId = ' . $this->getId());
         $customLayouts = $customLayouts->load();
 
         foreach ($customLayouts as $customLayout) {
@@ -547,7 +547,7 @@ class ClassDefinition extends Model\AbstractModel
             $classDefinitions = $brickDefinition->getClassDefinitions();
             if (is_array($classDefinitions)) {
                 foreach ($classDefinitions as $key => $classDefinition) {
-                    if ($classDefinition["classname"] == $this->getId()) {
+                    if ($classDefinition['classname'] == $this->getId()) {
                         unset($classDefinitions[$key]);
                         $modified = true;
                     }
@@ -570,9 +570,9 @@ class ClassDefinition extends Model\AbstractModel
     protected function deletePhpClasses()
     {
         // delete the class files
-        @unlink(PIMCORE_CLASS_DIRECTORY . "/Object/" . ucfirst($this->getName()) . ".php");
-        @unlink(PIMCORE_CLASS_DIRECTORY . "/Object/" . ucfirst($this->getName()) . "/Listing.php");
-        @rmdir(PIMCORE_CLASS_DIRECTORY . "/Object/" . ucfirst($this->getName()));
+        @unlink(PIMCORE_CLASS_DIRECTORY . '/Object/' . ucfirst($this->getName()) . '.php');
+        @unlink(PIMCORE_CLASS_DIRECTORY . '/Object/' . ucfirst($this->getName()) . '/Listing.php');
+        @rmdir(PIMCORE_CLASS_DIRECTORY . '/Object/' . ucfirst($this->getName()));
         @unlink($this->getDefinitionFile());
     }
 
@@ -587,7 +587,7 @@ class ClassDefinition extends Model\AbstractModel
             $name = $this->getName();
         }
 
-        $file = PIMCORE_CLASS_DIRECTORY . "/definition_". $name .".php";
+        $file = PIMCORE_CLASS_DIRECTORY . '/definition_'. $name .'.php';
 
         return $file;
     }
@@ -797,7 +797,7 @@ class ClassDefinition extends Model\AbstractModel
 
         if ($def instanceof Object\ClassDefinition\Data) {
             $existing = $this->getFieldDefinition($def->getName());
-            if ($existing && method_exists($existing, "addReferencedField")) {
+            if ($existing && method_exists($existing, 'addReferencedField')) {
                 // this is especially for localized fields which get aggregated here into one field definition
                 // in the case that there are more than one localized fields in the class definition
                 // see also pimcore.object.edit.addToDataFields();

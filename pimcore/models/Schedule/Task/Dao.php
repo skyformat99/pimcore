@@ -31,9 +31,9 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function getById($id)
     {
-        $data = $this->db->fetchRow("SELECT * FROM schedule_tasks WHERE id = ?", $id);
-        if (!$data["id"]) {
-            throw new \Exception("there is no task for the requested id");
+        $data = $this->db->fetchRow('SELECT * FROM schedule_tasks WHERE id = ?', $id);
+        if (!$data['id']) {
+            throw new \Exception('there is no task for the requested id');
         }
         $this->assignVariablesToModel($data);
     }
@@ -59,7 +59,7 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function create()
     {
-        $this->db->insert("schedule_tasks", []);
+        $this->db->insert('schedule_tasks', []);
         $this->model->setId($this->db->lastInsertId());
 
         $this->save();
@@ -74,7 +74,7 @@ class Dao extends Model\Dao\AbstractDao
         $data = [];
 
         foreach ($site as $key => $value) {
-            if (in_array($key, $this->getValidTableColumns("schedule_tasks"))) {
+            if (in_array($key, $this->getValidTableColumns('schedule_tasks'))) {
                 if (is_array($value) || is_object($value)) {
                     $value = \Pimcore\Tool\Serialize::serialize($value);
                 } elseif (is_bool($value)) {
@@ -84,7 +84,7 @@ class Dao extends Model\Dao\AbstractDao
             }
         }
 
-        $this->db->update("schedule_tasks", $data, ["id" => $this->model->getId()]);
+        $this->db->update('schedule_tasks', $data, ['id' => $this->model->getId()]);
     }
 
     /**
@@ -92,6 +92,6 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function delete()
     {
-        $this->db->delete("schedule_tasks", ["id" => $this->model->getId()]);
+        $this->db->delete('schedule_tasks', ['id' => $this->model->getId()]);
     }
 }

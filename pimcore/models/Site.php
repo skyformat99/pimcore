@@ -60,12 +60,12 @@ class Site extends AbstractModel
     /**
      * @var string
      */
-    public $mainDomain = "";
+    public $mainDomain = '';
 
     /**
      * @var string
      */
-    public $errorDocument = "";
+    public $errorDocument = '';
 
     /**
      * @var bool
@@ -119,7 +119,7 @@ class Site extends AbstractModel
     {
 
         // cached because this is called in the route (Pimcore_Controller_Router_Route_Frontend)
-        $cacheKey = "site_domain_". md5($domain);
+        $cacheKey = 'site_domain_'. md5($domain);
 
         if (Runtime::isRegistered($cacheKey)) {
             $site = Runtime::get($cacheKey);
@@ -130,16 +130,16 @@ class Site extends AbstractModel
                 $site->getDao()->getByDomain($domain);
             } catch (\Exception $e) {
                 Logger::debug($e);
-                $site = "failed";
+                $site = 'failed';
             }
 
-            \Pimcore\Cache::save($site, $cacheKey, ["system", "site"], null, 999);
+            \Pimcore\Cache::save($site, $cacheKey, ['system', 'site'], null, 999);
         }
 
         Runtime::set($cacheKey, $site);
 
-        if ($site == "failed" || !$site) {
-            $msg = "there is no site for the requested domain [" . $domain . "], content was [" . $site . "]";
+        if ($site == 'failed' || !$site) {
+            $msg = 'there is no site for the requested domain [' . $domain . '], content was [' . $site . ']';
             Logger::debug($msg);
             throw new \Exception($msg);
         }
@@ -204,7 +204,7 @@ class Site extends AbstractModel
         if (null !== self::$currentSite) {
             return self::$currentSite;
         } else {
-            throw new \Exception("This request/process is not inside a subsite");
+            throw new \Exception('This request/process is not inside a subsite');
         }
     }
 
@@ -381,7 +381,7 @@ class Site extends AbstractModel
 
         // this is mostly called in Site\Dao not here
         try {
-            \Pimcore\Cache::clearTag("site");
+            \Pimcore\Cache::clearTag('site');
         } catch (\Exception $e) {
             Logger::crit($e);
         }

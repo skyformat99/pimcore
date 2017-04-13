@@ -93,11 +93,11 @@ class Redirect extends AbstractModel
      * StatusCodes
      */
     public static $statusCodes = [
-        "300" => "Multiple Choices",
-        "301" => "Moved Permanently",
-        "302" => "Found",
-        "303" => "See Other",
-        "307" => "Temporary Redirect"
+        '300' => 'Multiple Choices',
+        '301' => 'Moved Permanently',
+        '302' => 'Found',
+        '303' => 'See Other',
+        '307' => 'Temporary Redirect'
     ];
 
     /**
@@ -236,10 +236,10 @@ class Redirect extends AbstractModel
     {
         $statusCode = $this->getStatusCode();
         if (empty($statusCode)) {
-            $statusCode = "301";
+            $statusCode = '301';
         }
 
-        return "HTTP/1.1 " . $statusCode . " " . self::$statusCodes[$statusCode];
+        return 'HTTP/1.1 ' . $statusCode . ' ' . self::$statusCodes[$statusCode];
     }
 
     public function clearDependentCache()
@@ -247,7 +247,7 @@ class Redirect extends AbstractModel
 
         // this is mostly called in Redirect\Dao not here
         try {
-            \Pimcore\Cache::clearTag("redirect");
+            \Pimcore\Cache::clearTag('redirect');
         } catch (\Exception $e) {
             Logger::crit($e);
         }
@@ -279,7 +279,7 @@ class Redirect extends AbstractModel
     public static function maintenanceCleanUp()
     {
         $list = new Redirect\Listing();
-        $list->setCondition("expiry < " . time() . " AND expiry IS NOT NULL AND expiry != ''");
+        $list->setCondition('expiry < ' . time() . " AND expiry IS NOT NULL AND expiry != ''");
         $list->load();
 
         foreach ($list->getRedirects() as $redirect) {

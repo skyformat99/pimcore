@@ -35,7 +35,7 @@ abstract class Dao extends Model\Listing\Dao\AbstractDao implements Dao\DaoInter
     {
         $select = $this->db->select();
         $select->from(
-            [ static::getTableName()], static::getTableName() . ".key"
+            [ static::getTableName()], static::getTableName() . '.key'
         );
         $this->addConditions($select);
         $this->addGroupBy($select);
@@ -62,7 +62,7 @@ abstract class Dao extends Model\Listing\Dao\AbstractDao implements Dao\DaoInter
 
         $select = $this->db->select();
         $select->from(
-            [ static::getTableName()], static::getTableName() . ".key"
+            [ static::getTableName()], static::getTableName() . '.key'
         );
         $this->addConditions($select);
         $this->addGroupBy($select);
@@ -74,7 +74,7 @@ abstract class Dao extends Model\Listing\Dao\AbstractDao implements Dao\DaoInter
             $closure($select);
         }
 
-        $amount = (int) $this->db->fetchOne("SELECT COUNT(*) as amount FROM (" . $select . ") AS a", $this->model->getConditionVariables());
+        $amount = (int) $this->db->fetchOne('SELECT COUNT(*) as amount FROM (' . $select . ') AS a', $this->model->getConditionVariables());
 
         return $amount;
     }
@@ -84,7 +84,7 @@ abstract class Dao extends Model\Listing\Dao\AbstractDao implements Dao\DaoInter
      */
     public function getAllTranslations()
     {
-        $cacheKey = static::getTableName()."_data";
+        $cacheKey = static::getTableName().'_data';
         if (!$translations = Cache::load($cacheKey)) {
             $itemClass = static::getItemClass();
             $translations = [];
@@ -104,23 +104,23 @@ abstract class Dao extends Model\Listing\Dao\AbstractDao implements Dao\DaoInter
             $translationsData = $this->db->fetchAll($select);
 
             foreach ($translationsData as $t) {
-                if (!$translations[$t["key"]]) {
-                    $translations[$t["key"]] = new $itemClass();
-                    $translations[$t["key"]]->setKey($t["key"]);
+                if (!$translations[$t['key']]) {
+                    $translations[$t['key']] = new $itemClass();
+                    $translations[$t['key']]->setKey($t['key']);
                 }
 
-                $translations[$t["key"]]->addTranslation($t["language"], $t["text"]);
+                $translations[$t['key']]->addTranslation($t['language'], $t['text']);
 
                 //for legacy support
-                if ($translations[$t["key"]]->getDate() < $t["creationDate"]) {
-                    $translations[$t["key"]]->setDate($t["creationDate"]);
+                if ($translations[$t['key']]->getDate() < $t['creationDate']) {
+                    $translations[$t['key']]->setDate($t['creationDate']);
                 }
 
-                $translations[$t["key"]]->setCreationDate($t["creationDate"]);
-                $translations[$t["key"]]->setModificationDate($t["modificationDate"]);
+                $translations[$t['key']]->setCreationDate($t['creationDate']);
+                $translations[$t['key']]->setModificationDate($t['modificationDate']);
             }
 
-            Cache::save($translations, $cacheKey, ["translator", "translate"], 999);
+            Cache::save($translations, $cacheKey, ['translator', 'translate'], 999);
         }
 
         return $translations;
@@ -159,11 +159,11 @@ abstract class Dao extends Model\Listing\Dao\AbstractDao implements Dao\DaoInter
     {
         $allTranslations = $this->getAllTranslations();
         $translations = [];
-        $this->model->setGroupBy(static::getTableName() . ".key", false);
+        $this->model->setGroupBy(static::getTableName() . '.key', false);
 
         $select = $this->db->select();
         $select->from(
-            [ static::getTableName()], static::getTableName() . ".key"
+            [ static::getTableName()], static::getTableName() . '.key'
         );
         $this->addConditions($select);
         $this->addGroupBy($select);
@@ -178,7 +178,7 @@ abstract class Dao extends Model\Listing\Dao\AbstractDao implements Dao\DaoInter
         $translationsData = $this->db->fetchAll($select, $this->model->getConditionVariables());
 
         foreach ($translationsData as $t) {
-            $translations[] = $allTranslations[$t["key"]];
+            $translations[] = $allTranslations[$t['key']];
         }
 
         $this->model->setTranslations($translations);
@@ -191,7 +191,7 @@ abstract class Dao extends Model\Listing\Dao\AbstractDao implements Dao\DaoInter
      */
     public function isCacheable()
     {
-        $count = $this->db->fetchOne("SELECT COUNT(*) FROM " . static::getTableName());
+        $count = $this->db->fetchOne('SELECT COUNT(*) FROM ' . static::getTableName());
         $cacheLimit = Model\Translation\AbstractTranslation\Listing::getCacheLimit();
         if ($count > $cacheLimit) {
             return false;
@@ -202,20 +202,20 @@ abstract class Dao extends Model\Listing\Dao\AbstractDao implements Dao\DaoInter
 
     public function cleanup()
     {
-        $keysToDelete = $this->db->fetchCol("SELECT `key` FROM " . static::getTableName() . " as tbl1 WHERE
-               (SELECT count(*) FROM " . static::getTableName() . " WHERE `key` = tbl1.`key` AND (`text` IS NULL OR `text` = ''))
-               = (SELECT count(*) FROM " . static::getTableName() . " WHERE `key` = tbl1.`key`) GROUP BY `key`;");
+        $keysToDelete = $this->db->fetchCol('SELECT `key` FROM ' . static::getTableName() . ' as tbl1 WHERE
+               (SELECT count(*) FROM ' . static::getTableName() . " WHERE `key` = tbl1.`key` AND (`text` IS NULL OR `text` = ''))
+               = (SELECT count(*) FROM " . static::getTableName() . ' WHERE `key` = tbl1.`key`) GROUP BY `key`;');
 
         if (is_array($keysToDelete) && !empty($keysToDelete)) {
             $preparedKeys = [];
             foreach ($keysToDelete as $value) {
-                if (strpos($value, ":") === false) { // colon causes problems due to a ZF bug, so we exclude them
+                if (strpos($value, ':') === false) { // colon causes problems due to a ZF bug, so we exclude them
                     $preparedKeys[] = $this->db->quote($value);
                 }
             }
 
             if (!empty($preparedKeys)) {
-                $this->db->deleteWhere(static::getTableName(), "`key` IN (" . implode(",", $preparedKeys) . ")");
+                $this->db->deleteWhere(static::getTableName(), '`key` IN (' . implode(',', $preparedKeys) . ')');
             }
         }
     }

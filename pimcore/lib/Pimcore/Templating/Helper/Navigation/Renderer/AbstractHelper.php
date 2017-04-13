@@ -396,7 +396,7 @@ abstract class AbstractHelper implements HelperInterface
         );
 
         return '<a' . $this->_htmlAttribs($attribs) . '>'
-             . htmlspecialchars($label, ENT_COMPAT, "UTF-8")
+             . htmlspecialchars($label, ENT_COMPAT, 'UTF-8')
              . '</a>';
     }
 
@@ -472,7 +472,7 @@ abstract class AbstractHelper implements HelperInterface
 
         $xhtml = '';
         foreach ((array) $attribs as $key => $val) {
-            $key = htmlspecialchars($key, ENT_COMPAT, "UTF-8");
+            $key = htmlspecialchars($key, ENT_COMPAT, 'UTF-8');
 
             if (('on' == substr($key, 0, 2)) || ('constraints' == $key)) {
                 // Don't escape event attributes; _do_ substitute double quotes with singles
@@ -489,7 +489,7 @@ abstract class AbstractHelper implements HelperInterface
                 if (is_array($val)) {
                     $val = implode(' ', $val);
                 }
-                $val = htmlspecialchars($val, ENT_COMPAT, "UTF-8");
+                $val = htmlspecialchars($val, ENT_COMPAT, 'UTF-8');
             }
 
             if ('id' == $key) {

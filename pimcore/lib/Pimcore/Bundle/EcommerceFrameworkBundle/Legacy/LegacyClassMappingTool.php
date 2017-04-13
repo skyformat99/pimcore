@@ -730,7 +730,7 @@ class LegacyClassMappingTool
         ksort($generatedCode);
 
         foreach ($generatedCode as $namespace => $generatedCodeEntry) {
-            $fileContent .= "namespace " . $namespace . " {\n";
+            $fileContent .= 'namespace ' . $namespace . " {\n";
             $fileContent .= implode("\n", $generatedCodeEntry);
             $fileContent .= "} \n\n// -- end namespace " . $namespace . " ---------------------------------------------------------------------------------- \n\n\n\n";
         }
@@ -756,11 +756,11 @@ class LegacyClassMappingTool
     public static function generateMarkdownTable()
     {
         foreach (self::$mappingInterfaces as $withNamespace => $withoutNamespace) {
-            echo "|" . $withoutNamespace . " | " . $withNamespace . " | \n";
+            echo '|' . $withoutNamespace . ' | ' . $withNamespace . " | \n";
         }
 
         foreach (self::$mappingClasses as $withNamespace => $withoutNamespace) {
-            echo "|" . $withoutNamespace . " | " . $withNamespace . " | \n";
+            echo '|' . $withoutNamespace . ' | ' . $withNamespace . " | \n";
         }
     }
 }

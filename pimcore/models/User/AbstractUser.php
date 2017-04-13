@@ -53,7 +53,7 @@ class AbstractUser extends Model\AbstractModel
      */
     public static function getById($id)
     {
-        $cacheKey = "user_" . $id;
+        $cacheKey = 'user_' . $id;
         try {
             if (\Pimcore\Cache\Runtime::isRegistered($cacheKey)) {
                 $user =  \Pimcore\Cache\Runtime::get($cacheKey);
@@ -61,7 +61,7 @@ class AbstractUser extends Model\AbstractModel
                 $user = new static();
                 $user->getDao()->getById($id);
 
-                if (get_class($user) == "Pimcore\\Model\\User\\AbstractUser") {
+                if (get_class($user) == 'Pimcore\\Model\\User\\AbstractUser') {
                     $className = Service::getClassNameForType($user->getType());
                     $user = $className::getById($user->getId());
                 }
@@ -218,7 +218,7 @@ class AbstractUser extends Model\AbstractModel
 
         // delete all childs
         $list = new Listing();
-        $list->setCondition("parentId = ?", $this->getId());
+        $list->setCondition('parentId = ?', $this->getId());
         $list->load();
 
         if (is_array($list->getUsers())) {

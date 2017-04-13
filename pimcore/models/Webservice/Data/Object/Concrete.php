@@ -46,7 +46,7 @@ class Concrete extends Model\Webservice\Data\Object
         $fd = $object->getClass()->getFieldDefinitions();
 
         foreach ($fd as $field) {
-            $getter = "get".ucfirst($field->getName());
+            $getter = 'get'.ucfirst($field->getName());
 
             //only expose fields which have a get method
             if (method_exists($object, $getter)) {
@@ -75,7 +75,7 @@ class Concrete extends Model\Webservice\Data\Object
     {
         $keys = get_object_vars($this);
         foreach ($keys as $key => $value) {
-            $method = "set" . $key;
+            $method = 'set' . $key;
             if (method_exists($object, $method)) {
                 $object->$method($value);
             }
@@ -88,7 +88,7 @@ class Concrete extends Model\Webservice\Data\Object
             foreach ($this->elements as $element) {
                 $class = $object->getClass();
 
-                $setter = "set" . ucfirst($element->name);
+                $setter = 'set' . ucfirst($element->name);
                 if (method_exists($object, $setter)) {
                     $tag = $class->getFieldDefinition($element->name);
                     if ($tag) {
@@ -99,11 +99,11 @@ class Concrete extends Model\Webservice\Data\Object
                             $object->$setter($tag->getFromWebserviceImport($element->value, $object, [], $idMapper));
                         }
                     } else {
-                        Logger::error("tag for field " . $element->name . " not found");
+                        Logger::error('tag for field ' . $element->name . ' not found');
                     }
                 } else {
                     if (!$disableMappingExceptions) {
-                        throw new \Exception("No element [ " . $element->name . " ] of type [ " . $element->type . " ] found in class definition [" . $class->getId() . "] | " . $class->getName());
+                        throw new \Exception('No element [ ' . $element->name . ' ] of type [ ' . $element->type . ' ] found in class definition [' . $class->getId() . '] | ' . $class->getName());
                     }
                 }
             }

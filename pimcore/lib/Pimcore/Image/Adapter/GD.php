@@ -48,7 +48,7 @@ class GD extends Adapter
         $this->setWidth($width);
         $this->setHeight($height);
 
-        if (in_array(\Pimcore\File::getFileExtension($imagePath), ["png", "gif"])) {
+        if (in_array(\Pimcore\File::getFileExtension($imagePath), ['png', 'gif'])) {
             // in GD only gif and PNG can have an alphachannel
             $this->setIsAlphaPossible(true);
         }
@@ -68,34 +68,34 @@ class GD extends Adapter
     public function save($path, $format = null, $quality = null)
     {
         $format = strtolower($format);
-        if (!$format || $format == "png32") {
-            $format = "png";
+        if (!$format || $format == 'png32') {
+            $format = 'png';
         }
 
         if (!$this->reinitializing && $this->getUseContentOptimizedFormat()) {
-            $format = "pjpeg";
+            $format = 'pjpeg';
             if ($this->hasAlphaChannel()) {
-                $format = "png";
+                $format = 'png';
             }
         }
 
         // progressive jpeg
-        if ($format == "pjpeg") {
+        if ($format == 'pjpeg') {
             imageinterlace($this->resource, true);
-            $format = "jpeg";
+            $format = 'jpeg';
         }
 
-        if ($format == "jpg") {
-            $format = "jpeg";
+        if ($format == 'jpg') {
+            $format = 'jpeg';
         }
 
         $functionName = 'image' . $format;
         if (!function_exists($functionName)) {
-            $functionName = "imagepng";
+            $functionName = 'imagepng';
         }
 
         // always create a PNG24
-        if ($format == "png") {
+        if ($format == 'png') {
             imagesavealpha($this->resource, true);
         }
 
@@ -276,13 +276,13 @@ class GD extends Adapter
     {
         $this->preModify();
 
-        $image = ltrim($image, "/");
-        $image = PIMCORE_PROJECT_ROOT . "/" . $image;
+        $image = ltrim($image, '/');
+        $image = PIMCORE_PROJECT_ROOT . '/' . $image;
 
         if (is_file($image)) {
             $backgroundImage = imagecreatefromstring(file_get_contents($image));
             list($backgroundImageWidth, $backgroundImageHeight) = getimagesize($image);
-            if ($mode == "cropTopLeft") {
+            if ($mode == 'cropTopLeft') {
                 $newImg = $this->createImage($this->getWidth(), $this->getHeight());
                 imagecopyresampled($newImg, $backgroundImage, 0, 0, 0, 0, $this->getWidth(), $this->getHeight(), $this->getWidth(), $this->getHeight());
                 imagealphablending($newImg, true);
@@ -342,12 +342,12 @@ class GD extends Adapter
      *
      * @return $this
      */
-    public function addOverlay($image, $x = 0, $y = 0, $alpha = 100, $composite = "COMPOSITE_DEFAULT", $origin = 'top-left')
+    public function addOverlay($image, $x = 0, $y = 0, $alpha = 100, $composite = 'COMPOSITE_DEFAULT', $origin = 'top-left')
     {
         $this->preModify();
 
-        $image = ltrim($image, "/");
-        $image = PIMCORE_PROJECT_ROOT . "/" . $image;
+        $image = ltrim($image, '/');
+        $image = PIMCORE_PROJECT_ROOT . '/' . $image;
 
         // 100 alpha is default
         if (empty($alpha)) {
@@ -389,9 +389,9 @@ class GD extends Adapter
     {
         $this->preModify();
 
-        if ($mode == "vertical") {
+        if ($mode == 'vertical') {
             imageflip($this->resource, IMG_FLIP_VERTICAL);
-        } elseif ($mode == "horizontal") {
+        } elseif ($mode == 'horizontal') {
             imageflip($this->resource, IMG_FLIP_HORIZONTAL);
         }
 

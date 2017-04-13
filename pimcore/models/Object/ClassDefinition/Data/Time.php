@@ -26,7 +26,7 @@ class Time extends Model\Object\ClassDefinition\Data\Input
      *
      * @var string
      */
-    public $fieldtype = "time";
+    public $fieldtype = 'time';
 
     /**
      * Column length
@@ -98,20 +98,20 @@ class Time extends Model\Object\ClassDefinition\Data\Input
         parent::checkValidity($data, $omitMandatoryCheck);
 
         if ((is_string($data) && strlen($data) != 5 && !empty($data)) || (!empty($data) && !is_string($data))) {
-            throw new Model\Element\ValidationException("Wrong time format given must be a 5 digit string (eg: 06:49) [ ".$this->getName()." ]");
+            throw new Model\Element\ValidationException('Wrong time format given must be a 5 digit string (eg: 06:49) [ '.$this->getName().' ]');
         }
 
         if (!$omitMandatoryCheck && strlen($data)) {
             if (!$this->toTime($data)) {
-                throw new \Exception("Wrong time format given must be a 5 digit string (eg: 06:49) [ ".$this->getName()." ]");
+                throw new \Exception('Wrong time format given must be a 5 digit string (eg: 06:49) [ '.$this->getName().' ]');
             }
 
             if (strlen($this->getMinValue()) && $this->isEarlier($this->getMinValue(), $data)) {
-                throw new \Exception("Value in field [ ".$this->getName()." ] is not at least " . $this->getMinValue());
+                throw new \Exception('Value in field [ '.$this->getName().' ] is not at least ' . $this->getMinValue());
             }
 
             if (strlen($this->getMaxValue()) && $this->isLater($this->getMaxValue(), $data)) {
-                throw new \Exception("Value in field [ " . $this->getName() . " ] is bigger than " . $this->getMaxValue());
+                throw new \Exception('Value in field [ ' . $this->getName() . ' ] is bigger than ' . $this->getMaxValue());
             }
         }
     }
@@ -146,7 +146,7 @@ class Time extends Model\Object\ClassDefinition\Data\Input
      */
     public function toTime($string)
     {
-        $time = @date("H:i", strtotime($string));
+        $time = @date('H:i', strtotime($string));
         if (!$time) {
             return null;
         }
@@ -209,6 +209,6 @@ class Time extends Model\Object\ClassDefinition\Data\Input
      */
     public function getDataForSearchIndex($object, $params = [])
     {
-        return "";
+        return '';
     }
 }

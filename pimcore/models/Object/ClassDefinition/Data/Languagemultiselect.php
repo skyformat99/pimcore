@@ -27,7 +27,7 @@ class Languagemultiselect extends Model\Object\ClassDefinition\Data\Multiselect
      *
      * @var string
      */
-    public $fieldtype = "languagemultiselect";
+    public $fieldtype = 'languagemultiselect';
 
     /**
      * @var bool
@@ -48,8 +48,8 @@ class Languagemultiselect extends Model\Object\ClassDefinition\Data\Multiselect
             }
 
             $options[] = [
-                "key" => $translation,
-                "value" => $short
+                'key' => $translation,
+                'value' => $short
             ];
         }
 

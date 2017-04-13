@@ -26,5 +26,5 @@ class Accordion extends Model\Object\ClassDefinition\Layout
      *
      * @var string
      */
-    public $fieldtype = "accordion";
+    public $fieldtype = 'accordion';
 }

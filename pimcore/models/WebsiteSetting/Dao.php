@@ -32,13 +32,13 @@ class Dao extends Model\Dao\AbstractDao
             $this->model->setId($id);
         }
 
-        $data = $this->db->fetchRow("SELECT * FROM website_settings WHERE id = ?", $this->model->getId());
+        $data = $this->db->fetchRow('SELECT * FROM website_settings WHERE id = ?', $this->model->getId());
         $this->assignVariablesToModel($data);
 
-        if ($data["id"]) {
+        if ($data['id']) {
             $this->assignVariablesToModel($data);
         } else {
-            throw new \Exception("Website Setting with id: " . $this->model->getId() . " does not exist");
+            throw new \Exception('Website Setting with id: ' . $this->model->getId() . ' does not exist');
         }
     }
 
@@ -55,10 +55,10 @@ class Dao extends Model\Dao\AbstractDao
         }
         $data = $this->db->fetchRow("SELECT * FROM website_settings WHERE name = ? AND (siteId IS NULL OR siteId = '' OR siteId = ?) ORDER BY siteId DESC", [$this->model->getName(), $siteId]);
 
-        if (!empty($data["id"])) {
+        if (!empty($data['id'])) {
             $this->assignVariablesToModel($data);
         } else {
-            throw new \Exception("Website Setting with name: " . $this->model->getName() . " does not exist");
+            throw new \Exception('Website Setting with name: ' . $this->model->getName() . ' does not exist');
         }
     }
 
@@ -83,7 +83,7 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function delete()
     {
-        $this->db->delete("website_settings", ["id" => $this->model->getId()]);
+        $this->db->delete('website_settings', ['id' => $this->model->getId()]);
 
         $this->model->clearDependentCache();
     }
@@ -101,12 +101,12 @@ class Dao extends Model\Dao\AbstractDao
             $data = [];
 
             foreach ($type as $key => $value) {
-                if (in_array($key, $this->getValidTableColumns("website_settings"))) {
+                if (in_array($key, $this->getValidTableColumns('website_settings'))) {
                     $data[$key] = $value;
                 }
             }
 
-            $this->db->update("website_settings", $data, ["id" => $this->model->getId()]);
+            $this->db->update('website_settings', $data, ['id' => $this->model->getId()]);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -125,7 +125,7 @@ class Dao extends Model\Dao\AbstractDao
         $this->model->setModificationDate($ts);
         $this->model->setCreationDate($ts);
 
-        $this->db->insert("website_settings", ["name" => $this->model->getName(), "siteId" => $this->model->getSiteId()]);
+        $this->db->insert('website_settings', ['name' => $this->model->getName(), 'siteId' => $this->model->getSiteId()]);
 
         $this->model->setId($this->db->lastInsertId());
 

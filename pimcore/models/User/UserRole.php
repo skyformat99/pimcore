@@ -161,7 +161,7 @@ class UserRole extends AbstractUser
     public function setPermissions($permissions)
     {
         if (is_string($permissions)) {
-            $this->permissions = explode(",", $permissions);
+            $this->permissions = explode(',', $permissions);
         } elseif (is_array($permissions)) {
             $this->permissions = $permissions;
         }
@@ -331,7 +331,7 @@ class UserRole extends AbstractUser
     {
         if (is_string($array)) {
             if (strlen($array)) {
-                $array = explode(",", $array);
+                $array = explode(',', $array);
             }
         }
 

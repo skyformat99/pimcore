@@ -97,6 +97,6 @@ class PimcoreUrl extends Helper
      */
     public function getName()
     {
-        return "pimcoreUrl";
+        return 'pimcoreUrl';
     }
 }

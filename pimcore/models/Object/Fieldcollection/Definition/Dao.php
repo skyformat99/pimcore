@@ -39,7 +39,7 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function getTableName(Object\ClassDefinition $class)
     {
-        return "object_collection_" . $this->model->getKey() . "_" . $class->getId();
+        return 'object_collection_' . $this->model->getKey() . '_' . $class->getId();
     }
 
     /**
@@ -49,7 +49,7 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function getLocalizedTableName(Object\ClassDefinition $class)
     {
-        return "object_collection_" . $this->model->getKey() . "_localized_" . $class->getId();
+        return 'object_collection_' . $this->model->getKey() . '_localized_' . $class->getId();
     }
 
     /**
@@ -58,7 +58,7 @@ class Dao extends Model\Dao\AbstractDao
     public function delete(Object\ClassDefinition $class)
     {
         $table = $this->getTableName($class);
-        $this->db->query("DROP TABLE IF EXISTS `" . $table . "`");
+        $this->db->query('DROP TABLE IF EXISTS `' . $table . '`');
     }
 
     /**
@@ -68,7 +68,7 @@ class Dao extends Model\Dao\AbstractDao
     {
         $table = $this->getTableName($class);
 
-        $this->db->query("CREATE TABLE IF NOT EXISTS `" . $table . "` (
+        $this->db->query('CREATE TABLE IF NOT EXISTS `' . $table . "` (
 		  `o_id` int(11) NOT NULL default '0',
 		  `index` int(11) default '0',
           `fieldname` varchar(190) default '',
@@ -80,7 +80,7 @@ class Dao extends Model\Dao\AbstractDao
 
         $existingColumns = $this->getValidTableColumns($table, false); // no caching of table definition
         $columnsToRemove = $existingColumns;
-        $protectedColums = ["o_id", "index", "fieldname"];
+        $protectedColums = ['o_id', 'index', 'fieldname'];
 
         Object\ClassDefinition\Service::updateTableDefinitions($this->tableDefinitions, ([$table]));
 
@@ -90,12 +90,12 @@ class Dao extends Model\Dao\AbstractDao
             if (is_array($value->getColumnType())) {
                 // if a datafield requires more than one field
                 foreach ($value->getColumnType() as $fkey => $fvalue) {
-                    $this->addModifyColumn($table, $key . "__" . $fkey, $fvalue, "", "NULL");
-                    $protectedColums[] = $key . "__" . $fkey;
+                    $this->addModifyColumn($table, $key . '__' . $fkey, $fvalue, '', 'NULL');
+                    $protectedColums[] = $key . '__' . $fkey;
                 }
             } else {
                 if ($value->getColumnType()) {
-                    $this->addModifyColumn($table, $key, $value->getColumnType(), "", "NULL");
+                    $this->addModifyColumn($table, $key, $value->getColumnType(), '', 'NULL');
                     $protectedColums[] = $key;
                 }
             }
@@ -104,9 +104,9 @@ class Dao extends Model\Dao\AbstractDao
             if ($value instanceof  Object\ClassDefinition\Data\Localizedfields) {
                 $value->classSaved($class,
                     [
-                        "context" => [
-                            "containerType" => "fieldcollection",
-                            "containerKey" => $this->model->getKey()
+                        'context' => [
+                            'containerType' => 'fieldcollection',
+                            'containerKey' => $this->model->getKey()
                         ]
                     ]);
             }

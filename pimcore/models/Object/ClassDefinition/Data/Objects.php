@@ -30,7 +30,7 @@ class Objects extends Model\Object\ClassDefinition\Data\Relations\AbstractRelati
      *
      * @var string
      */
-    public $fieldtype = "objects";
+    public $fieldtype = 'objects';
 
     /**
      * @var int
@@ -54,14 +54,14 @@ class Objects extends Model\Object\ClassDefinition\Data\Relations\AbstractRelati
      *
      * @var string
      */
-    public $queryColumnType = "text";
+    public $queryColumnType = 'text';
 
     /**
      * Type for the generated phpdoc
      *
      * @var string
      */
-    public $phpdocType = "array";
+    public $phpdocType = 'array';
 
     /**
      * @var bool
@@ -94,10 +94,10 @@ class Objects extends Model\Object\ClassDefinition\Data\Relations\AbstractRelati
             foreach ($data as $object) {
                 if ($object instanceof Object\Concrete) {
                     $return[] = [
-                        "dest_id" => $object->getId(),
-                        "type" => "object",
-                        "fieldname" => $this->getName(),
-                        "index" => $counter
+                        'dest_id' => $object->getId(),
+                        'type' => 'object',
+                        'fieldname' => $this->getName(),
+                        'index' => $counter
                     ];
                 }
                 $counter++;
@@ -127,7 +127,7 @@ class Objects extends Model\Object\ClassDefinition\Data\Relations\AbstractRelati
         $objects = [];
         if (is_array($data) && count($data) > 0) {
             foreach ($data as $object) {
-                $o = Object::getById($object["dest_id"]);
+                $o = Object::getById($object['dest_id']);
                 if ($o instanceof Object\Concrete) {
                     $objects[] = $o;
                 }
@@ -161,11 +161,11 @@ class Objects extends Model\Object\ClassDefinition\Data\Relations\AbstractRelati
                 }
             }
 
-            return "," . implode(",", $ids) . ",";
+            return ',' . implode(',', $ids) . ',';
         } elseif (is_array($data) && count($data) === 0) {
-            return "";
+            return '';
         } else {
-            throw new \Exception("invalid data passed to getDataForQueryResource - must be array and it is: " . print_r($data, true));
+            throw new \Exception('invalid data passed to getDataForQueryResource - must be array and it is: ' . print_r($data, true));
         }
     }
 
@@ -218,7 +218,7 @@ class Objects extends Model\Object\ClassDefinition\Data\Relations\AbstractRelati
         $objects = [];
         if (is_array($data) && count($data) > 0) {
             foreach ($data as $object) {
-                $o = Object::getById($object["id"]);
+                $o = Object::getById($object['id']);
                 if ($o) {
                     $objects[]=$o;
                 }
@@ -267,7 +267,7 @@ class Objects extends Model\Object\ClassDefinition\Data\Relations\AbstractRelati
                 }
             }
 
-            return implode("<br />", $pathes);
+            return implode('<br />', $pathes);
         }
     }
 
@@ -322,7 +322,7 @@ class Objects extends Model\Object\ClassDefinition\Data\Relations\AbstractRelati
     public function checkValidity($data, $omitMandatoryCheck = false)
     {
         if (!$omitMandatoryCheck and $this->getMandatory() and empty($data)) {
-            throw new Element\ValidationException("Empty mandatory field [ ".$this->getName()." ]");
+            throw new Element\ValidationException('Empty mandatory field [ '.$this->getName().' ]');
         }
 
         if (is_array($data)) {
@@ -336,9 +336,9 @@ class Objects extends Model\Object\ClassDefinition\Data\Relations\AbstractRelati
                     if (!$allowClass && $o instanceof Object\Concrete) {
                         $id = $o->getId();
                     } else {
-                        $id = "??";
+                        $id = '??';
                     }
-                    throw new Element\ValidationException("Invalid object relation to object [".$id."] in field " . $this->getName(), null, null);
+                    throw new Element\ValidationException('Invalid object relation to object ['.$id.'] in field ' . $this->getName(), null, null);
                 }
             }
         }
@@ -365,7 +365,7 @@ class Objects extends Model\Object\ClassDefinition\Data\Relations\AbstractRelati
                 }
             }
 
-            return implode(",", $paths);
+            return implode(',', $paths);
         } else {
             return null;
         }
@@ -380,7 +380,7 @@ class Objects extends Model\Object\ClassDefinition\Data\Relations\AbstractRelati
      */
     public function getFromCsvImport($importValue, $object = null, $params = [])
     {
-        $values = explode(",", $importValue);
+        $values = explode(',', $importValue);
 
         $value = [];
         foreach ($values as $element) {
@@ -431,9 +431,9 @@ class Objects extends Model\Object\ClassDefinition\Data\Relations\AbstractRelati
         if (is_array($data) && count($data) > 0) {
             foreach ($data as $o) {
                 if ($o instanceof Object\AbstractObject) {
-                    $dependencies["object_" . $o->getId()] = [
-                        "id" => $o->getId(),
-                        "type" => "object"
+                    $dependencies['object_' . $o->getId()] = [
+                        'id' => $o->getId(),
+                        'type' => 'object'
                     ];
                 }
             }
@@ -456,8 +456,8 @@ class Objects extends Model\Object\ClassDefinition\Data\Relations\AbstractRelati
             foreach ($data as $eo) {
                 if ($eo instanceof Element\ElementInterface) {
                     $items[] = [
-                        "type" => $eo->getType(),
-                        "id" => $eo->getId()
+                        'type' => $eo->getType(),
+                        'id' => $eo->getId()
                     ];
                 }
             }
@@ -489,7 +489,7 @@ class Objects extends Model\Object\ClassDefinition\Data\Relations\AbstractRelati
                 $id = $item['id'];
 
                 if ($idMapper) {
-                    $id = $idMapper->getMappedId("object", $id);
+                    $id = $idMapper->getMappedId('object', $id);
                 }
 
                 $relatedObject = null;
@@ -501,14 +501,14 @@ class Objects extends Model\Object\ClassDefinition\Data\Relations\AbstractRelati
                     $relatedObjects[] = $relatedObject;
                 } else {
                     if (!$idMapper || !$idMapper->ignoreMappingFailures()) {
-                        throw new \Exception("cannot get values from web service import - references unknown object with id [ ".$item['id']." ]");
+                        throw new \Exception('cannot get values from web service import - references unknown object with id [ '.$item['id'].' ]');
                     } else {
-                        $idMapper->recordMappingFailure("object", $object->getId(), "object", $item['id']);
+                        $idMapper->recordMappingFailure('object', $object->getId(), 'object', $item['id']);
                     }
                 }
             }
         } else {
-            throw new \Exception("cannot get values from web service import - invalid data");
+            throw new \Exception('cannot get values from web service import - invalid data');
         }
 
         return $relatedObjects;
@@ -527,15 +527,15 @@ class Objects extends Model\Object\ClassDefinition\Data\Relations\AbstractRelati
             $data = $object->{$this->getName()};
             if ($this->getLazyLoading() and !in_array($this->getName(), $object->getO__loadedLazyFields())) {
                 //$data = $this->getDataFromResource($object->getRelationData($this->getName(),true,null));
-                $data = $this->load($object, ["force" => true]);
+                $data = $this->load($object, ['force' => true]);
 
-                $setter = "set" . ucfirst($this->getName());
+                $setter = 'set' . ucfirst($this->getName());
                 if (method_exists($object, $setter)) {
                     $object->$setter($data);
                 }
             }
         } elseif ($object instanceof Object\Localizedfield) {
-            $data = $params["data"];
+            $data = $params['data'];
         } elseif ($object instanceof Object\Fieldcollection\Data\AbstractData) {
             $data = $object->{$this->getName()};
         } elseif ($object instanceof Object\Objectbrick\Data\AbstractData) {
@@ -641,12 +641,12 @@ class Objects extends Model\Object\ClassDefinition\Data\Relations\AbstractRelati
     public function getDiffVersionPreview($data, $object = null, $params = [])
     {
         $value = [];
-        $value["type"] = "html";
-        $value["html"] = "";
+        $value['type'] = 'html';
+        $value['html'] = '';
 
         if ($data) {
             $html = $this->getVersionPreview($data, $object, $params);
-            $value["html"] = $html;
+            $value['html'] = $html;
         }
 
         return $value;
@@ -662,7 +662,7 @@ class Objects extends Model\Object\ClassDefinition\Data\Relations\AbstractRelati
     public function getDiffDataFromEditmode($data, $object = null, $params = [])
     {
         if ($data) {
-            $tabledata = $data[0]["data"];
+            $tabledata = $data[0]['data'];
 
             if (!$tabledata) {
                 return;
@@ -671,9 +671,9 @@ class Objects extends Model\Object\ClassDefinition\Data\Relations\AbstractRelati
             $result = [];
             foreach ($tabledata as $in) {
                 $out = [];
-                $out["id"] = $in["id"];
-                $out["path"] = $in["fullpath"];
-                $out["type"] = $in["type"];
+                $out['id'] = $in['id'];
+                $out['path'] = $in['fullpath'];
+                $out['type'] = $in['type'];
                 $result[] = $out;
             }
 
@@ -748,8 +748,8 @@ class Objects extends Model\Object\ClassDefinition\Data\Relations\AbstractRelati
                 $type = Element\Service::getType($element);
                 $id = $element->getId();
                 $result[] =  [
-                    "type" => $type,
-                    "id" => $id
+                    'type' => $type,
+                    'id' => $id
                 ];
             }
 
@@ -771,8 +771,8 @@ class Objects extends Model\Object\ClassDefinition\Data\Relations\AbstractRelati
         if (is_array($value)) {
             $result = [];
             foreach ($value as $elementData) {
-                $type = $elementData["type"];
-                $id = $elementData["id"];
+                $type = $elementData['type'];
+                $id = $elementData['id'];
                 $element = Element\Service::getElementById($type, $id);
                 if ($element) {
                     $result[] = $element;

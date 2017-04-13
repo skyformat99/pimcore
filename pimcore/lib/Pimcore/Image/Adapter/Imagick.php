@@ -49,17 +49,17 @@ class Imagick extends Adapter
      */
     public function load($imagePath, $options = [])
     {
-        if (isset($options["preserveColor"])) {
+        if (isset($options['preserveColor'])) {
             // set this option to TRUE to skip all color transformations during the loading process
             // this can massively improve performance if the color information doesn't matter, ...
             // eg. when using this function to obtain dimensions from an image
-            $this->setPreserveColor($options["preserveColor"]);
+            $this->setPreserveColor($options['preserveColor']);
         }
 
         // support image URLs
-        if (preg_match("@^https?://@", $imagePath)) {
-            $tmpFilename = "imagick_auto_download_" . md5($imagePath) . "." . File::getFileExtension($imagePath);
-            $tmpFilePath = PIMCORE_SYSTEM_TEMP_DIRECTORY . "/" . $tmpFilename;
+        if (preg_match('@^https?://@', $imagePath)) {
+            $tmpFilename = 'imagick_auto_download_' . md5($imagePath) . '.' . File::getFileExtension($imagePath);
+            $tmpFilePath = PIMCORE_SYSTEM_TEMP_DIRECTORY . '/' . $tmpFilename;
 
             $this->tmpFiles[] = $tmpFilePath;
 
@@ -70,7 +70,7 @@ class Imagick extends Adapter
         if (!stream_is_local($imagePath)) {
             // imagick is only able to deal with local files
             // if your're using custom stream wrappers this wouldn't work, so we create a temp. local copy
-            $tmpFilePath = PIMCORE_SYSTEM_TEMP_DIRECTORY . "/imagick-tmp-" . uniqid() . "." . File::getFileExtension($imagePath);
+            $tmpFilePath = PIMCORE_SYSTEM_TEMP_DIRECTORY . '/imagick-tmp-' . uniqid() . '.' . File::getFileExtension($imagePath);
             copy($imagePath, $tmpFilePath);
             $imagePath = $tmpFilePath;
             $this->tmpFiles[] = $imagePath;
@@ -85,7 +85,7 @@ class Imagick extends Adapter
             $i = new \Imagick();
             $this->imagePath = $imagePath;
 
-            if (!$this->isPreserveColor() && method_exists($i, "setcolorspace")) {
+            if (!$this->isPreserveColor() && method_exists($i, 'setcolorspace')) {
                 $i->setcolorspace(\Imagick::COLORSPACE_SRGB);
             }
 
@@ -95,16 +95,16 @@ class Imagick extends Adapter
                 $i->setBackgroundColor(new \ImagickPixel('transparent'));
             }
 
-            if (isset($options["resolution"])) {
+            if (isset($options['resolution'])) {
                 // set the resolution to 2000x2000 for known vector formats
                 // otherwise this will cause problems with eg. cropPercent in the image editable (select specific area)
                 // maybe there's a better solution but for now this fixes the problem
-                $i->setResolution($options["resolution"]["x"], $options["resolution"]["y"]);
+                $i->setResolution($options['resolution']['x'], $options['resolution']['y']);
             }
 
             $imagePathLoad = $imagePath;
-            if (!defined("HHVM_VERSION")) {
-                $imagePathLoad .= "[0]"; // not supported by HHVM implementation - selects the first layer/page in layered/pages file formats
+            if (!defined('HHVM_VERSION')) {
+                $imagePathLoad .= '[0]'; // not supported by HHVM implementation - selects the first layer/page in layered/pages file formats
             }
 
             if (!$i->readImage($imagePathLoad) || !filesize($imagePath)) {
@@ -115,8 +115,8 @@ class Imagick extends Adapter
 
             // set dimensions
             $dimensions = $this->getDimensions();
-            $this->setWidth($dimensions["width"]);
-            $this->setHeight($dimensions["height"]);
+            $this->setWidth($dimensions['width']);
+            $this->setHeight($dimensions['height']);
 
             // check if image can have alpha channel
             if (!$this->reinitializing) {
@@ -130,7 +130,7 @@ class Imagick extends Adapter
                 $this->setColorspaceToRGB();
             }
         } catch (\Exception $e) {
-            Logger::error("Unable to load image: " . $imagePath);
+            Logger::error('Unable to load image: ' . $imagePath);
             Logger::error($e);
 
             return false;
@@ -153,39 +153,39 @@ class Imagick extends Adapter
     public function save($path, $format = null, $quality = null)
     {
         if (!$format) {
-            $format = "png32";
+            $format = 'png32';
         }
         $format = strtolower($format);
 
-        if ($format == "png") {
+        if ($format == 'png') {
             // we need to force imagick to create png32 images, otherwise this can cause some strange effects
             // when used with gray-scale images
-            $format = "png32";
+            $format = 'png32';
         }
-        if ($format == "original") {
+        if ($format == 'original') {
             $format = strtolower($this->resource->getImageFormat());
         }
 
         $originalFilename = null;
         if (!$this->reinitializing) {
             if ($this->getUseContentOptimizedFormat()) {
-                $format = "jpeg";
+                $format = 'jpeg';
                 if ($this->hasAlphaChannel()) {
-                    $format = "png32";
+                    $format = 'png32';
                 }
             }
         }
 
         $i = $this->resource; // this is because of HHVM which has problems with $this->resource->writeImage();
 
-        if (in_array($format, ["jpeg", "pjpeg", "jpg"]) && $this->isAlphaPossible) {
+        if (in_array($format, ['jpeg', 'pjpeg', 'jpg']) && $this->isAlphaPossible) {
             // set white background for transparent pixels
-            $i->setImageBackgroundColor("#ffffff");
+            $i->setImageBackgroundColor('#ffffff');
 
             if ($i->getImageAlphaChannel() !== 0) { // Note: returns (int) 0 if there's no AlphaChannel, PHP Docs are wrong. See: https://www.imagemagick.org/api/channel.php
                 // Imagick version compatibility
                 $alphaChannel = 11; // This works at least as far back as version 3.1.0~rc1-1
-                if (defined("Imagick::ALPHACHANNEL_REMOVE")) {
+                if (defined('Imagick::ALPHACHANNEL_REMOVE')) {
                     // Imagick::ALPHACHANNEL_REMOVE has been added in 3.2.0b2
                     $alphaChannel = \Imagick::ALPHACHANNEL_REMOVE;
                 }
@@ -197,11 +197,11 @@ class Imagick extends Adapter
 
         if (!$this->isPreserveMetaData()) {
             $i->stripImage();
-            if ($format == "png32") {
+            if ($format == 'png32') {
                 // do not include any meta-data
                 // this is due a bug in -strip, therefore we have to use this custom option
                 // see also: https://github.com/ImageMagick/ImageMagick/issues/156
-                $i->setOption("png:include-chunk", "none");
+                $i->setOption('png:include-chunk', 'none');
             }
         }
         if (!$this->isPreserveColor()) {
@@ -214,7 +214,7 @@ class Imagick extends Adapter
             $i->setImageCompressionQuality((int) $quality);
         }
 
-        if ($format == "tiff") {
+        if ($format == 'tiff') {
             $i->setCompression(\Imagick::COMPRESSION_LZW);
         }
 
@@ -222,7 +222,7 @@ class Imagick extends Adapter
         // normally jpeg images are bigger than 10k so we avoid the double compression (baseline => filesize check => if necessary progressive)
         // and check the dimensions here instead to faster generate the image
         // progressive JPEG - better compression, smaller filesize, especially for web optimization
-        if ($format == "jpeg" && !$this->isPreserveColor()) {
+        if ($format == 'jpeg' && !$this->isPreserveColor()) {
             if (($this->getWidth() * $this->getHeight()) > 35000) {
                 $i->setInterlaceScheme(\Imagick::INTERLACE_PLANE);
             }
@@ -232,17 +232,17 @@ class Imagick extends Adapter
         $realTargetPath = null;
         if (!stream_is_local($path)) {
             $realTargetPath = $path;
-            $path = PIMCORE_SYSTEM_TEMP_DIRECTORY . "/imagick-tmp-" . uniqid() . "." . File::getFileExtension($path);
+            $path = PIMCORE_SYSTEM_TEMP_DIRECTORY . '/imagick-tmp-' . uniqid() . '.' . File::getFileExtension($path);
         }
 
-        if (defined("HHVM_VERSION")) {
+        if (defined('HHVM_VERSION')) {
             $success = $i->writeImage($path);
         } else {
-            $success = $i->writeImage($format . ":" . $path);
+            $success = $i->writeImage($format . ':' . $path);
         }
 
         if (!$success) {
-            throw new \Exception("Unable to write image: ", $path);
+            throw new \Exception('Unable to write image: ', $path);
         }
 
         if ($realTargetPath) {
@@ -278,7 +278,7 @@ class Imagick extends Adapter
                 for ($j = 0; $j < $height; $j++) {
                     $pixel = $this->resource->getImagePixelColor($i, $j);
                     $color = $pixel->getColor(true); // get the real alpha not just 1/0
-                    if ($color["a"] < 1) { // if there's an alpha pixel, return true
+                    if ($color['a'] < 1) { // if there's an alpha pixel, return true
                         return true;
                     }
                 }
@@ -333,11 +333,11 @@ class Imagick extends Adapter
         // thumbnails in PDF's because they do not support "real" grayscale JPEGs or PNGs
         // problem is described here: http://imagemagick.org/Usage/basics/#type
         // and here: http://www.imagemagick.org/discourse-server/viewtopic.php?f=2&t=6888#p31891
-        $currentLocale = setlocale(LC_ALL, "0"); // this locale hack thing is also a hack for imagick
-        setlocale(LC_ALL, "en"); // Set locale to "en" for ImagickDraw::point() to ensure the involved tostring() methods keep the decimal point
+        $currentLocale = setlocale(LC_ALL, '0'); // this locale hack thing is also a hack for imagick
+        setlocale(LC_ALL, 'en'); // Set locale to "en" for ImagickDraw::point() to ensure the involved tostring() methods keep the decimal point
 
         $draw = new \ImagickDraw();
-        $draw->setFillColor("#ff0000");
+        $draw->setFillColor('#ff0000');
         $draw->setfillopacity(.01);
         $draw->point(floor($this->getWidth() / 2), floor($this->getHeight() / 2)); // place it in the middle of the image
         $this->resource->drawImage($draw);
@@ -363,7 +363,7 @@ class Imagick extends Adapter
         if (!self::$CMYKColorProfile) {
             $path = Config::getSystemConfig()->assets->icc_cmyk_profile;
             if (!$path || !file_exists($path)) {
-                $path = __DIR__ . "/../icc-profiles/ISOcoated_v2_eci.icc"; // default profile
+                $path = __DIR__ . '/../icc-profiles/ISOcoated_v2_eci.icc'; // default profile
             }
 
             if ($path && file_exists($path)) {
@@ -390,7 +390,7 @@ class Imagick extends Adapter
         if (!self::$RGBColorProfile) {
             $path = Config::getSystemConfig()->assets->icc_rgb_profile;
             if (!$path || !file_exists($path)) {
-                $path = __DIR__ . "/../icc-profiles/sRGB_IEC61966-2-1_black_scaled.icc"; // default profile
+                $path = __DIR__ . '/../icc-profiles/sRGB_IEC61966-2-1_black_scaled.icc'; // default profile
             }
 
             if (file_exists($path)) {
@@ -421,14 +421,14 @@ class Imagick extends Adapter
             $y_ratio = $res['y'] / $this->getHeight();
             $this->resource->removeImage();
 
-            $newRes = ["x" => $width * $x_ratio, "y" => $height * $y_ratio];
+            $newRes = ['x' => $width * $x_ratio, 'y' => $height * $y_ratio];
 
             // only use the calculated resolution if we need a higher one that the one we got from the metadata (getImageResolution)
             // this is because sometimes the quality is much better when using the "native" resolution from the metadata
-            if ($newRes["x"] > $res["x"] && $newRes["y"] > $res["y"]) {
-                $this->resource->setResolution($newRes["x"], $newRes["y"]);
+            if ($newRes['x'] > $res['x'] && $newRes['y'] > $res['y']) {
+                $this->resource->setResolution($newRes['x'], $newRes['y']);
             } else {
-                $this->resource->setResolution($res["x"], $res["y"]);
+                $this->resource->setResolution($res['x'], $res['y']);
             }
 
             $this->resource->readImage($this->imagePath);
@@ -548,7 +548,7 @@ class Imagick extends Adapter
      *
      * @return Imagick
      */
-    protected function createImage($width, $height, $color = "transparent")
+    protected function createImage($width, $height, $color = 'transparent')
     {
         $newImage = new \Imagick();
         $newImage->newimage($width, $height, $color);
@@ -606,14 +606,14 @@ class Imagick extends Adapter
     {
         $this->preModify();
 
-        $image = ltrim($image, "/");
-        $image = PIMCORE_PROJECT_ROOT . "/" . $image;
+        $image = ltrim($image, '/');
+        $image = PIMCORE_PROJECT_ROOT . '/' . $image;
 
         if (is_file($image)) {
             $newImage = new \Imagick();
             $newImage->readimage($image);
 
-            if ($mode == "cropTopLeft") {
+            if ($mode == 'cropTopLeft') {
                 $newImage->cropImage($this->getWidth(), $this->getHeight(), 0, 0);
             } else {
                 // default behavior (fit)
@@ -639,7 +639,7 @@ class Imagick extends Adapter
      *
      * @return Imagick
      */
-    public function addOverlay($image, $x = 0, $y = 0, $alpha = 100, $composite = "COMPOSITE_DEFAULT", $origin = 'top-left')
+    public function addOverlay($image, $x = 0, $y = 0, $alpha = 100, $composite = 'COMPOSITE_DEFAULT', $origin = 'top-left')
     {
         $this->preModify();
 
@@ -650,15 +650,15 @@ class Imagick extends Adapter
         $alpha = round($alpha / 100, 1);
 
         //Make sure the composite constant exists.
-        if (is_null(constant("Imagick::" . $composite))) {
-            $composite = "COMPOSITE_DEFAULT";
+        if (is_null(constant('Imagick::' . $composite))) {
+            $composite = 'COMPOSITE_DEFAULT';
         }
 
         $newImage = null;
 
         if (is_string($image)) {
-            $image = ltrim($image, "/");
-            $image = PIMCORE_PROJECT_ROOT . "/" . $image;
+            $image = ltrim($image, '/');
+            $image = PIMCORE_PROJECT_ROOT . '/' . $image;
 
             $newImage = new \Imagick();
             $newImage->readimage($image);
@@ -680,7 +680,7 @@ class Imagick extends Adapter
             }
 
             $newImage->evaluateImage(\Imagick::EVALUATE_MULTIPLY, $alpha, \Imagick::CHANNEL_ALPHA);
-            $this->resource->compositeImage($newImage, constant("Imagick::" . $composite), $x, $y);
+            $this->resource->compositeImage($newImage, constant('Imagick::' . $composite), $x, $y);
         }
 
         $this->postModify();
@@ -694,10 +694,10 @@ class Imagick extends Adapter
      *
      * @return $this
      */
-    public function addOverlayFit($image, $composite = "COMPOSITE_DEFAULT")
+    public function addOverlayFit($image, $composite = 'COMPOSITE_DEFAULT')
     {
-        $image = ltrim($image, "/");
-        $image = PIMCORE_PROJECT_ROOT . "/" . $image;
+        $image = ltrim($image, '/');
+        $image = PIMCORE_PROJECT_ROOT . '/' . $image;
 
         $newImage = new \Imagick();
         $newImage->readimage($image);
@@ -716,8 +716,8 @@ class Imagick extends Adapter
     public function applyMask($image)
     {
         $this->preModify();
-        $image = ltrim($image, "/");
-        $image = PIMCORE_PROJECT_ROOT . "/" . $image;
+        $image = ltrim($image, '/');
+        $image = PIMCORE_PROJECT_ROOT . '/' . $image;
 
         if (is_file($image)) {
             $this->resource->setImageMatte(1);
@@ -816,9 +816,9 @@ class Imagick extends Adapter
     {
         $this->preModify();
 
-        if ($mode == "vertical") {
+        if ($mode == 'vertical') {
             $this->resource->flipImage();
-        } elseif ($mode == "horizontal") {
+        } elseif ($mode == 'horizontal') {
             $this->resource->flopImage();
         }
 
@@ -848,25 +848,25 @@ class Imagick extends Adapter
             if ($this->resource) {
                 $type = $this->resource->getimageformat();
                 $vectorTypes = [
-                    "EPT",
-                    "EPDF",
-                    "EPI",
-                    "EPS",
-                    "EPS2",
-                    "EPS3",
-                    "EPSF",
-                    "EPSI",
-                    "EPT",
-                    "PDF",
-                    "PFA",
-                    "PFB",
-                    "PFM",
-                    "PS",
-                    "PS2",
-                    "PS3",
-                    "SVG",
-                    "SVGZ",
-                    "MVG"
+                    'EPT',
+                    'EPDF',
+                    'EPI',
+                    'EPS',
+                    'EPS2',
+                    'EPS3',
+                    'EPSF',
+                    'EPSI',
+                    'EPT',
+                    'PDF',
+                    'PFA',
+                    'PFB',
+                    'PFM',
+                    'PS',
+                    'PS2',
+                    'PS3',
+                    'SVG',
+                    'SVGZ',
+                    'MVG'
                 ];
 
                 if (in_array(strtoupper($type), $vectorTypes)) {
@@ -890,8 +890,8 @@ class Imagick extends Adapter
         }
 
         return [
-            "width" => $this->resource->getImageWidth(),
-            "height" => $this->resource->getImageHeight()
+            'width' => $this->resource->getImageWidth(),
+            'height' => $this->resource->getImageHeight()
         ];
     }
 
@@ -900,18 +900,18 @@ class Imagick extends Adapter
      */
     public function getVectorFormatEmbeddedRasterDimensions()
     {
-        if (in_array($this->resource->getimageformat(), ["EPT", "EPDF", "EPI", "EPS", "EPS2", "EPS3", "EPSF", "EPSI", "EPT", "PDF", "PFA", "PFB", "PFM", "PS", "PS2", "PS3"])) {
+        if (in_array($this->resource->getimageformat(), ['EPT', 'EPDF', 'EPI', 'EPS', 'EPS2', 'EPS3', 'EPSF', 'EPSI', 'EPT', 'PDF', 'PFA', 'PFB', 'PFM', 'PS', 'PS2', 'PS3'])) {
             // we need a special handling for PhotoShop EPS
             $i = 0;
 
-            ini_set("auto_detect_line_endings", true); // we need to turn this on, as the damn f****** Mac has different line endings in EPS files, Prost Mahlzeit!
+            ini_set('auto_detect_line_endings', true); // we need to turn this on, as the damn f****** Mac has different line endings in EPS files, Prost Mahlzeit!
 
             $epsFile = fopen($this->imagePath, 'r');
             while (($eps_line = fgets($epsFile)) && ($i < 100)) {
-                if (preg_match("/%ImageData: ([0-9]+) ([0-9]+)/i", $eps_line, $matches)) {
+                if (preg_match('/%ImageData: ([0-9]+) ([0-9]+)/i', $eps_line, $matches)) {
                     return [
-                        "width" => $matches[1],
-                        "height" => $matches[2]
+                        'width' => $matches[1],
+                        'height' => $matches[2]
                     ];
                     break;
                 }

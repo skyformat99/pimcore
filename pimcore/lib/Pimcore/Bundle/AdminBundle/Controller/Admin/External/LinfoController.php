@@ -29,7 +29,7 @@ class LinfoController extends AdminController implements EventedControllerInterf
     /**
      * @var string
      */
-    protected $linfoHome = "";
+    protected $linfoHome = '';
 
     /**
      * @Route("/external_linfo/")
@@ -41,7 +41,7 @@ class LinfoController extends AdminController implements EventedControllerInterf
     public function indexAction(Request $request)
     {
         $settings = Common::getVarFromFile($this->linfoHome . 'sample.config.inc.php', 'settings');
-        $settings["compress_content"] = false;
+        $settings['compress_content'] = false;
 
         $linfo = new Linfo($settings);
         $linfo->scan();
@@ -67,20 +67,20 @@ class LinfoController extends AdminController implements EventedControllerInterf
 
         $response = new Response();
         $path = $request->getPathInfo();
-        $path = str_replace("/admin/external_linfo/", "", $path);
+        $path = str_replace('/admin/external_linfo/', '', $path);
 
         if (preg_match("@\.(css|js|ico|png|jpg|gif)$@", $path)) {
-            if ($path == "layout/styles.css") {
+            if ($path == 'layout/styles.css') {
                 // aliasing
-                $path = "layout/theme_default.css";
+                $path = 'layout/theme_default.css';
             }
 
             $path = $this->linfoHome . $path;
 
-            if (preg_match("@.css$@", $path)) {
-                $response->headers->set("Content-Type", "text/css");
-            } elseif (preg_match("@.js$@", $path)) {
-                $response->headers->set("Content-Type", "text/javascript");
+            if (preg_match('@.css$@', $path)) {
+                $response->headers->set('Content-Type', 'text/css');
+            } elseif (preg_match('@.js$@', $path)) {
+                $response->headers->set('Content-Type', 'text/javascript');
             }
 
             if (file_exists($path)) {
@@ -102,7 +102,7 @@ class LinfoController extends AdminController implements EventedControllerInterf
         }
 
         // only for admins
-        $this->checkPermission("linfo");
+        $this->checkPermission('linfo');
 
         $this->linfoHome = PIMCORE_PROJECT_ROOT . '/vendor/linfo/linfo/';
     }

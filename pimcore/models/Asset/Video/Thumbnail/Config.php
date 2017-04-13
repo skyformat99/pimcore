@@ -44,12 +44,12 @@ class Config extends Model\AbstractModel
     /**
      * @var string
      */
-    public $name = "";
+    public $name = '';
 
     /**
      * @var string
      */
-    public $description = "";
+    public $description = '';
 
     /**
      * @var int
@@ -78,12 +78,12 @@ class Config extends Model\AbstractModel
      */
     public static function getByName($name)
     {
-        $cacheKey = "videothumb_" . crc32($name);
+        $cacheKey = 'videothumb_' . crc32($name);
 
         try {
             $thumbnail = \Pimcore\Cache\Runtime::get($cacheKey);
             if (!$thumbnail) {
-                throw new \Exception("Thumbnail in registry is null");
+                throw new \Exception('Thumbnail in registry is null');
             }
         } catch (\Exception $e) {
             try {
@@ -105,16 +105,16 @@ class Config extends Model\AbstractModel
     public static function getPreviewConfig()
     {
         $config = new self();
-        $config->setName("pimcore-system-treepreview");
+        $config->setName('pimcore-system-treepreview');
         $config->setAudioBitrate(128);
         $config->setVideoBitrate(700);
 
         $config->setItems([
             [
-                "method" => "scaleByWidth",
-                "arguments" =>
+                'method' => 'scaleByWidth',
+                'arguments' =>
                 [
-                    "width" => 500
+                    'width' => 500
                 ]
             ]
         ]);
@@ -131,8 +131,8 @@ class Config extends Model\AbstractModel
     public function addItem($name, $parameters)
     {
         $this->items[] = [
-            "method" => $name,
-            "arguments" => $parameters
+            'method' => $name,
+            'arguments' => $parameters
         ];
 
         return true;
@@ -148,8 +148,8 @@ class Config extends Model\AbstractModel
     public function addItemAt($position, $name, $parameters)
     {
         array_splice($this->items, $position, 0, [[
-            "method" => $name,
-            "arguments" => $parameters
+            'method' => $name,
+            'arguments' => $parameters
         ]]);
 
         return true;
@@ -270,9 +270,9 @@ class Config extends Model\AbstractModel
         if (is_array($transformations) && count($transformations) > 0) {
             foreach ($transformations as $transformation) {
                 if (!empty($transformation)) {
-                    if (is_array($transformation["arguments"])) {
-                        foreach ($transformation["arguments"] as $key => $value) {
-                            if ($key == "width" || $key == "height") {
+                    if (is_array($transformation['arguments'])) {
+                        foreach ($transformation['arguments'] as $key => $value) {
+                            if ($key == 'width' || $key == 'height') {
                                 $dimensions[$key] = $value;
                             }
                         }

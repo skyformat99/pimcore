@@ -27,13 +27,13 @@ class Dao extends Model\Dao\AbstractDao
 {
     public function save()
     {
-        $tableName = "";
+        $tableName = '';
         if ($this->model instanceof Workspace\Asset) {
-            $tableName = "users_workspaces_asset";
+            $tableName = 'users_workspaces_asset';
         } elseif ($this->model instanceof Workspace\Document) {
-            $tableName = "users_workspaces_document";
+            $tableName = 'users_workspaces_document';
         } elseif ($this->model instanceof Workspace\Object) {
-            $tableName = "users_workspaces_object";
+            $tableName = 'users_workspaces_object';
         }
 
         $data = [];

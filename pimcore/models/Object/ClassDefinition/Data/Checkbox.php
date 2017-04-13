@@ -27,7 +27,7 @@ class Checkbox extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $fieldtype = "checkbox";
+    public $fieldtype = 'checkbox';
 
     /**
      * @var bool
@@ -39,21 +39,21 @@ class Checkbox extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $queryColumnType = "tinyint(1)";
+    public $queryColumnType = 'tinyint(1)';
 
     /**
      * Type for the column
      *
      * @var string
      */
-    public $columnType = "tinyint(1)";
+    public $columnType = 'tinyint(1)';
 
     /**
      * Type for the generated phpdoc
      *
      * @var string
      */
-    public $phpdocType = "boolean";
+    public $phpdocType = 'boolean';
 
     /**
      * @return int
@@ -150,7 +150,7 @@ class Checkbox extends Model\Object\ClassDefinition\Data
      */
     public function getDataFromEditmode($data, $object = null, $params = [])
     {
-        if ($data === "false") {
+        if ($data === 'false') {
             return false;
         }
 
@@ -182,7 +182,7 @@ class Checkbox extends Model\Object\ClassDefinition\Data
     public function checkValidity($data, $omitMandatoryCheck = false)
     {
         if (!$omitMandatoryCheck and $this->getMandatory() and $data === null) {
-            throw new Model\Element\ValidationException("Empty mandatory field [ " . $this->getName() . " ]");
+            throw new Model\Element\ValidationException('Empty mandatory field [ ' . $this->getName() . ' ]');
         }
 
         /* @todo seems to cause problems with old installations
@@ -283,7 +283,7 @@ class Checkbox extends Model\Object\ClassDefinition\Data
     public function getFilterCondition($value, $operator)
     {
         return $this->getFilterConditionExt($value, $operator, [
-                "name" => $this->name]
+                'name' => $this->name]
         );
     }
 
@@ -299,11 +299,11 @@ class Checkbox extends Model\Object\ClassDefinition\Data
     public function getFilterConditionExt($value, $operator, $params = [])
     {
         $db = \Pimcore\Db::get();
-        $name = $params["name"] ? $params["name"] : $this->name;
+        $name = $params['name'] ? $params['name'] : $this->name;
         $value = $db->quote($value);
         $key = $db->quoteIdentifier($this->name, $name);
 
-        return "IFNULL(" . $key . ", 0) = " . $value . " ";
+        return 'IFNULL(' . $key . ', 0) = ' . $value . ' ';
     }
 
     /**
@@ -314,6 +314,6 @@ class Checkbox extends Model\Object\ClassDefinition\Data
      */
     public function getDataForSearchIndex($object, $params = [])
     {
-        return "";
+        return '';
     }
 }

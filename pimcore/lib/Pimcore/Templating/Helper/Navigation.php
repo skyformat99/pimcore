@@ -44,7 +44,7 @@ class Navigation extends Helper implements TemplatingEngineAwareHelperInterface
     /**
      * @var string
      */
-    protected $defaultRenderer = "menu";
+    protected $defaultRenderer = 'menu';
 
     /**
      * @var array

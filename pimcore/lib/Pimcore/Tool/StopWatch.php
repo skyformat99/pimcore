@@ -60,20 +60,20 @@ class StopWatch
      */
     public static function getTime($html = false, $component = 'default')
     {
-        $text = "";
+        $text = '';
 
         $lastLap = self::$startTime[$component];
         foreach (self::$laps[$component] as $label => $time) {
-            $text .= "Lap " . $label . "\tAccum: " . ($time - self::$startTime[$component]) . "\t Self: " . ($time - $lastLap)
+            $text .= 'Lap ' . $label . "\tAccum: " . ($time - self::$startTime[$component]) . "\t Self: " . ($time - $lastLap)
                 . "\n";
 
             $lastLap = $time;
         }
 
-        $text .= "Total Time (" . $component . "): " . (microtime(true) - self::$startTime[$component]) . "\n";
+        $text .= 'Total Time (' . $component . '): ' . (microtime(true) - self::$startTime[$component]) . "\n";
 
         if ($html) {
-            $text = "<pre>" . $text . "</pre>";
+            $text = '<pre>' . $text . '</pre>';
         }
 
         return $text;

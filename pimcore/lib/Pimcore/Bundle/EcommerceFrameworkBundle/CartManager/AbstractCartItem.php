@@ -29,7 +29,7 @@ abstract class AbstractCartItem extends \Pimcore\Model\AbstractModel implements 
     protected $itemKey;
     protected $count;
     protected $comment;
-    protected $parentItemKey = "";
+    protected $parentItemKey = '';
 
     protected $subItems = null;
 

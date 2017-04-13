@@ -169,7 +169,7 @@ abstract class AbstractTranslation extends Model\AbstractModel implements Transl
 
     public static function clearDependentCache()
     {
-        \Pimcore\Cache::clearTags(["translator", "translate"]);
+        \Pimcore\Cache::clearTags(['translator', 'translate']);
     }
 
     /**
@@ -196,7 +196,7 @@ abstract class AbstractTranslation extends Model\AbstractModel implements Transl
      */
     public static function getByKey($id, $create = false, $returnIdIfEmpty = false)
     {
-        $cacheKey = "translation_" . $id;
+        $cacheKey = 'translation_' . $id;
         if (\Pimcore\Cache\Runtime::isRegistered($cacheKey)) {
             return \Pimcore\Cache\Runtime::get($cacheKey);
         }
@@ -219,7 +219,7 @@ abstract class AbstractTranslation extends Model\AbstractModel implements Transl
 
                 $translations = [];
                 foreach ($languages as $lang) {
-                    $translations[$lang] = "";
+                    $translations[$lang] = '';
                 }
                 $translation->setTranslations($translations);
                 $translation->save();
@@ -259,7 +259,7 @@ abstract class AbstractTranslation extends Model\AbstractModel implements Transl
     public static function getByKeyLocalized($id, $create = false, $returnIdIfEmpty = false, $language = null)
     {
         if (!$language) {
-            $language = \Pimcore::getContainer()->get("pimcore.locale")->findLocale();
+            $language = \Pimcore::getContainer()->get('pimcore.locale')->findLocale();
             if (!$language) {
                 throw new \Exception("Couldn't determine current language.");
             }
@@ -308,22 +308,22 @@ abstract class AbstractTranslation extends Model\AbstractModel implements Transl
             $tmpData = file_get_contents($file);
 
             //replace magic excel bytes
-            $tmpData = str_replace("\xEF\xBB\xBF", "", $tmpData);
+            $tmpData = str_replace("\xEF\xBB\xBF", '', $tmpData);
 
             //convert to utf-8 if needed
             $tmpData = Tool\Text::convertToUTF8($tmpData);
 
             //store data for further usage
-            $importFile = PIMCORE_SYSTEM_TEMP_DIRECTORY . "/import_translations";
+            $importFile = PIMCORE_SYSTEM_TEMP_DIRECTORY . '/import_translations';
             File::put($importFile, $tmpData);
 
-            $importFileOriginal = PIMCORE_SYSTEM_TEMP_DIRECTORY . "/import_translations_original";
+            $importFileOriginal = PIMCORE_SYSTEM_TEMP_DIRECTORY . '/import_translations_original';
             File::put($importFileOriginal, $tmpData);
 
             // determine csv type
-            $dialect = Tool\Admin::determineCsvDialect(PIMCORE_SYSTEM_TEMP_DIRECTORY . "/import_translations_original");
+            $dialect = Tool\Admin::determineCsvDialect(PIMCORE_SYSTEM_TEMP_DIRECTORY . '/import_translations_original');
             //read data
-            if (($handle = fopen(PIMCORE_SYSTEM_TEMP_DIRECTORY . "/import_translations", "r")) !== false) {
+            if (($handle = fopen(PIMCORE_SYSTEM_TEMP_DIRECTORY . '/import_translations', 'r')) !== false) {
                 while (($rowData = fgetcsv($handle, 0, $dialect->delimiter, $dialect->quotechar, $dialect->escapechar)) !== false) {
                     $data[] = $rowData;
                 }
@@ -341,11 +341,11 @@ abstract class AbstractTranslation extends Model\AbstractModel implements Transl
                 foreach ($data as $row) {
                     $keyValueArray = [];
                     for ($counter = 0; $counter < count($row); $counter++) {
-                        $rd = str_replace("&quot;", '"', $row[$counter]);
+                        $rd = str_replace('&quot;', '"', $row[$counter]);
                         $keyValueArray[$keys[$counter]] = $rd;
                     }
 
-                    $textKey = $keyValueArray["key"];
+                    $textKey = $keyValueArray['key'];
                     if ($textKey) {
                         $t = static::getByKey($textKey, true);
                         $dirty = false;
@@ -366,10 +366,10 @@ abstract class AbstractTranslation extends Model\AbstractModel implements Transl
                                     } elseif ($t->getTranslation($key) != $value && $value) {
                                         $delta[]=
                                             [
-                                                "lg" => $key,
-                                                "key" => $textKey,
-                                                "text" => $t->getTranslation($key),
-                                                "csv" =>  $value
+                                                'lg' => $key,
+                                                'key' => $textKey,
+                                                'text' => $t->getTranslation($key),
+                                                'csv' =>  $value
                                             ];
                                     }
                                 }
@@ -387,7 +387,7 @@ abstract class AbstractTranslation extends Model\AbstractModel implements Transl
                 }
                 Model\Translation\AbstractTranslation::clearDependentCache();
             } else {
-                throw new \Exception("less than 2 rows of data - nothing to import");
+                throw new \Exception('less than 2 rows of data - nothing to import');
             }
         } else {
             throw new \Exception("$file is not readable");

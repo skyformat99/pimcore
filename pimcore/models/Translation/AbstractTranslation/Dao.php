@@ -31,10 +31,10 @@ abstract class Dao extends Model\Dao\AbstractDao implements Dao\DaoInterface
      */
     public function getByKey($key)
     {
-        $data = $this->db->fetchAll("SELECT * FROM " . static::getTableName() . " WHERE `key` = ? ORDER BY `creationDate` ", [$key]);
+        $data = $this->db->fetchAll('SELECT * FROM ' . static::getTableName() . ' WHERE `key` = ? ORDER BY `creationDate` ', [$key]);
         if (!empty($data)) {
             foreach ($data as $d) {
-                $this->model->addTranslation($d["language"], $d["text"]);
+                $this->model->addTranslation($d['language'], $d['text']);
             }
             $this->model->setKey($d['key']);
             $this->model->setCreationDate($d['creationDate']);
@@ -52,11 +52,11 @@ abstract class Dao extends Model\Dao\AbstractDao implements Dao\DaoInterface
         if ($this->model->getKey() !== '') {
             foreach ($this->model->getTranslations() as $language => $text) {
                 $data = [
-                    "key" => $this->model->getKey(),
-                    "language" => $language,
-                    "text" => $text,
-                    "modificationDate" => $this->model->getModificationDate(),
-                    "creationDate" => $this->model->getCreationDate()
+                    'key' => $this->model->getKey(),
+                    'language' => $language,
+                    'text' => $text,
+                    'modificationDate' => $this->model->getModificationDate(),
+                    'creationDate' => $this->model->getCreationDate()
                 ];
                 $this->db->insertOrUpdate(static::getTableName(), $data);
             }
@@ -70,7 +70,7 @@ abstract class Dao extends Model\Dao\AbstractDao implements Dao\DaoInterface
      */
     public function delete()
     {
-        $this->db->delete(static::getTableName(), [$this->db->quoteIdentifier("key") => $this->model->getKey()]);
+        $this->db->delete(static::getTableName(), [$this->db->quoteIdentifier('key') => $this->model->getKey()]);
 
         $this->model->clearDependentCache();
     }
@@ -82,10 +82,10 @@ abstract class Dao extends Model\Dao\AbstractDao implements Dao\DaoInterface
      */
     public function getAvailableLanguages()
     {
-        $l = $this->db->fetchAll("SELECT * FROM " . static::getTableName()  . "  GROUP BY `language`;");
+        $l = $this->db->fetchAll('SELECT * FROM ' . static::getTableName()  . '  GROUP BY `language`;');
 
         foreach ($l as $values) {
-            $languages[] = $values["language"];
+            $languages[] = $values['language'];
         }
 
         return $languages;

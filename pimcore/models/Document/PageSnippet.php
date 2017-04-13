@@ -37,12 +37,12 @@ abstract class PageSnippet extends Model\Document
     /**
      * @var string
      */
-    public $controller = "default";
+    public $controller = 'default';
 
     /**
      * @var string
      */
-    public $action = "default";
+    public $action = 'default';
 
     /**
      * @var string
@@ -132,7 +132,7 @@ abstract class PageSnippet extends Model\Document
         // hook should be also called if "save only new version" is selected
         if ($callPluginHook) {
             \Pimcore::getEventDispatcher()->dispatch(DocumentEvents::PRE_UPDATE, new DocumentEvent($this, [
-                "saveVersionOnly" => true
+                'saveVersionOnly' => true
             ]));
         }
 
@@ -154,7 +154,7 @@ abstract class PageSnippet extends Model\Document
             || $setModificationDate) {
             $version = new Model\Version();
             $version->setCid($this->getId());
-            $version->setCtype("document");
+            $version->setCtype('document');
             $version->setDate($this->getModificationDate());
             $version->setUserId($this->getUserModification());
             $version->setData($this);
@@ -164,7 +164,7 @@ abstract class PageSnippet extends Model\Document
         // hook should be also called if "save only new version" is selected
         if ($callPluginHook) {
             \Pimcore::getEventDispatcher()->dispatch(DocumentEvents::POST_UPDATE, new DocumentEvent($this, [
-                "saveVersionOnly" => true
+                'saveVersionOnly' => true
             ]));
         }
 
@@ -221,10 +221,10 @@ abstract class PageSnippet extends Model\Document
         }
 
         if ($this->getContentMasterDocument() instanceof Document) {
-            $key = "document_" . $this->getContentMasterDocument()->getId();
+            $key = 'document_' . $this->getContentMasterDocument()->getId();
             $dependencies[$key] = [
-                "id" => $this->getContentMasterDocument()->getId(),
-                "type" => "document"
+                'id' => $this->getContentMasterDocument()->getId(),
+                'type' => 'document'
             ];
         }
 
@@ -237,7 +237,7 @@ abstract class PageSnippet extends Model\Document
     public function getAction()
     {
         if (empty($this->action)) {
-            return "default";
+            return 'default';
         }
 
         return $this->action;
@@ -249,7 +249,7 @@ abstract class PageSnippet extends Model\Document
     public function getController()
     {
         if (empty($this->controller)) {
-            return "default";
+            return 'default';
         }
 
         return $this->controller;
@@ -341,7 +341,7 @@ abstract class PageSnippet extends Model\Document
                 $this->elements[$name]->setDocumentId($this->getId());
             }
         } catch (\Exception $e) {
-            Logger::warning("can't set element " . $name . " with the type " . $type . " to the document: " . $this->getRealFullPath());
+            Logger::warning("can't set element " . $name . ' with the type ' . $type . ' to the document: ' . $this->getRealFullPath());
         }
 
         return $this;
@@ -433,7 +433,7 @@ abstract class PageSnippet extends Model\Document
         }
 
         if ($contentMasterDocumentId == $this->getId()) {
-            throw new \Exception("You cannot use the current document as a master document, please choose a different one.");
+            throw new \Exception('You cannot use the current document as a master document, please choose a different one.');
         }
 
         $this->contentMasterDocumentId = $contentMasterDocumentId;
@@ -579,7 +579,7 @@ abstract class PageSnippet extends Model\Document
                 $task->setId(null);
                 $task->setDao(null);
                 $task->setCid($this->getId());
-                $task->setCtype("document");
+                $task->setCtype('document');
                 $task->save();
             }
         }
@@ -590,7 +590,7 @@ abstract class PageSnippet extends Model\Document
         $finalVars = [];
         $parentVars = parent::__sleep();
 
-        $blockedVars = ["inheritedElements"];
+        $blockedVars = ['inheritedElements'];
 
         foreach ($parentVars as $key) {
             if (!in_array($key, $blockedVars)) {

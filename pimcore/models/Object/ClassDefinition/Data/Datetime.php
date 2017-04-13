@@ -27,28 +27,28 @@ class Datetime extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $fieldtype = "datetime";
+    public $fieldtype = 'datetime';
 
     /**
      * Type for the column to query
      *
      * @var string
      */
-    public $queryColumnType = "bigint(20)";
+    public $queryColumnType = 'bigint(20)';
 
     /**
      * Type for the column
      *
      * @var string
      */
-    public $columnType = "bigint(20)";
+    public $columnType = 'bigint(20)';
 
     /**
      * Type for the generated phpdoc
      *
      * @var string
      */
-    public $phpdocType = "\\Carbon\\Carbon";
+    public $phpdocType = '\\Carbon\\Carbon';
 
     /**
      * @var int
@@ -131,7 +131,7 @@ class Datetime extends Model\Object\ClassDefinition\Data
      */
     protected function getDateFromTimestamp($timestamp)
     {
-        if (\Pimcore\Config::getFlag("zend_date")) {
+        if (\Pimcore\Config::getFlag('zend_date')) {
             $date = new \Pimcore\Date($timestamp);
         } else {
             $date = new \Carbon\Carbon();
@@ -187,9 +187,9 @@ class Datetime extends Model\Object\ClassDefinition\Data
     public function getVersionPreview($data, $object = null, $params = [])
     {
         if ($data instanceof \Zend_Date) {
-            return $data->toString("Y-m-d H:i", "php");
+            return $data->toString('Y-m-d H:i', 'php');
         } elseif ($data instanceof \DateTimeInterface) {
-            return $data->format("Y-m-d H:i");
+            return $data->format('Y-m-d H:i');
         }
     }
 
@@ -207,9 +207,9 @@ class Datetime extends Model\Object\ClassDefinition\Data
     {
         $data = $this->getDataFromObjectParam($object, $params);
         if ($data instanceof \Zend_Date) {
-            return $data->toString("Y-m-d H:i", "php");
+            return $data->toString('Y-m-d H:i', 'php');
         } elseif ($data instanceof \DateTimeInterface) {
-            return $data->format("Y-m-d H:i");
+            return $data->format('Y-m-d H:i');
         }
 
         return null;
@@ -240,7 +240,7 @@ class Datetime extends Model\Object\ClassDefinition\Data
      */
     public function getDataForSearchIndex($object, $params = [])
     {
-        return "";
+        return '';
     }
 
     /**
@@ -274,7 +274,7 @@ class Datetime extends Model\Object\ClassDefinition\Data
         } elseif ($timestamp !== false) {
             return $this->getDateFromTimestamp($timestamp);
         } else {
-            throw new \Exception("cannot get values from web service import - invalid data");
+            throw new \Exception('cannot get values from web service import - invalid data');
         }
     }
 
@@ -341,7 +341,7 @@ class Datetime extends Model\Object\ClassDefinition\Data
      */
     public function getDiffDataFromEditmode($data, $object = null, $params = [])
     {
-        $thedata = $data[0]["data"];
+        $thedata = $data[0]['data'];
         if ($thedata) {
             return $this->getDateFromTimestamp($thedata);
         } else {
@@ -365,13 +365,13 @@ class Datetime extends Model\Object\ClassDefinition\Data
             $thedata = $data->getTimestamp();
         }
         $diffdata = [];
-        $diffdata["field"] = $this->getName();
-        $diffdata["key"] = $this->getName();
-        $diffdata["type"] = $this->fieldtype;
-        $diffdata["value"] = $this->getVersionPreview($data, $object, $params);
-        $diffdata["data"] = $thedata;
-        $diffdata["title"] = !empty($this->title) ? $this->title : $this->name;
-        $diffdata["disabled"] = false;
+        $diffdata['field'] = $this->getName();
+        $diffdata['key'] = $this->getName();
+        $diffdata['type'] = $this->fieldtype;
+        $diffdata['value'] = $this->getVersionPreview($data, $object, $params);
+        $diffdata['data'] = $thedata;
+        $diffdata['title'] = !empty($this->title) ? $this->title : $this->name;
+        $diffdata['disabled'] = false;
 
         $result[] = $diffdata;
 
@@ -389,11 +389,11 @@ class Datetime extends Model\Object\ClassDefinition\Data
      */
     public function getFilterConditionExt($value, $operator, $params = [])
     {
-        if ($operator == "=") {
+        if ($operator == '=') {
             $db = Db::get();
             $maxTime = $value + (86400 - 1); //specifies the top point of the range used in the condition
-            $filterField = $params["name"] ? $params["name"] : $this->getName();
-            $condition = "`" . $filterField . "` BETWEEN " . $db->quote($value) . " AND " . $db->quote($maxTime);
+            $filterField = $params['name'] ? $params['name'] : $this->getName();
+            $condition = '`' . $filterField . '` BETWEEN ' . $db->quote($value) . ' AND ' . $db->quote($maxTime);
 
             return $condition;
         }

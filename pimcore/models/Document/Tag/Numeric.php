@@ -29,7 +29,7 @@ class Numeric extends Model\Document\Tag
      *
      * @var string
      */
-    public $number = "";
+    public $number = '';
 
     /**
      * @see TagInterface::getType
@@ -38,7 +38,7 @@ class Numeric extends Model\Document\Tag
      */
     public function getType()
     {
-        return "numeric";
+        return 'numeric';
     }
 
     /**
@@ -111,7 +111,7 @@ class Numeric extends Model\Document\Tag
         if (empty($data->number) or is_numeric($data->number)) {
             $this->number = $data->number;
         } else {
-            throw new \Exception("cannot get values from web service import - invalid data");
+            throw new \Exception('cannot get values from web service import - invalid data');
         }
     }
 }

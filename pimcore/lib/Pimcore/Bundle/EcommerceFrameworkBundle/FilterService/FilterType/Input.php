@@ -30,11 +30,11 @@ class Input extends AbstractFilterType
         }
 
         return $this->render($script, [
-            "hideFilter" => $filterDefinition->getRequiredFilterField() && empty($currentFilter[$filterDefinition->getRequiredFilterField()]),
-            "label" => $filterDefinition->getLabel(),
-            "currentValue" => $currentFilter[$field],
-            "fieldname" => $field,
-            "metaData" => $filterDefinition->getMetaData()
+            'hideFilter' => $filterDefinition->getRequiredFilterField() && empty($currentFilter[$filterDefinition->getRequiredFilterField()]),
+            'label' => $filterDefinition->getLabel(),
+            'currentValue' => $currentFilter[$field],
+            'fieldname' => $field,
+            'metaData' => $filterDefinition->getMetaData()
         ]);
     }
 
@@ -56,9 +56,9 @@ class Input extends AbstractFilterType
 
         if (!empty($value)) {
             if ($isPrecondition) {
-                $productList->addCondition("TRIM(`" . $field . "`) LIKE " . $productList->quote("%" . $value . "%"), "PRECONDITION_" . $field);
+                $productList->addCondition('TRIM(`' . $field . '`) LIKE ' . $productList->quote('%' . $value . '%'), 'PRECONDITION_' . $field);
             } else {
-                $productList->addCondition("TRIM(`" . $field . "`) LIKE " . $productList->quote("%" . $value . "%"), $field);
+                $productList->addCondition('TRIM(`' . $field . '`) LIKE ' . $productList->quote('%' . $value . '%'), $field);
             }
         }
 

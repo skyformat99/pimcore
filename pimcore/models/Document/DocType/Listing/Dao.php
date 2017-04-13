@@ -27,7 +27,7 @@ class Dao extends Model\Dao\PhpArrayTable
     public function configure()
     {
         parent::configure();
-        $this->setFile("document-types");
+        $this->setFile('document-types');
     }
 
     /**
@@ -41,7 +41,7 @@ class Dao extends Model\Dao\PhpArrayTable
 
         $docTypes = [];
         foreach ($docTypesData as $docTypeData) {
-            $docTypes[] = Model\Document\DocType::getById($docTypeData["id"]);
+            $docTypes[] = Model\Document\DocType::getById($docTypeData['id']);
         }
 
         $this->model->setDocTypes($docTypes);

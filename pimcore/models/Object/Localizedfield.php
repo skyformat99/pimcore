@@ -145,7 +145,7 @@ class Localizedfield extends Model\AbstractModel
     public function setObject($object)
     {
         if ($object && !$object instanceof Concrete) {
-            throw new \Exception("must be instance of object concrete");
+            throw new \Exception('must be instance of object concrete');
         }
         $this->object = $object;
         //$this->setClass($this->getObject()->getClass());
@@ -199,12 +199,12 @@ class Localizedfield extends Model\AbstractModel
 
         // try to get the language from the service container
         try {
-            $locale = \Pimcore::getContainer()->get("pimcore.locale")->getLocale();
+            $locale = \Pimcore::getContainer()->get('pimcore.locale')->getLocale();
 
             if (Tool::isValidLanguage($locale)) {
                 return (string) $locale;
             }
-            throw new \Exception("Not supported language");
+            throw new \Exception('Not supported language');
         } catch (\Exception $e) {
             return Tool::getDefaultLanguage();
         }
@@ -233,18 +233,18 @@ class Localizedfield extends Model\AbstractModel
         $language = $this->getLanguage($language);
 
         $context = $this->getContext();
-        if ($context && $context["containerType"] == "fieldcollection") {
-            $containerKey = $context["containerKey"];
+        if ($context && $context['containerType'] == 'fieldcollection') {
+            $containerKey = $context['containerKey'];
             $container = Model\Object\Fieldcollection\Definition::getByKey($containerKey);
         } else {
             $object = $this->getObject();
             $container = $object->getClass();
         }
-        $fieldDefinition = $container->getFieldDefinition("localizedfields")->getFieldDefinition($name);
+        $fieldDefinition = $container->getFieldDefinition('localizedfields')->getFieldDefinition($name);
 
         if ($fieldDefinition instanceof Model\Object\ClassDefinition\Data\CalculatedValue) {
             $valueData = new Model\Object\Data\CalculatedValue($fieldDefinition->getName());
-            $valueData->setContextualData("localizedfield", "localizedfields", null, $language);
+            $valueData->setContextualData('localizedfield', 'localizedfields', null, $language);
             $data = Service::getCalculatedFieldValue($this->getObject(), $valueData);
 
             return $data;
@@ -266,13 +266,13 @@ class Localizedfield extends Model\AbstractModel
             if ($allowInherit) {
                 if ($object->getParent() instanceof AbstractObject) {
                     $parent = $object->getParent();
-                    while ($parent && $parent->getType() == "folder") {
+                    while ($parent && $parent->getType() == 'folder') {
                         $parent = $parent->getParent();
                     }
 
-                    if ($parent && ($parent->getType() == "object" || $parent->getType() == "variant")) {
+                    if ($parent && ($parent->getType() == 'object' || $parent->getType() == 'variant')) {
                         if ($parent->getClassId() == $object->getClassId()) {
-                            $method = "getLocalizedfields";
+                            $method = 'getLocalizedfields';
                             if (method_exists($parent, $method)) {
                                 $localizedFields = $parent->getLocalizedFields();
                                 if ($localizedFields instanceof self) {
@@ -300,11 +300,11 @@ class Localizedfield extends Model\AbstractModel
             }
         }
 
-        if ($fieldDefinition && method_exists($fieldDefinition, "preGetData")) {
+        if ($fieldDefinition && method_exists($fieldDefinition, 'preGetData')) {
             $data =  $fieldDefinition->preGetData($this, [
-                "data" => $data,
-                "language" => $language,
-                "name" => $name
+                'data' => $data,
+                'language' => $language,
+                'name' => $name
             ]);
         }
 
@@ -324,7 +324,7 @@ class Localizedfield extends Model\AbstractModel
     {
         if (self::$strictMode) {
             if (!$language || !in_array($language, Tool::getValidLanguages())) {
-                throw new \Exception("Language " . $language . " not accepted in strict mode");
+                throw new \Exception('Language ' . $language . ' not accepted in strict mode');
             }
         }
 
@@ -334,28 +334,28 @@ class Localizedfield extends Model\AbstractModel
         }
 
         $contextInfo = $this->getContext();
-        if ($contextInfo && $contextInfo["containerType"] == "block") {
-            $classId = $contextInfo["classId"];
+        if ($contextInfo && $contextInfo['containerType'] == 'block') {
+            $classId = $contextInfo['classId'];
             $containerDefinition = ClassDefinition::getById($classId);
-            $blockDefinition = $containerDefinition->getFieldDefinition($contextInfo["fieldname"]);
+            $blockDefinition = $containerDefinition->getFieldDefinition($contextInfo['fieldname']);
 
-            $fieldDefinition = $blockDefinition->getFieldDefinition("localizedfields");
+            $fieldDefinition = $blockDefinition->getFieldDefinition('localizedfields');
         } else {
-            if ($contextInfo && $contextInfo["containerType"] == "fieldcollection") {
-                $containerKey = $contextInfo["containerKey"];
+            if ($contextInfo && $contextInfo['containerType'] == 'fieldcollection') {
+                $containerKey = $contextInfo['containerKey'];
                 $containerDefinition = Fieldcollection\Definition::getByKey($containerKey);
             } else {
                 $containerDefinition = $this->getObject()->getClass();
             }
 
-            $localizedFieldDefinition = $containerDefinition->getFieldDefinition("localizedfields");
+            $localizedFieldDefinition = $containerDefinition->getFieldDefinition('localizedfields');
             $fieldDefinition = $localizedFieldDefinition->getFieldDefinition($name);
         }
 
-        if (method_exists($fieldDefinition, "preSetData")) {
+        if (method_exists($fieldDefinition, 'preSetData')) {
             $value =  $fieldDefinition->preSetData($this, $value, [
-                "language" => $language,
-                "name" => $name
+                'language' => $language,
+                'name' => $name
             ]);
         }
 
@@ -369,7 +369,7 @@ class Localizedfield extends Model\AbstractModel
      */
     public function __sleep()
     {
-        return ["items", "context"];
+        return ['items', 'context'];
     }
 
     /**

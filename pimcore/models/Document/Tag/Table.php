@@ -38,7 +38,7 @@ class Table extends Model\Document\Tag
      */
     public function getType()
     {
-        return "table";
+        return 'table';
     }
 
     /**
@@ -58,7 +58,7 @@ class Table extends Model\Document\Tag
      */
     public function frontend()
     {
-        $html = "";
+        $html = '';
 
         if (is_array($this->data) && count($this->data) > 0) {
             $html .= '<table border="0" cellpadding="0" cellspacing="0">';
@@ -128,7 +128,7 @@ class Table extends Model\Document\Tag
         if ($data->data === null or is_array($data->data)) {
             $this->data = $data->data;
         } else {
-            throw new \Exception("cannot get values from web service import - invalid data");
+            throw new \Exception('cannot get values from web service import - invalid data');
         }
     }
 }

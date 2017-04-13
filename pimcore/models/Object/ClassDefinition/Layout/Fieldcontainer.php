@@ -26,7 +26,7 @@ class Fieldcontainer extends Model\Object\ClassDefinition\Layout
      *
      * @var string
      */
-    public $fieldtype = "fieldcontainer";
+    public $fieldtype = 'fieldcontainer';
 
     /**
      * Width of input field labels
@@ -38,7 +38,7 @@ class Fieldcontainer extends Model\Object\ClassDefinition\Layout
     /**
      * @var string
      */
-    public $layout = "hbox";
+    public $layout = 'hbox';
 
     /**
      * @var string

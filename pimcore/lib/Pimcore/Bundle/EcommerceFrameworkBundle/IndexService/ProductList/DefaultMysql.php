@@ -87,7 +87,7 @@ class DefaultMysql implements IProductList
         $this->tenantName = $tenantConfig->getTenantName();
         $this->tenantConfig = $tenantConfig;
 
-        $this->logger = \Pimcore::getContainer()->get("monolog.logger.pimcore_ecommerce_sql");
+        $this->logger = \Pimcore::getContainer()->get('monolog.logger.pimcore_ecommerce_sql');
         $this->resource = new DefaultMysql\Dao($this, $this->logger);
     }
 
@@ -132,7 +132,7 @@ class DefaultMysql implements IProductList
      * @param string $condition
      * @param string $fieldname
      */
-    public function addCondition($condition, $fieldname = "")
+    public function addCondition($condition, $fieldname = '')
     {
         $this->products = null;
         $this->conditions[$fieldname][] = $condition;
@@ -151,7 +151,7 @@ class DefaultMysql implements IProductList
     public function addRelationCondition($fieldname, $condition)
     {
         $this->products = null;
-        $this->relationConditions[$fieldname][] = "`fieldname` = " . $this->quote($fieldname) . " AND "  . $condition;
+        $this->relationConditions[$fieldname][] = '`fieldname` = ' . $this->quote($fieldname) . ' AND '  . $condition;
     }
 
     /**
@@ -175,7 +175,7 @@ class DefaultMysql implements IProductList
      * @param $condition
      * @param string $fieldname
      */
-    public function addQueryCondition($condition, $fieldname = "")
+    public function addQueryCondition($condition, $fieldname = '')
     {
         $this->products = null;
         $this->queryConditions[$fieldname][] = $condition;
@@ -382,7 +382,7 @@ class DefaultMysql implements IProductList
         } elseif (count($priceSystemArrays) == 0) {
             //nothing to do
         } else {
-            throw new \Exception("Not implemented yet - multiple pricing systems are not supported yet");
+            throw new \Exception('Not implemented yet - multiple pricing systems are not supported yet');
             foreach ($priceSystemArrays as $priceSystemName => $priceSystemArray) {
             }
         }
@@ -403,7 +403,7 @@ class DefaultMysql implements IProductList
     {
         //check number of price systems
         //set $this->totalCount
-        throw new \Exception("Not implemented yet");
+        throw new \Exception('Not implemented yet');
     }
 
     /**
@@ -419,7 +419,7 @@ class DefaultMysql implements IProductList
     {
         //check number of price systems
         //set $this->totalCount
-        throw new \Exception("Not implemented yet");
+        throw new \Exception('Not implemented yet');
     }
 
     /**
@@ -517,7 +517,7 @@ class DefaultMysql implements IProductList
         if ($this->conditionPriceFrom === null && $this->conditionPriceTo === null) {
             return $this->resource->loadGroupByValues($fieldname, $this->buildQueryFromConditions(false, $excludedFieldName, IProductList::VARIANT_MODE_INCLUDE), $countValues);
         } else {
-            throw new \Exception("Not supported yet");
+            throw new \Exception('Not supported yet');
         }
     }
 
@@ -539,7 +539,7 @@ class DefaultMysql implements IProductList
         if ($this->conditionPriceFrom === null && $this->conditionPriceTo === null) {
             return $this->resource->loadGroupByRelationValues($fieldname, $this->buildQueryFromConditions(false, $excludedFieldName, IProductList::VARIANT_MODE_INCLUDE), $countValues);
         } else {
-            throw new \Exception("Not supported yet");
+            throw new \Exception('Not supported yet');
         }
     }
 
@@ -548,14 +548,14 @@ class DefaultMysql implements IProductList
         if ($variantMode == null) {
             $variantMode = $this->getVariantMode();
         }
-        $preCondition = "active = 1 AND o_virtualProductActive = 1";
+        $preCondition = 'active = 1 AND o_virtualProductActive = 1';
         if ($this->inProductList) {
-            $preCondition .= " AND inProductList = 1";
+            $preCondition .= ' AND inProductList = 1';
         }
 
         $tenantCondition = $this->getCurrentTenantConfig()->getCondition();
         if ($tenantCondition) {
-            $preCondition .= " AND " . $tenantCondition;
+            $preCondition .= ' AND ' . $tenantCondition;
         }
 
         if ($this->getCategory()) {
@@ -570,7 +570,7 @@ class DefaultMysql implements IProductList
             if (!$excludeConditions) {
                 $userspecific = $this->buildUserspecificConditions($excludedFieldname);
                 if ($userspecific) {
-                    $condition .= " AND " . $userspecific;
+                    $condition .= ' AND ' . $userspecific;
                 }
             }
         } else {
@@ -581,38 +581,38 @@ class DefaultMysql implements IProductList
             if (!$excludeConditions) {
                 $userspecific = $this->buildUserspecificConditions($excludedFieldname);
                 if ($userspecific) {
-                    $condition .= " AND " . $userspecific;
+                    $condition .= ' AND ' . $userspecific;
                 }
             }
         }
 
         if ($this->queryConditions) {
-            $searchstring = "";
+            $searchstring = '';
             foreach ($this->queryConditions as $queryConditionPartArray) {
                 foreach ($queryConditionPartArray as $queryConditionPart) {
-                    $searchstring .= "+" . $queryConditionPart . "* ";
+                    $searchstring .= '+' . $queryConditionPart . '* ';
                 }
             }
 
-            $condition .= " AND " . $this->resource->buildFulltextSearchWhere($this->tenantConfig->getSearchAttributeConfig(), $searchstring);
+            $condition .= ' AND ' . $this->resource->buildFulltextSearchWhere($this->tenantConfig->getSearchAttributeConfig(), $searchstring);
         }
 
-        $this->logger->info("Total Condition: " . $condition);
+        $this->logger->info('Total Condition: ' . $condition);
 
         return $condition;
     }
 
     protected function buildUserspecificConditions($excludedFieldname = null)
     {
-        $condition = "";
+        $condition = '';
         foreach ($this->relationConditions as $fieldname => $condArray) {
             if ($fieldname !== $excludedFieldname) {
                 foreach ($condArray as $cond) {
                     if ($condition) {
-                        $condition .= " AND ";
+                        $condition .= ' AND ';
                     }
 
-                    $condition .= "a.o_id IN (SELECT DISTINCT src FROM " . $this->getCurrentTenantConfig()->getRelationTablename() . " WHERE " . $cond . ")";
+                    $condition .= 'a.o_id IN (SELECT DISTINCT src FROM ' . $this->getCurrentTenantConfig()->getRelationTablename() . ' WHERE ' . $cond . ')';
                 }
             }
         }
@@ -621,7 +621,7 @@ class DefaultMysql implements IProductList
             if ($fieldname !== $excludedFieldname) {
                 foreach ($condArray as $cond) {
                     if ($condition) {
-                        $condition .= " AND ";
+                        $condition .= ' AND ';
                     }
 
                     $condition .= is_array($cond)
@@ -632,7 +632,7 @@ class DefaultMysql implements IProductList
             }
         }
 
-        $this->logger->info("User specific Condition Part: " . $condition);
+        $this->logger->info('User specific Condition Part: ' . $condition);
 
         return $condition;
     }
@@ -666,17 +666,17 @@ class DefaultMysql implements IProductList
                 $direction = $keyDirection[1];
 
                 if ($this->getVariantMode() == IProductList::VARIANT_MODE_INCLUDE_PARENT_OBJECT) {
-                    if (strtoupper($this->order) == "DESC") {
-                        $orderByStringArray[] = "max(" . $key . ") " . $direction;
+                    if (strtoupper($this->order) == 'DESC') {
+                        $orderByStringArray[] = 'max(' . $key . ') ' . $direction;
                     } else {
-                        $orderByStringArray[] = "min(" . $key . ") " . $direction;
+                        $orderByStringArray[] = 'min(' . $key . ') ' . $direction;
                     }
                 } else {
-                    $orderByStringArray[] = $key . " " . $direction;
+                    $orderByStringArray[] = $key . ' ' . $direction;
                 }
             }
 
-            return implode(",", $orderByStringArray);
+            return implode(',', $orderByStringArray);
         }
 
         return null;

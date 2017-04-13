@@ -28,7 +28,7 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
      */
     public function getProduct()
     {
-        throw new UnsupportedException("getProduct is not implemented for " . get_class($this));
+        throw new UnsupportedException('getProduct is not implemented for ' . get_class($this));
     }
 
     /**
@@ -38,7 +38,7 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
      */
     public function setProduct($product)
     {
-        throw new UnsupportedException("setProduct is not implemented for " . get_class($this));
+        throw new UnsupportedException('setProduct is not implemented for ' . get_class($this));
     }
 
     /**
@@ -48,7 +48,7 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
      */
     public function getProductNumber()
     {
-        throw new UnsupportedException("getProductNumber is not implemented for " . get_class($this));
+        throw new UnsupportedException('getProductNumber is not implemented for ' . get_class($this));
     }
 
     /**
@@ -58,7 +58,7 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
      */
     public function setProductNumber($productNumber)
     {
-        throw new UnsupportedException("setProductNumber is not implemented for " . get_class($this));
+        throw new UnsupportedException('setProductNumber is not implemented for ' . get_class($this));
     }
 
     /**
@@ -68,7 +68,7 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
      */
     public function getProductName()
     {
-        throw new UnsupportedException("getProductName is not implemented for " . get_class($this));
+        throw new UnsupportedException('getProductName is not implemented for ' . get_class($this));
     }
 
     /**
@@ -78,7 +78,7 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
      */
     public function setProductName($productName)
     {
-        throw new UnsupportedException("setProductName is not implemented for " . get_class($this));
+        throw new UnsupportedException('setProductName is not implemented for ' . get_class($this));
     }
 
     /**
@@ -88,7 +88,7 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
      */
     public function getAmount()
     {
-        throw new UnsupportedException("getAmount is not implemented for " . get_class($this));
+        throw new UnsupportedException('getAmount is not implemented for ' . get_class($this));
     }
 
     /**
@@ -98,7 +98,7 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
      */
     public function setAmount($amount)
     {
-        throw new UnsupportedException("setAmount is not implemented for " . get_class($this));
+        throw new UnsupportedException('setAmount is not implemented for ' . get_class($this));
     }
 
     /**
@@ -108,7 +108,7 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
      */
     public function getOriginalTotalPrice()
     {
-        throw new UnsupportedException("getOriginalTotalPrice is not implemented for " . get_class($this));
+        throw new UnsupportedException('getOriginalTotalPrice is not implemented for ' . get_class($this));
     }
 
     /**
@@ -118,7 +118,7 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
      */
     public function setOriginalTotalPrice($originalTotalPrice)
     {
-        throw new UnsupportedException("setOriginalTotalPrice is not implemented for " . get_class($this));
+        throw new UnsupportedException('setOriginalTotalPrice is not implemented for ' . get_class($this));
     }
 
     /**
@@ -128,7 +128,7 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
      */
     public function getFinalTotalPrice()
     {
-        throw new UnsupportedException("getFinalTotalPrice is not implemented for " . get_class($this));
+        throw new UnsupportedException('getFinalTotalPrice is not implemented for ' . get_class($this));
     }
 
     /**
@@ -138,7 +138,7 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
      */
     public function setFinalTotalPrice($finalTotalPrice)
     {
-        throw new UnsupportedException("setFinalTotalPrice is not implemented for " . get_class($this));
+        throw new UnsupportedException('setFinalTotalPrice is not implemented for ' . get_class($this));
     }
 
     /**
@@ -148,7 +148,7 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
      */
     public function getDiscount()
     {
-        throw new UnsupportedException("getDiscount is not implemented for " . get_class($this));
+        throw new UnsupportedException('getDiscount is not implemented for ' . get_class($this));
     }
 
     /**
@@ -158,7 +158,7 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
      */
     public function setDiscount($discount)
     {
-        throw new UnsupportedException("setDiscount is not implemented for " . get_class($this));
+        throw new UnsupportedException('setDiscount is not implemented for ' . get_class($this));
     }
 
     /**
@@ -168,7 +168,7 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
      */
     public function getDiscountType()
     {
-        throw new UnsupportedException("getDiscountType is not implemented for " . get_class($this));
+        throw new UnsupportedException('getDiscountType is not implemented for ' . get_class($this));
     }
 
     /**
@@ -178,7 +178,7 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
      */
     public function setDiscountType($discountType)
     {
-        throw new UnsupportedException("setDiscountType is not implemented for " . get_class($this));
+        throw new UnsupportedException('setDiscountType is not implemented for ' . get_class($this));
     }
 
     /**
@@ -188,7 +188,7 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
      */
     public function getSubItems()
     {
-        throw new UnsupportedException("getSubItems is not implemented for " . get_class($this));
+        throw new UnsupportedException('getSubItems is not implemented for ' . get_class($this));
     }
 
     /**
@@ -198,7 +198,7 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
      */
     public function setSubItems($subItems)
     {
-        throw new UnsupportedException("setSubItems is not implemented for " . get_class($this));
+        throw new UnsupportedException('setSubItems is not implemented for ' . get_class($this));
     }
 
     /**
@@ -208,7 +208,7 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
      */
     public function getComment()
     {
-        throw new UnsupportedException("getComment is not implemented for " . get_class($this));
+        throw new UnsupportedException('getComment is not implemented for ' . get_class($this));
     }
 
     /**
@@ -218,7 +218,7 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
      */
     public function setComment($comment)
     {
-        throw new UnsupportedException("getComment is not implemented for " . get_class($this));
+        throw new UnsupportedException('getComment is not implemented for ' . get_class($this));
     }
 
     /**
@@ -228,7 +228,7 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
      */
     public function getCartItemKey()
     {
-        throw new UnsupportedException("getCartItemKey is not implemented for " . get_class($this));
+        throw new UnsupportedException('getCartItemKey is not implemented for ' . get_class($this));
     }
 
     /**
@@ -238,6 +238,6 @@ class AbstractOfferItem extends \Pimcore\Model\Object\Concrete
      */
     public function setCartItemKey($cartItemKey)
     {
-        throw new UnsupportedException("setCartItemKey is not implemented for " . get_class($this));
+        throw new UnsupportedException('setCartItemKey is not implemented for ' . get_class($this));
     }
 }

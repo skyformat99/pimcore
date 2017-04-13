@@ -82,7 +82,7 @@ class Job
      */
     public function getLockKey()
     {
-        return "maintenance-job-" . $this->getId();
+        return 'maintenance-job-' . $this->getId();
     }
 
     /**

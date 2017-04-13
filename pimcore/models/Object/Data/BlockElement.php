@@ -103,6 +103,6 @@ class BlockElement extends AbstractModel
      */
     public function __toString()
     {
-        return $this->name . "; " . $this->type;
+        return $this->name . '; ' . $this->type;
     }
 }

@@ -31,14 +31,14 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $fieldtype = "classificationstore";
+    public $fieldtype = 'classificationstore';
 
     /**
      * Type for the generated phpdoc
      *
      * @var string
      */
-    public $phpdocType = "\\Pimcore\\Model\\Object\\Classificationstore";
+    public $phpdocType = '\\Pimcore\\Model\\Object\\Classificationstore';
 
     /**
      * @var array
@@ -131,7 +131,7 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
         $result = $this->doGetDataForEditMode($data, $object, $fieldData, $metaData, 1);
 
         // replace the real data with the data for the editmode
-        foreach ($result["data"] as $language => &$groups) {
+        foreach ($result['data'] as $language => &$groups) {
             foreach ($groups as $groupId => &$keys) {
                 foreach ($keys as $keyId => &$keyValue) {
                     $keyConfig = Object\Classificationstore\DefinitionCache::get($keyId);
@@ -161,15 +161,15 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
                     $childDef = Object\Classificationstore\Service::getFieldDefinitionFromKeyConfig($key);
 
                     $childData = new Object\Data\CalculatedValue($this->getName());
-                    $childData->setContextualData("classificationstore", $this->getName(), null, $language, $groupId, $keyId, $childDef);
+                    $childData->setContextualData('classificationstore', $this->getName(), null, $language, $groupId, $keyId, $childDef);
                     $childData = $childDef->getDataForEditmode($childData, $object, $params);
-                    $result["data"][$language][$groupId][$keyId]= $childData;
+                    $result['data'][$language][$groupId][$keyId]= $childData;
                 }
             }
         }
 
-        $result["activeGroups"] = $data->getActiveGroups();
-        $result["groupCollectionMapping"] = $data->getGroupCollectionMappings();
+        $result['activeGroups'] = $data->getActiveGroups();
+        $result['groupCollectionMapping'] = $data->getGroupCollectionMappings();
 
         return $result;
     }
@@ -203,7 +203,7 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
                             // never override existing data
                             $fieldData[$language][$groupId][$keyId] = $fdata;
                             if (!$fd->isEmpty($fdata)) {
-                                $metaData[$language][$groupId][$keyId] = ["inherited" => $level > 1, "objectid" => $object->getId()];
+                                $metaData[$language][$groupId][$keyId] = ['inherited' => $level > 1, 'objectid' => $object->getId()];
                             }
                         }
                     }
@@ -222,7 +222,7 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
                 } else {
                     $validLanguages = [];
                 }
-                array_unshift($validLanguages, "default");
+                array_unshift($validLanguages, 'default');
 
                 $foundEmptyValue = false;
 
@@ -235,7 +235,7 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
                         }
 
                         $relation = new Object\Classificationstore\KeyGroupRelation\Listing();
-                        $relation->setCondition("groupId = " . $relation->quote($groupId));
+                        $relation->setCondition('groupId = ' . $relation->quote($groupId));
                         $relation = $relation->load();
                         foreach ($relation as $key) {
                             $keyId = $key->getKeyId();
@@ -244,7 +244,7 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
                             if ($fd->isEmpty($fieldData[$language][$groupId][$keyId])) {
                                 $foundEmptyValue = true;
                                 $inherited = true;
-                                $metaData[$language][$groupId][$keyId] = ["inherited" => true, "objectid" => $parent->getId()];
+                                $metaData[$language][$groupId][$keyId] = ['inherited' => true, 'objectid' => $parent->getId()];
                             }
                         }
                     }
@@ -252,7 +252,7 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
 
                 if ($foundEmptyValue) {
                     // still some values are passing, ask the parent
-                    $getter = "get" . ucfirst($this->getName());
+                    $getter = 'get' . ucfirst($this->getName());
                     $parentData = $parent->$getter();
                     $parentResult = $this->doGetDataForEditMode($parentData, $parent, $fieldData, $metaData, $level + 1);
                 }
@@ -260,9 +260,9 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
         }
 
         $result = [
-            "data" => $fieldData,
-            "metaData" => $metaData,
-            "inherited" => $inherited
+            'data' => $fieldData,
+            'metaData' => $metaData,
+            'inherited' => $inherited
         ];
 
         return $result;
@@ -285,9 +285,9 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
             $classificationStore = new Object\Classificationstore();
         }
 
-        $data = $containerData["data"];
-        $activeGroups = $containerData["activeGroups"];
-        $groupCollectionMapping = $containerData["groupCollectionMapping"];
+        $data = $containerData['data'];
+        $activeGroups = $containerData['activeGroups'];
+        $groupCollectionMapping = $containerData['groupCollectionMapping'];
 
         $correctedMapping = [];
 
@@ -342,7 +342,7 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
      */
     public function getDataForGrid($data, $object = null, $params = [])
     {
-        return "not supported";
+        return 'not supported';
     }
 
     /**
@@ -373,7 +373,7 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
      */
     public function getForCsvExport($object, $params = [])
     {
-        return "not supported";
+        return 'not supported';
     }
 
     /**
@@ -396,8 +396,8 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
      */
     public function getDataForSearchIndex($object, $params = [])
     {
-        $dataString = "";
-        $getter = "get" . ucfirst($this->getName());
+        $dataString = '';
+        $getter = 'get' . ucfirst($this->getName());
         $classificationStore = $object->$getter();
         $items = $classificationStore->getItems();
         if ($items) {
@@ -408,7 +408,7 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
 
                     foreach ($values as $language => $value) {
                         $value = $fieldDefinition->getDataForResource($value, $object, $params);
-                        $dataString .= $value . " ";
+                        $dataString .= $value . ' ';
                     }
                 }
             }
@@ -434,7 +434,7 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
             } else {
                 $validLanguages = [];
             }
-            array_unshift($validLanguages, "default");
+            array_unshift($validLanguages, 'default');
 
             $result = [];
             $activeGroups = [];
@@ -443,14 +443,14 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
                 foreach ($items as $groupId => $groupData) {
                     $groupDef = Object\Classificationstore\GroupConfig::getById($groupId);
                     $activeGroups[] = [
-                        "id" => $groupId,
-                        "name" => $groupDef->getName(). " - " . $groupDef->getDescription(),
-                        "enabled" => $groupData
+                        'id' => $groupId,
+                        'name' => $groupDef->getName(). ' - ' . $groupDef->getDescription(),
+                        'enabled' => $groupData
                     ];
                 }
             }
 
-            $result["activeGroups"] = $activeGroups;
+            $result['activeGroups'] = $activeGroups;
             $items = $data->getItems();
 
             foreach ($items as $groupId => $groupData) {
@@ -460,19 +460,19 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
                     $keyConfig = Object\Classificationstore\DefinitionCache::get($keyId);
                     $fd = Object\Classificationstore\Service::getFieldDefinitionFromKeyConfig($keyConfig);
                     $context = [
-                        "containerType" => "classificationstore",
-                        "fieldname" => $this->getName(),
-                        "groupId" => $groupId,
-                        "keyId" => $keyId
+                        'containerType' => 'classificationstore',
+                        'fieldname' => $this->getName(),
+                        'groupId' => $groupId,
+                        'keyId' => $keyId
                     ];
 
                     foreach ($validLanguages as $language) {
-                        $value = $fd->getForWebserviceExport($object, ["context" => $context, "language" => $language]);
+                        $value = $fd->getForWebserviceExport($object, ['context' => $context, 'language' => $language]);
                         $groupResult[$language][] = [
-                            "id" => $keyId,
-                            "name" => $keyConfig->getName(),
-                            "description" => $keyConfig->getDescription(),
-                            "value" => $value
+                            'id' => $keyId,
+                            'name' => $keyConfig->getName(),
+                            'description' => $keyConfig->getDescription(),
+                            'value' => $value
                         ];
                     }
                 }
@@ -480,13 +480,13 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
                 if ($groupResult) {
                     $groupDef = Object\Classificationstore\GroupConfig::getById($groupId);
                     $groupResult = [
-                        "id" => $groupId,
-                        "name" => $groupDef->getName(). " - " . $groupDef->getDescription(),
-                        "keys" => $groupResult
+                        'id' => $groupId,
+                        'name' => $groupDef->getName(). ' - ' . $groupDef->getDescription(),
+                        'keys' => $groupResult
                     ];
                 }
 
-                $result["groups"][] = $groupResult;
+                $result['groups'][] = $groupResult;
             }
 
             return $result;
@@ -514,7 +514,7 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
             if (is_array($activeGroupsRemote)) {
                 foreach ($activeGroupsRemote as $data) {
                     $remoteId = $data->id;
-                    $localId = $idMapper->getMappedId("csGroup", $remoteId);
+                    $localId = $idMapper->getMappedId('csGroup', $remoteId);
                     $activeGroupsLocal[$localId] = $localId;
                 }
             }
@@ -525,14 +525,14 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
             if (is_array($groupsRemote)) {
                 foreach ($groupsRemote as $remoteGroupData) {
                     $remoteGroupId = $remoteGroupData->id;
-                    $localGroupId = $idMapper->getMappedId("csGroup", $remoteGroupId);
+                    $localGroupId = $idMapper->getMappedId('csGroup', $remoteGroupId);
                     $remoteKeys = $remoteGroupData->keys;
                     $remoteKeys = (array) $remoteKeys;
 
                     foreach ($remoteKeys as $language => $keyList) {
                         foreach ($keyList as $keyData) {
                             $remoteKeyId = $keyData->id;
-                            $localKeyId = $idMapper->getMappedId("csKey", $remoteKeyId);
+                            $localKeyId = $idMapper->getMappedId('csKey', $remoteKeyId);
                             $keyConfig = Object\Classificationstore\KeyConfig::getById($localKeyId);
                             $keyDef = Object\Classificationstore\Service::getFieldDefinitionFromJson(json_decode($keyConfig->getDefinition()), $keyConfig->getType());
                             $value = $keyData->value;
@@ -623,7 +623,7 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
     {
         foreach ($data as $key => $value) {
             if (!in_array($key, $blockedKeys)) {
-                $method = "set" . $key;
+                $method = 'set' . $key;
                 if (method_exists($this, $method)) {
                     $this->$method($value);
                 }
@@ -700,7 +700,7 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
     public function preGetData($object, $params = [])
     {
         if (!$object instanceof Object\Concrete) {
-            throw new \Exception("Localized Fields are only valid in Objects");
+            throw new \Exception('Localized Fields are only valid in Objects');
         }
 
         if (!$object->{$this->getName()} instanceof Object\Classificationstore) {
@@ -721,7 +721,7 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
      */
     public function getGetterCode($class)
     {
-        $code = "";
+        $code = '';
         $code .= parent::getGetterCode($class);
 
         return $code;
@@ -734,7 +734,7 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
      */
     public function getSetterCode($class)
     {
-        $code = "";
+        $code = '';
         $code .= parent::getSetterCode($class);
 
         return $code;
@@ -925,9 +925,9 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
         if ($errors) {
             $messages = [];
             foreach ($errors as $e) {
-                $messages[]= $e->getMessage() . " (" . $validLanguage . ")";
+                $messages[]= $e->getMessage() . ' (' . $validLanguage . ')';
             }
-            $validationException = new Model\Element\ValidationException(implode(", ", $messages));
+            $validationException = new Model\Element\ValidationException(implode(', ', $messages));
             $validationException->setSubItems($errors);
             throw $validationException;
         }
@@ -942,7 +942,7 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
      */
     public function getDiffDataForEditmode($data, $object = null, $params = [])
     {
-        throw new \Exception("not supported");
+        throw new \Exception('not supported');
     }
 
     /**
@@ -954,7 +954,7 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
      */
     public function getDiffDataFromEditmode($data, $object = null, $params = [])
     {
-        throw new \Exception("not supported");
+        throw new \Exception('not supported');
     }
 
     /** True if change is allowed in edit mode.
@@ -1042,7 +1042,7 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
             return;
         }
 
-        $getter = "get" . ucfirst($this->getName());
+        $getter = 'get' . ucfirst($this->getName());
         /** @var $classificationStore Object\Classificationstore */
         $classificationStore = $object->$getter();
         $mapping = $classificationStore->getGroupCollectionMappings();
@@ -1082,7 +1082,7 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
             return;
         }
 
-        $getter = "get" . ucfirst($this->getName());
+        $getter = 'get' . ucfirst($this->getName());
         /** @var $classificationStore Object\Classificationstore */
         $classificationStore = $object->$getter();
         $activeGroupIds = $classificationStore->getActiveGroups();
@@ -1131,10 +1131,10 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
             }
         }
 
-        $condition = "ID in (" . implode(',', $filteredGroupIds) . ")";
+        $condition = 'ID in (' . implode(',', $filteredGroupIds) . ')';
         $groupList = new Object\Classificationstore\GroupConfig\Listing();
         $groupList->setCondition($condition);
-        $groupList->setOrder(["ASC", "ASC"]);
+        $groupList->setOrder(['ASC', 'ASC']);
         $groupList = $groupList->load();
 
         /** @var $group Object\Classificationstore\GroupConfig */
@@ -1142,9 +1142,9 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
             $keyList = [];
 
             $relation = new Object\Classificationstore\KeyGroupRelation\Listing();
-            $relation->setCondition("groupId = " . $relation->quote($group->getId()));
-            $relation->setOrderKey(["sorter", "id"]);
-            $relation->setOrder(["ASC", "ASC"]);
+            $relation->setCondition('groupId = ' . $relation->quote($group->getId()));
+            $relation->setOrderKey(['sorter', 'id']);
+            $relation->setOrder(['ASC', 'ASC']);
             $relation = $relation->load();
             /** @var $key Object\Classificationstore\KeyGroupRelation */
             foreach ($relation as $key) {
@@ -1152,9 +1152,9 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
                     continue;
                 }
                 $definition = \Pimcore\Model\Object\Classificationstore\Service::getFieldDefinitionFromKeyConfig($key);
-                $definition->setTooltip($definition->getName() . " - " . $key->getDescription());
+                $definition->setTooltip($definition->getName() . ' - ' . $key->getDescription());
 
-                if (method_exists($definition, "__wakeup")) {
+                if (method_exists($definition, '__wakeup')) {
                     $definition->__wakeup();
                 }
 
@@ -1163,18 +1163,18 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
                 }
 
                 $keyList[] = [
-                    "name" => $key->getName(),
-                    "id" => $key->getKeyId(),
-                    "description" => $key->getDescription(),
-                    "definition" => $definition
+                    'name' => $key->getName(),
+                    'id' => $key->getKeyId(),
+                    'description' => $key->getDescription(),
+                    'definition' => $definition
                 ];
             }
 
             $this->activeGroupDefinitions[$group->getId()] = [
-                "name" => $group->getName(),
-                "id" => $group->getId(),
-                "description" => $group->getDescription(),
-                "keys" => $keyList
+                'name' => $group->getName(),
+                'id' => $group->getId(),
+                'description' => $group->getDescription(),
+                'keys' => $keyList
             ];
         }
 
@@ -1182,7 +1182,7 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
             $collectionIds = array_values($groupCollectionMapping);
 
             $relation = new Object\Classificationstore\CollectionGroupRelation\Listing();
-            $condition = "colId IN (" . implode(",", $collectionIds) . ")";
+            $condition = 'colId IN (' . implode(',', $collectionIds) . ')';
             $relation->setCondition($condition);
             $relation = $relation->load();
 
@@ -1193,8 +1193,8 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
             }
 
             usort($this->activeGroupDefinitions, function ($a, $b) use ($sorting) {
-                $s1 = $sorting[$a["id"]] ? $sorting[$a["id"]] : 0;
-                $s2 = $sorting[$b["id"]] ? $sorting[$b["id"]] : 0;
+                $s1 = $sorting[$a['id']] ? $sorting[$a['id']] : 0;
+                $s2 = $sorting[$b['id']] ? $sorting[$b['id']] : 0;
 
                 if ($s1 < $s2) {
                     return 1;
@@ -1223,8 +1223,8 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
     public function setAllowedGroupIds($allowedGroupIds)
     {
         if (is_string($allowedGroupIds) && !empty($allowedGroupIds)) {
-            $allowedGroupIds = str_replace([" ", "\n"], "", $allowedGroupIds);
-            $parts = explode(",", $allowedGroupIds);
+            $allowedGroupIds = str_replace([' ', "\n"], '', $allowedGroupIds);
+            $parts = explode(',', $allowedGroupIds);
         }
 
         $this->allowedGroupIds = $parts;
@@ -1256,7 +1256,7 @@ class Classificationstore extends Model\Object\ClassDefinition\Data
         } else {
             $validLanguages = [];
         }
-        array_unshift($validLanguages, "default");
+        array_unshift($validLanguages, 'default');
 
         return $validLanguages;
     }

@@ -38,18 +38,18 @@ class Pattern extends AbstractTokenManager implements IExportableTokenManager
     protected $template;
 
     protected $characterPools = [
-        'alphaNumeric' => "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ",
-        'numeric' => "123456789",
-        'alpha' => "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+        'alphaNumeric' => '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ',
+        'numeric' => '123456789',
+        'alpha' => 'abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ'
     ];
 
     public function __construct(AbstractVoucherTokenType $configuration)
     {
         parent::__construct($configuration);
         if ($configuration instanceof VoucherTokenTypePattern) {
-            $this->template = "PimcoreEcommerceFrameworkBundle:Voucher:voucherCodeTabPattern.html.php";
+            $this->template = 'PimcoreEcommerceFrameworkBundle:Voucher:voucherCodeTabPattern.html.php';
         } else {
-            throw new VoucherServiceException("Invalid Configuration Class for Type VoucherTokenTypePattern.");
+            throw new VoucherServiceException('Invalid Configuration Class for Type VoucherTokenTypePattern.');
         }
     }
 
@@ -112,10 +112,10 @@ class Pattern extends AbstractTokenManager implements IExportableTokenManager
             if (Reservation::create($code, $cart)) {
                 return true;
             } else {
-                throw new VoucherServiceException("Token Reservation not possible.", 3);
+                throw new VoucherServiceException('Token Reservation not possible.', 3);
             }
         }
-        throw new VoucherServiceException("No Token for this code exists.", 4);
+        throw new VoucherServiceException('No Token for this code exists.', 4);
     }
 
     /**
@@ -315,7 +315,7 @@ class Pattern extends AbstractTokenManager implements IExportableTokenManager
      */
     protected function generateCode()
     {
-        $key = "";
+        $key = '';
         $charPool = $this->getCharacterPool();
         $size = strlen($charPool);
         for ($i = 0; $i < $this->configuration->getLength(); $i++) {
@@ -389,13 +389,13 @@ class Pattern extends AbstractTokenManager implements IExportableTokenManager
                     $token .
                     "'," .
                     $finalLength .
-                    "," .
+                    ',' .
                     $this->seriesId .
-                    ")";
+                    ')';
             }
         }
 
-        return $query . "VALUES " . implode(",", $insertParts);
+        return $query . 'VALUES ' . implode(',', $insertParts);
     }
 
     /**
@@ -499,7 +499,7 @@ class Pattern extends AbstractTokenManager implements IExportableTokenManager
         $now = new \DateTime();
         $periodData = [];
         for ($i = $usagePeriod; $i > 0; $i--) {
-            $index = $now->format("Y-m-d");
+            $index = $now->format('Y-m-d');
             $periodData[$index] = isset($data[$index]) ? $data[$index] : 0;
             $now->modify('-1 day');
         }
@@ -523,8 +523,8 @@ class Pattern extends AbstractTokenManager implements IExportableTokenManager
         try {
             $tokens->setFilterConditions($params['id'], $params);
         } catch (\Exception $e) {
-            $this->template = "PimcoreEcommerceFrameworkBundle:Voucher:voucherCodeTabError.html.php";
-            $viewParamsBag['errors'][] = $e->getMessage() . " | Error-Code: " . $e->getCode();
+            $this->template = 'PimcoreEcommerceFrameworkBundle:Voucher:voucherCodeTabError.html.php';
+            $viewParamsBag['errors'][] = $e->getMessage() . ' | Error-Code: ' . $e->getCode();
         }
 
         if ($tokens) {

@@ -70,10 +70,10 @@ class Definition extends Model\AbstractModel
     public static function getByKey($permission)
     {
         if (!$permission) {
-            throw new \Exception("No permisson defined.");
+            throw new \Exception('No permisson defined.');
         }
         $list = new Definition\Listing();
-        $list->setCondition("`key`=?", [$permission]);
+        $list->setCondition('`key`=?', [$permission]);
         $list->setLimit(1);
         $permissionDefinition = $list->load();
         if ($permissionDefinition[0]) {
@@ -91,7 +91,7 @@ class Definition extends Model\AbstractModel
     public static function create($permission)
     {
         if (!$permission) {
-            throw new \Exception("No permisson defined.");
+            throw new \Exception('No permisson defined.');
         }
         $permissionDefinition = static::getByKey($permission);
         if ($permissionDefinition instanceof self) {

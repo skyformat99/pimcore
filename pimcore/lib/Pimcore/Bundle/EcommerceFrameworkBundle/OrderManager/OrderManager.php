@@ -41,19 +41,19 @@ class OrderManager implements IOrderManager
     /**
      * @var string
      */
-    protected $orderClassName = "";
+    protected $orderClassName = '';
 
     /**
      * @var string
      */
-    protected $orderItemClassName = "";
+    protected $orderItemClassName = '';
 
     /**
      * @param Config $config
      */
     public function __construct(Config $config)
     {
-        $this->config = new HelperContainer($config, "ordermanager");
+        $this->config = new HelperContainer($config, 'ordermanager');
     }
 
     /**
@@ -155,7 +155,7 @@ class OrderManager implements IOrderManager
      */
     protected function createCartId(ICart $cart)
     {
-        return get_class($cart) . "_" . $cart->getId();
+        return get_class($cart) . '_' . $cart->getId();
     }
 
     /**
@@ -170,7 +170,7 @@ class OrderManager implements IOrderManager
         $cartId = $this->createCartId($cart);
 
         $orderList = $this->buildOrderList();
-        $orderList->setCondition("cartId = ?", [$cartId]);
+        $orderList->setCondition('cartId = ?', [$cartId]);
 
         $orders = $orderList->load();
         if (count($orders) > 1) {
@@ -346,7 +346,7 @@ class OrderManager implements IOrderManager
         //sets customer to order - if available
         $env = Factory::getInstance()->getEnvironment();
 
-        if (@\Pimcore\Tool::classExists("\\Pimcore\\Model\\Object\\Customer")) {
+        if (@\Pimcore\Tool::classExists('\\Pimcore\\Model\\Object\\Customer')) {
             $customer = \Pimcore\Model\Object\Customer::getById($env->getCurrentUserId());
             $order->setCustomer($customer);
         }
@@ -361,7 +361,7 @@ class OrderManager implements IOrderManager
      */
     protected function createOrderNumber()
     {
-        return uniqid("ord_");
+        return uniqid('ord_');
     }
 
     /**
@@ -373,7 +373,7 @@ class OrderManager implements IOrderManager
     {
         $orderClassName = $this->getOrderClassName();
         if (!\Pimcore\Tool::classExists($orderClassName)) {
-            throw new \Exception("Order Class" . $orderClassName . " does not exist.");
+            throw new \Exception('Order Class' . $orderClassName . ' does not exist.');
         }
 
         return new $orderClassName();
@@ -388,7 +388,7 @@ class OrderManager implements IOrderManager
     {
         $orderItemClassName = $this->getOrderItemClassName();
         if (!\Pimcore\Tool::classExists($orderItemClassName)) {
-            throw new \Exception("OrderItem Class" . $orderItemClassName . " does not exist.");
+            throw new \Exception('OrderItem Class' . $orderItemClassName . ' does not exist.');
         }
 
         return new $orderItemClassName();
@@ -408,7 +408,7 @@ class OrderManager implements IOrderManager
         $key = $this->buildOrderItemKey($item);
 
         $orderItemList = $this->buildOrderItemList();
-        $orderItemList->setCondition("o_parentId = ? AND o_key = ?", [$parent->getId(), $key]);
+        $orderItemList->setCondition('o_parentId = ? AND o_key = ?', [$parent->getId(), $key]);
 
         $orderItems = $orderItemList->load();
         if (count($orderItems) > 1) {
@@ -480,7 +480,7 @@ class OrderManager implements IOrderManager
         foreach ($taxItems as $taxEntry) {
             $taxArray[] = [
                 $taxEntry->getEntry()->getName(),
-                $taxEntry->getPercent() . "%",
+                $taxEntry->getPercent() . '%',
                 $taxEntry->getAmount()
             ];
         }
@@ -592,7 +592,7 @@ class OrderManager implements IOrderManager
         //this call is needed in order to really load most updated object from cache or DB (otherwise it could be loaded from process)
         \Pimcore::collectGarbage();
 
-        $orderId = explode("~", $paymentStatus->getInternalPaymentId());
+        $orderId = explode('~', $paymentStatus->getInternalPaymentId());
         $orderId = $orderId[1];
         $orderClass = $this->getOrderClassName();
 

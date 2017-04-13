@@ -26,7 +26,7 @@ class Service
      */
     public static function getDeleteLogFile()
     {
-        return PIMCORE_SYSTEM_TEMP_DIRECTORY . "/webdav-delete.dat";
+        return PIMCORE_SYSTEM_TEMP_DIRECTORY . '/webdav-delete.dat';
     }
 
     /**
@@ -43,7 +43,7 @@ class Service
                 // cleanup old entries
                 $tmpLog = [];
                 foreach ($log as $path => $data) {
-                    if ($data["timestamp"] > (time() - 30)) { // remove 30 seconds old entries
+                    if ($data['timestamp'] > (time() - 30)) { // remove 30 seconds old entries
                         $tmpLog[$path] = $data;
                     }
                 }
@@ -62,7 +62,7 @@ class Service
         // cleanup old entries
         $tmpLog = [];
         foreach ($log as $path => $data) {
-            if ($data["timestamp"] > (time() - 30)) { // remove 30 seconds old entries
+            if ($data['timestamp'] > (time() - 30)) { // remove 30 seconds old entries
                 $tmpLog[$path] = $data;
             }
         }

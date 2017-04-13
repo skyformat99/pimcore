@@ -27,7 +27,7 @@ class Dao extends Model\Dao\PhpArrayTable
     public function configure()
     {
         parent::configure();
-        $this->setFile("predefined-properties");
+        $this->setFile('predefined-properties');
     }
 
     /**
@@ -43,10 +43,10 @@ class Dao extends Model\Dao\PhpArrayTable
 
         $data = $this->db->getById($this->model->getId());
 
-        if (isset($data["id"])) {
+        if (isset($data['id'])) {
             $this->assignVariablesToModel($data);
         } else {
-            throw new \Exception("Predefined property with id: " . $this->model->getId() . " does not exist");
+            throw new \Exception('Predefined property with id: ' . $this->model->getId() . ' does not exist');
         }
     }
 
@@ -64,17 +64,17 @@ class Dao extends Model\Dao\PhpArrayTable
         $key = $this->model->getKey();
 
         $data = $this->db->fetchAll(function ($row) use ($key) {
-            if ($row["key"] == $key) {
+            if ($row['key'] == $key) {
                 return true;
             }
 
             return false;
         });
 
-        if (count($data) && $data[0]["id"]) {
+        if (count($data) && $data[0]['id']) {
             $this->assignVariablesToModel($data[0]);
         } else {
-            throw new \Exception("Route with name: " . $this->model->getName() . " does not exist");
+            throw new \Exception('Route with name: ' . $this->model->getName() . ' does not exist');
         }
     }
 
@@ -92,8 +92,8 @@ class Dao extends Model\Dao\PhpArrayTable
         try {
             $dataRaw = get_object_vars($this->model);
             $data = [];
-            $allowedProperties = ["id", "name", "description", "key", "type", "data",
-                "config", "ctype", "inheritable", "creationDate", "modificationDate"];
+            $allowedProperties = ['id', 'name', 'description', 'key', 'type', 'data',
+                'config', 'ctype', 'inheritable', 'creationDate', 'modificationDate'];
 
             foreach ($dataRaw as $key => $value) {
                 if (in_array($key, $allowedProperties)) {

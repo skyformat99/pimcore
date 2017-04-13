@@ -528,17 +528,17 @@ class HeadScript extends CacheBusterAware
             if ($this->isCacheBuster()) {
                 // adds the automatic cache buster functionality
                 if (is_array($item->attributes)) {
-                    if (isset($item->attributes["src"])) {
-                        $realFile = PIMCORE_WEB_ROOT . $item->attributes["src"];
+                    if (isset($item->attributes['src'])) {
+                        $realFile = PIMCORE_WEB_ROOT . $item->attributes['src'];
                         if (file_exists($realFile)) {
-                            $item->attributes["src"] = "/cache-buster-" . filemtime($realFile) . $item->attributes["src"];
+                            $item->attributes['src'] = '/cache-buster-' . filemtime($realFile) . $item->attributes['src'];
                         }
                     }
                 }
             }
 
             \Pimcore::getEventDispatcher()->dispatch(FrontendEvents::VIEW_HELPER_HEAD_SCRIPT, new GenericEvent($this, [
-                "item" => $item
+                'item' => $item
             ]));
         }
     }

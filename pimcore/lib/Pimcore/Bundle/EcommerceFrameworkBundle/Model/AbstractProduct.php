@@ -49,7 +49,7 @@ class AbstractProduct extends \Pimcore\Model\Object\Concrete implements IIndexab
      */
     public function isActive($inProductList = false)
     {
-        throw new UnsupportedException("isActive is not supported for " . get_class($this));
+        throw new UnsupportedException('isActive is not supported for ' . get_class($this));
     }
 
     /**
@@ -63,7 +63,7 @@ class AbstractProduct extends \Pimcore\Model\Object\Concrete implements IIndexab
      */
     public function getPriceSystemName()
     {
-        throw new UnsupportedException("getPriceSystemName is not supported for " . get_class($this));
+        throw new UnsupportedException('getPriceSystemName is not supported for ' . get_class($this));
     }
 
     /**
@@ -98,7 +98,7 @@ class AbstractProduct extends \Pimcore\Model\Object\Concrete implements IIndexab
      */
     public function getCategories()
     {
-        throw new UnsupportedException("getCategories is not supported for " . get_class($this));
+        throw new UnsupportedException('getCategories is not supported for ' . get_class($this));
     }
 
 // =============================================
@@ -115,7 +115,7 @@ class AbstractProduct extends \Pimcore\Model\Object\Concrete implements IIndexab
      */
     public function getOSName()
     {
-        throw new UnsupportedException("getOSName is not supported for " . get_class($this));
+        throw new UnsupportedException('getOSName is not supported for ' . get_class($this));
     }
 
     /**
@@ -128,7 +128,7 @@ class AbstractProduct extends \Pimcore\Model\Object\Concrete implements IIndexab
      */
     public function getOSProductNumber()
     {
-        throw new UnsupportedException("getOSProductNumber is not supported for " . get_class($this));
+        throw new UnsupportedException('getOSProductNumber is not supported for ' . get_class($this));
     }
 
     /**
@@ -142,7 +142,7 @@ class AbstractProduct extends \Pimcore\Model\Object\Concrete implements IIndexab
      */
     public function getAvailabilitySystemName()
     {
-        return "default";
+        return 'default';
     }
 
     /**

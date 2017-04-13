@@ -33,12 +33,12 @@ class Config extends Model\AbstractModel
     /**
      * @var string
      */
-    public $name = "";
+    public $name = '';
 
     /**
      * @var string
      */
-    public $description = "";
+    public $description = '';
 
     /**
      * @var int
@@ -48,27 +48,27 @@ class Config extends Model\AbstractModel
     /**
      * @var string
      */
-    public $urlPattern = "";
+    public $urlPattern = '';
 
     /**
      * @var string
      */
-    public $textPattern = "";
+    public $textPattern = '';
 
     /**
      * @var string
      */
-    public $httpMethod = "";
+    public $httpMethod = '';
 
     /**
      * @var array
      */
     public $params = [
-        ["name" => "", "value" => ""],
-        ["name" => "", "value" => ""],
-        ["name" => "", "value" => ""],
-        ["name" => "", "value" => ""],
-        ["name" => "", "value" => ""],
+        ['name' => '', 'value' => ''],
+        ['name' => '', 'value' => ''],
+        ['name' => '', 'value' => ''],
+        ['name' => '', 'value' => ''],
+        ['name' => '', 'value' => ''],
     ];
 
     /**
@@ -108,7 +108,7 @@ class Config extends Model\AbstractModel
         $this->getDao()->delete();
 
         // clear cache tags
-        Cache::clearTags(["tagmanagement", "output"]);
+        Cache::clearTags(['tagmanagement', 'output']);
     }
 
     /**

@@ -46,14 +46,14 @@ class Out extends Model\Webservice\Data\Document\Snippet\Out
      *
      * @var string
      */
-    public $subject = "";
+    public $subject = '';
 
     /**
      * Contains the from email address
      *
      * @var string
      */
-    public $from = "";
+    public $from = '';
 
     /**
      * enables adding tracking parameters to all links
@@ -65,17 +65,17 @@ class Out extends Model\Webservice\Data\Document\Snippet\Out
     /**
      * @var string
      */
-    public $trackingParameterSource = "newsletter";
+    public $trackingParameterSource = 'newsletter';
 
     /**
      * @var string
      */
-    public $trackingParameterMedium = "email";
+    public $trackingParameterMedium = 'email';
 
     /**
      * @var string
      */
-    public $trackingParameterName = "";
+    public $trackingParameterName = '';
 
     /**
      * @var string

@@ -54,7 +54,7 @@ abstract class Concrete extends Model\Object\Listing
     public function __construct()
     {
         $this->objectTypeObject = true;
-        $this->initDao("\\Pimcore\\Model\\Object\\Listing\\Concrete");
+        $this->initDao('\\Pimcore\\Model\\Object\\Listing\\Concrete');
     }
 
     /**
@@ -175,11 +175,11 @@ abstract class Concrete extends Model\Object\Listing
     public function addFieldCollection($type, $fieldname = null)
     {
         if (empty($type)) {
-            throw new \Exception("No fieldcollectiontype given");
+            throw new \Exception('No fieldcollectiontype given');
         }
 
         Object\Fieldcollection\Definition::getByKey($type);
-        $this->fieldCollectionConfigs[] = ["type" => $type, "fieldname" => $fieldname];
+        $this->fieldCollectionConfigs[] = ['type' => $type, 'fieldname' => $fieldname];
     }
 
     /**
@@ -221,7 +221,7 @@ abstract class Concrete extends Model\Object\Listing
     public function addObjectbrick($type)
     {
         if (empty($type)) {
-            throw new \Exception("No objectbrick given");
+            throw new \Exception('No objectbrick given');
         }
 
         Object\Objectbrick\Definition::getByKey($type);

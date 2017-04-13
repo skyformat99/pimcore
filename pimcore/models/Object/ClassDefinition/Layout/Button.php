@@ -26,7 +26,7 @@ class Button extends Model\Object\ClassDefinition\Layout
      *
      * @var string
      */
-    public $fieldtype = "button";
+    public $fieldtype = 'button';
 
     /**
      * @var

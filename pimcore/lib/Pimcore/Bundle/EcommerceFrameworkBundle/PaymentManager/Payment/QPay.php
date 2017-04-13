@@ -204,7 +204,7 @@ class QPay implements IPayment
         ]);
         $form->setAction('https://www.qenta.com/qpay/init.php');
         $form->setMethod('post');
-        $form->setAttribute("data-currency", "EUR");
+        $form->setAttribute('data-currency', 'EUR');
 
         // omit these keys from the form
         $blacklistedFormKeys = ['secret'];
@@ -265,7 +265,7 @@ class QPay implements IPayment
 
         // compute and check fingerprint
         $fingerprint = $this->computeFingerprint($fingerprintParams);
-        if ($response["paymentState"] !== "FAILURE" && $fingerprint != $response['responseFingerprint']) {
+        if ($response['paymentState'] !== 'FAILURE' && $fingerprint != $response['responseFingerprint']) {
             // fingerprint is wrong, ignore this response
             return new Status(
                 $response['orderIdent'], $response['orderNumber'], $response['avsResponseMessage'] ?: $response['message'] ?: 'fingerprint error', IStatus::STATUS_CANCELLED

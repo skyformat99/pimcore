@@ -32,11 +32,11 @@ class Dao extends Model\Listing\Dao\AbstractDao
     public function load()
     {
         $items = [];
-        $usersData = $this->db->fetchAll("SELECT id,type FROM users" . $this->getCondition() . $this->getOrder() . $this->getOffsetLimit(), $this->model->getConditionVariables());
+        $usersData = $this->db->fetchAll('SELECT id,type FROM users' . $this->getCondition() . $this->getOrder() . $this->getOffsetLimit(), $this->model->getConditionVariables());
 
         foreach ($usersData as $userData) {
-            $className = Model\User\Service::getClassNameForType($userData["type"]);
-            $item = $className::getById($userData["id"]);
+            $className = Model\User\Service::getClassNameForType($userData['type']);
+            $item = $className::getById($userData['id']);
             if ($item) {
                 $items[] = $item;
             }
@@ -54,12 +54,12 @@ class Dao extends Model\Listing\Dao\AbstractDao
     {
         $condition = parent::getCondition();
         if (!empty($condition)) {
-            $condition .= " AND ";
+            $condition .= ' AND ';
         } else {
-            $condition = " WHERE ";
+            $condition = ' WHERE ';
         }
 
-        $types = [$this->model->getType(), $this->model->getType() . "folder"];
+        $types = [$this->model->getType(), $this->model->getType() . 'folder'];
         $condition .= "id > 0 AND `type` IN ('" . implode("','", $types) . "')";
 
         return $condition;

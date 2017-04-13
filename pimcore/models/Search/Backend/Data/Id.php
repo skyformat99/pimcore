@@ -37,7 +37,7 @@ class Id
         if ($webResource instanceof Element\ElementInterface) {
             $this->type = Element\Service::getType($webResource);
         } else {
-            $this->type = "unknown";
+            $this->type = 'unknown';
         }
     }
 

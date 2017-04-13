@@ -39,6 +39,6 @@ class Dao extends Model\Translation\AbstractTranslation\Listing\Dao
      */
     public static function getItemClass()
     {
-        return "\\Pimcore\\Model\\Translation\\Admin";
+        return '\\Pimcore\\Model\\Translation\\Admin';
     }
 }

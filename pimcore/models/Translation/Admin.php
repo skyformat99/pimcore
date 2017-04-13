@@ -53,7 +53,7 @@ class Admin extends AbstractTranslation
         }
 
         if (!$language) {
-            $language = \Pimcore::getContainer()->get("pimcore.locale")->findLocale();
+            $language = \Pimcore::getContainer()->get('pimcore.locale')->findLocale();
         }
 
         if (!in_array($language, Tool\Admin::getLanguages())) {

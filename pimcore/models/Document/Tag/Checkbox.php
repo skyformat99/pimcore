@@ -38,7 +38,7 @@ class Checkbox extends Model\Document\Tag
      */
     public function getType()
     {
-        return "checkbox";
+        return 'checkbox';
     }
 
     /**
@@ -121,7 +121,7 @@ class Checkbox extends Model\Document\Tag
         if ($data->bool === null or is_bool($data)) {
             $this->value = (bool) $data->value;
         } else {
-            throw new \Exception("cannot get values from web service import - invalid data");
+            throw new \Exception('cannot get values from web service import - invalid data');
         }
     }
 }

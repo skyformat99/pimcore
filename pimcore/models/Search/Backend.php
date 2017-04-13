@@ -43,61 +43,61 @@ class Backend
     protected function createBackendSearchQuery($queryStr, $type= null, $subtype = null, $classname = null, $modifiedRange = null, $createdRange = null, $userOwner = null, $userModification = null, $countOnly=false)
     {
         if ($countOnly) {
-            $selectFields = " count(*) as count ";
+            $selectFields = ' count(*) as count ';
         } else {
-            $selectFields = " * ";
+            $selectFields = ' * ';
         }
 
-        $this->backendQuery = "SELECT ".$selectFields."
+        $this->backendQuery = 'SELECT '.$selectFields.'
                 FROM search_backend_data d
-                WHERE (d.data like ? OR properties like ? )";
+                WHERE (d.data like ? OR properties like ? )';
 
         $this->backendQueryParams = ["%$queryStr%", "%$queryStr%"];
 
         if (!empty($type)) {
-            $this->backendQuery .= " AND maintype = ? ";
+            $this->backendQuery .= ' AND maintype = ? ';
             $this->backendQueryParams[] = $type;
         }
 
         if (!empty($subtype)) {
-            $this->backendQuery .= " AND type = ? ";
+            $this->backendQuery .= ' AND type = ? ';
             $this->backendQueryParams[] = $subtype;
         }
 
         if (!empty($classname)) {
-            $this->backendQuery .= " AND subtype = ? ";
+            $this->backendQuery .= ' AND subtype = ? ';
             $this->backendQueryParams[] = $classname;
         }
 
         if (is_array($modifiedRange)) {
             if ($modifiedRange[0] != null) {
-                $this->backendQuery .= " AND modificationDate >= ? ";
+                $this->backendQuery .= ' AND modificationDate >= ? ';
                 $this->backendQueryParams[] = $modifiedRange[0];
             }
             if ($modifiedRange[1] != null) {
-                $this->backendQuery .= " AND modificationDate <= ? ";
+                $this->backendQuery .= ' AND modificationDate <= ? ';
                 $this->backendQueryParams[] = $modifiedRange[1];
             }
         }
 
         if (is_array($createdRange)) {
             if ($createdRange[0] != null) {
-                $this->backendQuery .= " AND creationDate >= ? ";
+                $this->backendQuery .= ' AND creationDate >= ? ';
                 $this->backendQueryParams[] = $createdRange[0];
             }
             if ($createdRange[1] != null) {
-                $this->backendQuery .= " AND creationDate <= ? ";
+                $this->backendQuery .= ' AND creationDate <= ? ';
                 $this->backendQueryParams[] = $createdRange[1];
             }
         }
 
         if (!empty($userOwner)) {
-            $this->backendQuery .= " AND userOwner = ? ";
+            $this->backendQuery .= ' AND userOwner = ? ';
             $this->backendQueryParams[] = $userOwner;
         }
 
         if (!empty($userModification)) {
-            $this->backendQuery .= " AND userModification = ? ";
+            $this->backendQuery .= ' AND userModification = ? ';
             $this->backendQueryParams[] = $userModification;
         }
 

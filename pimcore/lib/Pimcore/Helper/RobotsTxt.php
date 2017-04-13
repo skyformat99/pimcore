@@ -41,11 +41,11 @@ class RobotsTxt
         $this->_domain = $domain;
         try {
             $robotsUrl = $domain . '/robots.txt';
-            $cacheKey = "robots_" . crc32($robotsUrl);
+            $cacheKey = 'robots_' . crc32($robotsUrl);
 
             if (!$robotsTxt = Cache::load($cacheKey)) {
                 $robotsTxt = \Pimcore\Tool::getHttpData($robotsUrl);
-                Cache::save($robotsTxt, $cacheKey, ["system"], 3600, 999, true);
+                Cache::save($robotsTxt, $cacheKey, ['system'], 3600, 999, true);
             }
 
             $this->_rules = $this->_makeRules($robotsTxt);

@@ -33,20 +33,20 @@ class Dao extends Model\Dao\AbstractDao
         }
 
         $element = [
-            "data" => $data,
-            "documentId" => $this->model->getDocumentId(),
-            "name" => $this->model->getName(),
-            "type" => $this->model->getType()
+            'data' => $data,
+            'documentId' => $this->model->getDocumentId(),
+            'name' => $this->model->getName(),
+            'type' => $this->model->getType()
         ];
 
-        $this->db->insertOrUpdate("documents_elements", $element);
+        $this->db->insertOrUpdate('documents_elements', $element);
     }
 
     public function delete()
     {
-        $this->db->delete("documents_elements", [
-            "documentId" => $this->model->getDocumentId(),
-            "name" => $this->model->getName()
+        $this->db->delete('documents_elements', [
+            'documentId' => $this->model->getDocumentId(),
+            'name' => $this->model->getName()
         ]);
     }
 }

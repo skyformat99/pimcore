@@ -27,7 +27,7 @@ class Dao extends Model\Translation\AbstractTranslation\Dao
     /**
      * @var string
      */
-    public static $_tableName = "translations_website";
+    public static $_tableName = 'translations_website';
 
     /**
      * @return mixed

@@ -26,7 +26,7 @@ class Tool
      */
     public static function createClassMappings()
     {
-        $modelsDir = PIMCORE_PATH."/models/";
+        $modelsDir = PIMCORE_PATH.'/models/';
         $files = rscandir($modelsDir);
         $includePatterns = [
             "/Webservice\/Data/"
@@ -34,9 +34,9 @@ class Tool
 
         foreach ($files as $file) {
             if (is_file($file)) {
-                $file = str_replace($modelsDir, "", $file);
-                $file = str_replace(".php", "", $file);
-                $class = str_replace(DIRECTORY_SEPARATOR, "_", $file);
+                $file = str_replace($modelsDir, '', $file);
+                $file = str_replace('.php', '', $file);
+                $class = str_replace(DIRECTORY_SEPARATOR, '_', $file);
 
                 if (\Pimcore\Tool::classExists($class)) {
                     $match = false;
@@ -47,7 +47,7 @@ class Tool
                         }
                     }
 
-                    if (strpos($file, "Webservice".DIRECTORY_SEPARATOR."Data") !== false) {
+                    if (strpos($file, 'Webservice'.DIRECTORY_SEPARATOR.'Data') !== false) {
                         $match = true;
                     }
 
@@ -55,7 +55,7 @@ class Tool
                         continue;
                     }
 
-                    $classMap[str_replace("\\Pimcore\\Model\\Webservice\\Data\\", "", $class)] = $class;
+                    $classMap[str_replace('\\Pimcore\\Model\\Webservice\\Data\\', '', $class)] = $class;
                 }
             }
         }

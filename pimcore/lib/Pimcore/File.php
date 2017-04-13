@@ -41,13 +41,13 @@ class File
     public static function getFileExtension($name)
     {
         $name = strtolower($name);
-        $parts = explode(".", $name);
+        $parts = explode('.', $name);
 
         if (count($parts) > 1) {
             return strtolower($parts[count($parts) - 1]);
         }
 
-        return "";
+        return '';
     }
 
     /**
@@ -66,7 +66,7 @@ class File
 
         // keys shouldn't start with a "." (=hidden file) *nix operating systems
         // keys shouldn't end with a "." - Windows issue: filesystem API trims automatically . at the end of a folder name (no warning ... et al)
-        $tmpFilename = trim($tmpFilename, ". ");
+        $tmpFilename = trim($tmpFilename, '. ');
 
         return $tmpFilename;
     }
@@ -87,7 +87,7 @@ class File
         $isIncludeAble = false;
 
         // use stream_resolve_include_path if PHP is >= 5.3.2 because the performance is better
-        if (function_exists("stream_resolve_include_path")) {
+        if (function_exists('stream_resolve_include_path')) {
             if ($include = stream_resolve_include_path($filename)) {
                 if (@is_readable($include)) {
                     $isIncludeAble = true;
@@ -143,7 +143,7 @@ class File
     {
         self::put($path, $data);
 
-        if (function_exists("opcache_reset")) {
+        if (function_exists('opcache_reset')) {
             opcache_reset();
         }
     }

@@ -47,7 +47,7 @@ class MultiSelectRelation extends \Pimcore\Bundle\EcommerceFrameworkBundle\Filte
         }
 
         $objects = [];
-        Logger::info("Load Objects...");
+        Logger::info('Load Objects...');
         $availableRelations = [];
         if ($filterDefinition->getAvailableRelations()) {
             $availableRelations = $this->loadAllAvailableRelations($filterDefinition->getAvailableRelations());
@@ -62,7 +62,7 @@ class MultiSelectRelation extends \Pimcore\Bundle\EcommerceFrameworkBundle\Filte
         // sort result
         $values = $this->sortResult($filterDefinition, $values);
 
-        Logger::info("done.");
+        Logger::info('done.');
 
         if ($filterDefinition->getScriptPath()) {
             $script = $filterDefinition->getScriptPath();
@@ -71,13 +71,13 @@ class MultiSelectRelation extends \Pimcore\Bundle\EcommerceFrameworkBundle\Filte
         }
 
         return $this->render($script, [
-            "hideFilter" => $filterDefinition->getRequiredFilterField() && empty($currentFilter[$filterDefinition->getRequiredFilterField()]),
-            "label" => $filterDefinition->getLabel(),
-            "currentValue" => $currentFilter[$field],
-            "values" => $values,
-            "objects" => $objects,
-            "fieldname" => $field,
-            "resultCount" => $productList->count()
+            'hideFilter' => $filterDefinition->getRequiredFilterField() && empty($currentFilter[$filterDefinition->getRequiredFilterField()]),
+            'label' => $filterDefinition->getLabel(),
+            'currentValue' => $currentFilter[$field],
+            'values' => $values,
+            'objects' => $objects,
+            'fieldname' => $field,
+            'resultCount' => $productList->count()
         ]);
     }
 
@@ -93,7 +93,7 @@ class MultiSelectRelation extends \Pimcore\Bundle\EcommerceFrameworkBundle\Filte
             $value = [];
 
             if (!is_array($objects)) {
-                $objects = explode(",", $objects);
+                $objects = explode(',', $objects);
             }
 
             if (is_array($objects)) {

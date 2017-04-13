@@ -27,7 +27,7 @@ class InternalVideoConverterCommand extends AbstractCommand
             ->setHidden(true)
             ->setName('internal:video-converter')
             ->setDescription('For internal use only')
-            ->addArgument("processId");
+            ->addArgument('processId');
     }
 
     /**
@@ -35,6 +35,6 @@ class InternalVideoConverterCommand extends AbstractCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        Asset\Video\Thumbnail\Processor::execute($input->getArgument("processId"));
+        Asset\Video\Thumbnail\Processor::execute($input->getArgument('processId'));
     }
 }

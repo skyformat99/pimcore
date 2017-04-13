@@ -83,36 +83,36 @@ class Service
     {
 
         //correct relative path
-        if (strpos($path, "/") !== 0) {
-            $path = $rootElement->getRealFullPath() . "/" . $path;
+        if (strpos($path, '/') !== 0) {
+            $path = $rootElement->getRealFullPath() . '/' . $path;
         }
 
         $type = $apiElement->type;
 
         if ($apiElement instanceof Webservice\Data\Asset) {
-            $className = "\\Pimcore\\Model\\Asset\\" . ucfirst($type);
-            $parentClassName = "\\Pimcore\\Model\\Asset";
-            $maintype = "asset";
+            $className = '\\Pimcore\\Model\\Asset\\' . ucfirst($type);
+            $parentClassName = '\\Pimcore\\Model\\Asset';
+            $maintype = 'asset';
             $fullPath = $path . $apiElement->filename;
         } elseif ($apiElement instanceof Webservice\Data\Object) {
-            $maintype = "object";
-            if ($type == "object") {
-                $className = "\\Pimcore\\Model\\Object\\" . ucfirst($apiElement->className);
+            $maintype = 'object';
+            if ($type == 'object') {
+                $className = '\\Pimcore\\Model\\Object\\' . ucfirst($apiElement->className);
                 if (!Tool::classExists($className)) {
-                    throw new \Exception("Unknown class [ " . $className . " ]");
+                    throw new \Exception('Unknown class [ ' . $className . ' ]');
                 }
             } else {
-                $className = "\\Pimcore\\Model\\Object\\" . ucfirst($type);
+                $className = '\\Pimcore\\Model\\Object\\' . ucfirst($type);
             }
-            $parentClassName = "\\Pimcore\\Model\\Object";
+            $parentClassName = '\\Pimcore\\Model\\Object';
             $fullPath = $path . $apiElement->key;
         } elseif ($apiElement instanceof Webservice\Data\Document) {
-            $maintype = "document";
-            $className = "\\Pimcore\\Model\\Document\\" . ucfirst($type);
-            $parentClassName = "\\Pimcore\\Model\\Document";
+            $maintype = 'document';
+            $className = '\\Pimcore\\Model\\Document\\' . ucfirst($type);
+            $parentClassName = '\\Pimcore\\Model\\Document';
             $fullPath = $path . $apiElement->key;
         } else {
-            throw new \Exception("Unknown import element");
+            throw new \Exception('Unknown import element');
         }
 
         $existingElement = $className::getByPath($fullPath);
@@ -133,7 +133,7 @@ class Service
             $element->setClassName($apiElement->className);
             $class = Object\ClassDefinition::getByName($apiElement->className);
             if (!$class instanceof Object\ClassDefinition) {
-                throw new \Exception("Unknown object class [ " . $apiElement->className . " ] ");
+                throw new \Exception('Unknown object class [ ' . $apiElement->className . ' ] ');
             }
             $element->setClassId($class->getId());
         } else {
@@ -144,12 +144,12 @@ class Service
         $key = $element->getKey();
         if (empty($key) and $apiElement->id == 1) {
             if ($element instanceof Asset) {
-                $element->setFilename("home_" . uniqid());
+                $element->setFilename('home_' . uniqid());
             } else {
-                $element->setKey("home_" . uniqid());
+                $element->setKey('home_' . uniqid());
             }
         } elseif (empty($key)) {
-            throw new \Exception("Cannot create element without key ");
+            throw new \Exception('Cannot create element without key ');
         }
 
         $parent = $parentClassName::getByPath($path);
@@ -157,13 +157,13 @@ class Service
         if (Element\Service::getType($rootElement) == $maintype and $parent) {
             $element->setParentId($parent->getId());
             $apiElement->parentId = $parent->getId();
-            $existingElement = $parentClassName::getByPath($parent->getRealFullPath() . "/" . $element->getKey());
+            $existingElement = $parentClassName::getByPath($parent->getRealFullPath() . '/' . $element->getKey());
             if ($existingElement) {
                 //set dummy key to avoid duplicate paths
                 if ($element instanceof Asset) {
-                    $element->setFilename(str_replace("/", "_", $apiElement->path) . uniqid() . "_" . $elementCounter . "_" . $element->getFilename());
+                    $element->setFilename(str_replace('/', '_', $apiElement->path) . uniqid() . '_' . $elementCounter . '_' . $element->getFilename());
                 } else {
-                    $element->setKey(str_replace("/", "_", $apiElement->path) . uniqid() . "_" . $elementCounter . "_" . $element->getKey());
+                    $element->setKey(str_replace('/', '_', $apiElement->path) . uniqid() . '_' . $elementCounter . '_' . $element->getKey());
                 }
             }
         } elseif (Element\Service::getType($rootElement) != $maintype) {
@@ -172,33 +172,33 @@ class Service
 
             //set dummy key to avoid duplicate paths
             if ($element instanceof Asset) {
-                $element->setFilename(str_replace("/", "_", $apiElement->path) . uniqid() . "_" . $elementCounter . "_" . $element->getFilename());
+                $element->setFilename(str_replace('/', '_', $apiElement->path) . uniqid() . '_' . $elementCounter . '_' . $element->getFilename());
             } else {
-                $element->setKey(str_replace("/", "_", $apiElement->path) . uniqid() . "_" . $elementCounter . "_" . $element->getKey());
+                $element->setKey(str_replace('/', '_', $apiElement->path) . uniqid() . '_' . $elementCounter . '_' . $element->getKey());
             }
 
             if ($potentialParent) {
                 $element->setParentId($potentialParent->getId());
                 //set actual id and path for second run
-                $apiElements[$apiKey]["path"] = $potentialParent->getRealFullPath();
+                $apiElements[$apiKey]['path'] = $potentialParent->getRealFullPath();
                 $apiElement->parentId = $potentialParent->getId();
             } else {
                 $element->setParentId(1);
                 //set actual id and path for second run
-                $apiElements[$apiKey]["path"] = "/";
+                $apiElements[$apiKey]['path'] = '/';
                 $apiElement->parentId = 1;
             }
         } else {
             $element->setParentId($rootElement->getId());
             //set actual id and path for second run
-            $apiElements[$apiKey]["path"] = $rootElement->getRealFullPath();
+            $apiElements[$apiKey]['path'] = $rootElement->getRealFullPath();
             $apiElement->parentId = $rootElement->getId();
 
             //set dummy key to avoid duplicate paths
             if ($element instanceof Asset) {
-                $element->setFilename(str_replace("/", "_", $apiElement->path) . uniqid() . "_" . $elementCounter . "_" . $element->getFilename());
+                $element->setFilename(str_replace('/', '_', $apiElement->path) . uniqid() . '_' . $elementCounter . '_' . $element->getFilename());
             } else {
-                $element->setKey(str_replace("/", "_", $apiElement->path) . uniqid() . "_" . $elementCounter . "_" . $element->getKey());
+                $element->setKey(str_replace('/', '_', $apiElement->path) . uniqid() . '_' . $elementCounter . '_' . $element->getKey());
             }
         }
 
@@ -214,7 +214,7 @@ class Service
         $element->save();
 
         //todo save type and id for later rollback
-        $this->importInfo[Element\Service::getType($element) . "_" . $element->getId()] = ["id" => $element->getId(), "type" => Element\Service::getType($element), "fullpath" => $element->getRealFullPath()];
+        $this->importInfo[Element\Service::getType($element) . '_' . $element->getId()] = ['id' => $element->getId(), 'type' => Element\Service::getType($element), 'fullpath' => $element->getRealFullPath()];
 
         return $element;
     }
@@ -233,7 +233,7 @@ class Service
         //correct properties
         if ($apiElement->properties) {
             foreach ($apiElement->properties as $property) {
-                if (in_array($property->type, ["asset", "object", "document"])) {
+                if (in_array($property->type, ['asset', 'object', 'document'])) {
                     $property->data = $idMapping[$property->type][$property->data];
                 }
             }
@@ -248,19 +248,19 @@ class Service
     {
         if ($apiElement->elements) {
             foreach ($apiElement->elements as $el) {
-                if ($el->type == "href" and is_object($el->value) and $el->value->id) {
+                if ($el->type == 'href' and is_object($el->value) and $el->value->id) {
                     $el->value->id = $idMapping[$el->value->type][$el->value->id];
-                } elseif ($el->type == "image" and is_object($el->value) and $el->value->id) {
-                    $el->value->id = $idMapping["asset"][$el->value->id];
-                } elseif ($el->type == "wysiwyg" and is_object($el->value) and $el->value->text) {
+                } elseif ($el->type == 'image' and is_object($el->value) and $el->value->id) {
+                    $el->value->id = $idMapping['asset'][$el->value->id];
+                } elseif ($el->type == 'wysiwyg' and is_object($el->value) and $el->value->text) {
                     $el->value->text = Tool\Text::replaceWysiwygTextRelationIds($idMapping, $el->value->text);
-                } elseif ($el->type == "link" and is_object($el->value) and is_array($el->value->data) and $el->value->data["internalId"]) {
-                    $el->value->data["internalId"] = $idMapping[$el->value->data["internalType"]][$el->value->data["internalId"]];
-                } elseif ($el->type == "video" and is_object($el->value) and $el->value->type == "asset") {
+                } elseif ($el->type == 'link' and is_object($el->value) and is_array($el->value->data) and $el->value->data['internalId']) {
+                    $el->value->data['internalId'] = $idMapping[$el->value->data['internalType']][$el->value->data['internalId']];
+                } elseif ($el->type == 'video' and is_object($el->value) and $el->value->type == 'asset') {
                     $el->value->id = $idMapping[$el->value->type][$el->value->id];
-                } elseif ($el->type == "snippet" and is_object($el->value) and $el->value->id) {
-                    $el->value->id = $idMapping["document"][$el->value->id];
-                } elseif ($el->type == "renderlet" and is_object($el->value) and $el->value->id) {
+                } elseif ($el->type == 'snippet' and is_object($el->value) and $el->value->id) {
+                    $el->value->id = $idMapping['document'][$el->value->id];
+                } elseif ($el->type == 'renderlet' and is_object($el->value) and $el->value->id) {
                     $el->value->id = $idMapping[$el->value->type][$el->value->id];
                 }
             }
@@ -275,43 +275,43 @@ class Service
     {
         if ($apiElement->elements) {
             foreach ($apiElement->elements as $el) {
-                if ($el->type == "href" and $el->value["id"]) {
-                    $el->value["id"] = $idMapping[$el->value["type"]][$el->value["id"]];
-                } elseif ($el->type == "image" and $el->value) {
-                    $el->value = $idMapping["asset"][$el->value];
-                } elseif ($el->type == "link" and $el->value["internal"]) {
-                    $el->value["internal"] = $idMapping[$el->value["internalType"]][$el->value["internal"]];
-                } elseif ($el->type == "multihref") {
+                if ($el->type == 'href' and $el->value['id']) {
+                    $el->value['id'] = $idMapping[$el->value['type']][$el->value['id']];
+                } elseif ($el->type == 'image' and $el->value) {
+                    $el->value = $idMapping['asset'][$el->value];
+                } elseif ($el->type == 'link' and $el->value['internal']) {
+                    $el->value['internal'] = $idMapping[$el->value['internalType']][$el->value['internal']];
+                } elseif ($el->type == 'multihref') {
                     if (is_array($el->value)) {
                         for ($i = 0; $i < count($el->value); $i++) {
-                            $el->value[$i]["id"] = $idMapping[$el->value[$i]["type"]][$el->value[$i]["id"]];
+                            $el->value[$i]['id'] = $idMapping[$el->value[$i]['type']][$el->value[$i]['id']];
                         }
                     }
-                } elseif ($el->type == "objects") {
+                } elseif ($el->type == 'objects') {
                     if (is_array($el->value)) {
                         for ($i = 0; $i < count($el->value); $i++) {
-                            $el->value[$i]["id"] = $idMapping["object"][$el->value[$i]["id"]];
+                            $el->value[$i]['id'] = $idMapping['object'][$el->value[$i]['id']];
                         }
                     }
-                } elseif ($el->type == "wysiwyg") {
+                } elseif ($el->type == 'wysiwyg') {
                     $el->value = Tool\Text::replaceWysiwygTextRelationIds($idMapping, $el->value);
-                } elseif ($el->type == "fieldcollections") {
+                } elseif ($el->type == 'fieldcollections') {
                     if ($el instanceof Webservice\Data\Object\Element and is_array($el->value)) {
                         foreach ($el->value as $fieldCollectionEl) {
                             if (is_array($fieldCollectionEl->value)) {
                                 foreach ($fieldCollectionEl->value as $collectionItem) {
-                                    if ($collectionItem->type == "image") {
-                                        $collectionItem->value = $idMapping["asset"][$collectionItem->value];
-                                    } elseif ($collectionItem->type == "wysiwyg") {
+                                    if ($collectionItem->type == 'image') {
+                                        $collectionItem->value = $idMapping['asset'][$collectionItem->value];
+                                    } elseif ($collectionItem->type == 'wysiwyg') {
                                         $collectionItem->value = Tool\Text::replaceWysiwygTextRelationIds($idMapping, $collectionItem->value);
-                                    } elseif ($collectionItem->type == "link" and $collectionItem->value["internalType"]) {
-                                        $collectionItem->value["internal"] = $idMapping[$collectionItem->value["internalType"]][$collectionItem->value["internal"]];
-                                    } elseif ($collectionItem->type == "href" and $collectionItem->value["id"]) {
-                                        $collectionItem->value["id"] = $idMapping[$collectionItem->value["type"]][$collectionItem->value["id"]];
-                                    } elseif (($collectionItem->type == "objects" or $collectionItem->type == "multihref") and is_array($collectionItem->value) and count($collectionItem->value) > 0) {
+                                    } elseif ($collectionItem->type == 'link' and $collectionItem->value['internalType']) {
+                                        $collectionItem->value['internal'] = $idMapping[$collectionItem->value['internalType']][$collectionItem->value['internal']];
+                                    } elseif ($collectionItem->type == 'href' and $collectionItem->value['id']) {
+                                        $collectionItem->value['id'] = $idMapping[$collectionItem->value['type']][$collectionItem->value['id']];
+                                    } elseif (($collectionItem->type == 'objects' or $collectionItem->type == 'multihref') and is_array($collectionItem->value) and count($collectionItem->value) > 0) {
                                         for ($i=0; $i < count($collectionItem->value); $i++) {
-                                            if ($collectionItem->value[$i]["id"]) {
-                                                $collectionItem->value[$i]["id"] = $idMapping[$collectionItem->value[$i]["type"]][$collectionItem->value[$i]["id"]];
+                                            if ($collectionItem->value[$i]['id']) {
+                                                $collectionItem->value[$i]['id'] = $idMapping[$collectionItem->value[$i]['type']][$collectionItem->value[$i]['id']];
                                             }
                                         }
                                     }
@@ -319,15 +319,15 @@ class Service
                             }
                         }
                     }
-                } elseif ($el->type == "localizedfields") {
+                } elseif ($el->type == 'localizedfields') {
                     if (is_array($el->value)) {
                         foreach ($el->value as $localizedDataEl) {
-                            if ($localizedDataEl->type == "image") {
-                                $localizedDataEl->value = $idMapping["asset"][$localizedDataEl->value];
-                            } elseif ($localizedDataEl->type == "wysiwyg") {
+                            if ($localizedDataEl->type == 'image') {
+                                $localizedDataEl->value = $idMapping['asset'][$localizedDataEl->value];
+                            } elseif ($localizedDataEl->type == 'wysiwyg') {
                                 $localizedDataEl->value = Tool\Text::replaceWysiwygTextRelationIds($idMapping, $localizedDataEl->value);
-                            } elseif ($localizedDataEl->type == "link" and $localizedDataEl->value["internalType"]) {
-                                $localizedDataEl->value["internal"] = $idMapping[$localizedDataEl->value["internalType"]][$localizedDataEl->value["internal"]];
+                            } elseif ($localizedDataEl->type == 'link' and $localizedDataEl->value['internalType']) {
+                                $localizedDataEl->value['internal'] = $idMapping[$localizedDataEl->value['internalType']][$localizedDataEl->value['internal']];
                             }
                         }
                     }
@@ -348,7 +348,7 @@ class Service
     {
         $user = $this->user;
         if (!$user instanceof Model\User) {
-            throw new \Exception("No user present");
+            throw new \Exception('No user present');
         }
         if ($creation) {
             $element->setUserOwner($user->getId());

@@ -112,25 +112,25 @@ abstract class Tag extends Model\AbstractModel implements Model\Document\Tag\Tag
     {
 
         // get configuration data for admin
-        if (method_exists($this, "getDataEditmode")) {
+        if (method_exists($this, 'getDataEditmode')) {
             $data = $this->getDataEditmode();
         } else {
             $data = $this->getData();
         }
 
         $options = [
-            "options" => $this->getOptions(),
-            "data" => $data,
-            "name" => $this->getName(),
-            "id" => "pimcore_editable_" . $this->getName(),
-            "type" => $this->getType(),
-            "inherited" => $this->getInherited()
+            'options' => $this->getOptions(),
+            'data' => $data,
+            'name' => $this->getName(),
+            'id' => 'pimcore_editable_' . $this->getName(),
+            'type' => $this->getType(),
+            'inherited' => $this->getInherited()
         ];
         $options = json_encode($options);
 
-        $class = "pimcore_editable pimcore_tag_" . $this->getType();
-        if (array_key_exists("class", $this->getOptions())) {
-            $class .= (" " . $this->getOptions()["class"]);
+        $class = 'pimcore_editable pimcore_tag_' . $this->getType();
+        if (array_key_exists('class', $this->getOptions())) {
+            $class .= (' ' . $this->getOptions()['class']);
         }
 
         return '
@@ -274,7 +274,7 @@ abstract class Tag extends Model\AbstractModel implements Model\Document\Tag\Tag
     {
 
         // here the "normal" task of __sleep ;-)
-        $blockedVars = ["dao", "controller", "view", "editmode", "options"];
+        $blockedVars = ['dao', 'controller', 'view', 'editmode', 'options'];
         $vars = get_object_vars($this);
         foreach ($vars as $key => $value) {
             if (!in_array($key, $blockedVars)) {
@@ -292,7 +292,7 @@ abstract class Tag extends Model\AbstractModel implements Model\Document\Tag\Tag
      */
     public function __toString()
     {
-        $return = "";
+        $return = '';
 
         try {
             if ($this->editmode) {
@@ -308,7 +308,7 @@ abstract class Tag extends Model\AbstractModel implements Model\Document\Tag\Tag
                 return $return;
             }
 
-            Logger::error("toString() returned an exception: {exception}", [
+            Logger::error('toString() returned an exception: {exception}', [
                 'exception' => $e
             ]);
 
@@ -408,15 +408,15 @@ abstract class Tag extends Model\AbstractModel implements Model\Document\Tag\Tag
             if ($value instanceof Model\Element\ElementInterface) {
                 $value = $value->getId();
             }
-            $className = Webservice\Data\Mapper::findWebserviceClass($value, "out");
-            $el[$key] = Webservice\Data\Mapper::map($value, $className, "out");
+            $className = Webservice\Data\Mapper::findWebserviceClass($value, 'out');
+            $el[$key] = Webservice\Data\Mapper::map($value, $className, 'out');
         }
 
-        unset($el["dao"]);
-        unset($el["documentId"]);
-        unset($el["controller"]);
-        unset($el["view"]);
-        unset($el["editmode"]);
+        unset($el['dao']);
+        unset($el['documentId']);
+        unset($el['controller']);
+        unset($el['view']);
+        unset($el['editmode']);
 
         $el = Webservice\Data\Mapper::toObject($el);
 
@@ -473,12 +473,12 @@ abstract class Tag extends Model\AbstractModel implements Model\Document\Tag\Tag
 
         // @todo add document-id to registry key | for example for embeded snippets
         // set suffixes if the tag is inside a block
-        if (\Pimcore\Cache\Runtime::isRegistered("pimcore_tag_block_current")) {
-            $blocks = \Pimcore\Cache\Runtime::get("pimcore_tag_block_current");
+        if (\Pimcore\Cache\Runtime::isRegistered('pimcore_tag_block_current')) {
+            $blocks = \Pimcore\Cache\Runtime::get('pimcore_tag_block_current');
 
-            $numeration = \Pimcore\Cache\Runtime::get("pimcore_tag_block_numeration");
+            $numeration = \Pimcore\Cache\Runtime::get('pimcore_tag_block_numeration');
             if (is_array($blocks) and count($blocks) > 0) {
-                if ($type == "block") {
+                if ($type == 'block') {
                     $tmpBlocks = $blocks;
                     $tmpNumeration = $numeration;
                     array_pop($tmpBlocks);
@@ -486,7 +486,7 @@ abstract class Tag extends Model\AbstractModel implements Model\Document\Tag\Tag
 
                     $tmpName = $name;
                     if (is_array($tmpBlocks)) {
-                        $tmpName = $name . implode("_", $tmpBlocks) . implode("_", $tmpNumeration);
+                        $tmpName = $name . implode('_', $tmpBlocks) . implode('_', $tmpNumeration);
                     }
 
                     if ($blocks[count($blocks) - 1] == $tmpName) {
@@ -494,12 +494,12 @@ abstract class Tag extends Model\AbstractModel implements Model\Document\Tag\Tag
                         array_pop($numeration);
                     }
                 }
-                $name = $name . implode("_", $blocks) . implode("_", $numeration);
+                $name = $name . implode('_', $blocks) . implode('_', $numeration);
             }
         }
 
         if (strlen($name) > 750) {
-            throw new \Exception("Composite name is longer than 750 characters - use shorter names for your editables or reduce amount of nesting levels. Name is: " . $name);
+            throw new \Exception('Composite name is longer than 750 characters - use shorter names for your editables or reduce amount of nesting levels. Name is: ' . $name);
         }
 
         return $name;

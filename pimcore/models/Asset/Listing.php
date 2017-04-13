@@ -45,14 +45,14 @@ class Listing extends Model\Listing\AbstractListing implements \Zend_Paginator_A
      * @var array
      */
     public $validOrderKeys = [
-        "creationDate",
-        "modificationDate",
-        "id",
-        "filename",
-        "type",
-        "parentId",
-        "path",
-        "mimetype"
+        'creationDate',
+        'modificationDate',
+        'id',
+        'filename',
+        'type',
+        'parentId',
+        'path',
+        'mimetype'
     ];
 
     /**

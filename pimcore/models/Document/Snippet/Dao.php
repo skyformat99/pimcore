@@ -43,10 +43,10 @@ class Dao extends Model\Document\PageSnippet\Dao
                 LEFT JOIN tree_locks ON documents.id = tree_locks.id AND tree_locks.type = 'document'
                     WHERE documents.id = ?", $this->model->getId());
 
-            if ($data["id"] > 0) {
+            if ($data['id'] > 0) {
                 $this->assignVariablesToModel($data);
             } else {
-                throw new \Exception("Snippet with the ID " . $this->model->getId() . " doesn't exists");
+                throw new \Exception('Snippet with the ID ' . $this->model->getId() . " doesn't exists");
             }
 
             $this->assignVariablesToModel($data);
@@ -66,8 +66,8 @@ class Dao extends Model\Document\PageSnippet\Dao
         try {
             parent::create();
 
-            $this->db->insert("documents_snippet", [
-                "id" => $this->model->getId()
+            $this->db->insert('documents_snippet', [
+                'id' => $this->model->getId()
             ]);
         } catch (\Exception $e) {
             throw $e;
@@ -82,7 +82,7 @@ class Dao extends Model\Document\PageSnippet\Dao
     public function delete()
     {
         try {
-            $this->db->delete("documents_snippet", ["id" => $this->model->getId()]);
+            $this->db->delete('documents_snippet', ['id' => $this->model->getId()]);
             parent::delete();
         } catch (\Exception $e) {
             throw $e;

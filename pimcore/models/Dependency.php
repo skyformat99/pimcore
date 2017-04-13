@@ -77,8 +77,8 @@ class Dependency extends AbstractModel
     public function addRequirement($id, $type)
     {
         $this->requires[] = [
-            "type" => $type,
-            "id" => $id
+            'type' => $type,
+            'id' => $id
         ];
     }
 

@@ -28,7 +28,7 @@ class Maintenance
         $limit = time() - (6 * 86400);
 
         $db = \Pimcore\Db::get();
-        $db->deleteWhere("http_error_log", "date < " . $limit);
+        $db->deleteWhere('http_error_log', 'date < ' . $limit);
     }
 
     public function usageStatistics()
@@ -37,15 +37,15 @@ class Maintenance
             return;
         }
 
-        $logFile = PIMCORE_LOG_DIRECTORY . "/usagelog.log";
+        $logFile = PIMCORE_LOG_DIRECTORY . '/usagelog.log';
         if (is_file($logFile) && filesize($logFile) > 200000) {
             $data = gzencode(file_get_contents($logFile));
-            $response = Tool::getHttpData("https://www.pimcore.org/usage-statistics/", [], ["data" => $data]);
-            if (strpos($response, "true") !== false) {
-                rename($logFile, $logFile . "-archive-" . date("m-d-Y-H-i"));
-                Logger::debug("Usage statistics are transmitted and logfile was archived");
+            $response = Tool::getHttpData('https://www.pimcore.org/usage-statistics/', [], ['data' => $data]);
+            if (strpos($response, 'true') !== false) {
+                rename($logFile, $logFile . '-archive-' . date('m-d-Y-H-i'));
+                Logger::debug('Usage statistics are transmitted and logfile was archived');
             } else {
-                Logger::debug("Unable to send usage statistics");
+                Logger::debug('Unable to send usage statistics');
             }
         }
     }
@@ -53,17 +53,17 @@ class Maintenance
     public function cleanupLogFiles()
     {
         // we don't use the RotatingFileHandler of Monolog, since rotating asynchronously is recommended + compression
-        $logFiles = glob(PIMCORE_LOG_DIRECTORY . "/*.log");
+        $logFiles = glob(PIMCORE_LOG_DIRECTORY . '/*.log');
 
         foreach ($logFiles as $log) {
             if (file_exists($log) && filesize($log) > 200000000) {
                 // archive log (will be cleaned up by maintenance)
-                rename($log, $log . "-archive-" . date("m-d-Y-H-i"));
+                rename($log, $log . '-archive-' . date('m-d-Y-H-i'));
             }
         }
 
         // archive and cleanup logs
-        $files = glob(PIMCORE_LOG_DIRECTORY . "/*.log-archive-*");
+        $files = glob(PIMCORE_LOG_DIRECTORY . '/*.log-archive-*');
         if (is_array($files)) {
             foreach ($files as $file) {
                 if (filemtime($file) < (time() - (86400 * 30))) { // we keep the logs for 30 days
@@ -83,7 +83,7 @@ class Maintenance
         $config = $conf->applicationlog;
 
         if ($config->mail_notification->send_log_summary) {
-            $receivers = preg_split("/,|;/", $config->mail_notification->mail_receiver);
+            $receivers = preg_split('/,|;/', $config->mail_notification->mail_receiver);
 
             array_walk($receivers, function (&$value) {
                 $value = trim($value);
@@ -91,7 +91,7 @@ class Maintenance
 
             $logLevel = (int)$config->mail_notification->filter_priority;
 
-            $query = "SELECT * FROM ". \Pimcore\Log\Handler\ApplicationLoggerDb::TABLE_NAME . " WHERE maintenanceChecked IS NULL AND priority <= $logLevel order by id desc";
+            $query = 'SELECT * FROM '. \Pimcore\Log\Handler\ApplicationLoggerDb::TABLE_NAME . " WHERE maintenanceChecked IS NULL AND priority <= $logLevel order by id desc";
 
             $rows = $db->fetchAll($query);
             $limit = 100;
@@ -127,7 +127,7 @@ class Maintenance
         // flag them as checked, regardless if email notifications are enabled or not
         // otherwise, when activating email notifications, you'll receive all log-messages from the past and not
         // since the point when you enabled the notifications
-        $db->query("UPDATE " . \Pimcore\Log\Handler\ApplicationLoggerDb::TABLE_NAME . " set maintenanceChecked = 1");
+        $db->query('UPDATE ' . \Pimcore\Log\Handler\ApplicationLoggerDb::TABLE_NAME . ' set maintenanceChecked = 1');
     }
 
     public function archiveLogEntries()
@@ -137,8 +137,8 @@ class Maintenance
 
         $db = \Pimcore\Db::get();
 
-        $date = new \DateTime("now");
-        $tablename =  \Pimcore\Log\Handler\ApplicationLoggerDb::TABLE_ARCHIVE_PREFIX . "_" . $date->format("m") . '_' . $date->format("Y");
+        $date = new \DateTime('now');
+        $tablename =  \Pimcore\Log\Handler\ApplicationLoggerDb::TABLE_ARCHIVE_PREFIX . '_' . $date->format('m') . '_' . $date->format('Y');
 
         if ($config->archive_alternative_database) {
             $tablename = $config->archive_alternative_database . '.' . $tablename;
@@ -146,7 +146,7 @@ class Maintenance
 
         $archive_treshold = intval($config->archive_treshold) ?: 30;
 
-        $db->query("CREATE TABLE IF NOT EXISTS " . $tablename . " (
+        $db->query('CREATE TABLE IF NOT EXISTS ' . $tablename . " (
                        id BIGINT(20) NOT NULL,
                        `pid` INT(11) NULL DEFAULT NULL,
                        `timestamp` DATETIME NOT NULL,
@@ -163,7 +163,7 @@ class Maintenance
 
         $timestamp = time();
 
-        $db->query("INSERT INTO " . $tablename . " SELECT * FROM " .  \Pimcore\Log\Handler\ApplicationLoggerDb::TABLE_NAME . " WHERE `timestamp` < DATE_SUB(FROM_UNIXTIME(" . $timestamp . "), INTERVAL " . $archive_treshold . " DAY);");
-        $db->query("DELETE FROM " .  \Pimcore\Log\Handler\ApplicationLoggerDb::TABLE_NAME . " WHERE `timestamp` < DATE_SUB(FROM_UNIXTIME(" . $timestamp . "), INTERVAL " . $archive_treshold . " DAY);");
+        $db->query('INSERT INTO ' . $tablename . ' SELECT * FROM ' .  \Pimcore\Log\Handler\ApplicationLoggerDb::TABLE_NAME . ' WHERE `timestamp` < DATE_SUB(FROM_UNIXTIME(' . $timestamp . '), INTERVAL ' . $archive_treshold . ' DAY);');
+        $db->query('DELETE FROM ' .  \Pimcore\Log\Handler\ApplicationLoggerDb::TABLE_NAME . ' WHERE `timestamp` < DATE_SUB(FROM_UNIXTIME(' . $timestamp . '), INTERVAL ' . $archive_treshold . ' DAY);');
     }
 }

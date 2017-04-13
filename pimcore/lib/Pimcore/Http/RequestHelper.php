@@ -126,8 +126,8 @@ class RequestHelper
      */
     public function anonymizeIp($ip)
     {
-        $aip = substr($ip, 0, strrpos($ip, ".") + 1);
-        $aip .= "255";
+        $aip = substr($ip, 0, strrpos($ip, '.') + 1);
+        $aip .= '255';
 
         return $aip;
     }

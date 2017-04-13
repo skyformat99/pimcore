@@ -28,7 +28,7 @@ class Dao extends Model\Dao\PhpArrayTable
     public function configure()
     {
         parent::configure();
-        $this->setFile("qrcode");
+        $this->setFile('qrcode');
     }
 
     /**
@@ -42,7 +42,7 @@ class Dao extends Model\Dao\PhpArrayTable
         $propertiesData = $this->db->fetchAll($this->model->getFilter(), $this->model->getOrder());
 
         foreach ($propertiesData as $propertyData) {
-            $properties[] = Config::getByName($propertyData["id"]);
+            $properties[] = Config::getByName($propertyData['id']);
         }
 
         $this->model->setCodes($properties);

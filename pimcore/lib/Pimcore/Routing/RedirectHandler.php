@@ -58,8 +58,8 @@ class RedirectHandler implements LoggerAwareInterface
         }
 
         $matchUrl = Tool::getHostUrl() . $matchRequestUri;
-        if (!empty($_SERVER["QUERY_STRING"])) {
-            $matchUrl .= "?" . $_SERVER["QUERY_STRING"];
+        if (!empty($_SERVER['QUERY_STRING'])) {
+            $matchUrl .= '?' . $_SERVER['QUERY_STRING'];
         }
 
         foreach ($this->getFilteredRedirects($override) as $redirect) {
@@ -116,14 +116,14 @@ class RedirectHandler implements LoggerAwareInterface
         // support for pcre backreferences
         $url = replace_pcre_backreferences($target, $matches);
 
-        if ($redirect->getTargetSite() && !preg_match("@http(s)?://@i", $url)) {
+        if ($redirect->getTargetSite() && !preg_match('@http(s)?://@i', $url)) {
             try {
                 $targetSite = Site::getById($redirect->getTargetSite());
 
                 // if the target site is specified and and the target-path is starting at root (not absolute to site)
                 // the root-path will be replaced so that the page can be shown
-                $url = preg_replace("@^" . $targetSite->getRootPath() . "/@", "/", $url);
-                $url = $request->getScheme() . "://" . $targetSite->getMainDomain() . $url;
+                $url = preg_replace('@^' . $targetSite->getRootPath() . '/@', '/', $url);
+                $url = $request->getScheme() . '://' . $targetSite->getMainDomain() . $url;
             } catch (\Exception $e) {
                 $this->logger->error('Site with ID {targetSite} not found', [
                     'redirect'   => $redirect->getId(),
@@ -132,17 +132,17 @@ class RedirectHandler implements LoggerAwareInterface
 
                 return null;
             }
-        } elseif (!preg_match("@http(s)?://@i", $url) && $config->general->domain && $redirect->getSourceEntireUrl()) {
+        } elseif (!preg_match('@http(s)?://@i', $url) && $config->general->domain && $redirect->getSourceEntireUrl()) {
             // prepend the host and scheme to avoid infinite loops when using "domain" redirects
-            $url = $request->getScheme() . "://" . $config->general->domain . $url;
+            $url = $request->getScheme() . '://' . $config->general->domain . $url;
         }
 
         // pass-through parameters if specified
         $queryString = $request->getQueryString();
         if ($redirect->getPassThroughParameters() && !empty($queryString)) {
-            $glue = "?";
-            if (strpos($url, "?")) {
-                $glue = "&";
+            $glue = '?';
+            if (strpos($url, '?')) {
+                $glue = '&';
             }
 
             $url .= $glue;
@@ -154,8 +154,8 @@ class RedirectHandler implements LoggerAwareInterface
 
         // log all redirects to the redirect log
         \Pimcore\Log\Simple::log(
-            "redirect",
-            Tool::getAnonymizedClientIp() . " \t Custom-Redirect ID: " . $redirect->getId() . ", Source: " . $_SERVER["REQUEST_URI"] . " -> " . $url
+            'redirect',
+            Tool::getAnonymizedClientIp() . " \t Custom-Redirect ID: " . $redirect->getId() . ', Source: ' . $_SERVER['REQUEST_URI'] . ' -> ' . $url
         );
 
         return $response;
@@ -170,16 +170,16 @@ class RedirectHandler implements LoggerAwareInterface
             return $this->redirects;
         }
 
-        $cacheKey = "system_route_redirect";
+        $cacheKey = 'system_route_redirect';
         if (!($this->redirects = Cache::load($cacheKey))) {
             $list = new Redirect\Listing();
-            $list->setCondition("active = 1");
-            $list->setOrder("DESC");
-            $list->setOrderKey("priority");
+            $list->setCondition('active = 1');
+            $list->setOrder('DESC');
+            $list->setOrderKey('priority');
 
             $this->redirects = $list->load();
 
-            Cache::save($this->redirects, $cacheKey, ["system", "redirect", "route"], null, 998);
+            Cache::save($this->redirects, $cacheKey, ['system', 'redirect', 'route'], null, 998);
         }
 
         if (!is_array($this->redirects)) {

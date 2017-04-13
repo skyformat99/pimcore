@@ -35,7 +35,7 @@ class Dao extends Model\Dao\AbstractDao
             $this->model->setId($id);
         }
 
-        $data = $this->db->fetchRow("SELECT * FROM redirects WHERE id = ?", $this->model->getId());
+        $data = $this->db->fetchRow('SELECT * FROM redirects WHERE id = ?', $this->model->getId());
         $this->assignVariablesToModel($data);
     }
 
@@ -60,7 +60,7 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function delete()
     {
-        $this->db->delete("redirects", ["id" => $this->model->getId()]);
+        $this->db->delete('redirects', ['id' => $this->model->getId()]);
 
         $this->model->clearDependentCache();
     }
@@ -78,7 +78,7 @@ class Dao extends Model\Dao\AbstractDao
             $type = get_object_vars($this->model);
 
             foreach ($type as $key => $value) {
-                if (in_array($key, $this->getValidTableColumns("redirects"))) {
+                if (in_array($key, $this->getValidTableColumns('redirects'))) {
                     if (is_bool($value)) {
                         $value = (int) $value;
                     }
@@ -86,7 +86,7 @@ class Dao extends Model\Dao\AbstractDao
                 }
             }
 
-            $this->db->update("redirects", $data, ["id" => $this->model->getId()]);
+            $this->db->update('redirects', $data, ['id' => $this->model->getId()]);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -101,7 +101,7 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function create()
     {
-        $this->db->insert("redirects", []);
+        $this->db->insert('redirects', []);
 
         $ts = time();
         $this->model->setModificationDate($ts);

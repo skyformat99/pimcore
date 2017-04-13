@@ -22,15 +22,15 @@ use Pimcore\Model\Object;
 
 class InheritanceHelper
 {
-    const STORE_TABLE = "object_store_";
+    const STORE_TABLE = 'object_store_';
 
-    const QUERY_TABLE = "object_query_";
+    const QUERY_TABLE = 'object_query_';
 
-    const RELATION_TABLE = "object_relations_";
+    const RELATION_TABLE = 'object_relations_';
 
     const OBJECTS_TABLE = 'objects';
 
-    const ID_FIELD = "oo_id";
+    const ID_FIELD = 'oo_id';
 
     /**
      * @var Connection
@@ -186,12 +186,12 @@ class InheritanceHelper
             return;
         }
 
-        $fields = implode("`,`", $this->fields);
+        $fields = implode('`,`', $this->fields);
         if (!empty($fields)) {
-            $fields = ", `" . $fields . "`";
+            $fields = ', `' . $fields . '`';
         }
 
-        $result = $this->db->fetchRow("SELECT " . $this->idField . " AS id" . $fields . " FROM " . $this->storetable . " WHERE " . $this->idField . " = ?", $oo_id);
+        $result = $this->db->fetchRow('SELECT ' . $this->idField . ' AS id' . $fields . ' FROM ' . $this->storetable . ' WHERE ' . $this->idField . ' = ?', $oo_id);
         $o = new \stdClass();
         $o->id = $result['id'];
         $o->values = $result;
@@ -231,12 +231,12 @@ class InheritanceHelper
         // without this code there will not be an entry in the query table for the child object
         if ($createMissingChildrenRows) {
             if (!empty($this->treeIds)) {
-                $idsInTable = $this->db->fetchCol("SELECT " . $this->idField . " FROM " . $this->querytable . " WHERE " . $this->idField . " IN (" . implode(",", $this->treeIds) . ")");
+                $idsInTable = $this->db->fetchCol('SELECT ' . $this->idField . ' FROM ' . $this->querytable . ' WHERE ' . $this->idField . ' IN (' . implode(',', $this->treeIds) . ')');
 
                 $diff = array_diff($this->treeIds, $idsInTable);
 
                 // create entries for children that don't have an entry yet
-                $originalEntry = $this->db->fetchRow("SELECT * FROM " . $this->querytable . " WHERE " . $this->idField . " = ?", $oo_id);
+                $originalEntry = $this->db->fetchRow('SELECT * FROM ' . $this->querytable . ' WHERE ' . $this->idField . ' = ?', $oo_id);
                 foreach ($diff as $id) {
                     $originalEntry[$this->idField] = $id;
                     $this->db->insert($this->querytable, $originalEntry);
@@ -257,9 +257,9 @@ class InheritanceHelper
         // as a first step, build an ID list of all child elements that are affected. Stop at the level
         // which has a non-empty value.
 
-        $fields = implode("`,`", $this->fields);
+        $fields = implode('`,`', $this->fields);
         if (!empty($fields)) {
-            $fields = ", `" . $fields . "`";
+            $fields = ', `' . $fields . '`';
         }
 
         $o = new \stdClass();
@@ -293,7 +293,7 @@ class InheritanceHelper
             }
         }
 
-        $systemFields = ["o_id", "fieldname"];
+        $systemFields = ['o_id', 'fieldname'];
 
         $toBeRemovedItemIds = [];
 
@@ -301,12 +301,12 @@ class InheritanceHelper
         // remove the query row entirely ...
         if ($affectedIds) {
             $objectsWithBrickIds = [];
-            $objectsWithBricks = $this->db->fetchAll("SELECT " . $this->idField . " FROM " . $this->storetable . " WHERE " . $this->idField . " IN (" . implode(",", $affectedIds) . ")");
+            $objectsWithBricks = $this->db->fetchAll('SELECT ' . $this->idField . ' FROM ' . $this->storetable . ' WHERE ' . $this->idField . ' IN (' . implode(',', $affectedIds) . ')');
             foreach ($objectsWithBricks as $item) {
-                $objectsWithBrickIds[] = $item["id"];
+                $objectsWithBrickIds[] = $item['id'];
             }
 
-            $currentQueryItems = $this->db->fetchAll("SELECT * FROM " . $this->querytable . " WHERE " . $this->idField . " IN (" . implode(",", $affectedIds) . ")");
+            $currentQueryItems = $this->db->fetchAll('SELECT * FROM ' . $this->querytable . ' WHERE ' . $this->idField . ' IN (' . implode(',', $affectedIds) . ')');
 
             foreach ($currentQueryItems as $queryItem) {
                 $toBeRemoved = true;
@@ -319,15 +319,15 @@ class InheritanceHelper
                     }
                 }
                 if ($toBeRemoved) {
-                    if (!in_array($queryItem["o_id"], $objectsWithBrickIds)) {
-                        $toBeRemovedItemIds[] = $queryItem["o_id"];
+                    if (!in_array($queryItem['o_id'], $objectsWithBrickIds)) {
+                        $toBeRemovedItemIds[] = $queryItem['o_id'];
                     }
                 }
             }
         }
 
         if ($toBeRemovedItemIds) {
-            $this->db->deleteWhere($this->querytable, $this->idField . " IN (" . implode(",", $toBeRemovedItemIds) . ")");
+            $this->db->deleteWhere($this->querytable, $this->idField . ' IN (' . implode(',', $toBeRemovedItemIds) . ')');
         }
     }
 
@@ -338,11 +338,11 @@ class InheritanceHelper
      *
      * @return array
      */
-    protected function buildTree($currentParentId, $fields = "", $parentIdGroups = null)
+    protected function buildTree($currentParentId, $fields = '', $parentIdGroups = null)
     {
         if (!$parentIdGroups) {
             $object = Object::getById($currentParentId);
-            $query = "SELECT b.o_id AS id $fields, b.o_type AS type, b.o_classId AS classId, b.o_parentId AS parentId, o_path, o_key FROM objects b LEFT JOIN " . $this->storetable . " a ON b.o_id = a." . $this->idField . " WHERE o_path LIKE ".\Pimcore\Db::get()->quote($object->getRealFullPath().'/%') . " GROUP BY b.o_id ORDER BY LENGTH(o_path) ASC";
+            $query = "SELECT b.o_id AS id $fields, b.o_type AS type, b.o_classId AS classId, b.o_parentId AS parentId, o_path, o_key FROM objects b LEFT JOIN " . $this->storetable . ' a ON b.o_id = a.' . $this->idField . ' WHERE o_path LIKE '.\Pimcore\Db::get()->quote($object->getRealFullPath().'/%') . ' GROUP BY b.o_id ORDER BY LENGTH(o_path) ASC';
 
             if (self::$useRuntimeCache) {
                 $queryCacheKey = 'tree_'.md5($query);
@@ -358,11 +358,11 @@ class InheritanceHelper
                 $parentIdGroups = [];
                 foreach ($result as $r) {
                     $r['fullpath'] = $r['o_path'].$r['o_key'];
-                    if (!isset($parentIdGroups[$r["parentId"]])) {
-                        $parentIdGroups[$r["parentId"]] = [];
+                    if (!isset($parentIdGroups[$r['parentId']])) {
+                        $parentIdGroups[$r['parentId']] = [];
                     }
 
-                    $parentIdGroups[$r["parentId"]][] = $r;
+                    $parentIdGroups[$r['parentId']][] = $r;
                 }
                 if (self::$useRuntimeCache) {
                     self::$runtimeCache[$queryCacheKey] = $parentIdGroups;
@@ -375,8 +375,8 @@ class InheritanceHelper
                 $o = new \stdClass();
                 $o->id = $r['id'];
                 $o->values = $r;
-                $o->type = $r["type"];
-                $o->classId = $r["classId"];
+                $o->type = $r['type'];
+                $o->classId = $r['classId'];
                 $o->childs = $this->buildTree($r['id'], $fields, $parentIdGroups);
 
                 if ($o->classId == $this->classId) {
@@ -403,7 +403,7 @@ class InheritanceHelper
             return $node;
         }
 
-        $objectRelationsResult =  $this->db->fetchAll("SELECT fieldname, count(*) as COUNT FROM " . $this->relationtable . " WHERE src_id = ? AND fieldname IN('" . implode("','", array_keys($this->relations)) . "') GROUP BY fieldname;", [$node->id]);
+        $objectRelationsResult =  $this->db->fetchAll('SELECT fieldname, count(*) as COUNT FROM ' . $this->relationtable . " WHERE src_id = ? AND fieldname IN('" . implode("','", array_keys($this->relations)) . "') GROUP BY fieldname;", [$node->id]);
 
         $objectRelations = [];
         if (!empty($objectRelationsResult)) {
@@ -504,8 +504,8 @@ class InheritanceHelper
     protected function updateQueryTable($oo_id, $ids, $fieldname)
     {
         if (!empty($ids)) {
-            $value = $this->db->fetchOne("SELECT `$fieldname` FROM " . $this->querytable . " WHERE " . $this->idField . " = ?", $oo_id);
-            $this->db->updateWhere($this->querytable, [$fieldname => $value], $this->idField . " IN (" . implode(",", $ids) . ")");
+            $value = $this->db->fetchOne("SELECT `$fieldname` FROM " . $this->querytable . ' WHERE ' . $this->idField . ' = ?', $oo_id);
+            $this->db->updateWhere($this->querytable, [$fieldname => $value], $this->idField . ' IN (' . implode(',', $ids) . ')');
         }
     }
 
@@ -518,7 +518,7 @@ class InheritanceHelper
     {
         if (!empty($ids)) {
             $value = null;
-            $this->db->updateWhere($this->querytable, [$fieldname => $value], $this->idField . " IN (" . implode(",", $ids) . ")");
+            $this->db->updateWhere($this->querytable, [$fieldname => $value], $this->idField . ' IN (' . implode(',', $ids) . ')');
         }
     }
 }

@@ -56,10 +56,10 @@ abstract class AbstractWorker implements IWorker
         if (empty($this->indexColumns)) {
             $this->indexColumns = [];
 
-            $this->indexColumns["categoryIds"] = "categoryIds";
+            $this->indexColumns['categoryIds'] = 'categoryIds';
 
             foreach ($this->columnConfig as $column) {
-                if (!$considerHideInFieldList || ($considerHideInFieldList && $column->hideInFieldlistDatatype != "true")) {
+                if (!$considerHideInFieldList || ($considerHideInFieldList && $column->hideInFieldlistDatatype != 'true')) {
                     $this->indexColumns[$column->name] = $column->name;
                 }
             }
@@ -80,8 +80,8 @@ abstract class AbstractWorker implements IWorker
     {
         if (empty($this->filterGroups)) {
             $this->filterGroups = [];
-            $this->filterGroups['system'] = array_diff($this->getSystemAttributes(), ["categoryIds"]);
-            $this->filterGroups['category'] = ["categoryIds"];
+            $this->filterGroups['system'] = array_diff($this->getSystemAttributes(), ['categoryIds']);
+            $this->filterGroups['category'] = ['categoryIds'];
 
             if ($this->columnConfig) {
                 foreach ($this->columnConfig as $column) {

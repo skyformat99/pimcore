@@ -44,7 +44,7 @@ abstract class AbstractTokenManager implements ITokenManager
             $this->seriesId = $configuration->getObject()->getId();
             $this->series = $configuration->getObject();
         } else {
-            throw new VoucherServiceException("Invalid Configuration Class.");
+            throw new VoucherServiceException('Invalid Configuration Class.');
         }
     }
 
@@ -89,7 +89,7 @@ abstract class AbstractTokenManager implements ITokenManager
                 foreach ($cartCodes as $cartCode) {
                     $cartToken = Token::getByCode($cartCode);
                     if ($token->getVoucherSeriesId() == $cartToken->getVoucherSeriesId()) {
-                        throw new VoucherServiceException("OncePerCart: Only one token of this series is allowed per cart.", 5);
+                        throw new VoucherServiceException('OncePerCart: Only one token of this series is allowed per cart.', 5);
                     }
                 }
             }
@@ -109,13 +109,13 @@ abstract class AbstractTokenManager implements ITokenManager
         $cartVoucherCount = sizeof($cartCodes);
         if ($cartVoucherCount && method_exists($this->configuration, 'getOnlyTokenPerCart')) {
             if ($this->configuration->getOnlyTokenPerCart()) {
-                throw new VoucherServiceException("OnlyTokenPerCart: This token is only allowed as only token in this cart.", 6);
+                throw new VoucherServiceException('OnlyTokenPerCart: This token is only allowed as only token in this cart.', 6);
             }
 
             $cartToken = Token::getByCode($cartCodes[0]);
             $cartTokenSettings = OnlineShopVoucherSeries::getById($cartToken->getVoucherSeriesId())->getTokenSettings()->getItems()[0];
             if ($cartTokenSettings->getOnlyTokenPerCart()) {
-                throw new VoucherServiceException("OnlyTokenPerCart: There is a token of type onlyToken in your this cart already.", 7);
+                throw new VoucherServiceException('OnlyTokenPerCart: There is a token of type onlyToken in your this cart already.', 7);
             }
         }
     }

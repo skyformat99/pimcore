@@ -55,7 +55,7 @@ class Pdf extends Model\Document\Tag
      */
     public function getType()
     {
-        return "pdf";
+        return 'pdf';
     }
 
     /**
@@ -66,10 +66,10 @@ class Pdf extends Model\Document\Tag
     public function getData()
     {
         return [
-            "id" => $this->id,
-            "hotspots" => $this->hotspots,
-            "texts" => $this->texts,
-            "chapters" => $this->chapters
+            'id' => $this->id,
+            'hotspots' => $this->hotspots,
+            'texts' => $this->texts,
+            'chapters' => $this->chapters
         ];
     }
 
@@ -85,10 +85,10 @@ class Pdf extends Model\Document\Tag
 
             foreach ($data as &$page) {
                 foreach ($page as &$element) {
-                    if (array_key_exists("data", $element) && is_array($element["data"]) && count($element["data"]) > 0) {
-                        foreach ($element["data"] as &$metaData) {
-                            if ($metaData["value"] instanceof Element\ElementInterface) {
-                                $metaData["value"] = $metaData["value"]->getId();
+                    if (array_key_exists('data', $element) && is_array($element['data']) && count($element['data']) > 0) {
+                        foreach ($element['data'] as &$metaData) {
+                            if ($metaData['value'] instanceof Element\ElementInterface) {
+                                $metaData['value'] = $metaData['value']->getId();
                             }
                         }
                     }
@@ -101,10 +101,10 @@ class Pdf extends Model\Document\Tag
         $hotspots = $rewritePath($this->hotspots);
 
         return [
-            "id" => $this->id,
-            "hotspots" => $hotspots,
-            "texts" => $this->getTexts(),
-            "chapters" => $this->getChapters()
+            'id' => $this->id,
+            'hotspots' => $hotspots,
+            'texts' => $this->getTexts(),
+            'chapters' => $this->getChapters()
         ];
     }
 
@@ -120,10 +120,10 @@ class Pdf extends Model\Document\Tag
 
             foreach ($data as &$page) {
                 foreach ($page as &$element) {
-                    if (array_key_exists("data", $element) && is_array($element["data"]) && count($element["data"]) > 0) {
-                        foreach ($element["data"] as &$metaData) {
-                            if ($metaData["value"] instanceof Element\ElementInterface) {
-                                $metaData["value"] = $metaData["value"]->getFullPath();
+                    if (array_key_exists('data', $element) && is_array($element['data']) && count($element['data']) > 0) {
+                        foreach ($element['data'] as &$metaData) {
+                            if ($metaData['value'] instanceof Element\ElementInterface) {
+                                $metaData['value'] = $metaData['value']->getFullPath();
                             }
                         }
                     }
@@ -142,14 +142,14 @@ class Pdf extends Model\Document\Tag
 
         $texts = $this->texts;
         // force an object when converting to JSON
-        $texts["__dummy"] = "__dummy";
+        $texts['__dummy'] = '__dummy';
 
         return [
-            "id" => $this->id,
-            "pageCount" => $pages,
-            "hotspots" => empty($hotspots) ? null : $hotspots,
-            "texts" => $texts,
-            "chapters" => $this->chapters
+            'id' => $this->id,
+            'pageCount' => $pages,
+            'hotspots' => empty($hotspots) ? null : $hotspots,
+            'texts' => $texts,
+            'chapters' => $this->chapters
         ];
     }
 
@@ -176,10 +176,10 @@ class Pdf extends Model\Document\Tag
 
                 foreach ($data as $page) {
                     foreach ($page as $element) {
-                        if (array_key_exists("data", $element) && is_array($element["data"]) && count($element["data"]) > 0) {
-                            foreach ($element["data"] as $metaData) {
-                                if ($metaData["value"] instanceof Element\ElementInterface) {
-                                    $tags = $metaData["value"]->getCacheTags($tags);
+                        if (array_key_exists('data', $element) && is_array($element['data']) && count($element['data']) > 0) {
+                            foreach ($element['data'] as $metaData) {
+                                if ($metaData['value'] instanceof Element\ElementInterface) {
+                                    $tags = $metaData['value']->getCacheTags($tags);
                                 }
                             }
                         }
@@ -204,10 +204,10 @@ class Pdf extends Model\Document\Tag
 
         $asset = Asset::getById($this->id);
         if ($asset instanceof Asset) {
-            $key = "asset_" . $asset->getId();
+            $key = 'asset_' . $asset->getId();
             $dependencies[$key] = [
-                "id" => $asset->getId(),
-                "type" => "asset"
+                'id' => $asset->getId(),
+                'type' => 'asset'
             ];
         }
 
@@ -218,17 +218,17 @@ class Pdf extends Model\Document\Tag
 
             foreach ($data as $page) {
                 foreach ($page as $element) {
-                    if (array_key_exists("data", $element) && is_array($element["data"]) && count($element["data"]) > 0) {
-                        foreach ($element["data"] as $metaData) {
-                            if ($metaData["value"] instanceof Element\ElementInterface) {
-                                $elTtype = $metaData["type"];
-                                if ($metaData["type"] == "link") {
-                                    $elTtype = "document";
+                    if (array_key_exists('data', $element) && is_array($element['data']) && count($element['data']) > 0) {
+                        foreach ($element['data'] as $metaData) {
+                            if ($metaData['value'] instanceof Element\ElementInterface) {
+                                $elTtype = $metaData['type'];
+                                if ($metaData['type'] == 'link') {
+                                    $elTtype = 'document';
                                 }
 
-                                $dependencies[$elTtype . "_" . $metaData["value"]->getId()] = [
-                                    "id" => $metaData["value"]->getId(),
-                                    "type" => $elTtype
+                                $dependencies[$elTtype . '_' . $metaData['value']->getId()] = [
+                                    'id' => $metaData['value']->getId(),
+                                    'type' => $elTtype
                                 ];
                             }
                         }
@@ -254,7 +254,7 @@ class Pdf extends Model\Document\Tag
             $el = Asset::getById($this->id);
             if (!$el instanceof Asset) {
                 $sane = false;
-                Logger::notice("Detected insane relation, removing reference to non existent asset with id [" . $this->id . "]");
+                Logger::notice('Detected insane relation, removing reference to non existent asset with id [' . $this->id . ']');
                 $this->id = null;
             }
         }
@@ -282,19 +282,19 @@ class Pdf extends Model\Document\Tag
 
             foreach ($data as &$page) {
                 foreach ($page as &$element) {
-                    if (array_key_exists("data", $element) && is_array($element["data"]) && count($element["data"]) > 0) {
-                        foreach ($element["data"] as &$metaData) {
-                            if (in_array($metaData["type"], ["object", "asset", "document", "link"])) {
-                                $elTtype = $metaData["type"];
-                                if ($metaData["type"] == "link") {
-                                    $elTtype = "document";
+                    if (array_key_exists('data', $element) && is_array($element['data']) && count($element['data']) > 0) {
+                        foreach ($element['data'] as &$metaData) {
+                            if (in_array($metaData['type'], ['object', 'asset', 'document', 'link'])) {
+                                $elTtype = $metaData['type'];
+                                if ($metaData['type'] == 'link') {
+                                    $elTtype = 'document';
                                 }
-                                $el = Element\Service::getElementById($elTtype, $metaData["value"]);
+                                $el = Element\Service::getElementById($elTtype, $metaData['value']);
 
-                                if (!$el && $metaData["type"] == "link") {
-                                    $metaData["value"] = $metaData["value"];
+                                if (!$el && $metaData['type'] == 'link') {
+                                    $metaData['value'] = $metaData['value'];
                                 } else {
-                                    $metaData["value"] = $el;
+                                    $metaData['value'] = $el;
                                 }
                             }
                         }
@@ -305,14 +305,14 @@ class Pdf extends Model\Document\Tag
             return $data;
         };
 
-        if (array_key_exists("hotspots", $data) && is_array($data["hotspots"]) && count($data["hotspots"]) > 0) {
-            $data["hotspots"] = $rewritePath($data["hotspots"]);
+        if (array_key_exists('hotspots', $data) && is_array($data['hotspots']) && count($data['hotspots']) > 0) {
+            $data['hotspots'] = $rewritePath($data['hotspots']);
         }
 
-        $this->id = $data["id"];
-        $this->hotspots = $data["hotspots"];
-        $this->texts = $data["texts"];
-        $this->chapters = $data["chapters"];
+        $this->id = $data['id'];
+        $this->hotspots = $data['hotspots'];
+        $this->texts = $data['texts'];
+        $this->chapters = $data['chapters'];
 
         return $this;
     }
@@ -334,10 +334,10 @@ class Pdf extends Model\Document\Tag
      */
     public function setDataFromEditmode($data)
     {
-        $pdf = Asset::getById($data["id"]);
+        $pdf = Asset::getById($data['id']);
         if ($pdf instanceof Asset\Document) {
             $this->id = $pdf->getId();
-            if (array_key_exists("hotspots", $data) && !empty($data["hotspots"])) {
+            if (array_key_exists('hotspots', $data) && !empty($data['hotspots'])) {
                 $rewritePath = function ($data) {
                     if (!is_array($data)) {
                         return [];
@@ -345,19 +345,19 @@ class Pdf extends Model\Document\Tag
 
                     foreach ($data as &$page) {
                         foreach ($page as &$element) {
-                            if (array_key_exists("data", $element) && is_array($element["data"]) && count($element["data"]) > 0) {
-                                foreach ($element["data"] as &$metaData) {
-                                    if (in_array($metaData["type"], ["object", "asset", "document", "link"])) {
-                                        $elTtype = $metaData["type"];
-                                        if ($metaData["type"] == "link") {
-                                            $elTtype = "document";
+                            if (array_key_exists('data', $element) && is_array($element['data']) && count($element['data']) > 0) {
+                                foreach ($element['data'] as &$metaData) {
+                                    if (in_array($metaData['type'], ['object', 'asset', 'document', 'link'])) {
+                                        $elTtype = $metaData['type'];
+                                        if ($metaData['type'] == 'link') {
+                                            $elTtype = 'document';
                                         }
-                                        $el = Element\Service::getElementByPath($elTtype, $metaData["value"]);
+                                        $el = Element\Service::getElementByPath($elTtype, $metaData['value']);
 
-                                        if (!$el && $metaData["type"] == "link") {
-                                            $metaData["value"] = $metaData["value"];
+                                        if (!$el && $metaData['type'] == 'link') {
+                                            $metaData['value'] = $metaData['value'];
                                         } else {
-                                            $metaData["value"] = $el;
+                                            $metaData['value'] = $el;
                                         }
                                     }
                                 }
@@ -368,11 +368,11 @@ class Pdf extends Model\Document\Tag
                     return $data;
                 };
 
-                if (array_key_exists("hotspots", $data) && is_array($data["hotspots"]) && count($data["hotspots"]) > 0) {
-                    $data["hotspots"] = $rewritePath($data["hotspots"]);
+                if (array_key_exists('hotspots', $data) && is_array($data['hotspots']) && count($data['hotspots']) > 0) {
+                    $data['hotspots'] = $rewritePath($data['hotspots']);
                 }
 
-                $this->hotspots = $data["hotspots"];
+                $this->hotspots = $data['hotspots'];
             }
             $this->texts = $data['texts'];
             $this->chapters = $data['chapters'];
@@ -387,11 +387,11 @@ class Pdf extends Model\Document\Tag
     public function getWidth()
     {
         $options = $this->getOptions();
-        if ($options["width"]) {
-            return $options["width"];
+        if ($options['width']) {
+            return $options['width'];
         }
 
-        return "100%";
+        return '100%';
     }
 
     /**
@@ -400,8 +400,8 @@ class Pdf extends Model\Document\Tag
     public function getHeight()
     {
         $options = $this->getOptions();
-        if ($options["height"]) {
-            return $options["height"];
+        if ($options['height']) {
+            return $options['height'];
         }
 
         return 300;
@@ -425,28 +425,28 @@ class Pdf extends Model\Document\Tag
                 }
 
                 foreach ($data as &$element) {
-                    if (isset($options["hotspotCallback"]) && is_callable($options["hotspotCallback"])) {
-                        $element = $options["hotspotCallback"]($element);
+                    if (isset($options['hotspotCallback']) && is_callable($options['hotspotCallback'])) {
+                        $element = $options['hotspotCallback']($element);
                         if (!is_array($element)) {
-                            throw new \Exception("Return value must be the the array passed as parameter (can be modified)");
+                            throw new \Exception('Return value must be the the array passed as parameter (can be modified)');
                         }
 
-                        if (isset($element["attributes"]) && is_array($element["attributes"])) {
-                            $attributes = $element["attributes"];
-                            $element["attributes"] = [];
+                        if (isset($element['attributes']) && is_array($element['attributes'])) {
+                            $attributes = $element['attributes'];
+                            $element['attributes'] = [];
                             foreach ($attributes as $name => $value) {
-                                $element["attributes"][] = [
-                                    "name" => $name,
-                                    "value" => $value
+                                $element['attributes'][] = [
+                                    'name' => $name,
+                                    'value' => $value
                                 ];
                             }
                         }
                     }
 
-                    if (array_key_exists("data", $element) && is_array($element["data"]) && count($element["data"]) > 0) {
-                        foreach ($element["data"] as &$metaData) {
-                            if ($metaData["value"] instanceof Element\ElementInterface) {
-                                $metaData["value"] = $metaData["value"]->getFullPath();
+                    if (array_key_exists('data', $element) && is_array($element['data']) && count($element['data']) > 0) {
+                        foreach ($element['data'] as &$metaData) {
+                            if ($metaData['value'] instanceof Element\ElementInterface) {
+                                $metaData['value'] = $metaData['value']->getFullPath();
                             }
                         }
                     }
@@ -457,37 +457,37 @@ class Pdf extends Model\Document\Tag
 
             for ($i=1; $i <= $pageCount; $i++) {
                 $pageData = [
-                    "thumbnail" => (string) $asset->getImageThumbnail([
-                        "width" => 200,
-                        "height" => 200,
-                        "contain" => true,
-                        "format" => "pjpeg"
+                    'thumbnail' => (string) $asset->getImageThumbnail([
+                        'width' => 200,
+                        'height' => 200,
+                        'contain' => true,
+                        'format' => 'pjpeg'
                     ], $i, true),
-                    "detail" => (string) $asset->getImageThumbnail([
-                        "width" => 1500,
-                        "height" => 1500,
-                        "contain" => true,
-                        "quality" => "85",
-                        "format" => "pjpeg"
+                    'detail' => (string) $asset->getImageThumbnail([
+                        'width' => 1500,
+                        'height' => 1500,
+                        'contain' => true,
+                        'quality' => '85',
+                        'format' => 'pjpeg'
                     ], $i, true)
                 ];
 
                 if (is_array($hotspots) && isset($hotspots[$i]) && $hotspots[$i]) {
-                    $pageData["hotspots"] = $rewritePath($hotspots[$i]);
+                    $pageData['hotspots'] = $rewritePath($hotspots[$i]);
                 }
 
-                $data["pages"][] = $pageData;
+                $data['pages'][] = $pageData;
             }
 
-            $data["pdf"] = $asset->getFullPath();
+            $data['pdf'] = $asset->getFullPath();
 
-            $data["fullscreen"] = true;
-            if (isset($options["fullscreen"])) {
-                $data["fullscreen"] = (bool) $options["fullscreen"];
+            $data['fullscreen'] = true;
+            if (isset($options['fullscreen'])) {
+                $data['fullscreen'] = (bool) $options['fullscreen'];
             }
 
             $jsVarName = $this->getName();
-            $divId = "pimcore-pdf-" . uniqid();
+            $divId = 'pimcore-pdf-' . uniqid();
             $jsonData = json_encode($data);
 
             $code = <<<HTML
@@ -514,7 +514,7 @@ HTML;
 
             return $code;
         } else {
-            return $this->getErrorCode("Asset is not a valid PDF");
+            return $this->getErrorCode('Asset is not a valid PDF');
         }
     }
 
@@ -523,16 +523,16 @@ HTML;
      *
      * @return string
      */
-    public function getErrorCode($message = "")
+    public function getErrorCode($message = '')
     {
         $width = $this->getWidth();
-        if (strpos($this->getWidth(), "%") === false) {
-            $width = ($this->getWidth() - 1) . "px";
+        if (strpos($this->getWidth(), '%') === false) {
+            $width = ($this->getWidth() - 1) . 'px';
         }
 
         // only display error message in debug mode
         if (!\Pimcore::inDebugMode()) {
-            $message = "";
+            $message = '';
         }
 
         $code = '
@@ -571,7 +571,7 @@ HTML;
         if ($data->id) {
             $asset = Asset::getById($data->id);
             if (!$asset) {
-                throw new \Exception("Referencing unknown asset with id [ ".$data->id." ] in webservice import field [ ".$data->name." ]");
+                throw new \Exception('Referencing unknown asset with id [ '.$data->id.' ] in webservice import field [ '.$data->name.' ]');
             } else {
                 $this->id = $data->id;
             }
@@ -709,8 +709,8 @@ HTML;
      */
     public function rewriteIds($idMapping)
     {
-        if (array_key_exists("asset", $idMapping) and array_key_exists($this->getId(), $idMapping["asset"])) {
-            $this->setId($idMapping["asset"][$this->getId()]);
+        if (array_key_exists('asset', $idMapping) and array_key_exists($this->getId(), $idMapping['asset'])) {
+            $this->setId($idMapping['asset'][$this->getId()]);
         }
     }
 }

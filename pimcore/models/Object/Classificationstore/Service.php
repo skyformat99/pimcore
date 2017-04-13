@@ -49,15 +49,15 @@ class Service
         }
 
         if (!$type) {
-            $type = "input";
+            $type = 'input';
         }
-        $className = "\\Pimcore\\Model\\Object\\ClassDefinition\\Data\\" . ucfirst($type);
+        $className = '\\Pimcore\\Model\\Object\\ClassDefinition\\Data\\' . ucfirst($type);
         /** @var $dataDefinition \Pimcore\Model\Object\ClassDefinition\Data */
         $dataDefinition = new $className();
 
         $dataDefinition->setValues($definition);
 
-        if (method_exists($className, "__set_state")) {
+        if (method_exists($className, '__set_state')) {
             $dataDefinition = $className::__set_state($dataDefinition);
         }
 

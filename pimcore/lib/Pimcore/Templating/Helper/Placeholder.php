@@ -98,7 +98,7 @@ class Placeholder extends AbstractHelper
     {
         $containerName = (string) $containerName;
         if (empty($this->containers[$containerName])) {
-            $this->containers[$containerName] = $this->containerService->getContainer($this->_regKey . "_" . $containerName);
+            $this->containers[$containerName] = $this->containerService->getContainer($this->_regKey . '_' . $containerName);
         }
 
         return $this->containers[$containerName];

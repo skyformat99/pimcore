@@ -49,7 +49,7 @@ class Snippet extends Model\Document\Tag
      */
     public function getType()
     {
-        return "snippet";
+        return 'snippet';
     }
 
     /**
@@ -87,8 +87,8 @@ class Snippet extends Model\Document\Tag
     {
         if ($this->snippet instanceof Document\Snippet) {
             return [
-                "id" => $this->id,
-                "path" => $this->snippet->getFullPath()
+                'id' => $this->id,
+                'path' => $this->snippet->getFullPath()
             ];
         }
 
@@ -112,7 +112,7 @@ class Snippet extends Model\Document\Tag
         try {
             if ($this->snippet instanceof Document\Snippet) {
                 $params = $this->options;
-                $params["document"] = $this->snippet;
+                $params['document'] = $this->snippet;
 
                 if ($this->snippet->isPublished()) {
 
@@ -128,7 +128,7 @@ class Snippet extends Model\Document\Tag
                             }
                         });
 
-                        $cacheKey = "tag_snippet__" . md5(serialize($cacheParams));
+                        $cacheKey = 'tag_snippet__' . md5(serialize($cacheParams));
                         if ($content = Cache::load($cacheKey)) {
                             return $content;
                         }
@@ -144,17 +144,17 @@ class Snippet extends Model\Document\Tag
 
                     // write contents to the cache, if output-cache is enabled
                     if ($cacheConfig && !DeviceDetector::getInstance()->wasUsed()) {
-                        Cache::save($content, $cacheKey, ["output", "output_inline"], $cacheConfig["lifetime"]);
+                        Cache::save($content, $cacheKey, ['output', 'output_inline'], $cacheConfig['lifetime']);
                     }
 
                     return $content;
                 }
 
-                return "";
+                return '';
             }
         } catch (\Exception $e) {
             if (\Pimcore::inDebugMode()) {
-                return "ERROR: " . $e->getMessage() . " (for details see debug.log)";
+                return 'ERROR: ' . $e->getMessage() . ' (for details see debug.log)';
             }
             Logger::error($e);
         }
@@ -214,11 +214,11 @@ class Snippet extends Model\Document\Tag
         $dependencies = [];
 
         if ($this->snippet instanceof Document\Snippet) {
-            $key = "document_" . $this->snippet->getId();
+            $key = 'document_' . $this->snippet->getId();
 
             $dependencies[$key] = [
-                "id" => $this->snippet->getId(),
-                "type" => "document"
+                'id' => $this->snippet->getId(),
+                'type' => 'document'
             ];
         }
 
@@ -241,10 +241,10 @@ class Snippet extends Model\Document\Tag
             if (is_numeric($this->id)) {
                 $this->snippet = Document\Snippet::getById($this->id);
                 if (!$this->snippet instanceof Document\Snippet) {
-                    throw new \Exception("cannot get values from web service import - referenced snippet with id [ " . $this->id . " ] is unknown");
+                    throw new \Exception('cannot get values from web service import - referenced snippet with id [ ' . $this->id . ' ] is unknown');
                 }
             } else {
-                throw new \Exception("cannot get values from web service import - id is not valid");
+                throw new \Exception('cannot get values from web service import - id is not valid');
             }
         }
     }
@@ -256,7 +256,7 @@ class Snippet extends Model\Document\Tag
     {
         $finalVars = [];
         $parentVars = parent::__sleep();
-        $blockedVars = ["snippet"];
+        $blockedVars = ['snippet'];
         foreach ($parentVars as $key) {
             if (!in_array($key, $blockedVars)) {
                 $finalVars[] = $key;
@@ -290,8 +290,8 @@ class Snippet extends Model\Document\Tag
     public function rewriteIds($idMapping)
     {
         $id = $this->getId();
-        if (array_key_exists("document", $idMapping) && array_key_exists($id, $idMapping["document"])) {
-            $this->id = $idMapping["document"][$id];
+        if (array_key_exists('document', $idMapping) && array_key_exists($id, $idMapping['document'])) {
+            $this->id = $idMapping['document'][$id];
         }
     }
 

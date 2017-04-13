@@ -26,7 +26,7 @@ class Runtime extends \ArrayObject
     public static function getInstance()
     {
         if (\Pimcore::hasContainer()) {
-            $instance = \Pimcore::getContainer()->get("pimcore.cache.runtime");
+            $instance = \Pimcore::getContainer()->get('pimcore.cache.runtime');
             if (self::$tempInstance) {
                 // copy values from static temp. instance to the service instance
                 foreach (self::$tempInstance as $key => $value) {
@@ -169,6 +169,6 @@ class Runtime extends \ArrayObject
             }
         }
 
-        \Pimcore::getContainer()->set("pimcore.cache.runtime", $newInstance);
+        \Pimcore::getContainer()->set('pimcore.cache.runtime', $newInstance);
     }
 }

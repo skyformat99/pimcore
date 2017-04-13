@@ -94,15 +94,15 @@ class ImageThumbnail
     public function getPath()
     {
         $fsPath = $this->getFileSystemPath();
-        $path = str_replace(PIMCORE_WEB_ROOT, "", $fsPath);
+        $path = str_replace(PIMCORE_WEB_ROOT, '', $fsPath);
         $path = urlencode_ignore_slash($path);
 
         $event = new GenericEvent($this, [
-            "filesystemPath" => $fsPath,
-            "frontendPath" => $path
+            'filesystemPath' => $fsPath,
+            'frontendPath' => $path
         ]);
         \Pimcore::getEventDispatcher()->dispatch(FrontendEvents::ASSET_VIDEO_IMAGE_THUMBNAIL, $event);
-        $path = $event->getArgument("frontendPath");
+        $path = $event->getArgument('frontendPath');
 
         return $path;
     }
@@ -128,8 +128,8 @@ class ImageThumbnail
         if (!$this->asset) {
             $this->filesystemPath = $errorImage;
         } elseif (!$this->filesystemPath) {
-            $cs = $this->asset->getCustomSetting("image_thumbnail_time");
-            $im = $this->asset->getCustomSetting("image_thumbnail_asset");
+            $cs = $this->asset->getCustomSetting('image_thumbnail_time');
+            $im = $this->asset->getCustomSetting('image_thumbnail_asset');
 
             if ($im || $this->imageAsset) {
                 if ($this->imageAsset) {
@@ -157,14 +157,14 @@ class ImageThumbnail
 
                 $converter = \Pimcore\Video::getInstance();
                 $converter->load($this->asset->getFileSystemPath());
-                $path = PIMCORE_TEMPORARY_DIRECTORY . "/video-image-cache/video_" . $this->asset->getId() . "__thumbnail_" . $timeOffset . ".png";
+                $path = PIMCORE_TEMPORARY_DIRECTORY . '/video-image-cache/video_' . $this->asset->getId() . '__thumbnail_' . $timeOffset . '.png';
 
                 if (!is_dir(dirname($path))) {
                     File::mkdir(dirname($path));
                 }
 
                 if (!is_file($path)) {
-                    $lockKey = "video_image_thumbnail_" . $this->asset->getId() . "_" . $timeOffset;
+                    $lockKey = 'video_image_thumbnail_' . $this->asset->getId() . '_' . $timeOffset;
                     Model\Tool\Lock::acquire($lockKey);
 
                     // after we got the lock, check again if the image exists in the meantime - if not - generate it
@@ -177,7 +177,7 @@ class ImageThumbnail
                 }
 
                 if ($this->getConfig()) {
-                    $this->getConfig()->setFilenameSuffix("time-" . $timeOffset);
+                    $this->getConfig()->setFilenameSuffix('time-' . $timeOffset);
 
                     try {
                         $path = Image\Thumbnail\Processor::process($this->asset, $this->getConfig(), $path, $deferred,
@@ -193,8 +193,8 @@ class ImageThumbnail
             }
 
             \Pimcore::getEventDispatcher()->dispatch(AssetEvents::VIDEO_IMAGE_THUMBNAIL, new GenericEvent($this, [
-                "deferred" => $deferred,
-                "generated" => $generated
+                'deferred' => $deferred,
+                'generated' => $generated
             ]));
         }
     }
@@ -285,13 +285,13 @@ class ImageThumbnail
             $info = @getimagesize($this->getFileSystemPath());
             if ($info) {
                 $dimensions = [
-                    "width" => $info[0],
-                    "height" => $info[1]
+                    'width' => $info[0],
+                    'height' => $info[1]
                 ];
             }
 
-            $this->width = $dimensions["width"];
-            $this->height = $dimensions["height"];
+            $this->width = $dimensions['width'];
+            $this->height = $dimensions['height'];
 
             // the following is only relevant if using high-res option (retina, ...)
             $this->realHeight = $this->height;
@@ -304,8 +304,8 @@ class ImageThumbnail
         }
 
         return [
-            "width" => $this->width,
-            "height" => $this->height
+            'width' => $this->width,
+            'height' => $this->height
         ];
     }
 
@@ -337,8 +337,8 @@ class ImageThumbnail
         $config = Image\Thumbnail\Config::getByAutoDetect($selector);
         if ($config) {
             $format = strtolower($config->getFormat());
-            if ($format == "source") {
-                $config->setFormat("PNG");
+            if ($format == 'source') {
+                $config->setFormat('PNG');
             }
         }
 

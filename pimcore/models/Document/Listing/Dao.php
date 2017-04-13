@@ -38,13 +38,13 @@ class Dao extends Model\Listing\Dao\AbstractDao
     public function load()
     {
         $documents = [];
-        $select = $this->getQuery(['id', "type"]);
+        $select = $this->getQuery(['id', 'type']);
 
         $documentsData = $this->db->fetchAll($select, $this->model->getConditionVariables());
 
         foreach ($documentsData as $documentData) {
-            if ($documentData["type"]) {
-                if ($doc = Document::getById($documentData["id"])) {
+            if ($documentData['type']) {
+                if ($doc = Document::getById($documentData['id'])) {
                     $documents[] = $doc;
                 }
             }
@@ -64,7 +64,7 @@ class Dao extends Model\Listing\Dao\AbstractDao
     {
         $select = $this->db->select();
         $select->from(
-            [ "documents" ], $columns
+            [ 'documents' ], $columns
         );
         $this->addConditions($select);
         $this->addOrder($select);
@@ -97,7 +97,7 @@ class Dao extends Model\Listing\Dao\AbstractDao
      */
     public function loadIdPathList()
     {
-        $select = $this->getQuery(['id', "CONCAT(path,`key`)"]);
+        $select = $this->getQuery(['id', 'CONCAT(path,`key`)']);
         $documentIds = $this->db->fetchAll($select, $this->model->getConditionVariables());
 
         return $documentIds;

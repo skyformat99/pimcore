@@ -28,28 +28,28 @@ class Geopolygon extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
      *
      * @var string
      */
-    public $fieldtype = "geopolygon";
+    public $fieldtype = 'geopolygon';
 
     /**
      * Type for the column to query
      *
      * @var string
      */
-    public $queryColumnType = "longtext";
+    public $queryColumnType = 'longtext';
 
     /**
      * Type for the column
      *
      * @var string
      */
-    public $columnType = "longtext";
+    public $columnType = 'longtext';
 
     /**
      * Type for the generated phpdoc
      *
      * @var string
      */
-    public $phpdocType = "array";
+    public $phpdocType = 'array';
 
     /**
      * @see Object\ClassDefinition\Data::getDataForResource
@@ -109,8 +109,8 @@ class Geopolygon extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
                 $points = [];
                 foreach ($data as $point) {
                     $points[] = [
-                        "latitude" => $point->getLatitude(),
-                        "longitude" => $point->getLongitude()
+                        'latitude' => $point->getLatitude(),
+                        'longitude' => $point->getLongitude()
                     ];
                 }
 
@@ -135,7 +135,7 @@ class Geopolygon extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
         if (is_array($data)) {
             $points = [];
             foreach ($data as $point) {
-                $points[] = new Object\Data\Geopoint($point["longitude"], $point["latitude"]);
+                $points[] = new Object\Data\Geopoint($point['longitude'], $point['latitude']);
             }
 
             return $points;
@@ -155,7 +155,7 @@ class Geopolygon extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
      */
     public function getVersionPreview($data, $object = null, $params = [])
     {
-        return "";
+        return '';
     }
 
     /**
@@ -176,10 +176,10 @@ class Geopolygon extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
             $rows = [];
             if (is_array($dataArray)) {
                 foreach ($dataArray as $point) {
-                    $rows[] = implode(";", $point);
+                    $rows[] = implode(';', $point);
                 }
 
-                return implode("|", $rows);
+                return implode('|', $rows);
             }
         }
 
@@ -195,11 +195,11 @@ class Geopolygon extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
      */
     public function getFromCsvImport($importValue, $object = null, $params = [])
     {
-        $rows = explode("|", $importValue);
+        $rows = explode('|', $importValue);
         $points = [];
         if (is_array($rows)) {
             foreach ($rows as $row) {
-                $coords = explode(";", $row);
+                $coords = explode(';', $row);
                 $points[] = new  Object\Data\Geopoint($coords[1], $coords[0]);
             }
         }
@@ -215,7 +215,7 @@ class Geopolygon extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
      */
     public function getDataForSearchIndex($object, $params = [])
     {
-        return "";
+        return '';
     }
 
     /**
@@ -254,16 +254,16 @@ class Geopolygon extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
             $points = [];
             foreach ($value as $point) {
                 $point = (array) $point;
-                if ($point["longitude"] != null and $point["latitude"] != null) {
-                    $points[] = new Object\Data\Geopoint($point["longitude"], $point["latitude"]);
+                if ($point['longitude'] != null and $point['latitude'] != null) {
+                    $points[] = new Object\Data\Geopoint($point['longitude'], $point['latitude']);
                 } else {
-                    throw new \Exception("cannot get values from web service import - invalid data");
+                    throw new \Exception('cannot get values from web service import - invalid data');
                 }
             }
 
             return $points;
         } else {
-            throw new \Exception("cannot get values from web service import - invalid data");
+            throw new \Exception('cannot get values from web service import - invalid data');
         }
     }
 
@@ -290,14 +290,14 @@ class Geopolygon extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
     public function getDiffVersionPreview($data, $object = null, $params = [])
     {
         if (!empty($data)) {
-            $line = "";
+            $line = '';
             $isFirst = true;
             if (is_array($data)) {
                 foreach ($data as $point) {
                     if (!$isFirst) {
-                        $line .= " ";
+                        $line .= ' ';
                     }
-                    $line .= $point->getLatitude() . "," . $point->getLongitude();
+                    $line .= $point->getLatitude() . ',' . $point->getLongitude();
                     $isFirst = false;
                 }
 
@@ -331,7 +331,7 @@ class Geopolygon extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
             }
 
             return [
-                "value" => json_encode($result)
+                'value' => json_encode($result)
             ];
         }
     }
@@ -345,8 +345,8 @@ class Geopolygon extends Model\Object\ClassDefinition\Data\Geo\AbstractGeo
      */
     public function unmarshal($value, $object = null, $params = [])
     {
-        if ($value && $value["value"]) {
-            $value = json_decode($value["value"]);
+        if ($value && $value['value']) {
+            $value = json_decode($value['value']);
             $result = [];
             if (is_array($value)) {
                 foreach ($value as $point) {

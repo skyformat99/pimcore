@@ -27,27 +27,27 @@ class Config extends Model\AbstractModel
     /**
      * @var string
      */
-    public $name = "";
+    public $name = '';
 
     /**
      * @var string
      */
-    public $description = "";
+    public $description = '';
 
     /**
      * @var string
      */
-    public $url = "";
+    public $url = '';
 
     /**
      * @var
      */
-    public $foreColor = "";
+    public $foreColor = '';
 
     /**
      * @var string
      */
-    public $backgroundColor = "";
+    public $backgroundColor = '';
 
     /**
      * @var bool

@@ -34,9 +34,9 @@ class Dao extends Model\Object\Fieldcollection\Definition\Dao
     public function getTableName(Object\ClassDefinition $class, $query = false)
     {
         if ($query) {
-            return "object_brick_query_" . $this->model->getKey() . "_" . $class->getId();
+            return 'object_brick_query_' . $this->model->getKey() . '_' . $class->getId();
         } else {
-            return "object_brick_store_" . $this->model->getKey() . "_" . $class->getId();
+            return 'object_brick_store_' . $this->model->getKey() . '_' . $class->getId();
         }
     }
 
@@ -46,10 +46,10 @@ class Dao extends Model\Object\Fieldcollection\Definition\Dao
     public function delete(Object\ClassDefinition $class)
     {
         $table = $this->getTableName($class, false);
-        $this->db->query("DROP TABLE IF EXISTS `" . $table . "`");
+        $this->db->query('DROP TABLE IF EXISTS `' . $table . '`');
 
         $table = $this->getTableName($class, true);
-        $this->db->query("DROP TABLE IF EXISTS `" . $table . "`");
+        $this->db->query('DROP TABLE IF EXISTS `' . $table . '`');
     }
 
     /**
@@ -60,7 +60,7 @@ class Dao extends Model\Object\Fieldcollection\Definition\Dao
         $tableStore = $this->getTableName($class, false);
         $tableQuery = $this->getTableName($class, true);
 
-        $this->db->query("CREATE TABLE IF NOT EXISTS `" . $tableStore . "` (
+        $this->db->query('CREATE TABLE IF NOT EXISTS `' . $tableStore . "` (
 		  `o_id` int(11) NOT NULL default '0',
           `fieldname` varchar(190) default '',
           PRIMARY KEY (`o_id`,`fieldname`),
@@ -68,7 +68,7 @@ class Dao extends Model\Object\Fieldcollection\Definition\Dao
           INDEX `fieldname` (`fieldname`)
 		) DEFAULT CHARSET=utf8mb4;");
 
-        $this->db->query("CREATE TABLE IF NOT EXISTS `" . $tableQuery . "` (
+        $this->db->query('CREATE TABLE IF NOT EXISTS `' . $tableQuery . "` (
 		  `o_id` int(11) NOT NULL default '0',
           `fieldname` varchar(190) default '',
           PRIMARY KEY (`o_id`,`fieldname`),
@@ -81,8 +81,8 @@ class Dao extends Model\Object\Fieldcollection\Definition\Dao
         $existingColumnsQuery = $this->getValidTableColumns($tableQuery, false); // no caching of table definition
         $columnsToRemoveQuery = $existingColumnsQuery;
 
-        $protectedColumnsStore = ["o_id", "fieldname"];
-        $protectedColumnsQuery = ["o_id", "fieldname"];
+        $protectedColumnsStore = ['o_id', 'fieldname'];
+        $protectedColumnsQuery = ['o_id', 'fieldname'];
 
         Object\ClassDefinition\Service::updateTableDefinitions($this->tableDefinitions, ([$tableStore, $tableQuery]));
 
@@ -92,27 +92,27 @@ class Dao extends Model\Object\Fieldcollection\Definition\Dao
             // if a datafield requires more than one column in the query table
             if (is_array($value->getQueryColumnType())) {
                 foreach ($value->getQueryColumnType() as $fkey => $fvalue) {
-                    $this->addModifyColumn($tableQuery, $key . "__" . $fkey, $fvalue, "", "NULL");
-                    $protectedColumnsQuery[] = $key . "__" . $fkey;
+                    $this->addModifyColumn($tableQuery, $key . '__' . $fkey, $fvalue, '', 'NULL');
+                    $protectedColumnsQuery[] = $key . '__' . $fkey;
                 }
             }
 
             // if a datafield requires more than one column in the datastore table => only for non-relation types
             if (!$value->isRelationType() && is_array($value->getColumnType())) {
                 foreach ($value->getColumnType() as $fkey => $fvalue) {
-                    $this->addModifyColumn($tableStore, $key . "__" . $fkey, $fvalue, "", "NULL");
-                    $protectedColumnsStore[] = $key . "__" . $fkey;
+                    $this->addModifyColumn($tableStore, $key . '__' . $fkey, $fvalue, '', 'NULL');
+                    $protectedColumnsStore[] = $key . '__' . $fkey;
                 }
             }
 
             // everything else
             if (!is_array($value->getQueryColumnType()) && !is_array($value->getColumnType())) {
                 if ($value->getQueryColumnType()) {
-                    $this->addModifyColumn($tableQuery, $key, $value->getQueryColumnType(), "", "NULL");
+                    $this->addModifyColumn($tableQuery, $key, $value->getQueryColumnType(), '', 'NULL');
                     $protectedColumnsQuery[] = $key;
                 }
                 if ($value->getColumnType() && !$value->isRelationType()) {
-                    $this->addModifyColumn($tableStore, $key, $value->getColumnType(), "", "NULL");
+                    $this->addModifyColumn($tableStore, $key, $value->getColumnType(), '', 'NULL');
                     $protectedColumnsStore[] = $key;
                 }
             }

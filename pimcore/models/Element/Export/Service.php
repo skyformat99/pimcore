@@ -79,8 +79,8 @@ class Service
             if ($dependency) {
                 foreach ($dependency->getRequires() as $r) {
                     if ($e = Element\Service::getDependedElement($r)) {
-                        if ($element->getId() != $e->getId() and !in_array(Element\Service::getElementType($e) . "_" . $e->getId(), $apiElementKeys)) {
-                            $foundRelations[Element\Service::getElementType($e) . "_" . $e->getId()] = ["elementType" => Element\Service::getType($e), "element" => $e->getId(), "recursive" => false];
+                        if ($element->getId() != $e->getId() and !in_array(Element\Service::getElementType($e) . '_' . $e->getId(), $apiElementKeys)) {
+                            $foundRelations[Element\Service::getElementType($e) . '_' . $e->getId()] = ['elementType' => Element\Service::getType($e), 'element' => $e->getId(), 'recursive' => false];
                         }
                     }
                 }
@@ -90,8 +90,8 @@ class Service
         $childs = $element->getChilds();
         if ($recursive and $childs) {
             foreach ($childs as $child) {
-                if (!in_array(Element\Service::getType($child) . "_" . $child->getId(), $apiElementKeys)) {
-                    $foundRelations[Element\Service::getType($child) . "_" . $child->getId()] = ["elementType" => Element\Service::getType($child), "element" => $child->getId(), "recursive" => $recursive];
+                if (!in_array(Element\Service::getType($child) . '_' . $child->getId(), $apiElementKeys)) {
+                    $foundRelations[Element\Service::getType($child) . '_' . $child->getId()] = ['elementType' => Element\Service::getType($child), 'element' => $child->getId(), 'recursive' => $recursive];
                 }
             }
         }

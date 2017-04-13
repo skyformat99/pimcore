@@ -31,28 +31,28 @@ class Link extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $fieldtype = "link";
+    public $fieldtype = 'link';
 
     /**
      * Type for the column to query
      *
      * @var string
      */
-    public $queryColumnType = "text";
+    public $queryColumnType = 'text';
 
     /**
      * Type for the column
      *
      * @var string
      */
-    public $columnType = "text";
+    public $columnType = 'text';
 
     /**
      * Type for the generated phpdoc
      *
      * @var string
      */
-    public $phpdocType = "\\Pimcore\\Model\\Object\\Data\\Link";
+    public $phpdocType = '\\Pimcore\\Model\\Object\\Data\\Link';
 
     /**
      * @see Object\ClassDefinition\Data::getDataForResource
@@ -191,15 +191,15 @@ class Link extends Model\Object\ClassDefinition\Data
         if ($data) {
             if ($data instanceof Object\Data\Link) {
                 if (intval($data->getInternal()) > 0) {
-                    if ($data->getInternalType() == "document") {
+                    if ($data->getInternalType() == 'document') {
                         $doc = Document::getById($data->getInternal());
                         if (!$doc instanceof Document) {
-                            throw new Element\ValidationException("invalid internal link, referenced document with id [" . $data->getInternal() . "] does not exist");
+                            throw new Element\ValidationException('invalid internal link, referenced document with id [' . $data->getInternal() . '] does not exist');
                         }
-                    } elseif ($data->getInternalType() == "asset") {
+                    } elseif ($data->getInternalType() == 'asset') {
                         $asset = Asset::getById($data->getInternal());
                         if (!$asset instanceof Asset) {
-                            throw new Element\ValidationException("invalid internal link, referenced asset with id [" . $data->getInternal() . "] does not exist");
+                            throw new Element\ValidationException('invalid internal link, referenced asset with id [' . $data->getInternal() . '] does not exist');
                         }
                     }
                 }
@@ -218,21 +218,21 @@ class Link extends Model\Object\ClassDefinition\Data
 
         if ($data instanceof Object\Data\Link and $data->getInternal()) {
             if (intval($data->getInternal()) > 0) {
-                if ($data->getInternalType() == "document") {
+                if ($data->getInternalType() == 'document') {
                     if ($doc = Document::getById($data->getInternal())) {
-                        $key = "document_" . $doc->getId();
+                        $key = 'document_' . $doc->getId();
                         $dependencies[$key] = [
-                            "id" => $doc->getId(),
-                            "type" => "document"
+                            'id' => $doc->getId(),
+                            'type' => 'document'
                         ];
                     }
-                } elseif ($data->getInternalType() == "asset") {
+                } elseif ($data->getInternalType() == 'asset') {
                     if ($asset = Asset::getById($data->getInternal())) {
-                        $key = "asset_" . $asset->getId();
+                        $key = 'asset_' . $asset->getId();
 
                         $dependencies[$key] = [
-                            "id" => $asset->getId(),
-                            "type" => "asset"
+                            'id' => $asset->getId(),
+                            'type' => 'asset'
                         ];
                     }
                 }
@@ -256,13 +256,13 @@ class Link extends Model\Object\ClassDefinition\Data
 
         if ($data instanceof Object\Data\Link and $data->getInternal()) {
             if (intval($data->getInternal()) > 0) {
-                if ($data->getInternalType() == "document") {
+                if ($data->getInternalType() == 'document') {
                     if ($doc = Document::getById($data->getInternal())) {
                         if (!array_key_exists($doc->getCacheTag(), $tags)) {
                             $tags = $doc->getCacheTags($tags);
                         }
                     }
-                } elseif ($data->getInternalType() == "asset") {
+                } elseif ($data->getInternalType() == 'asset') {
                     if ($asset = Asset::getById($data->getInternal())) {
                         if (!array_key_exists($asset->getCacheTag(), $tags)) {
                             $tags = $asset->getCacheTags($tags);
@@ -327,7 +327,7 @@ class Link extends Model\Object\ClassDefinition\Data
             return $data->getText();
         }
 
-        return "";
+        return '';
     }
 
     /**
@@ -344,8 +344,8 @@ class Link extends Model\Object\ClassDefinition\Data
         if ($data instanceof Object\Data\Link) {
             $keys = get_object_vars($data);
             foreach ($keys as $key => $value) {
-                $method = "get" . ucfirst($key);
-                if (!method_exists($data, $method) or $key == "object") {
+                $method = 'get' . ucfirst($key);
+                if (!method_exists($data, $method) or $key == 'object') {
                     unset($keys[$key]);
                 }
             }
@@ -377,11 +377,11 @@ class Link extends Model\Object\ClassDefinition\Data
         } elseif (is_array($value) and !empty($value['text']) and !empty($value['direct'])) {
             $link = new Object\Data\Link();
             foreach ($value as $key => $v) {
-                $method = "set" . ucfirst($key);
+                $method = 'set' . ucfirst($key);
                 if (method_exists($link, $method)) {
                     $link->$method($v);
                 } else {
-                    throw new \Exception("cannot get values from web service import - invalid data. Unknown Object\\Data\\Link setter [ " . $method . " ]");
+                    throw new \Exception('cannot get values from web service import - invalid data. Unknown Object\\Data\\Link setter [ ' . $method . ' ]');
                 }
             }
 
@@ -396,21 +396,21 @@ class Link extends Model\Object\ClassDefinition\Data
             $element = Element\Service::getElementById($value['internalType'], $id);
             if (!$element) {
                 if ($idMapper && $idMapper->ignoreMappingFailures()) {
-                    $idMapper->recordMappingFailure("object", $relatedObject->getId(), $value['internalType'], $value['internal']);
+                    $idMapper->recordMappingFailure('object', $relatedObject->getId(), $value['internalType'], $value['internal']);
 
                     return null;
                 } else {
-                    throw new \Exception("cannot get values from web service import - referencing unknown internal element with type [ ".$value['internalType']." ] and id [ ".$value['internal']." ]");
+                    throw new \Exception('cannot get values from web service import - referencing unknown internal element with type [ '.$value['internalType'].' ] and id [ '.$value['internal'].' ]');
                 }
             }
 
             $link = new Object\Data\Link();
             foreach ($value as $key => $v) {
-                $method = "set" . ucfirst($key);
+                $method = 'set' . ucfirst($key);
                 if (method_exists($link, $method)) {
                     $link->$method($v);
                 } else {
-                    throw new \Exception("cannot get values from web service import - invalid data. Unknown Object\\Data\\Link setter [ " . $method . " ]");
+                    throw new \Exception('cannot get values from web service import - invalid data. Unknown Object\\Data\\Link setter [ ' . $method . ' ]');
                 }
             }
 
@@ -418,17 +418,17 @@ class Link extends Model\Object\ClassDefinition\Data
         } elseif (is_array($value)) {
             $link = new Object\Data\Link();
             foreach ($value as $key => $v) {
-                $method = "set" . ucfirst($key);
+                $method = 'set' . ucfirst($key);
                 if (method_exists($link, $method)) {
                     $link->$method($v);
                 } else {
-                    throw new \Exception("cannot get values from web service import - invalid data. Unknown Object\\Data\\Link setter [ " . $method . " ]");
+                    throw new \Exception('cannot get values from web service import - invalid data. Unknown Object\\Data\\Link setter [ ' . $method . ' ]');
                 }
             }
 
             return $link;
         } else {
-            throw new \Exception("cannot get values from web service import - invalid data");
+            throw new \Exception('cannot get values from web service import - invalid data');
         }
     }
 
@@ -483,7 +483,7 @@ class Link extends Model\Object\ClassDefinition\Data
     public function rewriteIds($object, $idMapping, $params = [])
     {
         $data = $this->getDataFromObjectParam($object, $params);
-        if ($data instanceof Object\Data\Link && $data->getLinktype() == "internal") {
+        if ($data instanceof Object\Data\Link && $data->getLinktype() == 'internal') {
             $id = $data->getInternal();
             $type = $data->getInternalType();
 

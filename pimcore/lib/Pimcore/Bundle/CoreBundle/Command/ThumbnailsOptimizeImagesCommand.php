@@ -32,7 +32,7 @@ class ThumbnailsOptimizeImagesCommand extends AbstractCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $files = rscandir(PIMCORE_TEMPORARY_DIRECTORY . "/image-thumbnails/");
+        $files = rscandir(PIMCORE_TEMPORARY_DIRECTORY . '/image-thumbnails/');
 
         $savedBytesTotal = 0;
 
@@ -44,11 +44,11 @@ class ThumbnailsOptimizeImagesCommand extends AbstractCommand
                 $savedBytes = ($originalFilesize - filesize($file));
                 $savedBytesTotal += $savedBytes;
 
-                $this->output->writeln("Optimized image: " . $file . " saved " . formatBytes($savedBytes));
+                $this->output->writeln('Optimized image: ' . $file . ' saved ' . formatBytes($savedBytes));
             }
         }
 
-        $this->output->writeln("Finished!");
-        $this->output->writeln("Saved " . formatBytes($savedBytesTotal) . " in total");
+        $this->output->writeln('Finished!');
+        $this->output->writeln('Saved ' . formatBytes($savedBytesTotal) . ' in total');
     }
 }

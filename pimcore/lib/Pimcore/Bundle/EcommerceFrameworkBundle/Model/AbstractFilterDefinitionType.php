@@ -61,6 +61,6 @@ abstract class AbstractFilterDefinitionType extends \Pimcore\Model\Object\Fieldc
      */
     public function getRequiredFilterField()
     {
-        return "";
+        return '';
     }
 }

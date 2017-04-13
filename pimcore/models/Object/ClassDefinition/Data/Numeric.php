@@ -26,7 +26,7 @@ class Numeric extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $fieldtype = "numeric";
+    public $fieldtype = 'numeric';
 
     /**
      * @var float
@@ -43,21 +43,21 @@ class Numeric extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $queryColumnType = "double";
+    public $queryColumnType = 'double';
 
     /**
      * Type for the column
      *
      * @var string
      */
-    public $columnType = "double";
+    public $columnType = 'double';
 
     /**
      * Type for the generated phpdoc
      *
      * @var string
      */
-    public $phpdocType = "float";
+    public $phpdocType = 'float';
 
     /**
      * @var bool
@@ -214,11 +214,11 @@ class Numeric extends Model\Object\ClassDefinition\Data
     public function getColumnType()
     {
         if ($this->getInteger()) {
-            return "bigint(20)";
+            return 'bigint(20)';
         }
 
         if ($this->getDecimalPrecision()) {
-            return "decimal(64, " . intval($this->getDecimalPrecision()) . ")";
+            return 'decimal(64, ' . intval($this->getDecimalPrecision()) . ')';
         }
 
         return parent::getColumnType();
@@ -230,11 +230,11 @@ class Numeric extends Model\Object\ClassDefinition\Data
     public function getQueryColumnType()
     {
         if ($this->getInteger()) {
-            return "bigint(20)";
+            return 'bigint(20)';
         }
 
         if ($this->getDecimalPrecision()) {
-            return "decimal(64, " . intval($this->getDecimalPrecision()) . ")";
+            return 'decimal(64, ' . intval($this->getDecimalPrecision()) . ')';
         }
 
         return parent::getQueryColumnType();
@@ -343,34 +343,34 @@ class Numeric extends Model\Object\ClassDefinition\Data
     public function checkValidity($data, $omitMandatoryCheck = false)
     {
         if (!$omitMandatoryCheck && $this->getMandatory() && $this->isEmpty($data)) {
-            throw new Model\Element\ValidationException("Empty mandatory field [ ".$this->getName()." ]");
+            throw new Model\Element\ValidationException('Empty mandatory field [ '.$this->getName().' ]');
         }
 
         if (!$this->isEmpty($data) && !is_numeric($data)) {
-            throw new Model\Element\ValidationException("invalid numeric data [" . $data . "]");
+            throw new Model\Element\ValidationException('invalid numeric data [' . $data . ']');
         }
 
         if (!$this->isEmpty($data) && !$omitMandatoryCheck) {
             $data = $this->toNumeric($data);
 
             if ($data >= PHP_INT_MAX) {
-                throw new Model\Element\ValidationException("Value exceeds PHP_INT_MAX please use an input data type instead of numeric!");
+                throw new Model\Element\ValidationException('Value exceeds PHP_INT_MAX please use an input data type instead of numeric!');
             }
 
-            if ($this->getInteger() && strpos((string) $data, ".") !== false) {
-                throw new Model\Element\ValidationException("Value in field [ ".$this->getName()." ] is not an integer");
+            if ($this->getInteger() && strpos((string) $data, '.') !== false) {
+                throw new Model\Element\ValidationException('Value in field [ '.$this->getName().' ] is not an integer');
             }
 
             if (strlen($this->getMinValue()) && $this->getMinValue() > $data) {
-                throw new Model\Element\ValidationException("Value in field [ ".$this->getName()." ] is not at least " . $this->getMinValue());
+                throw new Model\Element\ValidationException('Value in field [ '.$this->getName().' ] is not at least ' . $this->getMinValue());
             }
 
             if (strlen($this->getMaxValue()) && $data > $this->getMaxValue()) {
-                throw new Model\Element\ValidationException("Value in field [ ".$this->getName()." ] is bigger than " . $this->getMaxValue());
+                throw new Model\Element\ValidationException('Value in field [ '.$this->getName().' ] is bigger than ' . $this->getMaxValue());
             }
 
             if ($this->getUnsigned() && $data < 0) {
-                throw new Model\Element\ValidationException("Value in field [ ".$this->getName()." ] is not unsigned (bigger than 0)");
+                throw new Model\Element\ValidationException('Value in field [ '.$this->getName().' ] is not unsigned (bigger than 0)');
             }
         }
     }
@@ -403,7 +403,7 @@ class Numeric extends Model\Object\ClassDefinition\Data
      */
     public function getFromCsvImport($importValue, $object = null, $params = [])
     {
-        $value = $this->toNumeric(str_replace(",", ".", $importValue));
+        $value = $this->toNumeric(str_replace(',', '.', $importValue));
 
         return $value;
     }
@@ -436,7 +436,7 @@ class Numeric extends Model\Object\ClassDefinition\Data
      */
     protected function toNumeric($value)
     {
-        if (strpos((string) $value, ".") === false) {
+        if (strpos((string) $value, '.') === false) {
             return (int) $value;
         }
 

@@ -78,7 +78,7 @@ class UUID extends Model\AbstractModel
     {
         $instanceIdentifier = \Pimcore\Config::getSystemConfig()->general->instanceIdentifier;
         if (!$instanceIdentifier) {
-            throw new \Exception("No instance identifier set in system config!");
+            throw new \Exception('No instance identifier set in system config!');
         }
         $this->setInstanceIdentifier($instanceIdentifier);
 
@@ -133,10 +133,10 @@ class UUID extends Model\AbstractModel
     public function createUuid()
     {
         if (!$this->getInstanceIdentifier()) {
-            throw new \Exception("No instance identifier specified.");
+            throw new \Exception('No instance identifier specified.');
         }
 
-        $this->uuid = \Ramsey\Uuid\Uuid::uuid5(\Ramsey\Uuid\Uuid::NAMESPACE_DNS, $this->getInstanceIdentifier() . "~" . $this->getType() . "~" . $this->getItemId());
+        $this->uuid = \Ramsey\Uuid\Uuid::uuid5(\Ramsey\Uuid\Uuid::NAMESPACE_DNS, $this->getInstanceIdentifier() . '~' . $this->getType() . '~' . $this->getItemId());
         $this->save();
 
         return $this->uuid;
@@ -170,7 +170,7 @@ class UUID extends Model\AbstractModel
         if ($item instanceof Model\Element\ElementInterface) {
             $this->setType(Model\Element\Service::getElementType($item));
         } elseif ($item instanceof Model\Object\ClassDefinition) {
-            $this->setType("class");
+            $this->setType('class');
         }
 
         $this->item = $item;

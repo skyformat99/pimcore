@@ -27,7 +27,7 @@ class Slider extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $fieldtype = "slider";
+    public $fieldtype = 'slider';
 
     /**
      * @var int
@@ -69,21 +69,21 @@ class Slider extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $queryColumnType = "double";
+    public $queryColumnType = 'double';
 
     /**
      * Type for the column
      *
      * @var string
      */
-    public $columnType = "double";
+    public $columnType = 'double';
 
     /**
      * Type for the generated phpdoc
      *
      * @var string
      */
-    public $phpdocType = "float";
+    public $phpdocType = 'float';
 
     /**
      * @return int
@@ -330,11 +330,11 @@ class Slider extends Model\Object\ClassDefinition\Data
     public function checkValidity($data, $omitMandatoryCheck = false)
     {
         if (!$omitMandatoryCheck and $this->getMandatory() and $data === null) {
-            throw new Model\Element\ValidationException("Empty mandatory field [ ".$this->getName()." ] ".strval($data));
+            throw new Model\Element\ValidationException('Empty mandatory field [ '.$this->getName().' ] '.strval($data));
         }
 
         if (!empty($data) and !is_numeric($data)) {
-            throw new Model\Element\ValidationException("invalid slider data");
+            throw new Model\Element\ValidationException('invalid slider data');
         }
     }
 

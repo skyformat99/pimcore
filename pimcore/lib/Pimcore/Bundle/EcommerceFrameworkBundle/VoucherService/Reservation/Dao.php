@@ -18,7 +18,7 @@ namespace Pimcore\Bundle\EcommerceFrameworkBundle\VoucherService\Reservation;
 
 class Dao extends \Pimcore\Model\Dao\AbstractDao
 {
-    const TABLE_NAME = "ecommerceframework_vouchertoolkit_reservations";
+    const TABLE_NAME = 'ecommerceframework_vouchertoolkit_reservations';
 
     public function __construct()
     {
@@ -33,10 +33,10 @@ class Dao extends \Pimcore\Model\Dao\AbstractDao
      */
     public function get($code, \Pimcore\Bundle\EcommerceFrameworkBundle\CartManager\ICart $cart = null)
     {
-        $query = "SELECT * FROM " . self::TABLE_NAME . " WHERE token = ?";
+        $query = 'SELECT * FROM ' . self::TABLE_NAME . ' WHERE token = ?';
         $params[] = $code;
         if (isset($cart)) {
-            $query .= " AND cart_id = ?";
+            $query .= ' AND cart_id = ?';
             $params[] = $cart->getId();
         }
 
@@ -65,7 +65,7 @@ class Dao extends \Pimcore\Model\Dao\AbstractDao
         }
         try {
             // Single Type Token --> only one token per Cart! --> Update on duplicate key!
-            $this->db->query("INSERT INTO " . self::TABLE_NAME . " (token,cart_id,timestamp) VALUES (?,?,NOW())", [$code, $cart->getId()]);
+            $this->db->query('INSERT INTO ' . self::TABLE_NAME . ' (token,cart_id,timestamp) VALUES (?,?,NOW())', [$code, $cart->getId()]);
 
             return true;
         } catch (Exception $e) {
@@ -79,7 +79,7 @@ class Dao extends \Pimcore\Model\Dao\AbstractDao
     public function remove()
     {
         try {
-            $this->db->deleteWhere(self::TABLE_NAME, ["token" => $this->model->getToken()]);
+            $this->db->deleteWhere(self::TABLE_NAME, ['token' => $this->model->getToken()]);
 
             return true;
         } catch (\Exception $e) {
@@ -96,10 +96,10 @@ class Dao extends \Pimcore\Model\Dao\AbstractDao
     {
         $db = \Pimcore\Db::get();
 
-        $query = "SELECT COUNT(*) FROM " . self::TABLE_NAME;
+        $query = 'SELECT COUNT(*) FROM ' . self::TABLE_NAME;
 
         if (isset($seriesId)) {
-            $query .= " WHERE seriesId = ?";
+            $query .= ' WHERE seriesId = ?';
             $params[] = $seriesId;
         }
 
@@ -124,7 +124,7 @@ class Dao extends \Pimcore\Model\Dao\AbstractDao
     {
         $db = \Pimcore\Db::get();
 
-        $query = "SELECT isReserved FROM " . self::TABLE_NAME . " WHERE token = ? ";
+        $query = 'SELECT isReserved FROM ' . self::TABLE_NAME . ' WHERE token = ? ';
         $params[] = $token;
 
         try {

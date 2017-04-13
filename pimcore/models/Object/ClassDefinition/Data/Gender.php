@@ -26,7 +26,7 @@ class Gender extends Model\Object\ClassDefinition\Data\Select
      *
      * @var string
      */
-    public $fieldtype = "gender";
+    public $fieldtype = 'gender';
 
     /**
      * Gender constructor.
@@ -34,9 +34,9 @@ class Gender extends Model\Object\ClassDefinition\Data\Select
     public function __construct()
     {
         $options = [
-            ["key" => "male", "value" => "male"],
-            ["key" => "female", "value" => "female"],
-            ["key" => "", "value" => "unknown"],
+            ['key' => 'male', 'value' => 'male'],
+            ['key' => 'female', 'value' => 'female'],
+            ['key' => '', 'value' => 'unknown'],
         ];
 
         $this->setOptions($options);

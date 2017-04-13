@@ -24,7 +24,7 @@ use Pimcore\Model;
  */
 class Dao extends Model\Dao\AbstractDao
 {
-    const TABLE_NAME = "quantityvalue_units";
+    const TABLE_NAME = 'quantityvalue_units';
 
     /**
      * Contains all valid columns in the database table
@@ -49,9 +49,9 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function getByAbbreviation($abbreviation)
     {
-        $classRaw = $this->db->fetchRow("SELECT * FROM " . self::TABLE_NAME . " WHERE abbreviation=" . $this->db->quote($abbreviation));
+        $classRaw = $this->db->fetchRow('SELECT * FROM ' . self::TABLE_NAME . ' WHERE abbreviation=' . $this->db->quote($abbreviation));
         if (empty($classRaw)) {
-            throw new \Exception("Unit " . $abbreviation . " not found.");
+            throw new \Exception('Unit ' . $abbreviation . ' not found.');
         }
         $this->assignVariablesToModel($classRaw);
     }
@@ -63,9 +63,9 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function getByReference($reference)
     {
-        $classRaw = $this->db->fetchRow("SELECT * FROM " . self::TABLE_NAME . " WHERE reference=" . $this->db->quote($reference));
+        $classRaw = $this->db->fetchRow('SELECT * FROM ' . self::TABLE_NAME . ' WHERE reference=' . $this->db->quote($reference));
         if (empty($classRaw)) {
-            throw new \Exception("Unit " . $reference . " not found.");
+            throw new \Exception('Unit ' . $reference . ' not found.');
         }
         $this->assignVariablesToModel($classRaw);
     }
@@ -77,9 +77,9 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function getById($id)
     {
-        $classRaw = $this->db->fetchRow("SELECT * FROM " . self::TABLE_NAME . " WHERE id=" . $this->db->quote($id));
+        $classRaw = $this->db->fetchRow('SELECT * FROM ' . self::TABLE_NAME . ' WHERE id=' . $this->db->quote($id));
         if (empty($classRaw)) {
-            throw new \Exception("Unit " . $id . " not found.");
+            throw new \Exception('Unit ' . $id . ' not found.');
         }
         $this->assignVariablesToModel($classRaw);
     }
@@ -129,7 +129,7 @@ class Dao extends Model\Dao\AbstractDao
             }
         }
 
-        $this->db->update(self::TABLE_NAME, $data, ["id" => $this->model->getId()]);
+        $this->db->update(self::TABLE_NAME, $data, ['id' => $this->model->getId()]);
     }
 
     /**
@@ -137,6 +137,6 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function delete()
     {
-        $this->db->delete(self::TABLE_NAME, ["id" => $this->model->getId()]);
+        $this->db->delete(self::TABLE_NAME, ['id' => $this->model->getId()]);
     }
 }

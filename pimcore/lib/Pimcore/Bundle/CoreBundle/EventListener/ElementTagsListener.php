@@ -58,6 +58,6 @@ class ElementTagsListener implements EventSubscriberInterface
     public function onPostAssetDelete(AssetEvent $e)
     {
         $asset = $e->getAsset();
-        \Pimcore\Model\Element\Tag::setTagsForElement("asset", $asset->getId(), []);
+        \Pimcore\Model\Element\Tag::setTagsForElement('asset', $asset->getId(), []);
     }
 }

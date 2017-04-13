@@ -26,7 +26,7 @@ class Email extends Model\Object\ClassDefinition\Data\Input
     /**
      * @var string
      */
-    public $fieldtype = "email";
+    public $fieldtype = 'email';
 
     /**
      * @param mixed $data
@@ -39,7 +39,7 @@ class Email extends Model\Object\ClassDefinition\Data\Input
         if (!$omitMandatoryCheck && strlen($data) > 0) {
             $validator = new EmailValidator();
             if (!$validator->isValid($data, new RFCValidation())) {
-                throw new Model\Element\ValidationException("Value in field [ " . $this->getName() . " ] isn't a valid email address");
+                throw new Model\Element\ValidationException('Value in field [ ' . $this->getName() . " ] isn't a valid email address");
             }
         }
 

@@ -34,11 +34,11 @@ class Config
     {
         $config = null;
 
-        if (\Pimcore\Cache\Runtime::isRegistered("pimcore_config_workflowmanagement") && !$forceReload) {
-            $config = \Pimcore\Cache\Runtime::get("pimcore_config_workflowmanagement");
+        if (\Pimcore\Cache\Runtime::isRegistered('pimcore_config_workflowmanagement') && !$forceReload) {
+            $config = \Pimcore\Cache\Runtime::get('pimcore_config_workflowmanagement');
         } else {
             try {
-                $file = \Pimcore\Config::locateConfigFile("workflowmanagement.php");
+                $file = \Pimcore\Config::locateConfigFile('workflowmanagement.php');
 
                 if (is_file($file)) {
                     $config = include($file);
@@ -50,8 +50,8 @@ class Config
                     }
                 }
             } catch (\Exception $e) {
-                $file = \Pimcore\Config::locateConfigFile("workflowmanagement.php");
-                Logger::emergency("Cannot find workflow configuration, should be located at: " . $file);
+                $file = \Pimcore\Config::locateConfigFile('workflowmanagement.php');
+                Logger::emergency('Cannot find workflow configuration, should be located at: ' . $file);
             }
         }
 
@@ -65,7 +65,7 @@ class Config
      */
     public static function setWorkflowManagementConfig($config)
     {
-        \Pimcore\Cache\Runtime::set("pimcore_config_workflowmanagement", $config);
+        \Pimcore\Cache\Runtime::set('pimcore_config_workflowmanagement', $config);
     }
 
     /**

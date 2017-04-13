@@ -28,7 +28,7 @@ class Table extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $fieldtype = "table";
+    public $fieldtype = 'table';
 
     /**
      * @var int
@@ -72,21 +72,21 @@ class Table extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $queryColumnType = "longtext";
+    public $queryColumnType = 'longtext';
 
     /**
      * Type for the column
      *
      * @var string
      */
-    public $columnType = "longtext";
+    public $columnType = 'longtext';
 
     /**
      * Type for the generated phpdoc
      *
      * @var string
      */
-    public $phpdocType = "array";
+    public $phpdocType = 'array';
 
     /**
      * @return int
@@ -272,7 +272,7 @@ class Table extends Model\Object\ClassDefinition\Data
             if (is_array($data)) {
                 foreach ($data as $row) {
                     if (is_array($row)) {
-                        $tmpLine[] = implode("|", $row);
+                        $tmpLine[] = implode('|', $row);
                     }
                 }
             }
@@ -280,7 +280,7 @@ class Table extends Model\Object\ClassDefinition\Data
             return implode("\n", $tmpLine);
         }
 
-        return "";
+        return '';
     }
 
     /**
@@ -310,15 +310,15 @@ class Table extends Model\Object\ClassDefinition\Data
     {
 
         // check for empty data
-        $checkData = "";
+        $checkData = '';
         if (is_array($data)) {
             foreach ($data as $row) {
                 if (is_array($row)) {
-                    $checkData .= implode("", $row);
+                    $checkData .= implode('', $row);
                 }
             }
         }
-        $checkData = str_replace(" ", "", $checkData);
+        $checkData = str_replace(' ', '', $checkData);
 
         if (empty($checkData)) {
             return null;
@@ -352,11 +352,11 @@ class Table extends Model\Object\ClassDefinition\Data
     public function checkValidity($data, $omitMandatoryCheck = false)
     {
         if (!$omitMandatoryCheck and $this->getMandatory() and empty($data)) {
-            throw new Model\Element\ValidationException("Empty mandatory field [ ".$this->getName()." ]");
+            throw new Model\Element\ValidationException('Empty mandatory field [ '.$this->getName().' ]');
         }
 
         if (!empty($data) and !is_array($data)) {
-            throw new Model\Element\ValidationException("Invalid table data");
+            throw new Model\Element\ValidationException('Invalid table data');
         }
     }
 
@@ -412,7 +412,7 @@ class Table extends Model\Object\ClassDefinition\Data
             if (is_array($data)) {
                 foreach ($data as $row) {
                     if (is_array($row)) {
-                        $tmpLine[] = implode(" ", $row);
+                        $tmpLine[] = implode(' ', $row);
                     }
                 }
             }
@@ -420,7 +420,7 @@ class Table extends Model\Object\ClassDefinition\Data
             return implode("\n", $tmpLine);
         }
 
-        return "";
+        return '';
     }
 
     /** True if change is allowed in edit mode.
@@ -446,29 +446,29 @@ class Table extends Model\Object\ClassDefinition\Data
     public function getDiffVersionPreview($data, $object = null, $params = [])
     {
         if ($data) {
-            $html = "<table>";
+            $html = '<table>';
 
             foreach ($data as $row) {
-                $html .= "<tr>";
+                $html .= '<tr>';
 
                 if (is_array($row)) {
                     foreach ($row as $cell) {
-                        $html .= "<td>";
+                        $html .= '<td>';
                         $html .= $cell;
-                        $html .= "</th>";
+                        $html .= '</th>';
                     }
                 }
-                $html .= "</tr>";
+                $html .= '</tr>';
             }
-            $html .= "</table>";
+            $html .= '</table>';
 
             $value = [];
-            $value["html"] = $html;
-            $value["type"] = "html";
+            $value['html'] = $html;
+            $value['type'] = 'html';
 
             return $value;
         } else {
-            return "";
+            return '';
         }
     }
 

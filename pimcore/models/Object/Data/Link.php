@@ -376,15 +376,15 @@ class Link
     {
         if (!empty($path)) {
             if ($document = Document::getByPath($path)) {
-                $this->linktype = "internal";
-                $this->internalType = "document";
+                $this->linktype = 'internal';
+                $this->internalType = 'document';
                 $this->internal = $document->getId();
             } elseif ($asset = Asset::getByPath($path)) {
-                $this->linktype = "internal";
-                $this->internalType = "asset";
+                $this->linktype = 'internal';
+                $this->internalType = 'asset';
                 $this->internal = $asset->getId();
             } else {
-                $this->linktype = "direct";
+                $this->linktype = 'direct';
                 $this->direct = $path;
             }
         }
@@ -397,8 +397,8 @@ class Link
      */
     public function getPath()
     {
-        $path = "";
-        if ($this->getLinktype() == "internal") {
+        $path = '';
+        if ($this->getLinktype() == 'internal') {
             if ($this->getObject() instanceof Document || $this->getObject() instanceof Asset) {
                 $path = $this->getObject()->getFullPath();
             }
@@ -416,8 +416,8 @@ class Link
      */
     public function getHref()
     {
-        $path = "";
-        if ($this->getLinktype() == "internal") {
+        $path = '';
+        if ($this->getLinktype() == 'internal') {
             if ($this->getObject() instanceof Document || $this->getObject() instanceof Asset) {
                 $path = $this->getObject()->getFullPath();
             }
@@ -426,10 +426,10 @@ class Link
         }
 
         if (strlen($this->getParameters()) > 0) {
-            $path .= "?" . str_replace("?", "", $this->getParameters());
+            $path .= '?' . str_replace('?', '', $this->getParameters());
         }
         if (strlen($this->getAnchor()) > 0) {
-            $path .= "#" . str_replace("#", "", $this->getAnchor());
+            $path .= '#' . str_replace('#', '', $this->getAnchor());
         }
 
         $this->href = $path;
@@ -474,9 +474,9 @@ class Link
      */
     public function setObjectFromId()
     {
-        if ($this->internalType == "document") {
+        if ($this->internalType == 'document') {
             $this->object = Document::getById($this->internal);
-        } elseif ($this->internalType == "asset") {
+        } elseif ($this->internalType == 'asset') {
             $this->object = Asset::getById($this->internal);
         }
 
@@ -488,7 +488,7 @@ class Link
      */
     public function getHtml()
     {
-        $attributes = ["rel", "tabindex", "accesskey", "title", "target", "class"];
+        $attributes = ['rel', 'tabindex', 'accesskey', 'title', 'target', 'class'];
         $attribs = [];
         foreach ($attributes as $a) {
             if ($this->$a) {
@@ -501,10 +501,10 @@ class Link
         }
 
         if (empty($this->text)) {
-            return "";
+            return '';
         }
 
-        return '<a href="' . $this->getHref() . '" ' . implode(" ", $attribs) . '>' . htmlspecialchars($this->getText()) . '</a>';
+        return '<a href="' . $this->getHref() . '" ' . implode(' ', $attribs) . '>' . htmlspecialchars($this->getText()) . '</a>';
     }
 
     /**
@@ -531,7 +531,7 @@ class Link
     {
         if (is_array($data) && count($data) > 0) {
             foreach ($data as $key => $value) {
-                $method = "set" . $key;
+                $method = 'set' . $key;
                 if (method_exists($this, $method)) {
                     $this->$method($value);
                 }

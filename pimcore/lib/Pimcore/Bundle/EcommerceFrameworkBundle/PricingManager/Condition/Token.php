@@ -28,7 +28,7 @@ class Token implements \Pimcore\Bundle\EcommerceFrameworkBundle\PricingManager\I
      */
     public function check(\Pimcore\Bundle\EcommerceFrameworkBundle\PricingManager\IEnvironment $environment)
     {
-        $token = $environment->getSession()->get("token");
+        $token = $environment->getSession()->get('token');
 
         return $token === $this->getToken();
     }

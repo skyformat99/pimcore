@@ -42,23 +42,23 @@ class CheckController extends Controller implements EventedControllerInterface
 
         $db = null;
 
-        if ($request->get("mysql_username")) {
+        if ($request->get('mysql_username')) {
             // this is before installing
             try {
                 $dbConfig = [
-                    'user' => $request->get("mysql_username"),
-                    'password' => $request->get("mysql_password"),
-                    'dbname' => $request->get("mysql_database"),
-                    'driver' => "pdo_mysql",
+                    'user' => $request->get('mysql_username'),
+                    'password' => $request->get('mysql_password'),
+                    'dbname' => $request->get('mysql_database'),
+                    'driver' => 'pdo_mysql',
                     'wrapperClass' => 'Pimcore\Db\Connection',
                 ];
 
-                $hostSocketValue = $request->get("mysql_host_socket");
+                $hostSocketValue = $request->get('mysql_host_socket');
                 if (file_exists($hostSocketValue)) {
-                    $dbConfig["unix_socket"] = $hostSocketValue;
+                    $dbConfig['unix_socket'] = $hostSocketValue;
                 } else {
-                    $dbConfig["host"] = $hostSocketValue;
-                    $dbConfig["port"] = $request->get("mysql_port");
+                    $dbConfig['host'] = $hostSocketValue;
+                    $dbConfig['port'] = $request->get('mysql_port');
                 }
 
                 $config = new \Doctrine\DBAL\Configuration();
@@ -68,23 +68,23 @@ class CheckController extends Controller implements EventedControllerInterface
             }
         } else {
             // this is after installing, eg. after a migration, ...
-            $db = $this->get("database_connection");
+            $db = $this->get('database_connection');
         }
 
         if ($db) {
             $checksMySQL = Requirements::checkMysql($db);
         } else {
-            return new Response("Not possible... no or wrong database settings given.<br />Please fill out the MySQL Settings in the install form an click again on `Check Requirements´");
+            return new Response('Not possible... no or wrong database settings given.<br />Please fill out the MySQL Settings in the install form an click again on `Check Requirements´');
         }
 
         $viewParams = [
-            "checksApps" => $checksApps,
-            "checksPHP"  => $checksPHP,
-            "checksMySQL" => $checksMySQL,
-            "checksFS" => $checksFS
+            'checksApps' => $checksApps,
+            'checksPHP'  => $checksPHP,
+            'checksMySQL' => $checksMySQL,
+            'checksFS' => $checksFS
         ];
 
-        return $this->render("PimcoreAdminBundle:Install/Check:index.html.php", $viewParams);
+        return $this->render('PimcoreAdminBundle:Install/Check:index.html.php', $viewParams);
     }
 
     /**
@@ -101,15 +101,15 @@ class CheckController extends Controller implements EventedControllerInterface
 
         $request = $event->getRequest();
 
-        if (is_file(\Pimcore\Config::locateConfigFile("system.php"))) {
+        if (is_file(\Pimcore\Config::locateConfigFile('system.php'))) {
             // session authentication, only possible if user is logged in
             $user = \Pimcore\Tool\Authentication::authenticateSession();
             if (!$user instanceof User) {
                 throw new AccessDeniedHttpException("Authentication failed!<br />If you don't have access to the admin interface any more, and you want to find out if the server configuration matches the requirements you have to rename the the system.php for the time of the check.");
             }
-        } elseif ($request->get("mysql_username")) {
+        } elseif ($request->get('mysql_username')) {
         } else {
-            throw new AccessDeniedHttpException("Not possible... no database settings given.<br />Parameters: mysql_host,mysql_username,mysql_password,mysql_database");
+            throw new AccessDeniedHttpException('Not possible... no database settings given.<br />Parameters: mysql_host,mysql_username,mysql_password,mysql_database');
         }
     }
 

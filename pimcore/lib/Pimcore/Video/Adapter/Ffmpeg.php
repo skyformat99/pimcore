@@ -62,7 +62,7 @@ class Ffmpeg extends Adapter
      */
     public static function getFfmpegCli()
     {
-        return \Pimcore\Tool\Console::getExecutable("ffmpeg", true);
+        return \Pimcore\Tool\Console::getExecutable('ffmpeg', true);
     }
 
     /**
@@ -96,37 +96,37 @@ class Ffmpeg extends Adapter
             }
 
             // get the argument string from the configurations
-            $arguments = implode(" ", $this->arguments);
+            $arguments = implode(' ', $this->arguments);
 
             // add format specific arguments
-            if ($this->getFormat() == "mp4") {
-                $arguments = "-strict experimental -f mp4 -vcodec libx264 -acodec aac -g 100 -pix_fmt yuv420p -movflags faststart " . $arguments;
-            } elseif ($this->getFormat() == "webm") {
+            if ($this->getFormat() == 'mp4') {
+                $arguments = '-strict experimental -f mp4 -vcodec libx264 -acodec aac -g 100 -pix_fmt yuv420p -movflags faststart ' . $arguments;
+            } elseif ($this->getFormat() == 'webm') {
                 // check for vp9 support
-                $webmCodec = "libvpx";
-                $codecs = Console::exec(self::getFfmpegCli() . " -codecs");
-                if (stripos($codecs, "vp9")) {
+                $webmCodec = 'libvpx';
+                $codecs = Console::exec(self::getFfmpegCli() . ' -codecs');
+                if (stripos($codecs, 'vp9')) {
                     //$webmCodec = "libvpx-vp9"; // disabled until better support in ffmpeg and browsers
                 }
 
-                $arguments = "-strict experimental -f webm -vcodec " . $webmCodec . " -acodec libvorbis -ar 44000 -g 100 " . $arguments;
+                $arguments = '-strict experimental -f webm -vcodec ' . $webmCodec . ' -acodec libvorbis -ar 44000 -g 100 ' . $arguments;
             } else {
-                throw new \Exception("Unsupported video output format: " . $this->getFormat());
+                throw new \Exception('Unsupported video output format: ' . $this->getFormat());
             }
 
             // add some global arguments
-            $arguments = "-threads 0 " . $arguments;
+            $arguments = '-threads 0 ' . $arguments;
 
-            $cmd = self::getFfmpegCli() . ' -i ' . escapeshellarg(realpath($this->file)) . ' ' . $arguments . " " . escapeshellarg(str_replace("/", DIRECTORY_SEPARATOR, $this->getDestinationFile()));
+            $cmd = self::getFfmpegCli() . ' -i ' . escapeshellarg(realpath($this->file)) . ' ' . $arguments . ' ' . escapeshellarg(str_replace('/', DIRECTORY_SEPARATOR, $this->getDestinationFile()));
 
-            Logger::debug("Executing FFMPEG Command: " . $cmd);
+            Logger::debug('Executing FFMPEG Command: ' . $cmd);
 
             $process = new Process($cmd);
             //symfony has a default timeout which is 60 sec. This is not enough for converting big video-files.
             $process->setTimeout(null);
             $process->start();
 
-            $logHandle = fopen($this->getConversionLogFile(), "a");
+            $logHandle = fopen($this->getConversionLogFile(), 'a');
             $process->wait(function ($type, $buffer) use ($logHandle) {
                 fwrite($logHandle, $buffer);
             });
@@ -138,10 +138,10 @@ class Ffmpeg extends Adapter
                 $success = true;
             } else {
                 // create an error log file
-                copy($this->getConversionLogFile(), str_replace(".log", ".error.log", $this->getConversionLogFile()));
+                copy($this->getConversionLogFile(), str_replace('.log', '.error.log', $this->getConversionLogFile()));
             }
         } else {
-            throw new \Exception("There is no destination file for video converter");
+            throw new \Exception('There is no destination file for video converter');
         }
 
         return $success;
@@ -160,10 +160,10 @@ class Ffmpeg extends Adapter
         $realTargetPath = null;
         if (!stream_is_local($file)) {
             $realTargetPath = $file;
-            $file = PIMCORE_SYSTEM_TEMP_DIRECTORY . "/ffmpeg-tmp-" . uniqid() . "." . File::getFileExtension($file);
+            $file = PIMCORE_SYSTEM_TEMP_DIRECTORY . '/ffmpeg-tmp-' . uniqid() . '.' . File::getFileExtension($file);
         }
 
-        $cmd = self::getFfmpegCli() . " -i " . escapeshellarg(realpath($this->file)) . " -vcodec png -vframes 1 -vf scale=iw*sar:ih -ss " . $timeOffset . " " . escapeshellarg(str_replace("/", DIRECTORY_SEPARATOR, $file));
+        $cmd = self::getFfmpegCli() . ' -i ' . escapeshellarg(realpath($this->file)) . ' -vcodec png -vframes 1 -vf scale=iw*sar:ih -ss ' . $timeOffset . ' ' . escapeshellarg(str_replace('/', DIRECTORY_SEPARATOR, $file));
         Console::exec($cmd, null, 60);
 
         if ($realTargetPath) {
@@ -178,9 +178,9 @@ class Ffmpeg extends Adapter
      */
     public function getDuration()
     {
-        $tmpFile = PIMCORE_SYSTEM_TEMP_DIRECTORY . "/video-info-" . uniqid() . ".out";
+        $tmpFile = PIMCORE_SYSTEM_TEMP_DIRECTORY . '/video-info-' . uniqid() . '.out';
 
-        $cmd = self::getFfmpegCli() . " -i " . escapeshellarg(realpath($this->file));
+        $cmd = self::getFfmpegCli() . ' -i ' . escapeshellarg(realpath($this->file));
         Console::exec($cmd, $tmpFile, 60);
 
         $contents = file_get_contents($tmpFile);
@@ -210,7 +210,7 @@ class Ffmpeg extends Adapter
         // get total video duration
         preg_match("/Duration: ([0-9:\.]+),/", $output, $matches);
         $durationRaw = $matches[1];
-        $durationParts = explode(":", $durationRaw);
+        $durationParts = explode(':', $durationRaw);
 
         // calculate duration in seconds
         $duration = (intval($durationParts[0]) * 3600) + (intval($durationParts[1]) * 60) + floatval($durationParts[2]);
@@ -243,7 +243,7 @@ class Ffmpeg extends Adapter
      */
     protected function getConversionLogFile()
     {
-        return PIMCORE_LOG_DIRECTORY . "/ffmpeg-" . $this->getProcessId() . "-" . $this->getFormat() . ".log";
+        return PIMCORE_LOG_DIRECTORY . '/ffmpeg-' . $this->getProcessId() . '-' . $this->getFormat() . '.log';
     }
 
     /**
@@ -269,7 +269,7 @@ class Ffmpeg extends Adapter
         parent::setVideoBitrate($videoBitrate);
 
         if ($videoBitrate) {
-            $this->addArgument("videoBitrate", "-vb " . $videoBitrate . "k");
+            $this->addArgument('videoBitrate', '-vb ' . $videoBitrate . 'k');
         }
 
         return $this;
@@ -289,7 +289,7 @@ class Ffmpeg extends Adapter
         parent::setAudioBitrate($audioBitrate);
 
         if ($audioBitrate) {
-            $this->addArgument("audioBitrate", "-ab " . $audioBitrate . "k");
+            $this->addArgument('audioBitrate', '-ab ' . $audioBitrate . 'k');
         }
 
         return $this;
@@ -304,7 +304,7 @@ class Ffmpeg extends Adapter
         // ensure $width & $height are even (mp4 requires this)
         $width = ceil($width / 2) * 2;
         $height = ceil($height / 2) * 2;
-        $this->addArgument("resize", "-s ".$width."x".$height);
+        $this->addArgument('resize', '-s '.$width.'x'.$height);
     }
 
     /**
@@ -314,7 +314,7 @@ class Ffmpeg extends Adapter
     {
         // ensure $width is even (mp4 requires this)
         $width = ceil($width / 2) * 2;
-        $this->addArgument("scaleByWidth", '-vf "scale='.$width.':trunc(ow/a/vsub)*vsub"');
+        $this->addArgument('scaleByWidth', '-vf "scale='.$width.':trunc(ow/a/vsub)*vsub"');
     }
 
     /**
@@ -324,6 +324,6 @@ class Ffmpeg extends Adapter
     {
         // ensure $height is even (mp4 requires this)
         $height = ceil($height / 2) * 2;
-        $this->addArgument("scaleByHeight", '-vf "scale=trunc(oh/(ih/iw)/hsub)*hsub:'.$height.'"');
+        $this->addArgument('scaleByHeight', '-vf "scale=trunc(oh/(ih/iw)/hsub)*hsub:'.$height.'"');
     }
 }

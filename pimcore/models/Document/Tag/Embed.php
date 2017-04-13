@@ -36,7 +36,7 @@ class Embed extends Model\Document\Tag
      */
     public function getType()
     {
-        return "embed";
+        return 'embed';
     }
 
     /**
@@ -47,14 +47,14 @@ class Embed extends Model\Document\Tag
     public function getData()
     {
         return [
-            "url" => $this->url
+            'url' => $this->url
         ];
     }
 
     public function getDataForResource()
     {
         return [
-            "url" => $this->url
+            'url' => $this->url
         ];
     }
 
@@ -67,29 +67,29 @@ class Embed extends Model\Document\Tag
     {
         if ($this->url) {
             $config = $this->getOptions();
-            if (!isset($config["params"])) {
-                $config["params"] = [];
+            if (!isset($config['params'])) {
+                $config['params'] = [];
             }
 
-            foreach (["width", "height"] as $property) {
+            foreach (['width', 'height'] as $property) {
                 if (isset($config[$property])) {
-                    $config["params"][$property] = $config[$property];
+                    $config['params'][$property] = $config[$property];
                 }
             }
 
-            $cacheKey = "doc_embed_" . crc32(serialize([$this->url, $config]));
+            $cacheKey = 'doc_embed_' . crc32(serialize([$this->url, $config]));
 
             if (!$html = \Pimcore\Cache::load($cacheKey)) {
                 $embera = new \Embera\Embera($config);
                 $html = $embera->autoEmbed($this->url);
 
-                \Pimcore\Cache::save($html, $cacheKey, ["embed"], 86400, 1, true);
+                \Pimcore\Cache::save($html, $cacheKey, ['embed'], 86400, 1, true);
             }
 
             return $html;
         }
 
-        return "";
+        return '';
     }
 
     /**
@@ -101,7 +101,7 @@ class Embed extends Model\Document\Tag
 
         // get frontendcode for preview
         // put the video code inside the generic code
-        $html = str_replace("</div>", $this->frontend() . "</div>", $html);
+        $html = str_replace('</div>', $this->frontend() . '</div>', $html);
 
         return $html;
     }
@@ -119,7 +119,7 @@ class Embed extends Model\Document\Tag
             $data = \Pimcore\Tool\Serialize::unserialize($data);
         }
 
-        $this->url = $data["url"];
+        $this->url = $data['url'];
 
         return $this;
     }
@@ -133,8 +133,8 @@ class Embed extends Model\Document\Tag
      */
     public function setDataFromEditmode($data)
     {
-        if ($data["url"]) {
-            $this->url = $data["url"];
+        if ($data['url']) {
+            $this->url = $data['url'];
         }
 
         return $this;

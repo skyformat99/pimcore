@@ -43,10 +43,10 @@ class SessionCart extends AbstractCart implements ICart
         /**
          * @var AttributeBagInterface $session
          */
-        $session = \Pimcore::getContainer()->get("session")->getBag(SessionConfigurator::ATTRIBUTE_BAG_CART);
+        $session = \Pimcore::getContainer()->get('session')->getBag(SessionConfigurator::ATTRIBUTE_BAG_CART);
 
-        if (empty($session->get("carts"))) {
-            $session->set("carts", []);
+        if (empty($session->get('carts'))) {
+            $session->set('carts', []);
         }
 
         return $session;
@@ -57,12 +57,12 @@ class SessionCart extends AbstractCart implements ICart
         $session = $this->getSession();
 
         if (!$this->getId()) {
-            $this->setId(uniqid("sesscart_"));
+            $this->setId(uniqid('sesscart_'));
         }
 
-        $carts = $session->get("carts");
+        $carts = $session->get('carts');
         $carts[$this->getId()] = serialize($this);
-        $session->set("carts", $carts);
+        $session->set('carts', $carts);
     }
 
     /**
@@ -77,14 +77,14 @@ class SessionCart extends AbstractCart implements ICart
         $session = $this->getSession();
 
         if (!$this->getId()) {
-            throw new \Exception("Cart saved not yet.");
+            throw new \Exception('Cart saved not yet.');
         }
 
         $this->clear();
 
-        $carts = $session->get("carts");
+        $carts = $session->get('carts');
         unset($carts[$this->getId()]);
-        $session->set("carts", $carts);
+        $session->set('carts', $carts);
     }
 
     /**
@@ -127,7 +127,7 @@ class SessionCart extends AbstractCart implements ICart
         if (static::$unserializedCarts == null) {
             $tmpCart = new static();
 
-            foreach ($tmpCart->getSession()->get("carts") as $serializedCart) {
+            foreach ($tmpCart->getSession()->get('carts') as $serializedCart) {
                 $cart = unserialize($serializedCart);
                 static::$unserializedCarts[$cart->getId()] = $cart;
             }
@@ -143,7 +143,7 @@ class SessionCart extends AbstractCart implements ICart
     {
         $vars = parent::__sleep();
 
-        $blockedVars = ["creationDate", "modificationDate", "priceCalcuator"];
+        $blockedVars = ['creationDate', 'modificationDate', 'priceCalcuator'];
 
         $finalVars = [];
         foreach ($vars as $key) {

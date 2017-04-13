@@ -257,12 +257,12 @@ abstract class AbstractPlaceholder
             $this->setLocale(($this->getParam('locale')) ? $this->getParam('locale') : $this->getParam('language'));
         } else {
             $document = $this->getDocument();
-            if ($document instanceof Document && $document->getProperty("language")) {
-                $this->setLocale($document->getProperty("language"));
+            if ($document instanceof Document && $document->getProperty('language')) {
+                $this->setLocale($document->getProperty('language'));
             }
 
             if (is_null($this->locale)) { //last chance -> get it from service container or use the first Language defined in the system settings
-                $this->locale = \Pimcore::getContainer()->get("pimcore.locale")->findLocale();
+                $this->locale = \Pimcore::getContainer()->get('pimcore.locale')->findLocale();
                 if (!$this->locale) {
                     list($language) = \Pimcore\Tool::getValidLanguages();
                     $this->locale = $language;

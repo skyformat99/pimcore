@@ -66,12 +66,12 @@ class Task extends Model\AbstractModel
      */
     public static function getById($id)
     {
-        $cacheKey = "scheduled_task_" . $id;
+        $cacheKey = 'scheduled_task_' . $id;
 
         try {
             $task = \Pimcore\Cache\Runtime::get($cacheKey);
             if (!$task) {
-                throw new \Exception("Scheduled Task in Registry is not valid");
+                throw new \Exception('Scheduled Task in Registry is not valid');
             }
         } catch (\Exception $e) {
             $task = new self();

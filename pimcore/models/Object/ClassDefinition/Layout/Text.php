@@ -27,12 +27,12 @@ class Text extends Model\Object\ClassDefinition\Layout
      *
      * @var string
      */
-    public $fieldtype = "text";
+    public $fieldtype = 'text';
 
     /**
      * @var string
      */
-    public $html = "";
+    public $html = '';
 
     /**
      * @var string
@@ -106,7 +106,7 @@ class Text extends Model\Object\ClassDefinition\Layout
 
         if (Tool::classExists($renderingClass)) {
             if (method_exists($renderingClass, 'renderLayoutText')) {
-                $context["fieldname"] = $this->getName();
+                $context['fieldname'] = $this->getName();
 
                 $result = call_user_func($renderingClass . '::renderLayoutText', $this->renderingData, $object, $context);
                 $this->html = $result;

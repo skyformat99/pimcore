@@ -56,9 +56,9 @@ class PayPal implements IPayment
         // init
         $credentials = $config->config->{$config->mode};
         if ($config->mode == 'live') {
-            $this->endpointUrlPart = "paypal";
+            $this->endpointUrlPart = 'paypal';
         } else {
-            $this->endpointUrlPart = "sandbox.paypal";
+            $this->endpointUrlPart = 'sandbox.paypal';
         }
 
         // create paypal interface
@@ -116,8 +116,8 @@ class PayPal implements IPayment
         $x->SetExpressCheckoutRequest->SetExpressCheckoutRequestDetails = new \stdClass();
         $x->SetExpressCheckoutRequest->SetExpressCheckoutRequestDetails->ReturnURL = $config['ReturnURL'];
         $x->SetExpressCheckoutRequest->SetExpressCheckoutRequestDetails->CancelURL = $config['CancelURL'];
-        $x->SetExpressCheckoutRequest->SetExpressCheckoutRequestDetails->NoShipping = "1";
-        $x->SetExpressCheckoutRequest->SetExpressCheckoutRequestDetails->AllowNote = "0";
+        $x->SetExpressCheckoutRequest->SetExpressCheckoutRequestDetails->NoShipping = '1';
+        $x->SetExpressCheckoutRequest->SetExpressCheckoutRequestDetails->AllowNote = '0';
         $x->SetExpressCheckoutRequest->SetExpressCheckoutRequestDetails->PaymentDetails = $this->createPaymentDetails($price);
         $x->SetExpressCheckoutRequest->SetExpressCheckoutRequestDetails->OrderDescription = $config['OrderDescription'];
         $x->SetExpressCheckoutRequest->SetExpressCheckoutRequestDetails->InvoiceID = $config['InvoiceID'];

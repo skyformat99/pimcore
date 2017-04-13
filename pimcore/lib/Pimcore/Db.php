@@ -48,7 +48,7 @@ class Db
         /**
          * @var \Pimcore\Db\Connection $db
          */
-        $db = \Pimcore::getContainer()->get("database_connection");
+        $db = \Pimcore::getContainer()->get('database_connection');
 
         return $db;
     }
@@ -60,7 +60,7 @@ class Db
      */
     public static function getLogger()
     {
-        return \Pimcore::getContainer()->get("monolog.logger.doctrine");
+        return \Pimcore::getContainer()->get('monolog.logger.doctrine');
     }
 
     /**
@@ -90,21 +90,21 @@ class Db
     {
         $db = self::get();
 
-        $tables = $db->fetchAll("SHOW FULL TABLES");
+        $tables = $db->fetchAll('SHOW FULL TABLES');
         foreach ($tables as $table) {
             reset($table);
             $name = current($table);
             $type = next($table);
 
-            if ($type == "VIEW") {
+            if ($type == 'VIEW') {
                 try {
-                    $createStatement = $db->fetchRow("SHOW FIELDS FROM " . $name);
+                    $createStatement = $db->fetchRow('SHOW FIELDS FROM ' . $name);
                 } catch (\Exception $e) {
-                    if (strpos($e->getMessage(), "references invalid table") !== false) {
-                        Logger::err("view " . $name . " seems to be a broken one, it will be removed");
-                        Logger::err("error message was: " . $e->getMessage());
+                    if (strpos($e->getMessage(), 'references invalid table') !== false) {
+                        Logger::err('view ' . $name . ' seems to be a broken one, it will be removed');
+                        Logger::err('error message was: ' . $e->getMessage());
 
-                        $db->query("DROP VIEW " . $name);
+                        $db->query('DROP VIEW ' . $name);
                     } else {
                         Logger::error($e);
                     }

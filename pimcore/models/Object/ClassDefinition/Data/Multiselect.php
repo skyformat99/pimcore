@@ -27,7 +27,7 @@ class Multiselect extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $fieldtype = "multiselect";
+    public $fieldtype = 'multiselect';
 
     /**
      * Available options to select
@@ -56,21 +56,21 @@ class Multiselect extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $queryColumnType = "text";
+    public $queryColumnType = 'text';
 
     /**
      * Type for the column
      *
      * @var string
      */
-    public $columnType = "text";
+    public $columnType = 'text';
 
     /**
      * Type for the generated phpdoc
      *
      * @var string
      */
-    public $phpdocType = "array";
+    public $phpdocType = 'array';
 
     /**
      * @return array
@@ -164,7 +164,7 @@ class Multiselect extends Model\Object\ClassDefinition\Data
     public function getDataForResource($data, $object = null, $params = [])
     {
         if (is_array($data)) {
-            return implode(",", $data);
+            return implode(',', $data);
         }
     }
 
@@ -180,7 +180,7 @@ class Multiselect extends Model\Object\ClassDefinition\Data
     public function getDataFromResource($data, $object = null, $params = [])
     {
         if (strlen($data)) {
-            return explode(",", $data);
+            return explode(',', $data);
         } else {
             return null;
         }
@@ -198,7 +198,7 @@ class Multiselect extends Model\Object\ClassDefinition\Data
     public function getDataForQueryResource($data, $object = null, $params = [])
     {
         if (!empty($data) && is_array($data)) {
-            return ",".implode(",", $data).",";
+            return ','.implode(',', $data).',';
         }
 
         return;
@@ -216,7 +216,7 @@ class Multiselect extends Model\Object\ClassDefinition\Data
     public function getDataForEditmode($data, $object = null, $params = [])
     {
         if (is_array($data)) {
-            return implode(",", $data);
+            return implode(',', $data);
         }
     }
 
@@ -246,7 +246,7 @@ class Multiselect extends Model\Object\ClassDefinition\Data
     public function getVersionPreview($data, $object = null, $params = [])
     {
         if (is_array($data)) {
-            return implode(",", $data);
+            return implode(',', $data);
         }
     }
 
@@ -261,11 +261,11 @@ class Multiselect extends Model\Object\ClassDefinition\Data
     public function checkValidity($data, $omitMandatoryCheck = false)
     {
         if (!$omitMandatoryCheck and $this->getMandatory() and empty($data)) {
-            throw new \Exception("Empty mandatory field [ ".$this->getName()." ]");
+            throw new \Exception('Empty mandatory field [ '.$this->getName().' ]');
         }
 
         if (!is_array($data) and !empty($data)) {
-            throw new \Exception("Invalid multiselect data");
+            throw new \Exception('Invalid multiselect data');
         }
     }
 
@@ -283,7 +283,7 @@ class Multiselect extends Model\Object\ClassDefinition\Data
     {
         $data = $this->getDataFromObjectParam($object, $params);
         if (is_array($data)) {
-            return implode(",", $data);
+            return implode(',', $data);
         } else {
             return null;
         }
@@ -298,7 +298,7 @@ class Multiselect extends Model\Object\ClassDefinition\Data
      */
     public function getFromCsvImport($importValue, $object = null, $params = [])
     {
-        return explode(",", $importValue);
+        return explode(',', $importValue);
     }
 
     /**
@@ -311,10 +311,10 @@ class Multiselect extends Model\Object\ClassDefinition\Data
     {
         $data = $this->getDataFromObjectParam($object, $params);
         if (is_array($data)) {
-            return implode(" ", $data);
+            return implode(' ', $data);
         }
 
-        return "";
+        return '';
     }
 
     /**
@@ -328,7 +328,7 @@ class Multiselect extends Model\Object\ClassDefinition\Data
     public function getFilterCondition($value, $operator)
     {
         return $this->getFilterConditionExt($value, $operator, [
-                "name" => $this->name]
+                'name' => $this->name]
         );
     }
 
@@ -343,11 +343,11 @@ class Multiselect extends Model\Object\ClassDefinition\Data
      */
     public function getFilterConditionExt($value, $operator, $params = [])
     {
-        if ($operator == "=") {
-            $name = $params["name"] ? $params["name"] : $this->name;
+        if ($operator == '=') {
+            $name = $params['name'] ? $params['name'] : $this->name;
             $value = "'%".$value."%'";
 
-            return "`".$name."` LIKE ".$value." ";
+            return '`'.$name.'` LIKE '.$value.' ';
         }
     }
 
@@ -379,24 +379,24 @@ class Multiselect extends Model\Object\ClassDefinition\Data
                 $map[$value] = $value;
             }
 
-            $html = "<ul>";
+            $html = '<ul>';
 
             foreach ($this->options as $option) {
-                if ($map[$option["value"]]) {
-                    $value = $option["key"];
-                    $html .= "<li>" . $value . "</li>";
+                if ($map[$option['value']]) {
+                    $value = $option['key'];
+                    $html .= '<li>' . $value . '</li>';
                 }
             }
 
-            $html .= "</ul>";
+            $html .= '</ul>';
 
             $value = [];
-            $value["html"] = $html;
-            $value["type"] = "html";
+            $value['html'] = $html;
+            $value['type'] = 'html';
 
             return $value;
         } else {
-            return "";
+            return '';
         }
     }
 

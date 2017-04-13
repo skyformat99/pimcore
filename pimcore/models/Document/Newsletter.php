@@ -29,21 +29,21 @@ class Newsletter extends Model\Document\PageSnippet
      *
      * @var string
      */
-    public $type = "newsletter";
+    public $type = 'newsletter';
 
     /**
      * Contains the email subject
      *
      * @var string
      */
-    public $subject = "";
+    public $subject = '';
 
     /**
      * Contains the from email address
      *
      * @var string
      */
-    public $from = "";
+    public $from = '';
 
     /**
      * enables adding tracking parameters to all links
@@ -55,12 +55,12 @@ class Newsletter extends Model\Document\PageSnippet
     /**
      * @var string
      */
-    public $trackingParameterSource = "newsletter";
+    public $trackingParameterSource = 'newsletter';
 
     /**
      * @var string
      */
-    public $trackingParameterMedium = "email";
+    public $trackingParameterMedium = 'email';
 
     /**
      * @var string
@@ -223,6 +223,6 @@ class Newsletter extends Model\Document\PageSnippet
      */
     public function getTmpStoreId()
     {
-        return "newsletter__" . $this->getId();
+        return 'newsletter__' . $this->getId();
     }
 }

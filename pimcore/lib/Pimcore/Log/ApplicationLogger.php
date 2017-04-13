@@ -55,16 +55,16 @@ class ApplicationLogger implements LoggerInterface
      *
      * @return ApplicationLogger
      */
-    public static function getInstance($component = "default", $initDbHandler = false)
+    public static function getInstance($component = 'default', $initDbHandler = false)
     {
-        $containerId = "pimcore.app_logger." . $component;
+        $containerId = 'pimcore.app_logger.' . $component;
 
         if (\Pimcore::getContainer()->has($containerId)) {
             $logger = \Pimcore::getContainer()->get($containerId);
         } else {
             $logger = new self;
             if ($initDbHandler) {
-                $logger->addWriter(\Pimcore::getContainer()->get("pimcore.app_logger.db_writer"));
+                $logger->addWriter(\Pimcore::getContainer()->get('pimcore.app_logger.db_writer'));
             }
             \Pimcore::getContainer()->set($containerId, $logger);
         }
@@ -81,17 +81,17 @@ class ApplicationLogger implements LoggerInterface
     {
         if ($writer instanceof \Zend_Log_Writer_Abstract) {
             // ZF compatibility
-            if (!isset($this->loggers["default-zend"])) {
+            if (!isset($this->loggers['default-zend'])) {
                 // auto init Monolog logger
-                $this->loggers["default-zend"] = new \Zend_Log();
+                $this->loggers['default-zend'] = new \Zend_Log();
             }
-            $this->loggers["default-zend"]->addWriter($writer);
+            $this->loggers['default-zend']->addWriter($writer);
         } elseif ($writer instanceof \Monolog\Handler\HandlerInterface) {
-            if (!isset($this->loggers["default-monolog"])) {
+            if (!isset($this->loggers['default-monolog'])) {
                 // auto init Monolog logger
-                $this->loggers["default-monolog"] = new \Monolog\Logger('app');
+                $this->loggers['default-monolog'] = new \Monolog\Logger('app');
             }
-            $this->loggers["default-monolog"]->pushHandler($writer);
+            $this->loggers['default-monolog']->pushHandler($writer);
         } elseif ($writer instanceof \Psr\Log\LoggerInterface) {
             $this->loggers[] = $writer;
         }
@@ -146,26 +146,26 @@ class ApplicationLogger implements LoggerInterface
      */
     public function log($level, $message, array $context = [])
     {
-        if (!isset($context["component"])) {
-            $context["component"] = $this->component;
+        if (!isset($context['component'])) {
+            $context['component'] = $this->component;
         }
 
-        if (!isset($context["fileObject"]) && $this->fileObject) {
-            $context["fileObject"] = $this->fileObject;
+        if (!isset($context['fileObject']) && $this->fileObject) {
+            $context['fileObject'] = $this->fileObject;
             $this->fileObject = null;
         }
 
-        if (isset($context["fileObject"])) {
-            if (is_string($context["fileObject"])) {
-                $context["fileObject"] = str_replace(PIMCORE_PROJECT_ROOT, '', $context["fileObject"]);
+        if (isset($context['fileObject'])) {
+            if (is_string($context['fileObject'])) {
+                $context['fileObject'] = str_replace(PIMCORE_PROJECT_ROOT, '', $context['fileObject']);
             } else {
-                $context["fileObject"] = str_replace(PIMCORE_PROJECT_ROOT, '', $context["fileObject"]->getFilename());
+                $context['fileObject'] = str_replace(PIMCORE_PROJECT_ROOT, '', $context['fileObject']->getFilename());
             }
         }
 
         $relatedObject = null;
-        if (isset($context["relatedObject"])) {
-            $relatedObject = $context["relatedObject"];
+        if (isset($context['relatedObject'])) {
+            $relatedObject = $context['relatedObject'];
         }
 
         if (!$relatedObject && $this->relatedObject) {
@@ -177,8 +177,8 @@ class ApplicationLogger implements LoggerInterface
                 $relatedObject = $relatedObject->getId();
             }
             if (is_numeric($relatedObject)) {
-                $context["relatedObject"] = $relatedObject;
-                $context["relatedObjectType"] = $this->relatedObjectType;
+                $context['relatedObject'] = $relatedObject;
+                $context['relatedObjectType'] = $this->relatedObjectType;
             }
         }
 
@@ -272,7 +272,7 @@ class ApplicationLogger implements LoggerInterface
      */
     public function emergency($message, array $context = [])
     {
-        $this->handleLog("emergency", $message, func_get_args());
+        $this->handleLog('emergency', $message, func_get_args());
     }
 
     /**
@@ -281,7 +281,7 @@ class ApplicationLogger implements LoggerInterface
      */
     public function critical($message, array $context = [])
     {
-        $this->handleLog("critical", $message, func_get_args());
+        $this->handleLog('critical', $message, func_get_args());
     }
 
     /**
@@ -290,7 +290,7 @@ class ApplicationLogger implements LoggerInterface
      */
     public function error($message, array $context = [])
     {
-        $this->handleLog("error", $message, func_get_args());
+        $this->handleLog('error', $message, func_get_args());
     }
 
     /**
@@ -299,7 +299,7 @@ class ApplicationLogger implements LoggerInterface
      */
     public function alert($message, array $context = [])
     {
-        $this->handleLog("alert", $message, func_get_args());
+        $this->handleLog('alert', $message, func_get_args());
     }
 
     /**
@@ -308,7 +308,7 @@ class ApplicationLogger implements LoggerInterface
      */
     public function warning($message, array $context = [])
     {
-        $this->handleLog("warning", $message, func_get_args());
+        $this->handleLog('warning', $message, func_get_args());
     }
 
     /**
@@ -317,7 +317,7 @@ class ApplicationLogger implements LoggerInterface
      */
     public function notice($message, array $context = [])
     {
-        $this->handleLog("notice", $message, func_get_args());
+        $this->handleLog('notice', $message, func_get_args());
     }
 
     /**
@@ -326,7 +326,7 @@ class ApplicationLogger implements LoggerInterface
      */
     public function info($message, array $context = [])
     {
-        $this->handleLog("info", $message, func_get_args());
+        $this->handleLog('info', $message, func_get_args());
     }
 
     /**
@@ -335,7 +335,7 @@ class ApplicationLogger implements LoggerInterface
      */
     public function debug($message, array $context = [])
     {
-        $this->handleLog("debug", $message, func_get_args());
+        $this->handleLog('debug', $message, func_get_args());
     }
 
     /**
@@ -352,19 +352,19 @@ class ApplicationLogger implements LoggerInterface
                 // standard PSR-3 -> $context is an array
                 $context = $params[1];
             } elseif ($params[1] instanceof \Pimcore\Model\Element\ElementInterface) {
-                $context["relatedObject"] = $params[1];
+                $context['relatedObject'] = $params[1];
             }
         }
 
         if (isset($params[2])) {
             if ($params[2] instanceof \Pimcore\Log\FileObject) {
-                $context["fileObject"] = $params[2];
+                $context['fileObject'] = $params[2];
             }
         }
 
         if (isset($params[3])) {
             if (is_string($params[3])) {
-                $context["component"] = $params[3];
+                $context['component'] = $params[3];
             }
         }
 
@@ -378,10 +378,10 @@ class ApplicationLogger implements LoggerInterface
       * @param null $relatedObject
       * @param null $component
       */
-     public function logException($message, $exceptionObject, $priority = "alert", $relatedObject = null, $component = null)
+     public function logException($message, $exceptionObject, $priority = 'alert', $relatedObject = null, $component = null)
      {
          if (is_null($priority)) {
-             $priority = "alert";
+             $priority = 'alert';
          }
 
          $message .= ' : '.$exceptionObject->getMessage();
@@ -398,9 +398,9 @@ class ApplicationLogger implements LoggerInterface
          $fileObject = new \Pimcore\Log\FileObject($dataDump);
 
          $this->log($priority, $message, [
-             "relatedObject" => $relatedObject,
-             "fileObject" => $fileObject,
-             "component" => $component
+             'relatedObject' => $relatedObject,
+             'fileObject' => $fileObject,
+             'component' => $component
          ]);
      }
 

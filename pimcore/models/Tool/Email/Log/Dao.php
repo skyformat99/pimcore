@@ -43,7 +43,7 @@ class Dao extends Model\Dao\AbstractDao
             $this->model->setId($id);
         }
 
-        $data = $this->db->fetchRow("SELECT * FROM email_log WHERE id = ?", $this->model->getId());
+        $data = $this->db->fetchRow('SELECT * FROM email_log WHERE id = ?', $this->model->getId());
         $this->assignVariablesToModel($data);
     }
 
@@ -60,7 +60,7 @@ class Dao extends Model\Dao\AbstractDao
             if (in_array($key, $this->getValidTableColumns(self::$dbTable))) {
 
                 // check if the getter exists
-                $getter = "get" . ucfirst($key);
+                $getter = 'get' . ucfirst($key);
                 if (!method_exists($this->model, $getter)) {
                     continue;
                 }
@@ -81,7 +81,7 @@ class Dao extends Model\Dao\AbstractDao
         }
 
         try {
-            $this->db->update(self::$dbTable, $data, ["id" => $this->model->getId()]);
+            $this->db->update(self::$dbTable, $data, ['id' => $this->model->getId()]);
         } catch (\Exception $e) {
             Logger::emerg('Could not Save emailLog with the id "'.$this->model->getId().'" ');
         }
@@ -92,7 +92,7 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function delete()
     {
-        $this->db->delete(self::$dbTable, ["id" => $this->model->getId()]);
+        $this->db->delete(self::$dbTable, ['id' => $this->model->getId()]);
     }
 
     /**
@@ -158,7 +158,7 @@ class Dao extends Model\Dao\AbstractDao
                 'value' => $value];
         } elseif ($value instanceof \DateTimeInterface) {
             $class->data = ['type' => 'simple',
-                'value' => $value->format("Y-m-d H:i")];
+                'value' => $value->format('Y-m-d H:i')];
         } elseif (is_object($value) && method_exists($value, 'getId')) {
             $class->data = ['type' => 'object',
                 'objectId' => $value->getId(),

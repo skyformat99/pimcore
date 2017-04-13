@@ -34,7 +34,7 @@ class File extends Model\Webservice\Data\Asset
     {
         parent::map($object, $options);
         if (is_array($options)) {
-            if ($options["LIGHT"]) {
+            if ($options['LIGHT']) {
                 return;
             }
         }

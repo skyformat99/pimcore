@@ -78,11 +78,11 @@ class Reservation extends \Pimcore\Model\AbstractModel
     {
         $db = \Pimcore\Db::get();
 
-        $query = "DELETE FROM " . \Pimcore\Bundle\EcommerceFrameworkBundle\VoucherService\Reservation\Dao::TABLE_NAME . " WHERE token = ?";
+        $query = 'DELETE FROM ' . \Pimcore\Bundle\EcommerceFrameworkBundle\VoucherService\Reservation\Dao::TABLE_NAME . ' WHERE token = ?';
         $params[] = $code;
 
         if (isset($cart)) {
-            $query .= " AND cart_id = ?";
+            $query .= ' AND cart_id = ?';
             $params[] = $cart->getId();
         }
 
@@ -111,11 +111,11 @@ class Reservation extends \Pimcore\Model\AbstractModel
      */
     public static function cleanUpReservations($duration, $seriesId = null)
     {
-        $query = "DELETE FROM " . \Pimcore\Bundle\EcommerceFrameworkBundle\VoucherService\Reservation\Dao::TABLE_NAME . " WHERE MINUTE(TIMEDIFF(timestamp, NOW())) >= ?";
+        $query = 'DELETE FROM ' . \Pimcore\Bundle\EcommerceFrameworkBundle\VoucherService\Reservation\Dao::TABLE_NAME . ' WHERE MINUTE(TIMEDIFF(timestamp, NOW())) >= ?';
         $params[] = $duration;
 
         if (isset($seriesId)) {
-            $query .= " AND token in (SELECT token FROM " . \Pimcore\Bundle\EcommerceFrameworkBundle\VoucherService\Token\Dao::TABLE_NAME . " WHERE voucherSeriesId = ?)";
+            $query .= ' AND token in (SELECT token FROM ' . \Pimcore\Bundle\EcommerceFrameworkBundle\VoucherService\Token\Dao::TABLE_NAME . ' WHERE voucherSeriesId = ?)';
             $params[] = $seriesId;
         }
 
@@ -132,7 +132,7 @@ class Reservation extends \Pimcore\Model\AbstractModel
     public static function reservationExists($code, $cart)
     {
         $db = \Pimcore\Db::get();
-        $query = "SELECT EXISTS(SELECT id FROM " . \Pimcore\Bundle\EcommerceFrameworkBundle\VoucherService\Reservation\Dao::TABLE_NAME . " WHERE token = ? and cart_id = ?)";
+        $query = 'SELECT EXISTS(SELECT id FROM ' . \Pimcore\Bundle\EcommerceFrameworkBundle\VoucherService\Reservation\Dao::TABLE_NAME . ' WHERE token = ? and cart_id = ?)';
 
         try {
             return (bool)$db->fetchOne($query, [$code, $cart->getId()]);
@@ -149,7 +149,7 @@ class Reservation extends \Pimcore\Model\AbstractModel
     public static function getReservationCount($code)
     {
         $db = \Pimcore\Db::get();
-        $query = "SELECT COUNT(*) FROM " . \Pimcore\Bundle\EcommerceFrameworkBundle\VoucherService\Reservation\Dao::TABLE_NAME . " WHERE token = ? ";
+        $query = 'SELECT COUNT(*) FROM ' . \Pimcore\Bundle\EcommerceFrameworkBundle\VoucherService\Reservation\Dao::TABLE_NAME . ' WHERE token = ? ';
 
         try {
             $count = $db->fetchOne($query, $code);

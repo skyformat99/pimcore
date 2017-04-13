@@ -49,7 +49,7 @@ class Folder extends DAV\Collection
 
         if ($this->asset->hasChildren()) {
             foreach ($this->asset->getChildren() as $child) {
-                if ($child->isAllowed("view")) {
+                if ($child->isAllowed('view')) {
                     try {
                         if ($child = $this->getChild($child)) {
                             $children[] = $child;
@@ -73,16 +73,16 @@ class Folder extends DAV\Collection
      */
     public function getChild($name)
     {
-        $nameParts = explode("/", $name);
-        $name = Element\Service::getValidKey($nameParts[count($nameParts) - 1], "asset");
+        $nameParts = explode('/', $name);
+        $name = Element\Service::getValidKey($nameParts[count($nameParts) - 1], 'asset');
 
         if (is_string($name)) {
             $parentPath = $this->asset->getRealFullPath();
-            if ($parentPath == "/") {
-                $parentPath = "";
+            if ($parentPath == '/') {
+                $parentPath = '';
             }
 
-            if (!$asset = Asset::getByPath($parentPath . "/" . $name)) {
+            if (!$asset = Asset::getByPath($parentPath . '/' . $name)) {
                 throw new DAV\Exception\NotFound('File not found: ' . $name);
             }
         } elseif ($name instanceof Asset) {
@@ -90,7 +90,7 @@ class Folder extends DAV\Collection
         }
 
         if ($asset instanceof Asset) {
-            if ($asset->getType() == "folder") {
+            if ($asset->getType() == 'folder') {
                 return new Asset\WebDAV\Folder($asset);
             } else {
                 return new Asset\WebDAV\File($asset);
@@ -117,17 +117,17 @@ class Folder extends DAV\Collection
      */
     public function createFile($name, $data = null)
     {
-        $tmpFile = PIMCORE_SYSTEM_TEMP_DIRECTORY . "/asset-dav-tmp-file-" . uniqid();
+        $tmpFile = PIMCORE_SYSTEM_TEMP_DIRECTORY . '/asset-dav-tmp-file-' . uniqid();
         file_put_contents($tmpFile, $data);
 
         $user = AdminTool::getCurrentUser();
 
-        if ($this->asset->isAllowed("create")) {
+        if ($this->asset->isAllowed('create')) {
             $asset = Asset::create($this->asset->getId(), [
-                "filename" => Element\Service::getValidKey($name, "asset"),
-                "sourcePath" => $tmpFile,
-                "userModification" => $user->getId(),
-                "userOwner" => $user->getId()
+                'filename' => Element\Service::getValidKey($name, 'asset'),
+                'sourcePath' => $tmpFile,
+                'userModification' => $user->getId(),
+                'userOwner' => $user->getId()
             ]);
 
             unlink($tmpFile);
@@ -145,12 +145,12 @@ class Folder extends DAV\Collection
     {
         $user = AdminTool::getCurrentUser();
 
-        if ($this->asset->isAllowed("create")) {
+        if ($this->asset->isAllowed('create')) {
             $asset = Asset::create($this->asset->getId(), [
-                "filename" => Element\Service::getValidKey($name, "asset"),
-                "type" => "folder",
-                "userModification" => $user->getId(),
-                "userOwner" => $user->getId()
+                'filename' => Element\Service::getValidKey($name, 'asset'),
+                'type' => 'folder',
+                'userModification' => $user->getId(),
+                'userOwner' => $user->getId()
             ]);
         } else {
             throw new DAV\Exception\Forbidden();
@@ -163,7 +163,7 @@ class Folder extends DAV\Collection
      */
     public function delete()
     {
-        if ($this->asset->isAllowed("delete")) {
+        if ($this->asset->isAllowed('delete')) {
             $this->asset->delete();
         } else {
             throw new DAV\Exception\Forbidden();
@@ -180,8 +180,8 @@ class Folder extends DAV\Collection
      */
     public function setName($name)
     {
-        if ($this->asset->isAllowed("rename")) {
-            $this->asset->setFilename(Element\Service::getValidKey($name, "asset"));
+        if ($this->asset->isAllowed('rename')) {
+            $this->asset->setFilename(Element\Service::getValidKey($name, 'asset'));
             $this->asset->save();
         } else {
             throw new DAV\Exception\Forbidden();

@@ -27,31 +27,31 @@ class QueryParams
         $order = null;
         $orderByFeature = null;
 
-        $sortParam = isset($params["sort"]) ? $params["sort"] : false;
+        $sortParam = isset($params['sort']) ? $params['sort'] : false;
         if ($sortParam) {
             $sortParam = json_decode($sortParam, true);
             $sortParam = $sortParam[0];
 
-            if (substr($sortParam["property"], 0, 1) != "~") {
-                $orderKey = $sortParam["property"];
-                $order = $sortParam["direction"];
+            if (substr($sortParam['property'], 0, 1) != '~') {
+                $orderKey = $sortParam['property'];
+                $order = $sortParam['direction'];
             } else {
-                $orderKey = $sortParam["property"];
-                $order = $sortParam["direction"];
+                $orderKey = $sortParam['property'];
+                $order = $sortParam['direction'];
 
-                $parts = explode("~", $orderKey);
+                $parts = explode('~', $orderKey);
 
                 $fieldname = $parts[2];
                 $groupKeyId = $parts[3];
-                $groupKeyId = explode("-", $groupKeyId);
+                $groupKeyId = explode('-', $groupKeyId);
                 $groupId = $groupKeyId[0];
                 $keyid = $groupKeyId[1];
 
-                return ['fieldname' => $fieldname, 'groupId' => $groupId, "keyId"=> $keyid, "order" => $order, "isFeature" => 1];
+                return ['fieldname' => $fieldname, 'groupId' => $groupId, 'keyId'=> $keyid, 'order' => $order, 'isFeature' => 1];
             }
         }
 
-        return ['orderKey' => $orderKey, "order" => $order];
+        return ['orderKey' => $orderKey, 'order' => $order];
     }
 
     /**
@@ -90,9 +90,9 @@ class QueryParams
         foreach ($filters as $f) {
             if ($f->type == 'string') {
                 if (in_array($f->property, $matchExact)) {
-                    $conditions[$f->property][] = ' ' . $db->quoteIdentifier($f->property) . " = " . $db->quote($f->value) . ' ';
+                    $conditions[$f->property][] = ' ' . $db->quoteIdentifier($f->property) . ' = ' . $db->quote($f->value) . ' ';
                 } else {
-                    $conditions[$f->property][] = ' ' . $db->quoteIdentifier($f->property) . $db->getQuoteIdentifierSymbol() . " LIKE " . $db->quote("%" . $f->value . "%") . ' ';
+                    $conditions[$f->property][] = ' ' . $db->quoteIdentifier($f->property) . $db->getQuoteIdentifierSymbol() . ' LIKE ' . $db->quote('%' . $f->value . '%') . ' ';
                 }
             } elseif ($f->type == 'numeric') {
                 if ($f->operator == 'eq') {
@@ -120,7 +120,7 @@ class QueryParams
                     $conditions[$f->property][] = ' ' . $f->property . ' > ' . $db->quote($date->addDay(1)->subSecond(1)->getTimestamp());
                 }
             } else {
-                throw new \Exception("Filer of type " . $f->type . " not jet supported.");
+                throw new \Exception('Filer of type ' . $f->type . ' not jet supported.');
             }
         }
 

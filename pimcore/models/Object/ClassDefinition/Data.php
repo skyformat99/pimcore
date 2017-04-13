@@ -72,7 +72,7 @@ abstract class Data
     /**
      * @var string
      */
-    public $datatype = "data";
+    public $datatype = 'data';
 
     /**
      * @var string | array
@@ -118,16 +118,16 @@ abstract class Data
      * @var array
      */
     public static $validFilterOperators = [
-        "LIKE",
-        "NOT LIKE",
-        "=",
-        "IS",
-        "IS NOT",
-        "!=",
-        "<",
-        ">",
-        ">=",
-        "<="
+        'LIKE',
+        'NOT LIKE',
+        '=',
+        'IS',
+        'IS NOT',
+        '!=',
+        '<',
+        '>',
+        '>=',
+        '<='
     ];
 
     /**
@@ -206,7 +206,7 @@ abstract class Data
         }
 
         if (!$omitMandatoryCheck && $this->getMandatory() && $isEmpty) {
-            throw new Model\Element\ValidationException("Empty mandatory field [ " . $this->getName() . " ]");
+            throw new Model\Element\ValidationException('Empty mandatory field [ ' . $this->getName() . ' ]');
         }
     }
 
@@ -365,7 +365,7 @@ abstract class Data
     public function setValues($data = [])
     {
         foreach ($data as $key => $value) {
-            $method = "set" . $key;
+            $method = 'set' . $key;
             if (method_exists($this, $method)) {
                 $this->$method($value);
             }
@@ -669,7 +669,7 @@ abstract class Data
     public function getFilterCondition($value, $operator)
     {
         return $this->getFilterConditionExt($value, $operator, [
-            "name" => $this->name]
+            'name' => $this->name]
         );
     }
 
@@ -685,27 +685,27 @@ abstract class Data
     public function getFilterConditionExt($value, $operator, $params = [])
     {
         $db = \Pimcore\Db::get();
-        $name = $params["name"] ? $params["name"] : $this->name;
+        $name = $params['name'] ? $params['name'] : $this->name;
         $key = $db->quoteIdentifier($name);
 
-        if ($value === "NULL") {
+        if ($value === 'NULL') {
             if ($operator == '=') {
-                $operator = "IS";
-            } elseif ($operator == "!=") {
-                $operator = "IS NOT";
+                $operator = 'IS';
+            } elseif ($operator == '!=') {
+                $operator = 'IS NOT';
             }
         } elseif (!is_array($value) && !is_object($value)) {
-            if ($operator == "LIKE") {
-                $value = $db->quote("%" . $value . "%");
+            if ($operator == 'LIKE') {
+                $value = $db->quote('%' . $value . '%');
             } else {
                 $value = $db->quote($value);
             }
         }
 
         if (in_array($operator, Object\ClassDefinition\Data::$validFilterOperators)) {
-            return $key . " " . $operator . " " . $value . " ";
+            return $key . ' ' . $operator . ' ' . $value . ' ';
         } else {
-            return "";
+            return '';
         }
     }
 
@@ -719,13 +719,13 @@ abstract class Data
     public function getGetterCode($class)
     {
         $key = $this->getName();
-        $code = "";
+        $code = '';
 
         $code .= '/**' . "\n";
-        $code .= '* Get ' . str_replace(["/**", "*/", "//"], "", $this->getName()) . " - " . str_replace(["/**", "*/", "//"], "", $this->getTitle()) . "\n";
+        $code .= '* Get ' . str_replace(['/**', '*/', '//'], '', $this->getName()) . ' - ' . str_replace(['/**', '*/', '//'], '', $this->getTitle()) . "\n";
         $code .= '* @return ' . $this->getPhpdocType() . "\n";
         $code .= '*/' . "\n";
-        $code .= "public function get" . ucfirst($key) . " () {\n";
+        $code .= 'public function get' . ucfirst($key) . " () {\n";
 
         // adds a hook preGetValue which can be defined in an extended class
         $code .= "\t" . '$preValue = $this->preGetValue("' . $key . '");' . " \n";
@@ -733,7 +733,7 @@ abstract class Data
         $code .= "\t\t" . 'return $preValue;' . "\n";
         $code .= "\t" . '}' . "\n";
 
-        if (method_exists($this, "preGetData")) {
+        if (method_exists($this, 'preGetData')) {
             $code .= "\t" . '$data = $this->getClass()->getFieldDefinition("' . $key . '")->preGetData($this);' . "\n";
         } else {
             $code .= "\t" . '$data = $this->' . $key . ";\n";
@@ -762,19 +762,19 @@ abstract class Data
     public function getSetterCode($class)
     {
         $key = $this->getName();
-        $code = "";
+        $code = '';
 
         $code .= '/**' . "\n";
-        $code .= '* Set ' . str_replace(["/**", "*/", "//"], "", $this->getName()) . " - " . str_replace(["/**", "*/", "//"], "", $this->getTitle()) . "\n";
+        $code .= '* Set ' . str_replace(['/**', '*/', '//'], '', $this->getName()) . ' - ' . str_replace(['/**', '*/', '//'], '', $this->getTitle()) . "\n";
         $code .= '* @param ' . $this->getPhpdocType() . ' $' . $key . "\n";
-        $code .= "* @return \\Pimcore\\Model\\Object\\" . ucfirst($class->getName()) . "\n";
+        $code .= '* @return \\Pimcore\\Model\\Object\\' . ucfirst($class->getName()) . "\n";
         $code .= '*/' . "\n";
-        $code .= "public function set" . ucfirst($key) . " (" . '$' . $key . ") {\n";
+        $code .= 'public function set' . ucfirst($key) . ' (' . '$' . $key . ") {\n";
 
-        if (method_exists($this, "preSetData")) {
-            $code .= "\t" . '$this->' . $key . " = " . '$this->getClass()->getFieldDefinition("' . $key . '")->preSetData($this, $' . $key . ');' . "\n";
+        if (method_exists($this, 'preSetData')) {
+            $code .= "\t" . '$this->' . $key . ' = ' . '$this->getClass()->getFieldDefinition("' . $key . '")->preSetData($this, $' . $key . ');' . "\n";
         } else {
-            $code .= "\t" . '$this->' . $key . " = " . '$' . $key . ";\n";
+            $code .= "\t" . '$this->' . $key . ' = ' . '$' . $key . ";\n";
         }
 
         $code .= "\t" . 'return $this;' . "\n";
@@ -793,14 +793,14 @@ abstract class Data
     public function getGetterCodeObjectbrick($brickClass)
     {
         $key = $this->getName();
-        $code = "";
+        $code = '';
         $code .= '/**' . "\n";
-        $code .= '* Set ' . str_replace(["/**", "*/", "//"], "", $this->getName()) . " - " . str_replace(["/**", "*/", "//"], "", $this->getTitle()) . "\n";
+        $code .= '* Set ' . str_replace(['/**', '*/', '//'], '', $this->getName()) . ' - ' . str_replace(['/**', '*/', '//'], '', $this->getTitle()) . "\n";
         $code .= '* @return ' . $this->getPhpdocType() . "\n";
         $code .= '*/' . "\n";
-        $code .= "public function get" . ucfirst($key) . " () {\n";
+        $code .= 'public function get' . ucfirst($key) . " () {\n";
 
-        if (method_exists($this, "preGetData")) {
+        if (method_exists($this, 'preGetData')) {
             $code .= "\t" . '$data = $this->getDefinition()->getFieldDefinition("' . $key . '")->preGetData($this);' . "\n";
         } else {
             $code .= "\t" . '$data = $this->' . $key . ";\n";
@@ -827,18 +827,18 @@ abstract class Data
     {
         $key = $this->getName();
 
-        $code = "";
+        $code = '';
         $code .= '/**' . "\n";
-        $code .= '* Set ' . str_replace(["/**", "*/", "//"], "", $this->getName()) . " - " . str_replace(["/**", "*/", "//"], "", $this->getTitle()) . "\n";
+        $code .= '* Set ' . str_replace(['/**', '*/', '//'], '', $this->getName()) . ' - ' . str_replace(['/**', '*/', '//'], '', $this->getTitle()) . "\n";
         $code .= '* @param ' . $this->getPhpdocType() . ' $' . $key . "\n";
-        $code .= "* @return \\Pimcore\\Model\\Object\\" . ucfirst($brickClass->getKey()) . "\n";
+        $code .= '* @return \\Pimcore\\Model\\Object\\' . ucfirst($brickClass->getKey()) . "\n";
         $code .= '*/' . "\n";
-        $code .= "public function set" . ucfirst($key) . " (" . '$' . $key . ") {\n";
+        $code .= 'public function set' . ucfirst($key) . ' (' . '$' . $key . ") {\n";
 
-        if (method_exists($this, "preSetData")) {
-            $code .= "\t" . '$this->' . $key . " = " . '$this->getDefinition()->getFieldDefinition("' . $key . '")->preSetData($this, $' . $key . ');' . "\n";
+        if (method_exists($this, 'preSetData')) {
+            $code .= "\t" . '$this->' . $key . ' = ' . '$this->getDefinition()->getFieldDefinition("' . $key . '")->preSetData($this, $' . $key . ');' . "\n";
         } else {
-            $code .= "\t" . '$this->' . $key . " = " . '$' . $key . ";\n";
+            $code .= "\t" . '$this->' . $key . ' = ' . '$' . $key . ";\n";
         }
 
         $code .= "\t" . 'return $this;' . "\n";
@@ -858,14 +858,14 @@ abstract class Data
     {
         $key = $this->getName();
 
-        $code = "";
+        $code = '';
         $code .= '/**' . "\n";
-        $code .= '* Get ' . str_replace(["/**", "*/", "//"], "", $this->getName()) . " - " . str_replace(["/**", "*/", "//"], "", $this->getTitle()) . "\n";
+        $code .= '* Get ' . str_replace(['/**', '*/', '//'], '', $this->getName()) . ' - ' . str_replace(['/**', '*/', '//'], '', $this->getTitle()) . "\n";
         $code .= '* @return ' . $this->getPhpdocType() . "\n";
         $code .= '*/' . "\n";
-        $code .= "public function get" . ucfirst($key) . " () {\n";
+        $code .= 'public function get' . ucfirst($key) . " () {\n";
 
-        if (method_exists($this, "preGetData")) {
+        if (method_exists($this, 'preGetData')) {
             $code .= "\t" . '$container = $this;' . "\n";
             $code .= "\t" . '$fd = $this->getDefinition()->getFieldDefinition("' . $key . '");' . "\n";
             $code .= "\t" . '$data = $fd->preGetData($container);' . "\n";
@@ -889,19 +889,19 @@ abstract class Data
     public function getSetterCodeFieldcollection($fieldcollectionDefinition)
     {
         $key = $this->getName();
-        $code = "";
+        $code = '';
 
         $code .= '/**' . "\n";
-        $code .= '* Set ' . str_replace(["/**", "*/", "//"], "", $this->getName()) . " - " . str_replace(["/**", "*/", "//"], "", $this->getTitle()) . "\n";
+        $code .= '* Set ' . str_replace(['/**', '*/', '//'], '', $this->getName()) . ' - ' . str_replace(['/**', '*/', '//'], '', $this->getTitle()) . "\n";
         $code .= '* @param ' . $this->getPhpdocType() . ' $' . $key . "\n";
-        $code .= "* @return \\Pimcore\\Model\\Object\\" . ucfirst($fieldcollectionDefinition->getKey()) . "\n";
+        $code .= '* @return \\Pimcore\\Model\\Object\\' . ucfirst($fieldcollectionDefinition->getKey()) . "\n";
         $code .= '*/' . "\n";
-        $code .= "public function set" . ucfirst($key) . " (" . '$' . $key . ") {\n";
+        $code .= 'public function set' . ucfirst($key) . ' (' . '$' . $key . ") {\n";
 
-        if (method_exists($this, "preSetData")) {
-            $code .= "\t" . '$this->' . $key . " = " . '$this->getDefinition()->getFieldDefinition("' . $key . '")->preSetData($this, $' . $key . ');' . "\n";
+        if (method_exists($this, 'preSetData')) {
+            $code .= "\t" . '$this->' . $key . ' = ' . '$this->getDefinition()->getFieldDefinition("' . $key . '")->preSetData($this, $' . $key . ');' . "\n";
         } else {
-            $code .= "\t" . '$this->' . $key . " = " . '$' . $key . ";\n";
+            $code .= "\t" . '$this->' . $key . ' = ' . '$' . $key . ";\n";
         }
 
         $code .= "\t" . 'return $this;' . "\n";
@@ -921,10 +921,10 @@ abstract class Data
     {
         $key = $this->getName();
         $code  = '/**' . "\n";
-        $code .= '* Get ' . str_replace(["/**", "*/", "//"], "", $this->getName()) . " - " . str_replace(["/**", "*/", "//"], "", $this->getTitle()) . "\n";
+        $code .= '* Get ' . str_replace(['/**', '*/', '//'], '', $this->getName()) . ' - ' . str_replace(['/**', '*/', '//'], '', $this->getTitle()) . "\n";
         $code .= '* @return ' . $this->getPhpdocType() . "\n";
         $code .= '*/' . "\n";
-        $code .= "public function get" . ucfirst($key) . ' ($language = null) {' . "\n";
+        $code .= 'public function get' . ucfirst($key) . ' ($language = null) {' . "\n";
 
         $code .= "\t" . '$data = $this->getLocalizedfields()->getLocalizedValue("' . $key . '", $language);' . "\n";
 
@@ -961,11 +961,11 @@ abstract class Data
         }
 
         $code  = '/**' . "\n";
-        $code .= '* Set ' . str_replace(["/**", "*/", "//"], "", $this->getName()) . " - " . str_replace(["/**", "*/", "//"], "", $this->getTitle()) . "\n";
+        $code .= '* Set ' . str_replace(['/**', '*/', '//'], '', $this->getName()) . ' - ' . str_replace(['/**', '*/', '//'], '', $this->getTitle()) . "\n";
         $code .= '* @param ' . $this->getPhpdocType() . ' $' . $key . "\n";
-        $code .= "* @return \\Pimcore\\Model\\Object\\" . ucfirst($classname) . "\n";
+        $code .= '* @return \\Pimcore\\Model\\Object\\' . ucfirst($classname) . "\n";
         $code .= '*/' . "\n";
-        $code .= "public function set" . ucfirst($key) . " (" . '$' . $key . ', $language = null) {' . "\n";
+        $code .= 'public function set' . ucfirst($key) . ' (' . '$' . $key . ', $language = null) {' . "\n";
 
         $code .= "\t" . '$this->getLocalizedfields()->setLocalizedValue("' . $key . '", $' . $key . ', $language)' . ";\n";
         $code .= "\t" . 'return $this;' . "\n";
@@ -981,7 +981,7 @@ abstract class Data
      */
     public function getAsIntegerCast($number)
     {
-        return strlen($number) === 0 ? "" : (int)$number;
+        return strlen($number) === 0 ? '' : (int)$number;
     }
 
     /**
@@ -991,7 +991,7 @@ abstract class Data
      */
     public function getAsFloatCast($number)
     {
-        return strlen($number) === 0 ? "" : (float)$number;
+        return strlen($number) === 0 ? '' : (float)$number;
     }
 
     /**
@@ -1003,7 +1003,7 @@ abstract class Data
      */
     public function getVersionPreview($data, $object = null, $params = [])
     {
-        return "no preview";
+        return 'no preview';
     }
 
     /**
@@ -1045,7 +1045,7 @@ abstract class Data
      */
     public function getDiffDataFromEditmode($data, $object = null, $params = [])
     {
-        $thedata = $this->getDataFromEditmode($data[0]["data"], $object, $params);
+        $thedata = $this->getDataFromEditmode($data[0]['data'], $object, $params);
 
         return $thedata;
     }
@@ -1072,20 +1072,20 @@ abstract class Data
     public function getDiffDataForEditMode($data, $object = null, $params = [])
     {
         $diffdata = [];
-        $diffdata["data"] = $this->getDataForEditmode($data, $object, $params);
-        $diffdata["disabled"] = !($this->isDiffChangeAllowed($object));
-        $diffdata["field"] = $this->getName();
-        $diffdata["key"] = $this->getName();
-        $diffdata["type"] = $this->fieldtype;
+        $diffdata['data'] = $this->getDataForEditmode($data, $object, $params);
+        $diffdata['disabled'] = !($this->isDiffChangeAllowed($object));
+        $diffdata['field'] = $this->getName();
+        $diffdata['key'] = $this->getName();
+        $diffdata['type'] = $this->fieldtype;
 
-        if (method_exists($this, "getDiffVersionPreview")) {
+        if (method_exists($this, 'getDiffVersionPreview')) {
             $value = $this->getDiffVersionPreview($data, $object, $params);
         } else {
             $value = $this->getVersionPreview($data, $object, $params);
         }
 
-        $diffdata["title"] = !empty($this->title) ? $this->title : $this->name;
-        $diffdata["value"] = $value;
+        $diffdata['title'] = !empty($this->title) ? $this->title : $this->name;
+        $diffdata['value'] = $value;
 
         $result = [];
         $result[] = $diffdata;
@@ -1121,23 +1121,23 @@ abstract class Data
     {
         $data = null;
 
-        $context = $params && $params["context"] ? $params["context"] : null;
+        $context = $params && $params['context'] ? $params['context'] : null;
 
         if ($context) {
-            if ($context["containerType"] == "fieldcollection" || $context["containerType"] == "block") {
+            if ($context['containerType'] == 'fieldcollection' || $context['containerType'] == 'block') {
                 if ($this instanceof Object\ClassDefinition\Data\Localizedfields || $object instanceof Object\Localizedfield) {
-                    $fieldname = $context["fieldname"];
-                    $index = $context["index"];
+                    $fieldname = $context['fieldname'];
+                    $index = $context['index'];
 
                     if ($object instanceof Object\Concrete) {
-                        $containerGetter = "get" . ucfirst($fieldname);
+                        $containerGetter = 'get' . ucfirst($fieldname);
                         $container = $object->$containerGetter();
                         if ($container) {
-                            $originalIndex = $context["oIndex"];
+                            $originalIndex = $context['oIndex'];
 
                             // field collection or block items
                             if (!is_null($originalIndex)) {
-                                if ($context["containerType"] == "block") {
+                                if ($context['containerType'] == 'block') {
                                     $items = $container;
                                 } else {
                                     $items = $container->getItems();
@@ -1146,7 +1146,7 @@ abstract class Data
                                 if ($items && count($items) > $originalIndex) {
                                     $item = $items[$originalIndex];
 
-                                    if ($context["containerType"] == "block") {
+                                    if ($context['containerType'] == 'block') {
                                         $data = $item[$this->getName()];
                                         if ($data instanceof  Object\Data\BlockElement) {
                                             $data = $data->getData();
@@ -1154,17 +1154,17 @@ abstract class Data
                                             return $data;
                                         }
                                     } else {
-                                        $getter = "get" . ucfirst($this->getName());
+                                        $getter = 'get' . ucfirst($this->getName());
                                         $data = $item->$getter();
 
                                         if ($object instanceof Object\Localizedfield) {
-                                            $data = $data->getLocalizedValue($this->getName(), $params["language"], true);
+                                            $data = $data->getLocalizedValue($this->getName(), $params['language'], true);
                                         }
                                     }
 
                                     return $data;
                                 } else {
-                                    throw new \Exception("object seems to be modified, item with orginal index " . $originalIndex . " not found, new index: " . $index);
+                                    throw new \Exception('object seems to be modified, item with orginal index ' . $originalIndex . ' not found, new index: ' . $index);
                                 }
                             } else {
                                 return null;
@@ -1173,18 +1173,18 @@ abstract class Data
                             return null;
                         }
                     } elseif ($object instanceof Object\Localizedfield) {
-                        $data = $object->getLocalizedValue($this->getName(), $params["language"], true);
+                        $data = $object->getLocalizedValue($this->getName(), $params['language'], true);
 
                         return $data;
                     }
                 }
-            } elseif ($context["containerType"] == "classificationstore") {
-                $fieldname = $context["fieldname"];
-                $getter = "get" . ucfirst($fieldname);
+            } elseif ($context['containerType'] == 'classificationstore') {
+                $fieldname = $context['fieldname'];
+                $getter = 'get' . ucfirst($fieldname);
                 if (method_exists($object, $getter)) {
-                    $groupId = $context["groupId"];
-                    $keyId = $context["keyId"];
-                    $language = $context["language"];
+                    $groupId = $context['groupId'];
+                    $keyId = $context['keyId'];
+                    $language = $context['language'];
 
                     /** @var $classificationStoreData Object\Classificationstore */
                     $classificationStoreData = $object->$getter();
@@ -1197,11 +1197,11 @@ abstract class Data
 
         $container = $object;
 
-        $getter = "get" . ucfirst($this->getName());
+        $getter = 'get' . ucfirst($this->getName());
         if (method_exists($container, $getter)) { // for Object\Concrete, Object\Fieldcollection\Data\AbstractData, Object\Objectbrick\Data\AbstractData
             $data = $container->$getter();
         } elseif ($object instanceof Object\Localizedfield) {
-            $data = $object->getLocalizedValue($this->getName(), $params["language"], true);
+            $data = $object->getLocalizedValue($this->getName(), $params['language'], true);
         }
 
         return $data;
@@ -1221,7 +1221,7 @@ abstract class Data
     public function adoptMasterDefinition(Object\ClassDefinition\Data $masterDefinition)
     {
         $vars = get_object_vars($this);
-        $protectedFields = ["noteditable", "invisible"];
+        $protectedFields = ['noteditable', 'invisible'];
         foreach ($vars as $name => $value) {
             if (!in_array($name, $protectedFields)) {
                 unset($this->$name);
@@ -1243,10 +1243,10 @@ abstract class Data
      */
     public function marshal($value, $object = null, $params = [])
     {
-        if ($params["raw"]) {
+        if ($params['raw']) {
             return $value;
         } else {
-            return ["value" => $value];
+            return ['value' => $value];
         }
     }
 
@@ -1259,11 +1259,11 @@ abstract class Data
      */
     public function unmarshal($data, $object = null, $params = [])
     {
-        if ($params["raw"]) {
+        if ($params['raw']) {
             return $data;
         } else {
             if (is_array($data)) {
-                return $data["value"];
+                return $data['value'];
             }
         }
 

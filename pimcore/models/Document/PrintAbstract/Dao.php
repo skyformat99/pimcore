@@ -37,7 +37,7 @@ class Dao extends Document\PageSnippet\Dao
     public function init()
     {
         // page
-        $this->validColumnsPage = $this->getValidTableColumns("documents_printpage");
+        $this->validColumnsPage = $this->getValidTableColumns('documents_printpage');
     }
 
     /**
@@ -59,10 +59,10 @@ class Dao extends Document\PageSnippet\Dao
                 LEFT JOIN tree_locks ON documents.id = tree_locks.id AND tree_locks.type = 'document'
                     WHERE documents.id = ?", $this->model->getId());
 
-            if ($data["id"] > 0) {
+            if ($data['id'] > 0) {
                 $this->assignVariablesToModel($data);
             } else {
-                throw new \Exception("Print Document with the ID " . $this->model->getId() . " doesn't exists");
+                throw new \Exception('Print Document with the ID ' . $this->model->getId() . " doesn't exists");
             }
         } catch (\Exception $e) {
             throw $e;
@@ -79,8 +79,8 @@ class Dao extends Document\PageSnippet\Dao
         try {
             parent::create();
 
-            $this->db->insert("documents_printpage", [
-                "id" => $this->model->getId()
+            $this->db->insert('documents_printpage', [
+                'id' => $this->model->getId()
             ]);
         } catch (\Exception $e) {
             throw $e;
@@ -100,13 +100,13 @@ class Dao extends Document\PageSnippet\Dao
 
             foreach ($document as $key => $value) {
                 // check if the getter exists
-                $getter = "get" . ucfirst($key);
+                $getter = 'get' . ucfirst($key);
                 if (!method_exists($this->model, $getter)) {
                     continue;
                 }
 
                 // get the value from the getter
-                if (in_array($key, $this->getValidTableColumns("documents")) || in_array($key, $this->validColumnsPage)) {
+                if (in_array($key, $this->getValidTableColumns('documents')) || in_array($key, $this->validColumnsPage)) {
                     $value = $this->model->$getter();
                 } else {
                     continue;
@@ -115,7 +115,7 @@ class Dao extends Document\PageSnippet\Dao
                 if (is_bool($value)) {
                     $value = (int)$value;
                 }
-                if (in_array($key, $this->getValidTableColumns("documents"))) {
+                if (in_array($key, $this->getValidTableColumns('documents'))) {
                     $dataDocument[$key] = $value;
                 }
                 if (in_array($key, $this->validColumnsPage)) {
@@ -123,8 +123,8 @@ class Dao extends Document\PageSnippet\Dao
                 }
             }
 
-            $this->db->insertOrUpdate("documents", $dataDocument);
-            $this->db->insertOrUpdate("documents_printpage", $dataPage);
+            $this->db->insertOrUpdate('documents', $dataDocument);
+            $this->db->insertOrUpdate('documents_printpage', $dataPage);
 
             $this->updateLocks();
         } catch (\Exception $e) {
@@ -142,8 +142,8 @@ class Dao extends Document\PageSnippet\Dao
         try {
             $this->deleteAllProperties();
 
-            $this->db->delete("documents_page", ["id" => $this->model->getId()]);
-            $this->db->delete("documents_printpage", ["id" => $this->model->getId()]);
+            $this->db->delete('documents_page', ['id' => $this->model->getId()]);
+            $this->db->delete('documents_printpage', ['id' => $this->model->getId()]);
             parent::delete();
         } catch (\Exception $e) {
             throw $e;

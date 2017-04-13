@@ -246,8 +246,8 @@ class KeyConfig extends Model\AbstractModel
         $isUpdate = false;
 
         $def = json_decode($this->definition, true);
-        if ($def && isset($def["title"])) {
-            $this->title = $def["title"];
+        if ($def && isset($def['title'])) {
+            $this->title = $def['title'];
         } else {
             $this->title = null;
         }

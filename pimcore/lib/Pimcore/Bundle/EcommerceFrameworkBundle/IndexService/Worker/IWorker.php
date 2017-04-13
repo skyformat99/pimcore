@@ -24,7 +24,7 @@ use Pimcore\Bundle\EcommerceFrameworkBundle\Model\IIndexable;
  */
 interface IWorker
 {
-    const MULTISELECT_DELIMITER = "#;#";
+    const MULTISELECT_DELIMITER = '#;#';
 
     /**
      * returns all attributes marked as general search attributes for full text search

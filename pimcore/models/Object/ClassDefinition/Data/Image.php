@@ -28,7 +28,7 @@ class Image extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $fieldtype = "image";
+    public $fieldtype = 'image';
 
     /**
      * @var int
@@ -52,21 +52,21 @@ class Image extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $queryColumnType = "int(11)";
+    public $queryColumnType = 'int(11)';
 
     /**
      * Type for the column
      *
      * @var string
      */
-    public $columnType = "int(11)";
+    public $columnType = 'int(11)';
 
     /**
      * Type for the generated phpdoc
      *
      * @var string
      */
-    public $phpdocType = "\\Pimcore\\Model\\Asset\\Image";
+    public $phpdocType = '\\Pimcore\\Model\\Asset\\Image';
 
     /**
      * @return int
@@ -253,7 +253,7 @@ class Image extends Model\Object\ClassDefinition\Data
      */
     public function getDataForSearchIndex($object, $params = [])
     {
-        return "";
+        return '';
     }
 
     /**
@@ -287,9 +287,9 @@ class Image extends Model\Object\ClassDefinition\Data
         $dependencies = [];
 
         if ($data instanceof Asset) {
-            $dependencies["asset_" . $data->getId()] = [
-                "id" => $data->getId(),
-                "type" => "asset"
+            $dependencies['asset_' . $data->getId()] = [
+                'id' => $data->getId(),
+                'type' => 'asset'
             ];
         }
 
@@ -327,7 +327,7 @@ class Image extends Model\Object\ClassDefinition\Data
         $id = $value;
 
         if ($idMapper && !empty($value)) {
-            $id = $idMapper->getMappedId("asset", $value);
+            $id = $idMapper->getMappedId('asset', $value);
             $fromMapper = true;
         }
 
@@ -338,9 +338,9 @@ class Image extends Model\Object\ClassDefinition\Data
             return $asset;
         } else {
             if (!$idMapper || !$idMapper->ignoreMappingFailures()) {
-                throw new \Exception("cannot get values from web service import - invalid data, referencing unknown asset with id [ ".$value." ]");
+                throw new \Exception('cannot get values from web service import - invalid data, referencing unknown asset with id [ '.$value.' ]');
             } else {
-                $idMapper->recordMappingFailure("object", $object->getId(), "asset", $value);
+                $idMapper->recordMappingFailure('object', $object->getId(), 'asset', $value);
             }
         }
     }
@@ -389,17 +389,17 @@ class Image extends Model\Object\ClassDefinition\Data
     {
         $versionPreview = null;
         if ($data instanceof Asset\Image) {
-            $versionPreview = "/admin/asset/get-image-thumbnail?id=" . $data->getId() . "&width=150&height=150&aspectratio=true";
+            $versionPreview = '/admin/asset/get-image-thumbnail?id=' . $data->getId() . '&width=150&height=150&aspectratio=true';
         }
 
         if ($versionPreview) {
             $value = [];
-            $value["src"] = $versionPreview;
-            $value["type"] = "img";
+            $value['src'] = $versionPreview;
+            $value['type'] = 'img';
 
             return $value;
         } else {
-            return "";
+            return '';
         }
     }
 
@@ -424,8 +424,8 @@ class Image extends Model\Object\ClassDefinition\Data
     {
         $data = $this->getDataFromObjectParam($object, $params);
         if ($data instanceof Asset\Image) {
-            if (array_key_exists("asset", $idMapping) and array_key_exists($data->getId(), $idMapping["asset"])) {
-                return Asset::getById($idMapping["asset"][$data->getId()]);
+            if (array_key_exists('asset', $idMapping) and array_key_exists($data->getId(), $idMapping['asset'])) {
+                return Asset::getById($idMapping['asset'][$data->getId()]);
             }
         }
 
@@ -451,8 +451,8 @@ class Image extends Model\Object\ClassDefinition\Data
     {
         if ($value instanceof \Pimcore\Model\Asset\Image) {
             return [
-                "type" => "asset",
-                "id" => $value->getId()
+                'type' => 'asset',
+                'id' => $value->getId()
             ];
         }
     }
@@ -466,7 +466,7 @@ class Image extends Model\Object\ClassDefinition\Data
      */
     public function unmarshal($value, $object = null, $params = [])
     {
-        $id = $value["id"];
+        $id = $value['id'];
         if (intval($id) > 0) {
             return Asset\Image::getById($id);
         }

@@ -95,10 +95,10 @@ abstract class AbstractFilterDefinition extends \Pimcore\Model\Object\Concrete
             && \Pimcore\Model\Object\AbstractObject::doGetInheritedValues()
             && $this->getClass()->getFieldDefinition($key) instanceof \Pimcore\Model\Object\ClassDefinition\Data\Fieldcollections
         ) {
-            $checkInheritanceKey = $key . "Inheritance";
+            $checkInheritanceKey = $key . 'Inheritance';
             if ($this->{
                 'get' . $checkInheritanceKey
-                }() == "true"
+                }() == 'true'
             ) {
                 $parentValue = $this->getValueFromParent($key);
                 $data = $this->$key;

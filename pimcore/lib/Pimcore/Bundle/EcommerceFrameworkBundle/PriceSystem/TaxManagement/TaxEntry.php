@@ -21,9 +21,9 @@ use Pimcore\Model\Object\OnlineShopTaxClass;
  */
 class TaxEntry
 {
-    const CALCULATION_MODE_COMBINE = "combine";
-    const CALCULATION_MODE_ONE_AFTER_ANOTHER = "oneAfterAnother";
-    const CALCULATION_MODE_FIXED = "fixed";
+    const CALCULATION_MODE_COMBINE = 'combine';
+    const CALCULATION_MODE_ONE_AFTER_ANOTHER = 'oneAfterAnother';
+    const CALCULATION_MODE_FIXED = 'fixed';
 
     /**
      * @var \Pimcore\Model\Object\Fieldcollection\Data\TaxEntry
@@ -137,7 +137,7 @@ class TaxEntry
         $convertedTaxEntries = [];
         if ($taxClass->getTaxEntries()) {
             foreach ($taxClass->getTaxEntries() as $index => $entry) {
-                $convertedTaxEntries[] = new self($entry->getPercent(), 0, $entry->getName() . "-" . $entry->getPercent(), $entry);
+                $convertedTaxEntries[] = new self($entry->getPercent(), 0, $entry->getName() . '-' . $entry->getPercent(), $entry);
             }
         }
 

@@ -36,7 +36,7 @@ class Listing extends Model\Listing\AbstractListing
      */
     public function isValidOrderKey($key)
     {
-        if ($key == "abbreviation" || $key == "group" || $key == "id" || $key == "longname") {
+        if ($key == 'abbreviation' || $key == 'group' || $key == 'id' || $key == 'longname') {
             return true;
         }
 

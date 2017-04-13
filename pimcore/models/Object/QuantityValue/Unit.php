@@ -98,7 +98,7 @@ class Unit extends Model\AbstractModel
      */
     public static function getById($id)
     {
-        $cacheKey = Unit\Dao::TABLE_NAME . "_" . $id;
+        $cacheKey = Unit\Dao::TABLE_NAME . '_' . $id;
 
         try {
             $unit = \Pimcore\Cache\Runtime::get($cacheKey);
@@ -137,7 +137,7 @@ class Unit extends Model\AbstractModel
 
     public function delete()
     {
-        $cacheKey = Unit\Dao::TABLE_NAME . "_" . $this->getId();
+        $cacheKey = Unit\Dao::TABLE_NAME . '_' . $this->getId();
         \Pimcore\Cache\Runtime::set($cacheKey, null);
 
         $this->getDao()->delete();
@@ -148,7 +148,7 @@ class Unit extends Model\AbstractModel
      */
     public function __toString()
     {
-        return ucfirst($this->getAbbreviation() . " (" . $this->getId() . ")");
+        return ucfirst($this->getAbbreviation() . ' (' . $this->getId() . ')');
     }
 
     public function setAbbreviation($abbreviation)

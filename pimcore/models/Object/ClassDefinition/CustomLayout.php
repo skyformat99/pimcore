@@ -89,15 +89,15 @@ class CustomLayout extends Model\AbstractModel
     public static function getById($id)
     {
         if ($id === null) {
-            throw new \Exception("CustomLayout id is null");
+            throw new \Exception('CustomLayout id is null');
         }
 
-        $cacheKey = "customlayout_" . $id;
+        $cacheKey = 'customlayout_' . $id;
 
         try {
             $customLayout = \Pimcore\Cache\Runtime::get($cacheKey);
             if (!$customLayout) {
-                throw new \Exception("Custom Layout in registry is null");
+                throw new \Exception('Custom Layout in registry is null');
             }
         } catch (\Exception $e) {
             try {
@@ -179,7 +179,7 @@ class CustomLayout extends Model\AbstractModel
 
         // empty custom layout cache
         try {
-            Cache::clearTag("customlayout_" . $this->getId());
+            Cache::clearTag('customlayout_' . $this->getId());
         } catch (\Exception $e) {
         }
     }
@@ -188,13 +188,13 @@ class CustomLayout extends Model\AbstractModel
     {
         // empty object cache
         try {
-            Cache::clearTag("customlayout_" . $this->getId());
+            Cache::clearTag('customlayout_' . $this->getId());
         } catch (\Exception $e) {
         }
 
         // empty output cache
         try {
-            Cache::clearTag("output");
+            Cache::clearTag('output');
         } catch (\Exception $e) {
         }
 

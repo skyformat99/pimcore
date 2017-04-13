@@ -16,8 +16,8 @@ namespace Pimcore\Bundle\EcommerceFrameworkBundle\OfferTool;
 
 interface IService
 {
-    const DISCOUNT_TYPE_PERCENT = "percent";
-    const DISCOUNT_TYPE_AMOUNT = "amount";
+    const DISCOUNT_TYPE_PERCENT = 'percent';
+    const DISCOUNT_TYPE_AMOUNT = 'amount';
 
     /**
      * @param \Pimcore\Bundle\EcommerceFrameworkBundle\CartManager\ICart $cart

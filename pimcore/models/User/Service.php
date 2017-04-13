@@ -31,10 +31,10 @@ class Service
     public static function getClassNameForType($type)
     {
         switch ($type) {
-            case "user": return "\\Pimcore\\Model\\User";
-            case "userfolder": return "\\Pimcore\\Model\\User\\Folder";
-            case "role": return "\\Pimcore\\Model\\User\\Role";
-            case "rolefolder": return "\\Pimcore\\Model\\User\\Role\\Folder";
+            case 'user': return '\\Pimcore\\Model\\User';
+            case 'userfolder': return '\\Pimcore\\Model\\User\\Folder';
+            case 'role': return '\\Pimcore\\Model\\User\\Role';
+            case 'rolefolder': return '\\Pimcore\\Model\\User\\Role\\Folder';
         }
     }
 }

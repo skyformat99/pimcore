@@ -19,15 +19,15 @@ namespace Pimcore\Service;
  */
 class IntlFormatterService
 {
-    const DATE_SHORT = "date_short";
-    const DATE_MEDIUM = "date_medium";
-    const DATE_LONG = "date_long";
-    const DATETIME_SHORT = "datetime_short";
-    const DATETIME_MEDIUM = "datetime_medium";
-    const DATETIME_LONG = "datetime_long";
-    const TIME_SHORT = "time_short";
-    const TIME_MEDIUM = "time_medium";
-    const TIME_LONG = "time_long";
+    const DATE_SHORT = 'date_short';
+    const DATE_MEDIUM = 'date_medium';
+    const DATE_LONG = 'date_long';
+    const DATETIME_SHORT = 'datetime_short';
+    const DATETIME_MEDIUM = 'datetime_medium';
+    const DATETIME_LONG = 'datetime_long';
+    const TIME_SHORT = 'time_short';
+    const TIME_MEDIUM = 'time_medium';
+    const TIME_LONG = 'time_long';
 
     /**
      * @var string

@@ -24,7 +24,7 @@ use Pimcore\Model;
  */
 class Dao extends Model\Dao\AbstractDao
 {
-    const TABLE_NAME_STORES = "classificationstore_stores";
+    const TABLE_NAME_STORES = 'classificationstore_stores';
 
     /**
      * Get the data for the object from database for the given id, or from the ID which is set in the object
@@ -39,12 +39,12 @@ class Dao extends Model\Dao\AbstractDao
             $this->model->setId($id);
         }
 
-        $data = $this->db->fetchRow("SELECT * FROM " . self::TABLE_NAME_STORES . " WHERE id = ?", $this->model->getId());
+        $data = $this->db->fetchRow('SELECT * FROM ' . self::TABLE_NAME_STORES . ' WHERE id = ?', $this->model->getId());
 
         if ($data) {
             $this->assignVariablesToModel($data);
         } else {
-            throw new \Exception("StoreConfig with id: " . $this->model->getd() . " does not exist");
+            throw new \Exception('StoreConfig with id: ' . $this->model->getd() . ' does not exist');
         }
     }
 
@@ -61,12 +61,12 @@ class Dao extends Model\Dao\AbstractDao
 
         $name = $this->model->getName();
 
-        $data = $this->db->fetchRow("SELECT * FROM " . self::TABLE_NAME_STORES . " WHERE name = ?", $name);
+        $data = $this->db->fetchRow('SELECT * FROM ' . self::TABLE_NAME_STORES . ' WHERE name = ?', $name);
 
-        if ($data["id"]) {
+        if ($data['id']) {
             $this->assignVariablesToModel($data);
         } else {
-            throw new \Exception("StoreConfig with name: " . $this->model->getName() . " does not exist");
+            throw new \Exception('StoreConfig with name: ' . $this->model->getName() . ' does not exist');
         }
     }
 
@@ -92,7 +92,7 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function delete()
     {
-        $this->db->delete(self::TABLE_NAME_STORES, ["id" => $this->model->getId()]);
+        $this->db->delete(self::TABLE_NAME_STORES, ['id' => $this->model->getId()]);
     }
 
     /**
@@ -117,7 +117,7 @@ class Dao extends Model\Dao\AbstractDao
                 }
             }
 
-            $this->db->update(self::TABLE_NAME_STORES, $data, ["id" => $this->model->getId()]);
+            $this->db->update(self::TABLE_NAME_STORES, $data, ['id' => $this->model->getId()]);
 
             return $this->model;
         } catch (\Exception $e) {

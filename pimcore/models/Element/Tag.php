@@ -248,7 +248,7 @@ class Tag extends Model\AbstractModel
      */
     public function getFullIdPath()
     {
-        return $this->getIdPath() . $this->getId() . "/";
+        return $this->getIdPath() . $this->getId() . '/';
     }
 
     /**
@@ -271,7 +271,7 @@ class Tag extends Model\AbstractModel
 
         $parentNames = array_reverse($parentNames);
 
-        return "/" . implode("/", $parentNames) . "/";
+        return '/' . implode('/', $parentNames) . '/';
     }
 
     /**
@@ -281,8 +281,8 @@ class Tag extends Model\AbstractModel
     {
         if ($this->children == null) {
             $listing = new Tag\Listing();
-            $listing->setCondition("parentId = ?", $this->getId());
-            $listing->setOrderKey("name");
+            $listing->setCondition('parentId = ?', $this->getId());
+            $listing->setOrderKey('name');
             $this->children = $listing->load();
         }
 
@@ -309,9 +309,9 @@ class Tag extends Model\AbstractModel
 
         $parentIds = array_reverse($parentIds);
         if ($parentIds) {
-            $this->idPath = "/" . implode("/", $parentIds) . "/";
+            $this->idPath = '/' . implode('/', $parentIds) . '/';
         } else {
-            $this->idPath = "/";
+            $this->idPath = '/';
         }
     }
 }

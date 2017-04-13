@@ -37,14 +37,14 @@ class Dao extends Model\Dao\AbstractDao
             $expire = 120;
         }
 
-        $lock = $this->db->fetchRow("SELECT * FROM locks WHERE id = ?", $key);
+        $lock = $this->db->fetchRow('SELECT * FROM locks WHERE id = ?', $key);
 
         // a lock is only valid for a certain time (default: 2 minutes)
         if (!$lock) {
             return false;
-        } elseif (is_array($lock) && array_key_exists("id", $lock) && $lock["date"] < (time() - $expire)) {
+        } elseif (is_array($lock) && array_key_exists('id', $lock) && $lock['date'] < (time() - $expire)) {
             if ($expire > 0) {
-                Logger::debug("Lock '" . $key . "' expired (expiry time: " . $expire . ", lock date: " . $lock["date"] . " / current time: " . time() . ")");
+                Logger::debug("Lock '" . $key . "' expired (expiry time: " . $expire . ', lock date: ' . $lock['date'] . ' / current time: ' . time() . ')');
                 $this->release($key);
 
                 return false;
@@ -90,7 +90,7 @@ class Dao extends Model\Dao\AbstractDao
     public function release($key)
     {
         Logger::debug("Releasing: '" . $key . "'");
-        $this->db->delete("locks", ["id" => $key]);
+        $this->db->delete('locks', ['id' => $key]);
     }
 
     /**
@@ -101,11 +101,11 @@ class Dao extends Model\Dao\AbstractDao
     {
         Logger::debug("Locking: '" . $key . "'");
 
-        $updateMethod = $force ? "insertOrUpdate" : "insert";
+        $updateMethod = $force ? 'insertOrUpdate' : 'insert';
 
-        $this->db->$updateMethod("locks", [
-            "id" => $key,
-            "date" => time()
+        $this->db->$updateMethod('locks', [
+            'id' => $key,
+            'date' => time()
         ]);
     }
 
@@ -114,7 +114,7 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function getById($key)
     {
-        $lock = $this->db->fetchRow("SELECT * FROM locks WHERE id = ?", $key);
+        $lock = $this->db->fetchRow('SELECT * FROM locks WHERE id = ?', $key);
         $this->assignVariablesToModel($lock);
     }
 }

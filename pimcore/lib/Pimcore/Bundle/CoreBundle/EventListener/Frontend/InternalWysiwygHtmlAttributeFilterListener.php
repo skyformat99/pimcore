@@ -81,7 +81,7 @@ class InternalWysiwygHtmlAttributeFilterListener extends AbstractFrontendListene
         }
 
         $content = $response->getContent();
-        $content = preg_replace("/ pimcore_(id|type|disable_thumbnail)=\\\"([0-9a-z]+)\\\"/", "", $content);
+        $content = preg_replace('/ pimcore_(id|type|disable_thumbnail)=\\"([0-9a-z]+)\\"/', '', $content);
 
         $response->setContent($content);
     }

@@ -31,7 +31,7 @@ class DeliveryAddress extends AbstractStep implements ICheckoutStep
      */
     public function getName()
     {
-        return "deliveryaddress";
+        return 'deliveryaddress';
     }
 
     /**

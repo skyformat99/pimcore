@@ -64,7 +64,7 @@ class DocumentRenderer
 
         // set locale of the document to sub request
         $request = new Request($params);
-        $request->setLocale($document->getProperty("language"));
+        $request->setLocale($document->getProperty('language'));
 
         $content = $this->fragmentRenderer->render($uri, $request);
 

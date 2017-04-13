@@ -26,5 +26,5 @@ class Region extends Model\Object\ClassDefinition\Layout
      *
      * @var string
      */
-    public $fieldtype = "region";
+    public $fieldtype = 'region';
 }

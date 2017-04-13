@@ -31,7 +31,7 @@ class Wysiwyg extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $fieldtype = "wysiwyg";
+    public $fieldtype = 'wysiwyg';
 
     /**
      * @var int
@@ -48,26 +48,26 @@ class Wysiwyg extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $queryColumnType = "longtext";
+    public $queryColumnType = 'longtext';
 
     /**
      * Type for the column
      *
      * @var string
      */
-    public $columnType = "longtext";
+    public $columnType = 'longtext';
 
     /**
      * Type for the generated phpdoc
      *
      * @var string
      */
-    public $phpdocType = "string";
+    public $phpdocType = 'string';
 
     /**
      * @var string
      */
-    public $toolbarConfig = "";
+    public $toolbarConfig = '';
 
     /**
      * @return int
@@ -117,7 +117,7 @@ class Wysiwyg extends Model\Object\ClassDefinition\Data
         if (is_string($toolbarConfig)) {
             $this->toolbarConfig = $toolbarConfig;
         } else {
-            $this->toolbarConfig = "";
+            $this->toolbarConfig = '';
         }
     }
 
@@ -170,11 +170,11 @@ class Wysiwyg extends Model\Object\ClassDefinition\Data
     {
         $data = $this->getDataForResource($data, $object, $params);
 
-        $data = strip_tags($data, "<a><img>");
-        $data = str_replace("\r\n", " ", $data);
-        $data = str_replace("\n", " ", $data);
-        $data = str_replace("\r", " ", $data);
-        $data = str_replace("\t", "", $data);
+        $data = strip_tags($data, '<a><img>');
+        $data = str_replace("\r\n", ' ', $data);
+        $data = str_replace("\n", ' ', $data);
+        $data = str_replace("\r", ' ', $data);
+        $data = str_replace("\t", '', $data);
         $data = preg_replace('#[ ]+#', ' ', $data);
 
         return $data;
@@ -240,14 +240,14 @@ class Wysiwyg extends Model\Object\ClassDefinition\Data
     public function checkValidity($data, $omitMandatoryCheck = false)
     {
         if (!$omitMandatoryCheck and $this->getMandatory() and empty($data)) {
-            throw new Element\ValidationException("Empty mandatory field [ ".$this->getName()." ]");
+            throw new Element\ValidationException('Empty mandatory field [ '.$this->getName().' ]');
         }
         $dependencies = Text::getDependenciesOfWysiwygText($data);
         if (is_array($dependencies)) {
             foreach ($dependencies as $key => $value) {
                 $el = Element\Service::getElementById($value['type'], $value['id']);
                 if (!$el) {
-                    throw new Element\ValidationException("Invalid dependency in wysiwyg text");
+                    throw new Element\ValidationException('Invalid dependency in wysiwyg text');
                 }
             }
         }
@@ -261,11 +261,11 @@ class Wysiwyg extends Model\Object\ClassDefinition\Data
      */
     public function preGetData($object, $params = [])
     {
-        $data = "";
+        $data = '';
         if ($object instanceof Object\Concrete) {
             $data = $object->{$this->getName()};
         } elseif ($object instanceof Object\Localizedfield || $object instanceof Object\Classificationstore) {
-            $data = $params["data"];
+            $data = $params['data'];
         } elseif ($object instanceof Object\Fieldcollection\Data\AbstractData) {
             $data = $object->{$this->getName()};
         } elseif ($object instanceof Object\Objectbrick\Data\AbstractData) {
@@ -288,12 +288,12 @@ class Wysiwyg extends Model\Object\ClassDefinition\Data
     {
         if ($data) {
             $value = [];
-            $value["html"] = $data;
-            $value["type"] = "html";
+            $value['html'] = $data;
+            $value['type'] = 'html';
 
             return $value;
         } else {
-            return "";
+            return '';
         }
     }
 
@@ -316,12 +316,12 @@ class Wysiwyg extends Model\Object\ClassDefinition\Data
      */
     public function rewriteIds($object, $idMapping, $params = [])
     {
-        include_once(PIMCORE_PATH . "/lib/simple_html_dom.php");
+        include_once(PIMCORE_PATH . '/lib/simple_html_dom.php');
 
         $data = $this->getDataFromObjectParam($object, $params);
         $html = str_get_html($data);
         if ($html) {
-            $s = $html->find("a[pimcore_id],img[pimcore_id]");
+            $s = $html->find('a[pimcore_id],img[pimcore_id]');
 
             if ($s) {
                 foreach ($s as $el) {

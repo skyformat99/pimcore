@@ -33,9 +33,9 @@ class AbstractObject extends Model\Element\AbstractElement
 {
     use Element\ChildsCompatibilityTrait;
 
-    const OBJECT_TYPE_FOLDER = "folder";
-    const OBJECT_TYPE_OBJECT = "object";
-    const OBJECT_TYPE_VARIANT = "variant";
+    const OBJECT_TYPE_FOLDER = 'folder';
+    const OBJECT_TYPE_OBJECT = 'object';
+    const OBJECT_TYPE_VARIANT = 'variant';
 
     /**
      * @var bool
@@ -145,7 +145,7 @@ class AbstractObject extends Model\Element\AbstractElement
     /**
      * @var string
      */
-    public $o_type = "object";
+    public $o_type = 'object';
 
     /**
      * @var string
@@ -262,7 +262,7 @@ class AbstractObject extends Model\Element\AbstractElement
             return null;
         }
 
-        $cacheKey = "object_" . $id;
+        $cacheKey = 'object_' . $id;
 
         if (!$force && \Pimcore\Cache\Runtime::isRegistered($cacheKey)) {
             $object = \Pimcore\Cache\Runtime::get($cacheKey);
@@ -276,21 +276,21 @@ class AbstractObject extends Model\Element\AbstractElement
                 $object = new Model\Object();
                 $typeInfo = $object->getDao()->getTypeById($id);
 
-                if ($typeInfo["o_type"] == "object" || $typeInfo["o_type"] == "variant" || $typeInfo["o_type"] == "folder") {
-                    if ($typeInfo["o_type"] == "folder") {
-                        $className = "Pimcore\\Model\\Object\\Folder";
+                if ($typeInfo['o_type'] == 'object' || $typeInfo['o_type'] == 'variant' || $typeInfo['o_type'] == 'folder') {
+                    if ($typeInfo['o_type'] == 'folder') {
+                        $className = 'Pimcore\\Model\\Object\\Folder';
                     } else {
-                        $className = "Pimcore\\Model\\Object\\" . ucfirst($typeInfo["o_className"]);
+                        $className = 'Pimcore\\Model\\Object\\' . ucfirst($typeInfo['o_className']);
                     }
 
-                    $object = \Pimcore::getContainer()->get("pimcore.model.factory")->build($className);
+                    $object = \Pimcore::getContainer()->get('pimcore.model.factory')->build($className);
                     \Pimcore\Cache\Runtime::set($cacheKey, $object);
                     $object->getDao()->getById($id);
                     $object->__setDataVersionTimestamp($object->getModificationDate());
 
                     Cache::save($object, $cacheKey);
                 } else {
-                    throw new \Exception("No entry for object id " . $id);
+                    throw new \Exception('No entry for object id ' . $id);
                 }
             } else {
                 \Pimcore\Cache\Runtime::set($cacheKey, $object);
@@ -349,21 +349,21 @@ class AbstractObject extends Model\Element\AbstractElement
      */
     public static function getList($config = [])
     {
-        $className = "Pimcore\\Model\\Object";
+        $className = 'Pimcore\\Model\\Object';
         // get classname
-        if (get_called_class() != "Pimcore\\Model\\Object\\AbstractObject" && get_called_class() != "Pimcore\\Model\\Object\\Concrete") {
+        if (get_called_class() != 'Pimcore\\Model\\Object\\AbstractObject' && get_called_class() != 'Pimcore\\Model\\Object\\Concrete') {
             $tmpObject = new static();
-            $className = "Pimcore\\Model\\Object\\" . ucfirst($tmpObject->getClassName());
+            $className = 'Pimcore\\Model\\Object\\' . ucfirst($tmpObject->getClassName());
         }
 
-        if (!empty($config["class"])) {
-            $className = ltrim($config["class"], "\\");
+        if (!empty($config['class'])) {
+            $className = ltrim($config['class'], '\\');
         }
 
         if (is_array($config)) {
             if ($className) {
-                $listClass = $className . "\\Listing";
-                $list = \Pimcore::getContainer()->get("pimcore.model.factory")->build($listClass);
+                $listClass = $className . '\\Listing';
+                $list = \Pimcore::getContainer()->get('pimcore.model.factory')->build($listClass);
                 $list->setValues($config);
                 $list->load();
 
@@ -371,7 +371,7 @@ class AbstractObject extends Model\Element\AbstractElement
             }
         }
 
-        throw new \Exception("Unable to initiate list class - class not found or invalid configuration");
+        throw new \Exception('Unable to initiate list class - class not found or invalid configuration');
     }
 
     /**
@@ -381,21 +381,21 @@ class AbstractObject extends Model\Element\AbstractElement
      */
     public static function getTotalCount($config = [])
     {
-        $className = "Pimcore\\Model\\Object";
+        $className = 'Pimcore\\Model\\Object';
         // get classname
-        if (get_called_class() != "Pimcore\\Model\\Object\\AbstractObject" && get_called_class() != "Pimcore\\Model\\Object\\Concrete") {
+        if (get_called_class() != 'Pimcore\\Model\\Object\\AbstractObject' && get_called_class() != 'Pimcore\\Model\\Object\\Concrete') {
             $tmpObject = new static();
-            $className = "Pimcore\\Model\\Object\\" . ucfirst($tmpObject->getClassName());
+            $className = 'Pimcore\\Model\\Object\\' . ucfirst($tmpObject->getClassName());
         }
 
-        if (!empty($config["class"])) {
-            $className = ltrim($config["class"], "\\");
+        if (!empty($config['class'])) {
+            $className = ltrim($config['class'], '\\');
         }
 
         if (is_array($config)) {
             if ($className) {
-                $listClass = ucfirst($className) . "\\Listing";
-                $list = \Pimcore::getContainer()->get("pimcore.model.factory")->build($listClass);
+                $listClass = ucfirst($className) . '\\Listing';
+                $list = \Pimcore::getContainer()->get('pimcore.model.factory')->build($listClass);
             }
 
             $list->setValues($config);
@@ -418,9 +418,9 @@ class AbstractObject extends Model\Element\AbstractElement
 
             $list = new Listing();
             $list->setUnpublished($unpublished);
-            $list->setCondition("o_parentId = ?", $this->getId());
-            $list->setOrderKey("o_key");
-            $list->setOrder("asc");
+            $list->setCondition('o_parentId = ?', $this->getId());
+            $list->setOrderKey('o_key');
+            $list->setOrder('asc');
             $list->setObjectTypes($objectTypes);
             $this->o_childs = $list->load();
         }
@@ -460,11 +460,11 @@ class AbstractObject extends Model\Element\AbstractElement
             $list = new Listing();
             $list->setUnpublished($unpublished);
             // string conversion because parentId could be 0
-            $list->addConditionParam("o_parentId = ?", (string)$this->getParentId());
-            $list->addConditionParam("o_id != ?", $this->getId());
-            $list->setOrderKey("o_key");
+            $list->addConditionParam('o_parentId = ?', (string)$this->getParentId());
+            $list->addConditionParam('o_id != ?', $this->getId());
+            $list->setOrderKey('o_key');
             $list->setObjectTypes($objectTypes);
-            $list->setOrder("asc");
+            $list->setOrder('asc');
             $this->o_siblings = $list->load();
         }
 
@@ -544,7 +544,7 @@ class AbstractObject extends Model\Element\AbstractElement
         $this->clearDependentCache();
 
         //set object to registry
-        \Pimcore\Cache\Runtime::set("object_" . $this->getId(), null);
+        \Pimcore\Cache\Runtime::set('object_' . $this->getId(), null);
 
         \Pimcore::getEventDispatcher()->dispatch(ObjectEvents::POST_DELETE, new ObjectEvent($this));
     }
@@ -580,7 +580,7 @@ class AbstractObject extends Model\Element\AbstractElement
 
             try {
                 if (!in_array($this->getType(), self::$types)) {
-                    throw new \Exception("invalid object type given: [" . $this->getType() . "]");
+                    throw new \Exception('invalid object type given: [' . $this->getType() . ']');
                 }
 
                 if (!$isUpdate) {
@@ -628,12 +628,12 @@ class AbstractObject extends Model\Element\AbstractElement
                 if ($retries < ($maxRetries - 1)) {
                     $run = $retries + 1;
                     $waitTime = 100000; // microseconds
-                    Logger::warn("Unable to finish transaction (" . $run . ". run) because of the following reason '" . $e->getMessage() . "'. --> Retrying in " . $waitTime . " microseconds ... (" . ($run + 1) . " of " . $maxRetries . ")");
+                    Logger::warn('Unable to finish transaction (' . $run . ". run) because of the following reason '" . $e->getMessage() . "'. --> Retrying in " . $waitTime . ' microseconds ... (' . ($run + 1) . ' of ' . $maxRetries . ')');
 
                     usleep($waitTime); // wait specified time until we restart the transaction
                 } else {
                     // if the transaction still fail after $maxRetries retries, we throw out the exception
-                    Logger::error("Finally giving up restarting the same transaction again and again, last message: " . $e->getMessage());
+                    Logger::error('Finally giving up restarting the same transaction again and again, last message: ' . $e->getMessage());
                     throw $e;
                 }
             }
@@ -642,7 +642,7 @@ class AbstractObject extends Model\Element\AbstractElement
         $additionalTags = [];
         if (isset($updatedChildren) && is_array($updatedChildren)) {
             foreach ($updatedChildren as $objectId) {
-                $tag = "object_" . $objectId;
+                $tag = 'object_' . $objectId;
                 $additionalTags[] = $tag;
 
                 // remove the child also from registry (internal cache) to avoid path inconsistencies during long running scripts, such as CLI
@@ -665,8 +665,8 @@ class AbstractObject extends Model\Element\AbstractElement
         // set path
         if ($this->getId() != 1) { // not for the root node
 
-            if (!Element\Service::isValidKey($this->getKey(), "object")) {
-                throw new \Exception("invalid key for object with id [ ".$this->getId()." ] key is: [" . $this->getKey() . "]");
+            if (!Element\Service::isValidKey($this->getKey(), 'object')) {
+                throw new \Exception('invalid key for object with id [ '.$this->getId().' ] key is: [' . $this->getKey() . ']');
             }
 
             if ($this->getParentId() == $this->getId()) {
@@ -678,28 +678,28 @@ class AbstractObject extends Model\Element\AbstractElement
             if ($parent) {
                 // use the parent's path from the database here (getCurrentFullPath), to ensure the path really exists and does not rely on the path
                 // that is currently in the parent object (in memory), because this might have changed but wasn't not saved
-                $this->setPath(str_replace("//", "/", $parent->getCurrentFullPath()."/"));
+                $this->setPath(str_replace('//', '/', $parent->getCurrentFullPath().'/'));
             } else {
                 // parent document doesn't exist anymore, set the parent to to root
                 $this->setParentId(1);
-                $this->setPath("/");
+                $this->setPath('/');
             }
 
             if (strlen($this->getKey()) < 1) {
-                throw new \Exception("Document requires key, generated key automatically");
+                throw new \Exception('Document requires key, generated key automatically');
             }
         } elseif ($this->getId() == 1) {
             // some data in root node should always be the same
             $this->setParentId(0);
-            $this->setPath("/");
-            $this->setKey("");
-            $this->setType("folder");
+            $this->setPath('/');
+            $this->setKey('');
+            $this->setType('folder');
         }
 
         if (Service::pathExists($this->getRealFullPath())) {
             $duplicate = self::getByPath($this->getRealFullPath());
             if ($duplicate instanceof self and $duplicate->getId() != $this->getId()) {
-                throw new \Exception("Duplicate full path [ ".$this->getRealFullPath()." ] - cannot save object");
+                throw new \Exception('Duplicate full path [ '.$this->getRealFullPath().' ] - cannot save object');
             }
         }
 
@@ -730,7 +730,7 @@ class AbstractObject extends Model\Element\AbstractElement
                 if (!$property->getInherited()) {
                     $property->setDao(null);
                     $property->setCid($this->getId());
-                    $property->setCtype("object");
+                    $property->setCtype('object');
                     $property->setCpath($this->getRealFullPath());
                     $property->save();
                 }
@@ -742,18 +742,18 @@ class AbstractObject extends Model\Element\AbstractElement
         $d->clean();
 
         foreach ($this->resolveDependencies() as $requirement) {
-            if ($requirement["id"] == $this->getId() && $requirement["type"] == "object") {
+            if ($requirement['id'] == $this->getId() && $requirement['type'] == 'object') {
                 // dont't add a reference to yourself
                 continue;
             } else {
-                $d->addRequirement($requirement["id"], $requirement["type"]);
+                $d->addRequirement($requirement['id'], $requirement['type']);
             }
         }
 
         $d->save();
 
         //set object to registry
-        \Pimcore\Cache\Runtime::set("object_" . $this->getId(), $this);
+        \Pimcore\Cache\Runtime::set('object_' . $this->getId(), $this);
     }
 
     /**
@@ -762,7 +762,7 @@ class AbstractObject extends Model\Element\AbstractElement
     public function clearDependentCache($additionalTags = [])
     {
         try {
-            $tags = ["object_" . $this->getId(), "object_properties", "output"];
+            $tags = ['object_' . $this->getId(), 'object_properties', 'output'];
             $tags = array_merge($tags, $additionalTags);
 
             Cache::clearTags($tags);
@@ -777,7 +777,7 @@ class AbstractObject extends Model\Element\AbstractElement
     public function getDependencies()
     {
         if (!$this->o_dependencies) {
-            $this->o_dependencies = Model\Dependency::getBySourceId($this->getId(), "object");
+            $this->o_dependencies = Model\Dependency::getBySourceId($this->getId(), 'object');
         }
 
         return $this->o_dependencies;
@@ -1066,12 +1066,12 @@ class AbstractObject extends Model\Element\AbstractElement
     {
         if ($this->o_properties === null) {
             // try to get from cache
-            $cacheKey = "object_properties_" . $this->getId();
+            $cacheKey = 'object_properties_' . $this->getId();
             $properties = Cache::load($cacheKey);
             if (!is_array($properties)) {
                 $properties = $this->getDao()->getProperties();
                 $elementCacheTag = $this->getCacheTag();
-                $cacheTags = ["object_properties" => "object_properties", $elementCacheTag => $elementCacheTag];
+                $cacheTags = ['object_properties' => 'object_properties', $elementCacheTag => $elementCacheTag];
                 Cache::save($properties, $cacheKey, $cacheTags);
             }
 
@@ -1110,7 +1110,7 @@ class AbstractObject extends Model\Element\AbstractElement
         $property->setType($type);
         $property->setCid($this->getId());
         $property->setName($name);
-        $property->setCtype("object");
+        $property->setCtype('object');
         $property->setData($data);
         $property->setInherited($inherited);
         $property->setInheritable($inheritable);
@@ -1139,12 +1139,12 @@ class AbstractObject extends Model\Element\AbstractElement
 
         if (isset($this->_fulldump)) {
             // this is if we want to make a full dump of the object (eg. for a new version), including childs for recyclebin
-            $blockedVars = ["o_userPermissions", "o_dependencies", "o_hasChilds", "o_versions", "o_class", "scheduledTasks", "o_parent", "omitMandatoryCheck"];
-            $finalVars[] = "_fulldump";
+            $blockedVars = ['o_userPermissions', 'o_dependencies', 'o_hasChilds', 'o_versions', 'o_class', 'scheduledTasks', 'o_parent', 'omitMandatoryCheck'];
+            $finalVars[] = '_fulldump';
             $this->removeInheritedProperties();
         } else {
             // this is if we want to cache the object
-            $blockedVars = ["o_userPermissions", "o_dependencies", "o_childs", "o_hasChilds", "o_versions", "o_class", "scheduledTasks", "o_properties", "o_parent", "o___loadedLazyFields", "omitMandatoryCheck"];
+            $blockedVars = ['o_userPermissions', 'o_dependencies', 'o_childs', 'o_hasChilds', 'o_versions', 'o_class', 'scheduledTasks', 'o_properties', 'o_parent', 'o___loadedLazyFields', 'omitMandatoryCheck'];
         }
 
         foreach ($parentVars as $key) {
@@ -1196,7 +1196,7 @@ class AbstractObject extends Model\Element\AbstractElement
         $this->removeInheritedProperties();
 
         // add to registry to avoid infinite regresses in the following $this->getDao()->getProperties()
-        $cacheKey = "object_" . $this->getId();
+        $cacheKey = 'object_' . $this->getId();
         if (!\Pimcore\Cache\Runtime::isRegistered($cacheKey)) {
             \Pimcore\Cache\Runtime::set($cacheKey, $this);
         }
@@ -1218,8 +1218,8 @@ class AbstractObject extends Model\Element\AbstractElement
     {
 
         // compatibility mode (they do not have any set_oXyz() methods anymore)
-        if (preg_match("/^(get|set)o_/i", $method)) {
-            $newMethod = preg_replace("/^(get|set)o_/i", "$1", $method);
+        if (preg_match('/^(get|set)o_/i', $method)) {
+            $newMethod = preg_replace('/^(get|set)o_/i', '$1', $method);
             if (method_exists($this, $newMethod)) {
                 $r = call_user_func_array([$this, $newMethod], $args);
 

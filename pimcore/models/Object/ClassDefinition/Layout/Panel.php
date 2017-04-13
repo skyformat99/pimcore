@@ -26,7 +26,7 @@ class Panel extends Model\Object\ClassDefinition\Layout
      *
      * @var string
      */
-    public $fieldtype = "panel";
+    public $fieldtype = 'panel';
 
     /**
      * Width of input field labels

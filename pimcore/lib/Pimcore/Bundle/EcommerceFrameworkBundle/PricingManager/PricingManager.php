@@ -47,7 +47,7 @@ class PricingManager implements IPricingManager
      */
     public function __construct(Config $config, SessionInterface $containerSession)
     {
-        $this->config = new HelperContainer($config, "pricingmanager");
+        $this->config = new HelperContainer($config, 'pricingmanager');
         $this->containerSession = $containerSession;
     }
 
@@ -58,7 +58,7 @@ class PricingManager implements IPricingManager
      */
     public function applyProductRules(\Pimcore\Bundle\EcommerceFrameworkBundle\PriceSystem\IPriceInfo $priceInfo)
     {
-        if ((string)$this->config->disabled == "true") {
+        if ((string)$this->config->disabled == 'true') {
             return $priceInfo;
         }
 
@@ -81,7 +81,7 @@ class PricingManager implements IPricingManager
      */
     public function applyCartRules(ICart $cart)
     {
-        if ((string)$this->config->disabled == "true") {
+        if ((string)$this->config->disabled == 'true') {
             return $this;
         }
 
@@ -93,7 +93,7 @@ class PricingManager implements IPricingManager
         $categories = [];
         foreach ($cart->getItems() as $item) {
             if ($product = $item->getProduct()) {
-                if (method_exists($product, "getCategories")) {
+                if (method_exists($product, 'getCategories')) {
                     $productCategories = $product->getCategories();
                     if (is_array($productCategories)) {
                         foreach ($productCategories as $c) {
@@ -217,7 +217,7 @@ class PricingManager implements IPricingManager
      */
     public function getPriceInfo(\Pimcore\Bundle\EcommerceFrameworkBundle\PriceSystem\IPriceInfo $priceInfo)
     {
-        if ((string)$this->config->disabled == "true") {
+        if ((string)$this->config->disabled == 'true') {
             return $priceInfo;
         }
 
@@ -229,7 +229,7 @@ class PricingManager implements IPricingManager
         // create environment
         $environment = $this->getEnvironment();
         $environment->setProduct($priceInfo->getProduct());
-        if (method_exists($priceInfo->getProduct(), "getCategories")) {
+        if (method_exists($priceInfo->getProduct(), 'getCategories')) {
             $environment->setCategories((array)$priceInfo->getProduct()->getCategories());
         }
 

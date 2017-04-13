@@ -32,10 +32,10 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function getById($id)
     {
-        $data = $this->db->fetchRow("SELECT * FROM recyclebin WHERE id = ?", $id);
+        $data = $this->db->fetchRow('SELECT * FROM recyclebin WHERE id = ?', $id);
 
-        if (!$data["id"]) {
-            throw new \Exception("Recyclebin item with id " . $id . " not found");
+        if (!$data['id']) {
+            throw new \Exception('Recyclebin item with id ' . $id . ' not found');
         }
 
         $this->assignVariablesToModel($data);
@@ -53,13 +53,13 @@ class Dao extends Model\Dao\AbstractDao
         $version = get_object_vars($this->model);
 
         foreach ($version as $key => $value) {
-            if (in_array($key, $this->getValidTableColumns("recyclebin"))) {
+            if (in_array($key, $this->getValidTableColumns('recyclebin'))) {
                 $data[$key] = $value;
             }
         }
 
         try {
-            $this->db->insert("recyclebin", $data);
+            $this->db->insert('recyclebin', $data);
             $this->model->setId($this->db->lastInsertId());
         } catch (\Exception $e) {
             Logger::error($e);
@@ -73,6 +73,6 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function delete()
     {
-        $this->db->delete("recyclebin", ["id" => $this->model->getId()]);
+        $this->db->delete('recyclebin', ['id' => $this->model->getId()]);
     }
 }

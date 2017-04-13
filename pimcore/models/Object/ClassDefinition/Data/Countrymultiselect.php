@@ -26,7 +26,7 @@ class Countrymultiselect extends Model\Object\ClassDefinition\Data\Multiselect
      *
      * @var string
      */
-    public $fieldtype = "countrymultiselect";
+    public $fieldtype = 'countrymultiselect';
 
     /** Restrict selection to comma-separated list of countries.
      * @var null
@@ -35,15 +35,15 @@ class Countrymultiselect extends Model\Object\ClassDefinition\Data\Multiselect
 
     public function __construct()
     {
-        $countries = \Pimcore::getContainer()->get("pimcore.locale")->getDisplayRegions();
+        $countries = \Pimcore::getContainer()->get('pimcore.locale')->getDisplayRegions();
         asort($countries);
         $options = [];
 
         foreach ($countries as $short => $translation) {
             if (strlen($short) == 2) {
                 $options[] = [
-                    "key" => $translation,
-                    "value" => $short
+                    'key' => $translation,
+                    'value' => $short
                 ];
             }
         }
@@ -60,7 +60,7 @@ class Countrymultiselect extends Model\Object\ClassDefinition\Data\Multiselect
          * @extjs6
          */
         if (is_array($restrictTo)) {
-            $restrictTo = implode(",", $restrictTo);
+            $restrictTo = implode(',', $restrictTo);
         }
 
         $this->restrictTo = $restrictTo;

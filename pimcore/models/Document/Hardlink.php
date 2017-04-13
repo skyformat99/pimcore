@@ -34,7 +34,7 @@ class Hardlink extends Document
      *
      * @var string
      */
-    public $type = "hardlink";
+    public $type = 'hardlink';
 
     /**
      * @var int
@@ -73,11 +73,11 @@ class Hardlink extends Document
         $dependencies = parent::resolveDependencies();
 
         if ($this->getSourceDocument() instanceof Document) {
-            $key = "document_" . $this->getSourceDocument()->getId();
+            $key = 'document_' . $this->getSourceDocument()->getId();
 
             $dependencies[$key] = [
-                "id" => $this->getSourceDocument()->getId(),
-                "type" => "document"
+                'id' => $this->getSourceDocument()->getId(),
+                'type' => 'document'
             ];
         }
 
@@ -234,7 +234,7 @@ class Hardlink extends Document
                 foreach ($sourceChildren as &$c) {
                     $c = Document\Hardlink\Service::wrap($c);
                     $c->setHardLinkSource($this);
-                    $c->setPath(preg_replace("@^" . preg_quote($this->getSourceDocument()->getRealFullPath()) . "@", $this->getRealFullPath(), $c->getRealPath()));
+                    $c->setPath(preg_replace('@^' . preg_quote($this->getSourceDocument()->getRealFullPath()) . '@', $this->getRealFullPath(), $c->getRealPath()));
                 }
             }
 
@@ -266,7 +266,7 @@ class Hardlink extends Document
 
         // check for redirects pointing to this document, and delete them too
         $redirects = new Redirect\Listing();
-        $redirects->setCondition("target = ?", $this->getId());
+        $redirects->setCondition('target = ?', $this->getId());
         $redirects->load();
 
         foreach ($redirects->getRedirects() as $redirect) {
@@ -291,7 +291,7 @@ class Hardlink extends Document
             // create redirect for old path
             $redirect = new Redirect();
             $redirect->setTarget($this->getId());
-            $redirect->setSource("@" . $oldPath . "/?@");
+            $redirect->setSource('@' . $oldPath . '/?@');
             $redirect->setStatusCode(301);
             $redirect->setExpiry(time() + 86400 * 60); // this entry is removed automatically after 60 days
             $redirect->save();

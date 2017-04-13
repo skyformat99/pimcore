@@ -27,7 +27,7 @@ class Dao extends Model\Dao\PhpArrayTable
     public function configure()
     {
         parent::configure();
-        $this->setFile("workflowmanagement");
+        $this->setFile('workflowmanagement');
     }
 
     /**
@@ -43,10 +43,10 @@ class Dao extends Model\Dao\PhpArrayTable
 
         $data = $this->db->getById($this->model->getId());
 
-        if (isset($data["id"])) {
+        if (isset($data['id'])) {
             $this->assignVariablesToModel($data);
         } else {
-            throw new \Exception("Workflow with id: " . $this->model->getId() . " does not exist");
+            throw new \Exception('Workflow with id: ' . $this->model->getId() . ' does not exist');
         }
     }
 

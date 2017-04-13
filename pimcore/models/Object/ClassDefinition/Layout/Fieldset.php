@@ -26,7 +26,7 @@ class Fieldset extends Model\Object\ClassDefinition\Layout
      *
      * @var string
      */
-    public $fieldtype = "fieldset";
+    public $fieldtype = 'fieldset';
 
     /**
      * Width of input field labels

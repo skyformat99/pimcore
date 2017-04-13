@@ -58,14 +58,14 @@ class Statistic extends \Pimcore\Model\AbstractModel
     {
         $db = \Pimcore\Db::get();
 
-        $query = "SELECT date, COUNT(*) as count FROM " . \Pimcore\Bundle\EcommerceFrameworkBundle\VoucherService\Statistic\Dao::TABLE_NAME . " WHERE voucherSeriesId = ?";
+        $query = 'SELECT date, COUNT(*) as count FROM ' . \Pimcore\Bundle\EcommerceFrameworkBundle\VoucherService\Statistic\Dao::TABLE_NAME . ' WHERE voucherSeriesId = ?';
         $params[] = $seriesId;
         if ($usagePeriod) {
-            $query .= " AND (TO_DAYS(NOW()) - TO_DAYS(date)) < ?";
+            $query .= ' AND (TO_DAYS(NOW()) - TO_DAYS(date)) < ?';
             $params[] = $usagePeriod;
         }
 
-        $query .= " GROUP BY date";
+        $query .= ' GROUP BY date';
 
         try {
             $result = $db->fetchPairs($query, $params);
@@ -86,7 +86,7 @@ class Statistic extends \Pimcore\Model\AbstractModel
     {
         $db = $db = \Pimcore\Db::get();
         try {
-            $db->query("INSERT INTO " . \Pimcore\Bundle\EcommerceFrameworkBundle\VoucherService\Statistic\Dao::TABLE_NAME . " (voucherSeriesId,date) VALUES (?,NOW())", $seriesId);
+            $db->query('INSERT INTO ' . \Pimcore\Bundle\EcommerceFrameworkBundle\VoucherService\Statistic\Dao::TABLE_NAME . ' (voucherSeriesId,date) VALUES (?,NOW())', $seriesId);
         } catch (\Exception $e) {
             //            \Pimcore\Log\Simple::log('VoucherService',$e);
             return false;
@@ -101,11 +101,11 @@ class Statistic extends \Pimcore\Model\AbstractModel
      */
     public static function cleanUpStatistics($duration, $seriesId = null)
     {
-        $query = "DELETE FROM " . \Pimcore\Bundle\EcommerceFrameworkBundle\VoucherService\Statistic\Dao::TABLE_NAME . " WHERE DAY(DATEDIFF(date, NOW())) >= ?";
+        $query = 'DELETE FROM ' . \Pimcore\Bundle\EcommerceFrameworkBundle\VoucherService\Statistic\Dao::TABLE_NAME . ' WHERE DAY(DATEDIFF(date, NOW())) >= ?';
         $params[] = $duration;
 
         if (isset($seriesId)) {
-            $query .= " AND voucherSeriesId = ?";
+            $query .= ' AND voucherSeriesId = ?';
             $params[] = $seriesId;
         }
 

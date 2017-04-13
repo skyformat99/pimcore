@@ -107,7 +107,7 @@ class WorkflowManagementListener implements EventSubscriberInterface
     public function onAdminElementGetPreSendData(GenericEvent $e)
     {
         $element = self::extractElementFromEvent($e);
-        $data = $e->getArgument("data");
+        $data = $e->getArgument('data');
 
         //create a new namespace for WorkflowManagement
         //set some defaults
@@ -147,14 +147,14 @@ class WorkflowManagementListener implements EventSubscriberInterface
                             $customLayout = ClassDefinition\CustomLayout::getById($workflowLayoutId);
                             $customLayoutDefinition = $customLayout->getLayoutDefinitions();
                             Object\Service::enrichLayoutDefinition($customLayoutDefinition, $e->getParam('object'));
-                            $data["layout"] = $customLayoutDefinition;
+                            $data['layout'] = $customLayoutDefinition;
                         }
                     }
                 }
             }
         }
 
-        $e->setArgument("data", $data);
+        $e->setArgument('data', $data);
     }
 
     /**
@@ -168,14 +168,14 @@ class WorkflowManagementListener implements EventSubscriberInterface
     {
         $element = null;
 
-        foreach (["object", "asset", "document"] as $type) {
+        foreach (['object', 'asset', 'document'] as $type) {
             if ($e->hasArgument($type)) {
                 $element = $e->getArgument($type);
             }
         }
 
         if (empty($element)) {
-            throw new \Exception("No element found in event");
+            throw new \Exception('No element found in event');
         }
 
         return $element;

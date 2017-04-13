@@ -30,7 +30,7 @@ class AbstractSetProduct extends AbstractProduct
      */
     public function getMandatoryProductEntries()
     {
-        throw new UnsupportedException("getMandatoryProductEntries is not supported for " . get_class($this));
+        throw new UnsupportedException('getMandatoryProductEntries is not supported for ' . get_class($this));
     }
 
     /**
@@ -42,7 +42,7 @@ class AbstractSetProduct extends AbstractProduct
      */
     public function getOptionalProductEntries()
     {
-        throw new UnsupportedException("getOptionalProductEntries is not supported for " . get_class($this));
+        throw new UnsupportedException('getOptionalProductEntries is not supported for ' . get_class($this));
     }
 
     /**
@@ -194,7 +194,7 @@ class AbstractSetProduct extends AbstractProduct
         }
 
         if (count($mandatoryProductIds) > 0) {
-            throw new UnsupportedException("Not all mandatory Products in product list.");
+            throw new UnsupportedException('Not all mandatory Products in product list.');
         }
     }
 }

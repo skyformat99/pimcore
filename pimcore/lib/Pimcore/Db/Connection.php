@@ -39,7 +39,7 @@ class Connection extends \Doctrine\DBAL\Connection
         $returnValue = parent::connect();
 
         if ($returnValue) {
-            $this->_conn->query("SET default_storage_engine=InnoDB;");
+            $this->_conn->query('SET default_storage_engine=InnoDB;');
             $this->_conn->query("SET sql_mode = '';");
         }
 
@@ -65,7 +65,7 @@ class Connection extends \Doctrine\DBAL\Connection
             $args[0] = $this->normalizeQuery($args[0], [], true);
         }
 
-        return call_user_func_array([$this, "parent::query"], $args);
+        return call_user_func_array([$this, 'parent::query'], $args);
     }
 
     /**
@@ -432,7 +432,7 @@ class Connection extends \Doctrine\DBAL\Connection
     protected function _quoteIdentifier($value, $auto=false)
     {
         if ($auto === false) {
-            $q = "`";
+            $q = '`';
 
             return $q . str_replace("$q", "$q$q", $value) . $q;
         }

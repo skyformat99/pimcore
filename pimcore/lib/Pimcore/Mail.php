@@ -71,7 +71,7 @@ class Mail extends \Swift_Message
      *
      * @var string
      */
-    protected $html2textOptions = "";
+    protected $html2textOptions = '';
 
     /**
      * use html2text from mbayer if it is installed (http://www.mbayer.de/html2text/)
@@ -182,10 +182,10 @@ class Mail extends \Swift_Message
         if (is_array($subject) || self::$forcePimcoreMode) {
             $options = $subject;
 
-            parent::__construct($options['subject'], $body, $contentType, $options["charset"] ? $options["charset"] : "UTF-8");
+            parent::__construct($options['subject'], $body, $contentType, $options['charset'] ? $options['charset'] : 'UTF-8');
 
-            if ($options["document"]) {
-                $this->setDocument($options["document"]);
+            if ($options['document']) {
+                $this->setDocument($options['document']);
             }
             if ($options['params']) {
                 $this->setParams($options['params']);
@@ -194,7 +194,7 @@ class Mail extends \Swift_Message
                 $this->setHostUrl($options['hostUrl']);
             }
         } else {
-            parent::__construct($subject, $body, $contentType, ($charset !== null ? $charset : "UTF-8"));
+            parent::__construct($subject, $body, $contentType, ($charset !== null ? $charset : 'UTF-8'));
         }
 
         $this->init();
@@ -205,7 +205,7 @@ class Mail extends \Swift_Message
      *
      * @param string $type
      */
-    public function init($type = "email")
+    public function init($type = 'email')
     {
         $systemConfig = \Pimcore\Config::getSystemConfig()->toArray();
         $emailSettings =& $systemConfig[$type];
@@ -287,7 +287,7 @@ class Mail extends \Swift_Message
      */
     public static function determineHtml2TextIsInstalled()
     {
-        return (bool) \Pimcore\Tool\Console::getExecutable("html2text");
+        return (bool) \Pimcore\Tool\Console::getExecutable('html2text');
     }
 
     /**
@@ -327,9 +327,9 @@ class Mail extends \Swift_Message
     {
         $this->recipientsCleared = true;
 
-        $this->getHeaders()->removeAll("to");
-        $this->getHeaders()->removeAll("cc");
-        $this->getHeaders()->removeAll("bcc");
+        $this->getHeaders()->removeAll('to');
+        $this->getHeaders()->removeAll('cc');
+        $this->getHeaders()->removeAll('bcc');
     }
 
     /**
@@ -510,7 +510,7 @@ class Mail extends \Swift_Message
                     $fromAddress = $from;
                     $fromName = null;
 
-                    if (preg_match("/(.*)<(.*)>/", $from, $matches)) {
+                    if (preg_match('/(.*)<(.*)>/', $from, $matches)) {
                         $fromAddress = trim($matches[2]);
                         $fromName = trim($matches[1]);
                     }
@@ -536,10 +536,10 @@ class Mail extends \Swift_Message
         // mitigate "pwnscriptum" attack
         // see https://framework.zend.com/security/advisory/ZF2016-04 for ZF2+ fix
         if (preg_match('/\\\"/', $email)) {
-            throw new \RuntimeException("Potential code injection in From header");
+            throw new \RuntimeException('Potential code injection in From header');
         }
 
-        $this->getHeaders()->removeAll("from");
+        $this->getHeaders()->removeAll('from');
 
         return parent::setFrom($email, $name);
     }
@@ -552,7 +552,7 @@ class Mail extends \Swift_Message
      */
     public function setTo($email, $name = '')
     {
-        $this->getHeaders()->removeAll("to");
+        $this->getHeaders()->removeAll('to');
         if ($email) {
             parent::setTo($email, $name);
         }
@@ -566,7 +566,7 @@ class Mail extends \Swift_Message
      */
     public function setCc($email, $name = '')
     {
-        $this->getHeaders()->removeAll("cc");
+        $this->getHeaders()->removeAll('cc');
         if ($email) {
             parent::setCc($email, $name);
         }
@@ -580,7 +580,7 @@ class Mail extends \Swift_Message
      */
     public function setBcc($email, $name = '')
     {
-        $this->getHeaders()->removeAll("bcc");
+        $this->getHeaders()->removeAll('bcc');
         if ($email) {
             parent::setBcc($email, $name);
         }
@@ -633,8 +633,8 @@ class Mail extends \Swift_Message
     {
         // filter email addresses
         foreach (['To', 'Cc', 'Bcc'] as $key) {
-            $getterName = "get" . $key;
-            $setterName = "set" . $key;
+            $getterName = 'get' . $key;
+            $setterName = 'set' . $key;
             $addresses = $this->$getterName();
             if ($addresses) {
                 foreach (array_keys($addresses) as $address) {
@@ -651,7 +651,7 @@ class Mail extends \Swift_Message
 
         if ($mailer == null) {
             //if no mailer given, get default mailer from container
-            $mailer = \Pimcore::getContainer()->get("mailer");
+            $mailer = \Pimcore::getContainer()->get('mailer');
         }
 
         $result = $mailer->send($this);
@@ -743,14 +743,14 @@ class Mail extends \Swift_Message
         } else {
             //creating text version from html email if html2text is installed
             try {
-                include_once(PIMCORE_PATH . "/lib/simple_html_dom.php");
+                include_once(PIMCORE_PATH . '/lib/simple_html_dom.php');
 
                 $htmlContent = $this->getBodyHtmlRendered();
                 $html = str_get_html($htmlContent);
                 if ($html) {
-                    $body = $html->find("body", 0);
+                    $body = $html->find('body', 0);
                     if ($body) {
-                        $style = $body->find("style", 0);
+                        $style = $body->find('style', 0);
                         if ($style) {
                             $style->clear();
                         }
@@ -763,7 +763,7 @@ class Mail extends \Swift_Message
                 $content = $this->html2Text($htmlContent);
             } catch (\Exception $e) {
                 Logger::err($e);
-                $content = "";
+                $content = '';
             }
         }
 
@@ -784,7 +784,7 @@ class Mail extends \Swift_Message
             $this->setDocumentSettings();
         } elseif ((int)$document > 0) { //id of document passed
             $this->setDocument(Model\Document::getById($document));
-        } elseif (is_string($document) && $document != "") { //path of document passed
+        } elseif (is_string($document) && $document != '') { //path of document passed
             $this->setDocument(Model\Document::getByPath($document));
         } else {
             throw new \Exception("$document is not an instance of \\Document\\Email or at least \\Document");
@@ -844,8 +844,8 @@ class Mail extends \Swift_Message
         if (self::getHtml2textInstalled()) {
             $this->html2textBinaryEnabled = true;
         } else {
-            throw new \Exception("trying to enable html2text binary,
-            but html2text is not installed!");
+            throw new \Exception('trying to enable html2text binary,
+            but html2text is not installed!');
         }
 
         return $this;
@@ -874,13 +874,13 @@ class Mail extends \Swift_Message
     protected function html2Text($htmlContent)
     {
         if ($this->getHtml2TextBinaryEnabled()) {
-            $content = "";
+            $content = '';
             //html2text doesn't support unicode
-            if ($this->getCharset() == "UTF-8") {
+            if ($this->getCharset() == 'UTF-8') {
                 $htmlContent = utf8_decode($htmlContent);
             }
             //using temporary file so we don't have problems with special characters
-            $tmpFileName = PIMCORE_SYSTEM_TEMP_DIRECTORY . "/" . uniqid('email_', true) . ".tmp";
+            $tmpFileName = PIMCORE_SYSTEM_TEMP_DIRECTORY . '/' . uniqid('email_', true) . '.tmp';
             if (\Pimcore\File::put($tmpFileName, $htmlContent)) {
                 $content = @shell_exec("html2text $tmpFileName " . $this->getHtml2TextOptions());
                 @unlink($tmpFileName);
@@ -889,7 +889,7 @@ class Mail extends \Swift_Message
             return $content;
         }
 
-        return "";
+        return '';
     }
 
     /**

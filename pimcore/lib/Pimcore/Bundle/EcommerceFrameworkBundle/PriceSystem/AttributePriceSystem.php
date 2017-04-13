@@ -39,7 +39,7 @@ class AttributePriceSystem extends CachingPriceSystem implements IPriceSystem
      */
     public function filterProductIds($productIds, $fromPrice, $toPrice, $order, $offset, $limit)
     {
-        throw new \Exception("not supported yet");
+        throw new \Exception('not supported yet');
     }
 
     /**
@@ -86,7 +86,7 @@ class AttributePriceSystem extends CachingPriceSystem implements IPriceSystem
      */
     protected function calculateAmount($product, $products)
     {
-        $getter = "get" . ucfirst($this->config->attributename);
+        $getter = 'get' . ucfirst($this->config->attributename);
         if (method_exists($product, $getter)) {
             if (!empty($products)) {
                 $sum = 0;

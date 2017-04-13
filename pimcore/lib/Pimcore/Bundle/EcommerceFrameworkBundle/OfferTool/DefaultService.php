@@ -34,7 +34,7 @@ class DefaultService implements IService
      */
     public function createNewOfferFromCart(\Pimcore\Bundle\EcommerceFrameworkBundle\CartManager\ICart $cart, array $excludeItems = [])
     {
-        $tempOfferNumber = uniqid("offer_");
+        $tempOfferNumber = uniqid('offer_');
         $offer = $this->getNewOfferObject($tempOfferNumber);
         $offer->setOfferNumber($tempOfferNumber);
         $offer->setTotalPrice($cart->getPriceCalculator()->getGrandTotal()->getAmount());
@@ -82,7 +82,7 @@ class DefaultService implements IService
     protected function getNewOfferObject($tempOfferNumber)
     {
         if (!class_exists($this->offerClass)) {
-            throw new \Exception("Offer Class" . $this->offerClass . " does not exist.");
+            throw new \Exception('Offer Class' . $this->offerClass . ' does not exist.');
         }
         $offer = new $this->offerClass();
 
@@ -106,7 +106,7 @@ class DefaultService implements IService
     public function getNewOfferItemObject()
     {
         if (!class_exists($this->offerItemClass)) {
-            throw new \Exception("OfferItem Class" . $this->offerItemClass . " does not exist.");
+            throw new \Exception('OfferItem Class' . $this->offerItemClass . ' does not exist.');
         }
 
         return new $this->offerItemClass();
@@ -124,7 +124,7 @@ class DefaultService implements IService
         $offerItem->setParent($parent);
         $offerItem->setPublished(true);
         $offerItem->setCartItemKey($item->getItemKey());
-        $offerItem->setKey($item->getProduct()->getId() . "_" . $item->getItemKey());
+        $offerItem->setKey($item->getProduct()->getId() . '_' . $item->getItemKey());
 
         $offerItem->setAmount($item->getCount());
         $offerItem->setProduct($item->getProduct());
@@ -228,7 +228,7 @@ class DefaultService implements IService
     {
         $env = Factory::getInstance()->getEnvironment();
 
-        if (@class_exists("Object_Customer")) {
+        if (@class_exists('Object_Customer')) {
             $customer = \Pimcore\Model\Object\Customer::getById($env->getCurrentUserId());
             $offer->setCustomer($customer);
         }
@@ -241,7 +241,7 @@ class DefaultService implements IService
         $excludedItemKeys = $this->getExcludedItemKeys($excludeItems);
 
         if ($cart->getId() != $offer->getCartId()) {
-            throw new \Exception("Cart does not match to the offer given, update is not possible");
+            throw new \Exception('Cart does not match to the offer given, update is not possible');
         }
 
         //Update existing offer items
@@ -308,9 +308,9 @@ class DefaultService implements IService
 
     public function getOffersForCart(\Pimcore\Bundle\EcommerceFrameworkBundle\CartManager\ICart $cart)
     {
-        $offerListClass = $this->offerClass . "_List";
+        $offerListClass = $this->offerClass . '_List';
         $list = new $offerListClass();
-        $list->setCondition("cartId = ?", [$cart->getId()]);
+        $list->setCondition('cartId = ?', [$cart->getId()]);
 
         return $list->load();
     }

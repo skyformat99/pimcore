@@ -29,7 +29,7 @@ class Input extends Model\Document\Tag
      *
      * @var int
      */
-    public $text = "";
+    public $text = '';
 
     /**
      * @see TagInterface::getType
@@ -38,7 +38,7 @@ class Input extends Model\Document\Tag
      */
     public function getType()
     {
-        return "input";
+        return 'input';
     }
 
     /**
@@ -61,7 +61,7 @@ class Input extends Model\Document\Tag
         $options = $this->getOptions();
 
         $text = $this->text;
-        if (isset($options["htmlspecialchars"]) and $options["htmlspecialchars"] !== false) {
+        if (isset($options['htmlspecialchars']) and $options['htmlspecialchars'] !== false) {
             $text = htmlspecialchars($this->text);
         }
 
@@ -124,7 +124,7 @@ class Input extends Model\Document\Tag
         if ($data->text === null or is_string($data->text)) {
             $this->text = $data->text;
         } else {
-            throw new \Exception("cannot get values from web service import - invalid data");
+            throw new \Exception('cannot get values from web service import - invalid data');
         }
     }
 }

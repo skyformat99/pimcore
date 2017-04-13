@@ -24,7 +24,7 @@ use Pimcore\Model;
  */
 class Dao extends Model\Dao\AbstractDao
 {
-    const TABLE_NAME_KEYS = "classificationstore_keys";
+    const TABLE_NAME_KEYS = 'classificationstore_keys';
 
     /**
      * Get the data for the object from database for the given id, or from the ID which is set in the object
@@ -39,12 +39,12 @@ class Dao extends Model\Dao\AbstractDao
             $this->model->setId($id);
         }
 
-        $data = $this->db->fetchRow("SELECT * FROM " . self::TABLE_NAME_KEYS . " WHERE id = ?", $this->model->getId());
+        $data = $this->db->fetchRow('SELECT * FROM ' . self::TABLE_NAME_KEYS . ' WHERE id = ?', $this->model->getId());
 
         if ($data) {
             $this->assignVariablesToModel($data);
         } else {
-            throw new \Exception("KeyConfig with id: " . $this->model->getId() . " does not exist");
+            throw new \Exception('KeyConfig with id: ' . $this->model->getId() . ' does not exist');
         }
     }
 
@@ -62,14 +62,14 @@ class Dao extends Model\Dao\AbstractDao
         $name = $this->model->getName();
         $storeId = $this->model->getStoreId();
 
-        $stmt = "SELECT * FROM " . self::TABLE_NAME_KEYS . " WHERE name = " . $this->db->quote($name) . " and storeId = " . $storeId;
+        $stmt = 'SELECT * FROM ' . self::TABLE_NAME_KEYS . ' WHERE name = ' . $this->db->quote($name) . ' and storeId = ' . $storeId;
 
         $data = $this->db->fetchRow($stmt);
 
-        if ($data["id"]) {
+        if ($data['id']) {
             $this->assignVariablesToModel($data);
         } else {
-            throw new \Exception("KeyConfig with name: " . $this->model->getName() . " does not exist");
+            throw new \Exception('KeyConfig with name: ' . $this->model->getName() . ' does not exist');
         }
     }
 
@@ -94,7 +94,7 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function delete()
     {
-        $this->db->delete(self::TABLE_NAME_KEYS, ["id" => $this->model->getId()]);
+        $this->db->delete(self::TABLE_NAME_KEYS, ['id' => $this->model->getId()]);
     }
 
     /**
@@ -126,7 +126,7 @@ class Dao extends Model\Dao\AbstractDao
                 }
             }
 
-            $this->db->update(self::TABLE_NAME_KEYS, $data, ["id" => $this->model->getId()]);
+            $this->db->update(self::TABLE_NAME_KEYS, $data, ['id' => $this->model->getId()]);
 
             return $this->model;
         } catch (\Exception $e) {

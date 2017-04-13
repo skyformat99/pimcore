@@ -16,7 +16,7 @@ namespace Pimcore\Bundle\EcommerceFrameworkBundle\CartManager\Cart;
 
 class Dao extends \Pimcore\Model\Dao\AbstractDao
 {
-    const TABLE_NAME = "ecommerceframework_cart";
+    const TABLE_NAME = 'ecommerceframework_cart';
 
     /**
      * Contains all valid columns in the database table
@@ -25,7 +25,7 @@ class Dao extends \Pimcore\Model\Dao\AbstractDao
      */
     protected $validColumns = [];
 
-    protected $fieldsToSave = ["name", "userid", "creationDateTimestamp"];
+    protected $fieldsToSave = ['name', 'userid', 'creationDateTimestamp'];
 
     /**
      * Get the valid columns from the database
@@ -44,9 +44,9 @@ class Dao extends \Pimcore\Model\Dao\AbstractDao
      */
     public function getById($id)
     {
-        $classRaw = $this->db->fetchRow("SELECT * FROM " . self::TABLE_NAME . " WHERE id=" . $this->db->quote($id));
+        $classRaw = $this->db->fetchRow('SELECT * FROM ' . self::TABLE_NAME . ' WHERE id=' . $this->db->quote($id));
         if (empty($classRaw)) {
-            throw new \Exception("Cart " . $id . " not found.");
+            throw new \Exception('Cart ' . $id . ' not found.');
         }
         $this->assignVariablesToModel($classRaw);
     }
@@ -85,7 +85,7 @@ class Dao extends \Pimcore\Model\Dao\AbstractDao
     {
         foreach ($this->fieldsToSave as $field) {
             if (in_array($field, $this->validColumns)) {
-                $getter = "get" . ucfirst($field);
+                $getter = 'get' . ucfirst($field);
                 $value = $this->model->$getter();
 
                 if (is_array($value) || is_object($value)) {
@@ -97,7 +97,7 @@ class Dao extends \Pimcore\Model\Dao\AbstractDao
             }
         }
 
-        $this->db->updateWhere(self::TABLE_NAME, $data, "id=" . $this->db->quote($this->model->getId()));
+        $this->db->updateWhere(self::TABLE_NAME, $data, 'id=' . $this->db->quote($this->model->getId()));
     }
 
     /**
@@ -107,7 +107,7 @@ class Dao extends \Pimcore\Model\Dao\AbstractDao
      */
     public function delete()
     {
-        $this->db->deleteWhere(self::TABLE_NAME, "id=" . $this->db->quote($this->model->getId()));
+        $this->db->deleteWhere(self::TABLE_NAME, 'id=' . $this->db->quote($this->model->getId()));
     }
 
     /**

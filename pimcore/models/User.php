@@ -28,7 +28,7 @@ class User extends User\UserRole
     /**
      * @var string
      */
-    public $type = "user";
+    public $type = 'user';
 
     /**
      * @var string
@@ -53,7 +53,7 @@ class User extends User\UserRole
     /**
      * @var string
      */
-    public $language = "en";
+    public $language = 'en';
 
     /**
      * @var bool
@@ -315,13 +315,13 @@ class User extends User\UserRole
      *
      * @return bool
      */
-    public function isAllowed($key, $type = "permission")
+    public function isAllowed($key, $type = 'permission')
     {
         if ($this->isAdmin()) {
             return true;
         }
 
-        if ($type == "permission") {
+        if ($type == 'permission') {
             if (!$this->getPermission($key)) {
                 // check roles
                 foreach ($this->getRoles() as $roleId) {
@@ -333,7 +333,7 @@ class User extends User\UserRole
             }
 
             return $this->getPermission($key);
-        } elseif ($type == "class") {
+        } elseif ($type == 'class') {
             $classes = $this->getClasses();
             foreach ($this->getRoles() as $roleId) {
                 $role = User\Role::getById($roleId);
@@ -345,7 +345,7 @@ class User extends User\UserRole
             } else {
                 return true;
             }
-        } elseif ($type == "docType") {
+        } elseif ($type == 'docType') {
             $docTypes = $this->getDocTypes();
             foreach ($this->getRoles() as $roleId) {
                 $role = User\Role::getById($roleId);
@@ -357,7 +357,7 @@ class User extends User\UserRole
             } else {
                 return true;
             }
-        } elseif ($type == "perspective") {
+        } elseif ($type == 'perspective') {
             //returns true if required perspective is allowed to use by the user
             return in_array($key, $this->getMergedPerspectives());
         }
@@ -388,7 +388,7 @@ class User extends User\UserRole
     public function setRoles($roles)
     {
         if (is_string($roles) && !empty($roles)) {
-            $this->roles = explode(",", $roles);
+            $this->roles = explode(',', $roles);
         } elseif (is_array($roles)) {
             $this->roles = $roles;
         } elseif (empty($roles)) {
@@ -498,7 +498,7 @@ class User extends User\UserRole
     public function setApiKey($apiKey)
     {
         if (!empty($apiKey) && strlen($apiKey) < 32) {
-            throw new \Exception("API-Key has to be at least 32 characters long");
+            throw new \Exception('API-Key has to be at least 32 characters long');
         }
         $this->apiKey = $apiKey;
     }
@@ -524,8 +524,8 @@ class User extends User\UserRole
             File::mkdir(PIMCORE_USERIMAGE_DIRECTORY);
         }
 
-        $destFile = PIMCORE_USERIMAGE_DIRECTORY . "/user-" . $this->getId() . ".png";
-        $thumb = PIMCORE_SYSTEM_TEMP_DIRECTORY . "/user-thumbnail-" . $this->getId() . ".png";
+        $destFile = PIMCORE_USERIMAGE_DIRECTORY . '/user-' . $this->getId() . '.png';
+        $thumb = PIMCORE_SYSTEM_TEMP_DIRECTORY . '/user-thumbnail-' . $this->getId() . '.png';
         @unlink($destFile);
         @unlink($thumb);
         copy($path, $destFile);
@@ -548,20 +548,20 @@ class User extends User\UserRole
         }
 
         $id = $this->getId();
-        $user = PIMCORE_USERIMAGE_DIRECTORY . "/user-" . $id . ".png";
+        $user = PIMCORE_USERIMAGE_DIRECTORY . '/user-' . $id . '.png';
         if (file_exists($user)) {
-            $thumb = PIMCORE_SYSTEM_TEMP_DIRECTORY . "/user-thumbnail-" . $id . ".png";
+            $thumb = PIMCORE_SYSTEM_TEMP_DIRECTORY . '/user-thumbnail-' . $id . '.png';
             if (!file_exists($thumb)) {
                 $image = \Pimcore\Image::getInstance();
                 $image->load($user);
                 $image->cover($width, $height);
-                $image->save($thumb, "png");
+                $image->save($thumb, 'png');
             }
 
             return $thumb;
         }
 
-        return PIMCORE_WEB_ROOT . "/pimcore/static6/img/avatar.png";
+        return PIMCORE_WEB_ROOT . '/pimcore/static6/img/avatar.png';
     }
 
     /**
@@ -593,7 +593,7 @@ class User extends User\UserRole
     public function getActivePerspective()
     {
         if (!$this->activePerspective) {
-            $this->activePerspective = "default";
+            $this->activePerspective = 'default';
         }
 
         return $this->activePerspective;
@@ -641,7 +641,7 @@ class User extends User\UserRole
             // all perspectives are allowed
             $perspectives = \Pimcore\Config::getAvailablePerspectives($this);
 
-            return $perspectives[0]["name"];
+            return $perspectives[0]['name'];
         }
     }
 

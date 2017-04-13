@@ -52,7 +52,7 @@ class Shipping implements IShipping
      */
     public function getName()
     {
-        return "shipping";
+        return 'shipping';
     }
 
     /**
@@ -102,7 +102,7 @@ class Shipping implements IShipping
     public function getTaxClass()
     {
         if (empty($this->taxClass)) {
-            $this->taxClass = Factory::getInstance()->getPriceSystem("default")->getTaxClassForPriceModification($this);
+            $this->taxClass = Factory::getInstance()->getPriceSystem('default')->getTaxClassForPriceModification($this);
         }
 
         return $this->taxClass;

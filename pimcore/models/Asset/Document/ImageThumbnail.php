@@ -93,15 +93,15 @@ class ImageThumbnail
     public function getPath()
     {
         $fsPath = $this->getFileSystemPath();
-        $path = str_replace(PIMCORE_WEB_ROOT, "", $fsPath);
+        $path = str_replace(PIMCORE_WEB_ROOT, '', $fsPath);
         $path = urlencode_ignore_slash($path);
 
         $event = new GenericEvent($this, [
-            "filesystemPath" => $fsPath,
-            "frontendPath" => $path
+            'filesystemPath' => $fsPath,
+            'frontendPath' => $path
         ]);
         \Pimcore::getEventDispatcher()->dispatch(FrontendEvents::ASSET_DOCUMENT_IMAGE_THUMBNAIL, $event);
-        $path = $event->getArgument("frontendPath");
+        $path = $event->getArgument('frontendPath');
 
         return $path;
     }
@@ -127,19 +127,19 @@ class ImageThumbnail
             $this->filesystemPath = $errorImage;
         } elseif (!$this->filesystemPath) {
             $config = $this->getConfig();
-            $config->setName("document_" . $config->getName()."-".$this->page);
+            $config->setName('document_' . $config->getName().'-'.$this->page);
 
             try {
                 $path = null;
                 if (!$this->deferred) {
                     $converter = \Pimcore\Document::getInstance();
                     $converter->load($this->asset->getFileSystemPath());
-                    $path = PIMCORE_TEMPORARY_DIRECTORY . "/document-image-cache/document_" . $this->asset->getId() . "__thumbnail_" .  $this->page . ".png";
+                    $path = PIMCORE_TEMPORARY_DIRECTORY . '/document-image-cache/document_' . $this->asset->getId() . '__thumbnail_' .  $this->page . '.png';
                     if (!is_dir(dirname($path))) {
                         \Pimcore\File::mkdir(dirname($path));
                     }
 
-                    $lockKey = "document-thumbnail-" . $this->asset->getId() . "-" . $this->page;
+                    $lockKey = 'document-thumbnail-' . $this->asset->getId() . '-' . $this->page;
 
                     if (!is_file($path) && !Model\Tool\Lock::isLocked($lockKey)) {
                         Model\Tool\Lock::lock($lockKey);
@@ -147,7 +147,7 @@ class ImageThumbnail
                         $generated = true;
                         Model\Tool\Lock::release($lockKey);
                     } elseif (Model\Tool\Lock::isLocked($lockKey)) {
-                        return "/pimcore/static6/img/please-wait.png";
+                        return '/pimcore/static6/img/please-wait.png';
                     }
                 }
 
@@ -163,8 +163,8 @@ class ImageThumbnail
             }
 
             \Pimcore::getEventDispatcher()->dispatch(AssetEvents::DOCUMENT_IMAGE_THUMBNAIL, new GenericEvent($this, [
-                "deferred" => $this->deferred,
-                "generated" => $generated
+                'deferred' => $this->deferred,
+                'generated' => $generated
             ]));
         }
     }
@@ -255,13 +255,13 @@ class ImageThumbnail
             $info = @getimagesize($this->getFileSystemPath());
             if ($info) {
                 $dimensions = [
-                    "width" => $info[0],
-                    "height" => $info[1]
+                    'width' => $info[0],
+                    'height' => $info[1]
                 ];
             }
 
-            $this->width = $dimensions["width"];
-            $this->height = $dimensions["height"];
+            $this->width = $dimensions['width'];
+            $this->height = $dimensions['height'];
 
             // the following is only relevant if using high-res option (retina, ...)
             $this->realHeight = $this->height;
@@ -274,8 +274,8 @@ class ImageThumbnail
         }
 
         return [
-            "width" => $this->width,
-            "height" => $this->height
+            'width' => $this->width,
+            'height' => $this->height
         ];
     }
 
@@ -307,8 +307,8 @@ class ImageThumbnail
         $config = Image\Thumbnail\Config::getByAutoDetect($selector);
         if ($config) {
             $format = strtolower($config->getFormat());
-            if ($format == "source") {
-                $config->setFormat("PNG");
+            if ($format == 'source') {
+                $config->setFormat('PNG');
             }
         }
 

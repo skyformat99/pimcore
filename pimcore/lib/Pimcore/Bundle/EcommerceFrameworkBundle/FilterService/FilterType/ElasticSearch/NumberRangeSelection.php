@@ -30,7 +30,7 @@ class NumberRangeSelection extends \Pimcore\Bundle\EcommerceFrameworkBundle\Filt
         $rawValue = $params[$field];
 
         if (!empty($rawValue) && $rawValue != \Pimcore\Bundle\EcommerceFrameworkBundle\FilterService\FilterType\AbstractFilterType::EMPTY_STRING) {
-            $values = explode("-", $rawValue);
+            $values = explode('-', $rawValue);
             $value['from'] = trim($values[0]);
             $value['to'] = trim($values[1]);
         } elseif ($rawValue == \Pimcore\Bundle\EcommerceFrameworkBundle\FilterService\FilterType\AbstractFilterType::EMPTY_STRING) {

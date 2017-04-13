@@ -28,7 +28,7 @@ class IndexUpdater
      * @param bool $updateIndexStructures
      * @param string $loggername
      */
-    public static function updateIndex($objectListClass, $condition = "", $updateIndexStructures = false, $loggername = "indexupdater")
+    public static function updateIndex($objectListClass, $condition = '', $updateIndexStructures = false, $loggername = 'indexupdater')
     {
         $updater = Factory::getInstance()->getIndexService();
         if ($updateIndexStructures) {
@@ -40,20 +40,20 @@ class IndexUpdater
         $count = $pageSize;
 
         while ($count > 0) {
-            self::log($loggername, "=========================");
-            self::log($loggername, "Update Index Page: " . $page);
-            self::log($loggername, "=========================");
+            self::log($loggername, '=========================');
+            self::log($loggername, 'Update Index Page: ' . $page);
+            self::log($loggername, '=========================');
 
             $products = new $objectListClass();
             $products->setUnpublished(true);
             $products->setOffset($page * $pageSize);
             $products->setLimit($pageSize);
-            $products->setObjectTypes(["object", "folder", "variant"]);
+            $products->setObjectTypes(['object', 'folder', 'variant']);
             $products->setIgnoreLocalizedFields(true);
             $products->setCondition($condition);
 
             foreach ($products as $p) {
-                self::log($loggername, "Updating product " . $p->getId());
+                self::log($loggername, 'Updating product ' . $p->getId());
                 $updater->updateIndex($p);
             }
             $page++;
@@ -74,7 +74,7 @@ class IndexUpdater
      *
      * @throws \Pimcore\Bundle\EcommerceFrameworkBundle\Exception\InvalidConfigException
      */
-    public static function processPreparationQueue($tenants = null, $maxRounds = null, $loggername = "indexupdater", $preparationItemsPerRound = 200)
+    public static function processPreparationQueue($tenants = null, $maxRounds = null, $loggername = 'indexupdater', $preparationItemsPerRound = 200)
     {
         if ($tenants == null) {
             $tenants = Factory::getInstance()->getAllTenants();
@@ -85,9 +85,9 @@ class IndexUpdater
         }
 
         foreach ($tenants as $tenant) {
-            self::log($loggername, "=========================");
-            self::log($loggername, "Processing preparation queue for tenant: " . $tenant);
-            self::log($loggername, "=========================");
+            self::log($loggername, '=========================');
+            self::log($loggername, 'Processing preparation queue for tenant: ' . $tenant);
+            self::log($loggername, '=========================');
 
             $env = Factory::getInstance()->getEnvironment();
             $env->setCurrentAssortmentTenant($tenant);
@@ -100,10 +100,10 @@ class IndexUpdater
                 $result = true;
                 while ($result) {
                     $round++;
-                    self::log($loggername, "Starting round: " . $round);
+                    self::log($loggername, 'Starting round: ' . $round);
 
                     $result = $worker->processPreparationQueue($preparationItemsPerRound);
-                    self::log($loggername, "processed preparation queue elements: " . $result);
+                    self::log($loggername, 'processed preparation queue elements: ' . $result);
 
                     \Pimcore::collectGarbage();
 
@@ -127,7 +127,7 @@ class IndexUpdater
      *
      * @throws \Pimcore\Bundle\EcommerceFrameworkBundle\Exception\InvalidConfigException
      */
-    public static function processUpdateIndexQueue($tenants = null, $maxRounds = null, $loggername = "indexupdater", $indexItemsPerRound = 200)
+    public static function processUpdateIndexQueue($tenants = null, $maxRounds = null, $loggername = 'indexupdater', $indexItemsPerRound = 200)
     {
         if ($tenants == null) {
             $tenants = Factory::getInstance()->getAllTenants();
@@ -138,9 +138,9 @@ class IndexUpdater
         }
 
         foreach ($tenants as $tenant) {
-            self::log($loggername, "=========================");
-            self::log($loggername, "Processing update index elements for tenant: " . $tenant);
-            self::log($loggername, "=========================");
+            self::log($loggername, '=========================');
+            self::log($loggername, 'Processing update index elements for tenant: ' . $tenant);
+            self::log($loggername, '=========================');
 
             $env = Factory::getInstance()->getEnvironment();
             $env->setCurrentAssortmentTenant($tenant);
@@ -153,10 +153,10 @@ class IndexUpdater
                 $round = 0;
                 while ($result) {
                     $round++;
-                    self::log($loggername, "Starting round: " . $round);
+                    self::log($loggername, 'Starting round: ' . $round);
 
                     $result = $worker->processUpdateIndexQueue($indexItemsPerRound);
-                    self::log($loggername, "processed update index elements: " . $result);
+                    self::log($loggername, 'processed update index elements: ' . $result);
 
                     \Pimcore::collectGarbage();
 

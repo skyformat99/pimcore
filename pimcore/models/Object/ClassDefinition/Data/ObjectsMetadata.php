@@ -44,14 +44,14 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
      *
      * @var string
      */
-    public $fieldtype = "objectsMetadata";
+    public $fieldtype = 'objectsMetadata';
 
     /**
      * Type for the generated phpdoc
      *
      * @var string
      */
-    public $phpdocType = "\\Pimcore\\Model\\Object\\Data\\ObjectMetadata[]";
+    public $phpdocType = '\\Pimcore\\Model\\Object\\Data\\ObjectMetadata[]';
 
     /**
      * @see Object\ClassDefinition\Data::getDataForResource
@@ -72,10 +72,10 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
                 $object = $metaObject->getObject();
                 if ($object instanceof Object\Concrete) {
                     $return[] = [
-                        "dest_id" => $object->getId(),
-                        "type" => "object",
-                        "fieldname" => $this->getName(),
-                        "index" => $counter
+                        'dest_id' => $object->getId(),
+                        'type' => 'object',
+                        'fieldname' => $this->getName(),
+                        'index' => $counter
                     ];
                 }
                 $counter++;
@@ -106,20 +106,20 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
 
         if (is_array($data) && count($data) > 0) {
             foreach ($data as $object) {
-                $source = Object::getById($object["src_id"]);
-                $destination = Object::getById($object["dest_id"]);
+                $source = Object::getById($object['src_id']);
+                $destination = Object::getById($object['dest_id']);
 
                 if ($source instanceof Object\Concrete && $destination instanceof Object\Concrete && $destination->getClassId() == $this->getAllowedClassId()) {
-                    $metaData = \Pimcore::getContainer()->get("pimcore.model.factory")
+                    $metaData = \Pimcore::getContainer()->get('pimcore.model.factory')
                         ->build('Pimcore\Model\Object\Data\ObjectMetadata', [
-                            "fieldname" => $this->getName(),
-                            "columns" => $this->getColumnKeys(),
-                            "object" => $destination
+                            'fieldname' => $this->getName(),
+                            'columns' => $this->getColumnKeys(),
+                            'object' => $destination
                         ]);
 
-                    $ownertype = $object["ownertype"] ? $object["ownertype"] : "";
-                    $ownername = $object["ownername"] ? $object["ownername"] : "";
-                    $position = $object["position"] ? $object["position"] : "0";
+                    $ownertype = $object['ownertype'] ? $object['ownertype'] : '';
+                    $ownername = $object['ownername'] ? $object['ownername'] : '';
+                    $position = $object['position'] ? $object['position'] : '0';
 
                     $metaData->load($source, $destination, $this->getName(), $ownertype, $ownername, $position);
                     $objects[] = $metaData;
@@ -155,11 +155,11 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
                 }
             }
 
-            return "," . implode(",", $ids) . ",";
+            return ',' . implode(',', $ids) . ',';
         } elseif (is_array($data) && count($data) === 0) {
-            return "";
+            return '';
         } else {
-            throw new \Exception("invalid data passed to getDataForQueryResource - must be array");
+            throw new \Exception('invalid data passed to getDataForQueryResource - must be array');
         }
     }
 
@@ -176,7 +176,7 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
     {
         $return = [];
 
-        $visibleFieldsArray = explode(",", $this->getVisibleFields());
+        $visibleFieldsArray = explode(',', $this->getVisibleFields());
 
         $gridFields = (array)$visibleFieldsArray;
 
@@ -187,7 +187,7 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
                 if ($object instanceof Object\Concrete) {
                     $columnData = Object\Service::gridObjectData($object, $gridFields);
                     foreach ($this->getColumns() as $c) {
-                        $getter = "get" . ucfirst($c['key']);
+                        $getter = 'get' . ucfirst($c['key']);
                         $columnData[$c['key']] = $metaObject->$getter();
                     }
                     $return[] = $columnData;
@@ -217,18 +217,18 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
         $objectsMetadata = [];
         if (is_array($data) && count($data) > 0) {
             foreach ($data as $object) {
-                $o = Object::getById($object["id"]);
+                $o = Object::getById($object['id']);
                 if ($o && $o->getClassId() == $this->getAllowedClassId()) {
-                    $metaData = \Pimcore::getContainer()->get("pimcore.model.factory")
+                    $metaData = \Pimcore::getContainer()->get('pimcore.model.factory')
                         ->build('Pimcore\Model\Object\Data\ObjectMetadata', [
-                            "fieldname" => $this->getName(),
-                            "columns" => $this->getColumnKeys(),
-                            "object" => $o
+                            'fieldname' => $this->getName(),
+                            'columns' => $this->getColumnKeys(),
+                            'object' => $o
                         ]);
 
                     foreach ($this->getColumns() as $c) {
-                        $setter = "set" . ucfirst($c["key"]);
-                        $metaData->$setter($object[$c["key"]]);
+                        $setter = 'set' . ucfirst($c['key']);
+                        $metaData->$setter($object[$c['key']]);
                     }
                     $objectsMetadata[] = $metaData;
                 }
@@ -278,7 +278,7 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
                 $pathes[] = $o->getRealFullPath();
             }
 
-            return implode("<br />", $pathes);
+            return implode('<br />', $pathes);
         }
     }
 
@@ -293,13 +293,13 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
     public function checkValidity($data, $omitMandatoryCheck = false)
     {
         if (!$omitMandatoryCheck and $this->getMandatory() and empty($data)) {
-            throw new Element\ValidationException("Empty mandatory field [ ".$this->getName()." ]");
+            throw new Element\ValidationException('Empty mandatory field [ '.$this->getName().' ]');
         }
 
         if (is_array($data)) {
             foreach ($data as $objectMetadata) {
                 if (!($objectMetadata instanceof Object\Data\ObjectMetadata)) {
-                    throw new Element\ValidationException("Expected Object\\Data\\ObjectMetadata");
+                    throw new Element\ValidationException('Expected Object\\Data\\ObjectMetadata');
                 }
 
                 $o = $objectMetadata->getObject();
@@ -307,9 +307,9 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
                     if ($o instanceof Object\Concrete) {
                         $id = $o->getId();
                     } else {
-                        $id = "??";
+                        $id = '??';
                     }
-                    throw new Element\ValidationException("Invalid object relation to object [".$id."] in field " . $this->getName(), null, null);
+                    throw new Element\ValidationException('Invalid object relation to object ['.$id.'] in field ' . $this->getName(), null, null);
                 }
             }
         }
@@ -337,7 +337,7 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
                 }
             }
 
-            return implode(",", $paths);
+            return implode(',', $paths);
         } else {
             return null;
         }
@@ -352,16 +352,16 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
      */
     public function getFromCsvImport($importValue, $object = null, $params = [])
     {
-        $values = explode(",", $importValue);
+        $values = explode(',', $importValue);
 
         $value = [];
         foreach ($values as $element) {
             if ($el = Object::getByPath($element)) {
-                $metaObject = \Pimcore::getContainer()->get("pimcore.model.factory")
+                $metaObject = \Pimcore::getContainer()->get('pimcore.model.factory')
                     ->build('Pimcore\Model\Object\Data\ObjectMetadata', [
-                        "fieldname" => $this->getName(),
-                        "columns" => $this->getColumnKeys(),
-                        "object" => $el
+                        'fieldname' => $this->getName(),
+                        'columns' => $this->getColumnKeys(),
+                        'object' => $el
                     ]);
 
                 $value[] = $metaObject;
@@ -412,9 +412,9 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
             foreach ($data as $metaObject) {
                 $o = $metaObject->getObject();
                 if ($o instanceof Object\AbstractObject) {
-                    $dependencies["object_" . $o->getId()] = [
-                        "id" => $o->getId(),
-                        "type" => "object"
+                    $dependencies['object_' . $o->getId()] = [
+                        'id' => $o->getId(),
+                        'type' => 'object'
                     ];
                 }
             }
@@ -438,11 +438,11 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
                 $eo = $metaObject->getObject();
                 if ($eo instanceof Element\ElementInterface) {
                     $item = [];
-                    $item["type"] = $eo->getType();
-                    $item["id"] = $eo->getId();
+                    $item['type'] = $eo->getType();
+                    $item['id'] = $eo->getId();
 
                     foreach ($this->getColumns() as $c) {
-                        $getter = "get" . ucfirst($c['key']);
+                        $getter = 'get' . ucfirst($c['key']);
                         $item[$c['key']] = $metaObject->$getter();
                     }
                     $items[] = $item;
@@ -476,7 +476,7 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
                 $id = $item['id'];
 
                 if ($idMapper) {
-                    $id = $idMapper->getMappedId("object", $id);
+                    $id = $idMapper->getMappedId('object', $id);
                 }
 
                 $dest = null;
@@ -485,29 +485,29 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
                 }
 
                 if ($dest instanceof Object\AbstractObject) {
-                    $metaObject = \Pimcore::getContainer()->get("pimcore.model.factory")
+                    $metaObject = \Pimcore::getContainer()->get('pimcore.model.factory')
                         ->build('Pimcore\Model\Object\Data\ObjectMetadata', [
-                            "fieldname" => $this->getName(),
-                            "columns" => $this->getColumnKeys(),
-                            "object" => $dest
+                            'fieldname' => $this->getName(),
+                            'columns' => $this->getColumnKeys(),
+                            'object' => $dest
                         ]);
 
                     foreach ($this->getColumns() as $c) {
-                        $setter = "set" . ucfirst($c['key']);
+                        $setter = 'set' . ucfirst($c['key']);
                         $metaObject->$setter($item[$c['key']]);
                     }
 
                     $objects[] = $metaObject;
                 } else {
                     if (!$idMapper || !$idMapper->ignoreMappingFailures()) {
-                        throw new \Exception("cannot get values from web service import - references unknown object with id [ ".$item['id']." ]");
+                        throw new \Exception('cannot get values from web service import - references unknown object with id [ '.$item['id'].' ]');
                     } else {
-                        $idMapper->recordMappingFailure("object", $object->getId(), "object", $item['id']);
+                        $idMapper->recordMappingFailure('object', $object->getId(), 'object', $item['id']);
                     }
                 }
             }
         } else {
-            throw new \Exception("cannot get values from web service import - invalid data");
+            throw new \Exception('cannot get values from web service import - invalid data');
         }
 
         return $objects;
@@ -542,25 +542,25 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
             $classId = $object->getClassId();
         }
 
-        $table = "object_metadata_" . $classId;
+        $table = 'object_metadata_' . $classId;
         $db = Db::get();
 
         $this->enrichRelation($object, $params, $classId, $relation);
 
-        $position = (isset($relation["position"]) && $relation["position"]) ? $relation["position"] : "0";
+        $position = (isset($relation['position']) && $relation['position']) ? $relation['position'] : '0';
 
-        if ($params && $params["context"] && $params["context"]["containerType"] == "fieldcollection" && $params["context"]["subContainerType"] == "localizedfield") {
-            $context = $params["context"];
-            $index = $context["index"];
-            $containerName = $context["fieldname"];
+        if ($params && $params['context'] && $params['context']['containerType'] == 'fieldcollection' && $params['context']['subContainerType'] == 'localizedfield') {
+            $context = $params['context'];
+            $index = $context['index'];
+            $containerName = $context['fieldname'];
 
-            $sql = $db->quoteInto("o_id = ?", $objectId) . " AND ownertype = 'localizedfield' AND "
-                . $db->quoteInto("ownername LIKE ?", "/fieldcollection~" . $containerName . "/" . $index . "/%")
-                . " AND " . $db->quoteInto("fieldname = ?", $this->getName())
-                . " AND " . $db->quoteInto("position = ?", $position);
+            $sql = $db->quoteInto('o_id = ?', $objectId) . " AND ownertype = 'localizedfield' AND "
+                . $db->quoteInto('ownername LIKE ?', '/fieldcollection~' . $containerName . '/' . $index . '/%')
+                . ' AND ' . $db->quoteInto('fieldname = ?', $this->getName())
+                . ' AND ' . $db->quoteInto('position = ?', $position);
         } else {
-            $sql = $db->quoteInto("o_id = ?", $objectId) . " AND " . $db->quoteInto("fieldname = ?", $this->getName())
-                . " AND " . $db->quoteInto("position = ?", $position);
+            $sql = $db->quoteInto('o_id = ?', $objectId) . ' AND ' . $db->quoteInto('fieldname = ?', $this->getName())
+                . ' AND ' . $db->quoteInto('position = ?', $position);
         }
 
         $db->deleteWhere($table, $sql);
@@ -574,8 +574,8 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
             }
 
             foreach ($objectsMetadata as $meta) {
-                $ownerName = isset($relation["ownername"]) ? $relation["ownername"] : null;
-                $ownerType = isset($relation["ownertype"]) ? $relation["ownertype"] : null;
+                $ownerName = isset($relation['ownername']) ? $relation['ownername'] : null;
+                $ownerType = isset($relation['ownertype']) ? $relation['ownertype'] : null;
                 $meta->save($objectConcrete, $ownerType, $ownerName, $position);
             }
         }
@@ -596,15 +596,15 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
             $data = $object->{$this->getName()};
             if ($this->getLazyLoading() and !in_array($this->getName(), $object->getO__loadedLazyFields())) {
                 //$data = $this->getDataFromResource($object->getRelationData($this->getName(),true,null));
-                $data = $this->load($object, ["force" => true]);
+                $data = $this->load($object, ['force' => true]);
 
-                $setter = "set" . ucfirst($this->getName());
+                $setter = 'set' . ucfirst($this->getName());
                 if (method_exists($object, $setter)) {
                     $object->$setter($data);
                 }
             }
         } elseif ($object instanceof Object\Localizedfield) {
-            $data = $params["data"];
+            $data = $params['data'];
         } elseif ($object instanceof Object\Fieldcollection\Data\AbstractData) {
             $data = $object->{$this->getName()};
         } elseif ($object instanceof Object\Objectbrick\Data\AbstractData) {
@@ -633,20 +633,20 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
     {
         $db = Db::get();
 
-        if ($params && $params["context"] && $params["context"]["containerType"] == "fieldcollection" && $params["context"]["subContainerType"] == "localizedfield") {
-            $context = $params["context"];
-            $index = $context["index"];
-            $containerName = $context["fieldname"];
+        if ($params && $params['context'] && $params['context']['containerType'] == 'fieldcollection' && $params['context']['subContainerType'] == 'localizedfield') {
+            $context = $params['context'];
+            $index = $context['index'];
+            $containerName = $context['fieldname'];
 
-            $db->deleteWhere("object_metadata_" . $object->getClassId(),
-                $db->quoteInto("o_id = ?", $object->getId()) . " AND ownertype = 'localizedfield' AND "
-                . $db->quoteInto("ownername LIKE ?", "/fieldcollection~" . $containerName . "/" . "$index . /%")
-                . " AND " . $db->quoteInto("fieldname = ?", $this->getName())
+            $db->deleteWhere('object_metadata_' . $object->getClassId(),
+                $db->quoteInto('o_id = ?', $object->getId()) . " AND ownertype = 'localizedfield' AND "
+                . $db->quoteInto('ownername LIKE ?', '/fieldcollection~' . $containerName . '/' . "$index . /%")
+                . ' AND ' . $db->quoteInto('fieldname = ?', $this->getName())
             );
         } else {
-            $db->delete("object_metadata_" . $object->getClassId(), [
-                "o_id" => $object->getId(),
-                "fieldname" => $this->getName()
+            $db->delete('object_metadata_' . $object->getClassId(), [
+                'o_id' => $object->getId(),
+                'fieldname' => $this->getName()
             ]);
         }
     }
@@ -682,7 +682,7 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
          * @extjs6
          */
         if (is_array($visibleFields)) {
-            $visibleFields = implode(",", $visibleFields);
+            $visibleFields = implode(',', $visibleFields);
         }
 
         $this->visibleFields = $visibleFields;
@@ -763,9 +763,9 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
      */
     public function classSaved($class, $params = [])
     {
-        $temp = \Pimcore::getContainer()->get("pimcore.model.factory")
+        $temp = \Pimcore::getContainer()->get('pimcore.model.factory')
             ->build('Pimcore\Model\Object\Data\ObjectMetadata', [
-                "fieldname" => null
+                'fieldname' => null
             ]);
 
         $temp->getDao()->createOrUpdateTable($class);
@@ -840,7 +840,7 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
 
         $this->visibleFieldDefinitions = [];
 
-        $translator = \Pimcore::getContainer()->get("translator");
+        $translator = \Pimcore::getContainer()->get('translator');
 
         $visibleFields = explode(',', $this->visibleFields);
         foreach ($visibleFields as $field) {
@@ -850,12 +850,12 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
                 $fieldFound = false;
                 if ($localizedfields = $class->getFieldDefinitions()['localizedfields']) {
                     if ($fd = $localizedfields->getFieldDefinition($field)) {
-                        $this->visibleFieldDefinitions[$field]["name"] = $fd->getName();
-                        $this->visibleFieldDefinitions[$field]["title"] = $fd->getTitle();
-                        $this->visibleFieldDefinitions[$field]["fieldtype"] = $fd->getFieldType();
+                        $this->visibleFieldDefinitions[$field]['name'] = $fd->getName();
+                        $this->visibleFieldDefinitions[$field]['title'] = $fd->getTitle();
+                        $this->visibleFieldDefinitions[$field]['fieldtype'] = $fd->getFieldType();
 
                         if ($fd instanceof Object\ClassDefinition\Data\Select) {
-                            $this->visibleFieldDefinitions[$field]["options"] = $fd->getOptions();
+                            $this->visibleFieldDefinitions[$field]['options'] = $fd->getOptions();
                         }
 
                         $fieldFound = true;
@@ -863,18 +863,18 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
                 }
 
                 if (!$fieldFound) {
-                    $this->visibleFieldDefinitions[$field]["name"] = $field;
-                    $this->visibleFieldDefinitions[$field]["title"] = $translator->trans($field, [], "admin");
-                    $this->visibleFieldDefinitions[$field]["fieldtype"] = "input";
+                    $this->visibleFieldDefinitions[$field]['name'] = $field;
+                    $this->visibleFieldDefinitions[$field]['title'] = $translator->trans($field, [], 'admin');
+                    $this->visibleFieldDefinitions[$field]['fieldtype'] = 'input';
                 }
             } else {
-                $this->visibleFieldDefinitions[$field]["name"] = $fd->getName();
-                $this->visibleFieldDefinitions[$field]["title"] = $fd->getTitle();
-                $this->visibleFieldDefinitions[$field]["fieldtype"] = $fd->getFieldType();
-                $this->visibleFieldDefinitions[$field]["noteditable"] = true;
+                $this->visibleFieldDefinitions[$field]['name'] = $fd->getName();
+                $this->visibleFieldDefinitions[$field]['title'] = $fd->getTitle();
+                $this->visibleFieldDefinitions[$field]['fieldtype'] = $fd->getFieldType();
+                $this->visibleFieldDefinitions[$field]['noteditable'] = true;
 
                 if ($fd instanceof Object\ClassDefinition\Data\Select) {
-                    $this->visibleFieldDefinitions[$field]["options"] = $fd->getOptions();
+                    $this->visibleFieldDefinitions[$field]['options'] = $fd->getOptions();
                 }
             }
         }
@@ -898,13 +898,13 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
                 $type = Element\Service::getType($element);
                 $id = $element->getId();
                 $result[] =  [
-                    "element" => [
-                        "type" => $type,
-                        "id" => $id
+                    'element' => [
+                        'type' => $type,
+                        'id' => $id
                     ],
-                    "fieldname" => $elementMetadata->getFieldname(),
-                    "columns" => $elementMetadata->getColumns(),
-                    "data" => $elementMetadata->data];
+                    'fieldname' => $elementMetadata->getFieldname(),
+                    'columns' => $elementMetadata->getColumns(),
+                    'data' => $elementMetadata->data];
             }
 
             return $result;
@@ -925,15 +925,15 @@ class ObjectsMetadata extends Model\Object\ClassDefinition\Data\Objects
         if (is_array($value)) {
             $result = [];
             foreach ($value as $elementMetadata) {
-                $elementData = $elementMetadata["element"];
+                $elementData = $elementMetadata['element'];
 
-                $type = $elementData["type"];
-                $id = $elementData["id"];
+                $type = $elementData['type'];
+                $id = $elementData['id'];
                 $target = Element\Service::getElementById($type, $id);
                 if ($target) {
-                    $columns = $elementMetadata["columns"];
-                    $fieldname = $elementMetadata["fieldname"];
-                    $data = $elementMetadata["data"];
+                    $columns = $elementMetadata['columns'];
+                    $fieldname = $elementMetadata['fieldname'];
+                    $data = $elementMetadata['data'];
 
                     $item = new Object\Data\ObjectMetadata($fieldname, $columns, $target);
                     $item->data = $data;

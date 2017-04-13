@@ -100,7 +100,7 @@ abstract class Tracker implements ITracker
         if (!$this->dependenciesIncluded) {
             if ($dependencies = $this->dependencies) {
                 foreach ($dependencies as $dependency) {
-                    Analytics::addAdditionalCode("ga('require', '" . $dependency . "')", "beforePageview");
+                    Analytics::addAdditionalCode("ga('require', '" . $dependency . "')", 'beforePageview');
                 }
             }
             $this->dependenciesIncluded = true;

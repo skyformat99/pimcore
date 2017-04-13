@@ -114,12 +114,12 @@ class Workflow extends AbstractModel
      */
     public static function getById($id)
     {
-        $cacheKey = "workflow_" . $id;
+        $cacheKey = 'workflow_' . $id;
 
         try {
             $workflow = \Pimcore\Cache\Runtime::get($cacheKey);
             if (!$workflow) {
-                throw new \Exception("Workflow in registry is null");
+                throw new \Exception('Workflow in registry is null');
             }
         } catch (\Exception $e) {
             try {

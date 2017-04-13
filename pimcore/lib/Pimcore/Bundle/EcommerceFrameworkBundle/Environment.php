@@ -23,12 +23,12 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class Environment implements IEnvironment
 {
-    const SESSION_KEY_CUSTOM_ITEMS = "customitems";
-    const SESSION_KEY_USERID = "userid";
-    const SESSION_KEY_USE_GUEST_CART = "useguestcart";
-    const SESSION_KEY_ASSORTMENT_TENANT = "currentassortmenttenant";
-    const SESSION_KEY_ASSORTMENT_SUB_TENANT = "currentassortmentsubtenant";
-    const SESSION_KEY_CHECKOUT_TENANT = "currentcheckouttenant";
+    const SESSION_KEY_CUSTOM_ITEMS = 'customitems';
+    const SESSION_KEY_USERID = 'userid';
+    const SESSION_KEY_USE_GUEST_CART = 'useguestcart';
+    const SESSION_KEY_ASSORTMENT_TENANT = 'currentassortmenttenant';
+    const SESSION_KEY_ASSORTMENT_SUB_TENANT = 'currentassortmentsubtenant';
+    const SESSION_KEY_CHECKOUT_TENANT = 'currentcheckouttenant';
     const USER_ID_NOT_SET = -1;
 
     /**
@@ -90,7 +90,7 @@ class Environment implements IEnvironment
 
     protected function loadFromSession()
     {
-        if (php_sapi_name() != "cli") {
+        if (php_sapi_name() != 'cli') {
             $this->session = $this->buildSession();
 
             $this->customItems = $this->session->get(self::SESSION_KEY_CUSTOM_ITEMS);
@@ -113,7 +113,7 @@ class Environment implements IEnvironment
 
     public function save()
     {
-        if (php_sapi_name() != "cli") {
+        if (php_sapi_name() != 'cli') {
             $this->session->set(self::SESSION_KEY_CUSTOM_ITEMS, $this->customItems);
 
             $this->session->set(self::SESSION_KEY_USERID, $this->userId);
@@ -376,7 +376,7 @@ class Environment implements IEnvironment
             if (Tool::isValidLanguage($locale)) {
                 return (string) $locale;
             }
-            throw new \Exception("Not supported language");
+            throw new \Exception('Not supported language');
         } catch (\Exception $e) {
             return Tool::getDefaultLanguage();
         }

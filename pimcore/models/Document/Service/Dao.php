@@ -34,10 +34,10 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function getDocumentIdByPrettyUrlInSite(Site $site, $path)
     {
-        return (int) $this->db->fetchOne("SELECT documents.id FROM documents
+        return (int) $this->db->fetchOne('SELECT documents.id FROM documents
             LEFT JOIN documents_page ON documents.id = documents_page.id
-            WHERE documents.path LIKE ? AND documents_page.prettyUrl = ?",
-        [$site->getRootPath() . "/%", rtrim($path, "/")]);
+            WHERE documents.path LIKE ? AND documents_page.prettyUrl = ?',
+        [$site->getRootPath() . '/%', rtrim($path, '/')]);
     }
 
     /**
@@ -48,9 +48,9 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function getDocumentIdFromHardlinkInSameSite(Site $site, Document $document)
     {
-        return $this->db->fetchOne("SELECT documents.id FROM documents
+        return $this->db->fetchOne('SELECT documents.id FROM documents
             LEFT JOIN documents_hardlink ON documents.id = documents_hardlink.id
-            WHERE documents_hardlink.sourceId = ? AND documents.path LIKE ?", [$document->getId(), $site->getRootPath() . "/%"]);
+            WHERE documents_hardlink.sourceId = ? AND documents.path LIKE ?', [$document->getId(), $site->getRootPath() . '/%']);
     }
 
     /**
@@ -60,7 +60,7 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function getTranslationSourceId(Document $document)
     {
-        $sourceId = $this->db->fetchOne("SELECT sourceId FROM documents_translations WHERE id = ?", $document->getId());
+        $sourceId = $this->db->fetchOne('SELECT sourceId FROM documents_translations WHERE id = ?', $document->getId());
         if (!$sourceId) {
             $sourceId = $document->getId();
         }
@@ -77,17 +77,17 @@ class Dao extends Model\Dao\AbstractDao
     {
         $sourceId = $this->getTranslationSourceId($document);
 
-        $data = $this->db->fetchAll("SELECT id,language FROM documents_translations WHERE sourceId = ?", [$sourceId]);
+        $data = $this->db->fetchAll('SELECT id,language FROM documents_translations WHERE sourceId = ?', [$sourceId]);
 
         $translations = [];
         foreach ($data as $translation) {
-            $translations[$translation["language"]] = $translation["id"];
+            $translations[$translation['language']] = $translation['id'];
         }
 
         // add language from source document
         if (!empty($translations)) {
             $sourceDocument = Document::getById($sourceId);
-            $translations[$sourceDocument->getProperty("language")] = $sourceDocument->getId();
+            $translations[$sourceDocument->getProperty('language')] = $sourceDocument->getId();
         }
 
         return $translations;
@@ -103,13 +103,13 @@ class Dao extends Model\Dao\AbstractDao
         $sourceId = $this->getTranslationSourceId($document);
 
         if (!$language) {
-            $language = $translation->getProperty("language");
+            $language = $translation->getProperty('language');
         }
 
-        $this->db->insertOrUpdate("documents_translations", [
-            "id" => $translation->getId(),
-            "sourceId" => $sourceId,
-            "language" => $language
+        $this->db->insertOrUpdate('documents_translations', [
+            'id' => $translation->getId(),
+            'sourceId' => $sourceId,
+            'language' => $language
         ]);
     }
 
@@ -118,13 +118,13 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function removeTranslation(Document $document)
     {
-        $this->db->delete("documents_translations", ["id" => $document->getId()]);
+        $this->db->delete('documents_translations', ['id' => $document->getId()]);
 
         // if $document is a source-document, we need to move them over to a new document
-        $newSourceId = $this->db->fetchOne("SELECT id FROM documents_translations WHERE sourceId = ?", $document->getId());
+        $newSourceId = $this->db->fetchOne('SELECT id FROM documents_translations WHERE sourceId = ?', $document->getId());
         if ($newSourceId) {
-            $this->db->update("documents_translations", ["sourceId" => $newSourceId], ["sourceId" => $document->getId()]);
-            $this->db->delete("documents_translations", ["id" => $newSourceId]);
+            $this->db->update('documents_translations', ['sourceId' => $newSourceId], ['sourceId' => $document->getId()]);
+            $this->db->delete('documents_translations', ['id' => $newSourceId]);
         }
     }
 }

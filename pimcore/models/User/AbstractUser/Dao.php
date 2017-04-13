@@ -35,12 +35,12 @@ class Dao extends Model\Dao\AbstractDao
     public function getById($id)
     {
         if ($this->model->getType()) {
-            $data = $this->db->fetchRow("SELECT * FROM users WHERE `type` = ? AND id = ?", [$this->model->getType(), $id]);
+            $data = $this->db->fetchRow('SELECT * FROM users WHERE `type` = ? AND id = ?', [$this->model->getType(), $id]);
         } else {
-            $data = $this->db->fetchRow("SELECT * FROM users WHERE `id` = ?", $id);
+            $data = $this->db->fetchRow('SELECT * FROM users WHERE `id` = ?', $id);
         }
 
-        if (is_numeric($data["id"])) {
+        if (is_numeric($data['id'])) {
             $this->assignVariablesToModel($data);
         } else {
             throw new \Exception("user doesn't exist");
@@ -55,9 +55,9 @@ class Dao extends Model\Dao\AbstractDao
     public function getByName($name)
     {
         try {
-            $data = $this->db->fetchRow("SELECT * FROM users WHERE `type` = ? AND `name` = ?", [$this->model->getType(), $name]);
+            $data = $this->db->fetchRow('SELECT * FROM users WHERE `type` = ? AND `name` = ?', [$this->model->getType(), $name]);
 
-            if ($data["id"]) {
+            if ($data['id']) {
                 $this->assignVariablesToModel($data);
             } else {
                 throw new \Exception("user doesn't exist");
@@ -73,9 +73,9 @@ class Dao extends Model\Dao\AbstractDao
     public function create()
     {
         try {
-            $this->db->insert("users", [
-                "name" => $this->model->getName(),
-                "type" => $this->model->getType()
+            $this->db->insert('users', [
+                'name' => $this->model->getName(),
+                'type' => $this->model->getType()
             ]);
 
             $this->model->setId($this->db->lastInsertId());
@@ -91,7 +91,7 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function hasChildren()
     {
-        $c = $this->db->fetchOne("SELECT id FROM users WHERE parentId = ?", $this->model->getId());
+        $c = $this->db->fetchOne('SELECT id FROM users WHERE parentId = ?', $this->model->getId());
 
         return (bool) $c;
     }
@@ -103,26 +103,26 @@ class Dao extends Model\Dao\AbstractDao
     {
         try {
             if (strlen($this->model->getName()) < 2) {
-                throw new \Exception("Name of user/role must be at least 2 characters long");
+                throw new \Exception('Name of user/role must be at least 2 characters long');
             }
 
             $data = [];
             $dataRaw = get_object_vars($this->model);
             foreach ($dataRaw as $key => $value) {
-                if (in_array($key, $this->getValidTableColumns("users"))) {
+                if (in_array($key, $this->getValidTableColumns('users'))) {
                     if (is_bool($value)) {
                         $value = (int) $value;
-                    } elseif (in_array($key, ["permissions", "roles", "docTypes", "classes", "perspectives", "websiteTranslationLanguagesEdit", "websiteTranslationLanguagesView"])) {
+                    } elseif (in_array($key, ['permissions', 'roles', 'docTypes', 'classes', 'perspectives', 'websiteTranslationLanguagesEdit', 'websiteTranslationLanguagesView'])) {
                         // permission and roles are stored as csv
                         if (is_array($value)) {
-                            $value = implode(",", $value);
+                            $value = implode(',', $value);
                         }
                     }
                     $data[$key] = $value;
                 }
             }
 
-            $this->db->update("users", $data, ["id" => $this->model->getId()]);
+            $this->db->update('users', $data, ['id' => $this->model->getId()]);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -134,8 +134,8 @@ class Dao extends Model\Dao\AbstractDao
     public function delete()
     {
         $userId = $this->model->getId();
-        Logger::debug("delete user with ID: " . $userId);
+        Logger::debug('delete user with ID: ' . $userId);
 
-        $this->db->delete("users", ["id" => $userId]);
+        $this->db->delete('users', ['id' => $userId]);
     }
 }

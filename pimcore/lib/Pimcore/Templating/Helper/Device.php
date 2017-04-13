@@ -36,6 +36,6 @@ class Device extends Helper
      */
     public function getName()
     {
-        return "device";
+        return 'device';
     }
 }

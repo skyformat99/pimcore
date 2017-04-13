@@ -46,7 +46,7 @@ class QuantityValue
     {
         $this->value = $value;
         $this->unitId = $unitId;
-        $this->unit = "";
+        $this->unit = '';
 
         if ($unitId) {
             $this->unit = Unit::getById($this->unitId);
@@ -107,7 +107,7 @@ class QuantityValue
     {
         $value = $this->getValue();
         if (is_numeric($value)) {
-            $locale = \Pimcore::getContainer()->get("pimcore.locale")->findLocale();
+            $locale = \Pimcore::getContainer()->get('pimcore.locale')->findLocale();
 
             if ($locale) {
                 $formatter = new \NumberFormatter($locale, \NumberFormatter::DECIMAL);
@@ -116,7 +116,7 @@ class QuantityValue
         }
 
         if ($this->getUnit() instanceof Unit) {
-            $value .= " " . $this->getUnit()->getAbbreviation();
+            $value .= ' ' . $this->getUnit()->getAbbreviation();
         }
 
         return $value;

@@ -37,7 +37,7 @@ class MultiSelectRelation extends \Pimcore\Bundle\EcommerceFrameworkBundle\Filte
             $value = [];
 
             if (!is_array($objects)) {
-                $objects = explode(",", $objects);
+                $objects = explode(',', $objects);
             }
 
             if (is_array($objects)) {

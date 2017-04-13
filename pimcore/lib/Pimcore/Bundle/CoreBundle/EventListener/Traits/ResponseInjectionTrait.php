@@ -30,7 +30,7 @@ trait ResponseInjectionTrait
             return false;
         }
 
-        if (strpos($response->getContent(), "<html")) {
+        if (strpos($response->getContent(), '<html')) {
             return true;
         }
 

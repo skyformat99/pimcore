@@ -443,10 +443,10 @@ class HeadMeta extends AbstractHelper
      *
      * @return $this
      */
-    public function setDescription($string, $length = null, $suffix = "")
+    public function setDescription($string, $length = null, $suffix = '')
     {
         $string = $this->normalizeString($string, $length, $suffix);
 
-        return $this->setName("description", $string);
+        return $this->setName('description', $string);
     }
 }

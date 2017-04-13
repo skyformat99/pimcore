@@ -55,7 +55,7 @@ class Application extends \Symfony\Bundle\FrameworkBundle\Console\Application
         $this->setDispatcher($dispatcher);
 
         $dispatcher->addListener(ConsoleEvents::COMMAND, function (ConsoleCommandEvent $event) {
-            if ($event->getInput()->getOption("maintenance-mode")) {
+            if ($event->getInput()->getOption('maintenance-mode')) {
                 // enable maintenance mode if requested
                 $maintenanceModeId = 'cache-warming-dummy-session-id';
 
@@ -66,7 +66,7 @@ class Application extends \Symfony\Bundle\FrameworkBundle\Console\Application
         });
 
         $dispatcher->addListener(ConsoleEvents::TERMINATE, function (ConsoleTerminateEvent $event) {
-            if ($event->getInput()->getOption("maintenance-mode")) {
+            if ($event->getInput()->getOption('maintenance-mode')) {
                 $event->getOutput()->writeln('Deactivating maintenance mode...');
                 Admin::deactivateMaintenanceMode();
             }

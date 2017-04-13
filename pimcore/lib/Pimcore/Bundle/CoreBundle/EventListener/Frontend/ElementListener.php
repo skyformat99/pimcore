@@ -306,7 +306,7 @@ class ElementListener extends AbstractFrontendListener implements EventSubscribe
 
                 // TODO remove \Pimcore\Cache\Runtime
                 // add the object to the registry so every call to Object::getById() will return this object instead of the real one
-                \Pimcore\Cache\Runtime::set("object_" . $object->getId(), $object);
+                \Pimcore\Cache\Runtime::set('object_' . $object->getId(), $object);
             }
         }
     }

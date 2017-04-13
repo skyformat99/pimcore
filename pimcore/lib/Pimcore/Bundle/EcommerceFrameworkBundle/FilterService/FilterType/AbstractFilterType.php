@@ -67,7 +67,7 @@ abstract class AbstractFilterType
         $field = $filterDefinition->getField();
         if ($field instanceof IndexFieldSelection) {
             return $field->getPreSelect();
-        } elseif (method_exists($filterDefinition, "getPreSelect")) {
+        } elseif (method_exists($filterDefinition, 'getPreSelect')) {
             return $filterDefinition->getPreSelect();
         }
 
@@ -142,7 +142,7 @@ abstract class AbstractFilterType
         } catch (\Exception $e) {
 
             //legacy fallback for view rendering
-            $prefix = PIMCORE_PROJECT_ROOT . "/legacy/website/views/scripts";
+            $prefix = PIMCORE_PROJECT_ROOT . '/legacy/website/views/scripts';
 
             return $this->renderer->render($prefix . $script, $parameterBag);
         }

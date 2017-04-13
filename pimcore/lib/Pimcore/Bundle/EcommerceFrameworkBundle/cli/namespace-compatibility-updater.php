@@ -13,7 +13,7 @@
  */
 $workingDirectory = getcwd();
 chdir(__DIR__);
-include_once("../../../../../config/startup_cli.php");
+include_once('../../../../../config/startup_cli.php');
 chdir($workingDirectory);
 
 \Pimcore\Bundle\EcommerceFrameworkBundle\Legacy\LegacyClassMappingTool::createNamespaceCompatibilityFile();

@@ -29,7 +29,7 @@ class RedirectingPlugin extends \Swift_Plugins_RedirectingPlugin
     {
         $explodedRecipientArray = [];
         foreach ($recipient as $r) {
-            $explodedRecipientArray = array_merge($explodedRecipientArray, array_filter(explode(",", $r)));
+            $explodedRecipientArray = array_merge($explodedRecipientArray, array_filter(explode(',', $r)));
         }
 
         parent::__construct($explodedRecipientArray, $whitelist);

@@ -38,7 +38,7 @@ class Date extends Model\Document\Tag
      */
     public function getType()
     {
-        return "date";
+        return 'date';
     }
 
     /**
@@ -70,12 +70,12 @@ class Date extends Model\Document\Tag
      */
     public function frontend()
     {
-        if (!isset($this->options["format"]) || !$this->options["format"]) {
-            $this->options["format"] = \DateTime::ISO8601;
+        if (!isset($this->options['format']) || !$this->options['format']) {
+            $this->options['format'] = \DateTime::ISO8601;
         }
 
         if ($this->date instanceof \DateTimeInterface) {
-            return $this->date->formatLocalized($this->options["format"]);
+            return $this->date->formatLocalized($this->options['format']);
         }
     }
 
@@ -156,7 +156,7 @@ class Date extends Model\Document\Tag
         } elseif (is_numeric($wsElement->value)) {
             $this->setDateFromTimestamp($wsElement->value);
         } else {
-            throw new \Exception("cannot get document tag date from WS - invalid value [  ".$wsElement->value." ]");
+            throw new \Exception('cannot get document tag date from WS - invalid value [  '.$wsElement->value.' ]');
         }
     }
 
@@ -183,7 +183,7 @@ class Date extends Model\Document\Tag
      */
     protected function setDateFromTimestamp($timestamp)
     {
-        if (\Pimcore\Config::getFlag("zend_date")) {
+        if (\Pimcore\Config::getFlag('zend_date')) {
             $this->date = new \Pimcore\Date($timestamp);
         } else {
             $this->date = new \Carbon\Carbon();

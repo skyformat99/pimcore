@@ -27,7 +27,7 @@ class ExternalImage extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $fieldtype = "externalImage";
+    public $fieldtype = 'externalImage';
 
     /**
      * @var int
@@ -49,21 +49,21 @@ class ExternalImage extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $queryColumnType = "longtext";
+    public $queryColumnType = 'longtext';
 
     /**
      * Type for the column
      *
      * @var string
      */
-    public $columnType = "longtext";
+    public $columnType = 'longtext';
 
     /**
      * Type for the generated phpdoc
      *
      * @var string
      */
-    public $phpdocType = "\\Pimcore\\Model\\Object\\Data\\ExternalImage";
+    public $phpdocType = '\\Pimcore\\Model\\Object\\Data\\ExternalImage';
 
     /**
      * @return int

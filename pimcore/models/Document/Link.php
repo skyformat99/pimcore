@@ -52,28 +52,28 @@ class Link extends Model\Document
      *
      * @var string
      */
-    public $direct = "";
+    public $direct = '';
 
     /**
      * Type of the link (internal/direct)
      *
      * @var string
      */
-    public $linktype = "internal";
+    public $linktype = 'internal';
 
     /**
      * static type of this object
      *
      * @var string
      */
-    public $type = "link";
+    public $type = 'link';
 
     /**
      * path of the link
      *
      * @var string
      */
-    public $href = "";
+    public $href = '';
 
     /**
      * @see Document::resolveDependencies
@@ -84,13 +84,13 @@ class Link extends Model\Document
     {
         $dependencies = parent::resolveDependencies();
 
-        if ($this->getLinktype() == "internal") {
+        if ($this->getLinktype() == 'internal') {
             if ($this->getObject() instanceof Document || $this->getObject() instanceof Asset) {
-                $key = $this->getInternalType() . "_" . $this->getObject()->getId();
+                $key = $this->getInternalType() . '_' . $this->getObject()->getId();
 
                 $dependencies[$key] = [
-                    "id" => $this->getObject()->getId(),
-                    "type" => $this->getInternalType()
+                    'id' => $this->getObject()->getId(),
+                    'type' => $this->getInternalType()
                 ];
             }
         }
@@ -111,7 +111,7 @@ class Link extends Model\Document
 
         $tags = parent::getCacheTags($tags);
 
-        if ($this->getLinktype() == "internal") {
+        if ($this->getLinktype() == 'internal') {
             if ($this->getObject() instanceof Document || $this->getObject() instanceof Asset) {
                 if ($this->getObject()->getId() != $this->getId() and !array_key_exists($this->getObject()->getCacheTag(), $tags)) {
                     $tags = $this->getObject()->getCacheTags($tags);
@@ -129,8 +129,8 @@ class Link extends Model\Document
      */
     public function getHref()
     {
-        $path = "";
-        if ($this->getLinktype() == "internal") {
+        $path = '';
+        if ($this->getLinktype() == 'internal') {
             if ($this->getObject() instanceof Document || $this->getObject() instanceof Asset) {
                 $path = $this->getObject()->getFullPath();
             }
@@ -153,10 +153,10 @@ class Link extends Model\Document
         $path = $this->getHref();
 
         if (strlen($this->getParameters()) > 0) {
-            $path .= "?" . str_replace("?", "", $this->getParameters());
+            $path .= '?' . str_replace('?', '', $this->getParameters());
         }
         if (strlen($this->getAnchor()) > 0) {
-            $path .= "#" . str_replace("#", "", $this->getAnchor());
+            $path .= '#' . str_replace('#', '', $this->getAnchor());
         }
 
         return $path;
@@ -171,7 +171,7 @@ class Link extends Model\Document
      */
     public function getTarget()
     {
-        return $this->getProperty("navigation_target");
+        return $this->getProperty('navigation_target');
     }
 
     /**
@@ -185,7 +185,7 @@ class Link extends Model\Document
      */
     public function setTarget($target)
     {
-        $this->setProperty("navigation_target", "text", $target, false);
+        $this->setProperty('navigation_target', 'text', $target, false);
 
         return $this;
     }
@@ -270,7 +270,7 @@ class Link extends Model\Document
      */
     public function getName()
     {
-        return $this->getProperty("navigation_name");
+        return $this->getProperty('navigation_name');
     }
 
     /**
@@ -284,7 +284,7 @@ class Link extends Model\Document
      */
     public function setName($name)
     {
-        $this->setProperty("navigation_name", "text", $name, false);
+        $this->setProperty('navigation_name', 'text', $name, false);
 
         return $this;
     }
@@ -343,9 +343,9 @@ class Link extends Model\Document
     public function setObjectFromId()
     {
         if ($this->internal) {
-            if ($this->internalType == "document") {
+            if ($this->internalType == 'document') {
                 $this->object = Document::getById($this->internal);
-            } elseif ($this->internalType == "asset") {
+            } elseif ($this->internalType == 'asset') {
                 $this->object = Asset::getById($this->internal);
             }
         }
@@ -362,7 +362,7 @@ class Link extends Model\Document
      */
     public function getParameters()
     {
-        return $this->getProperty("navigation_parameters");
+        return $this->getProperty('navigation_parameters');
     }
 
     /**
@@ -372,7 +372,7 @@ class Link extends Model\Document
      */
     public function setParameters($parameters)
     {
-        $this->setProperty("navigation_parameters", "text", $parameters, false);
+        $this->setProperty('navigation_parameters', 'text', $parameters, false);
 
         return $this;
     }
@@ -386,7 +386,7 @@ class Link extends Model\Document
      */
     public function getAnchor()
     {
-        return $this->getProperty("navigation_anchor");
+        return $this->getProperty('navigation_anchor');
     }
 
     /**
@@ -396,7 +396,7 @@ class Link extends Model\Document
      */
     public function setAnchor($anchor)
     {
-        $this->setProperty("navigation_anchor", "text", $anchor, false);
+        $this->setProperty('navigation_anchor', 'text', $anchor, false);
 
         return $this;
     }
@@ -406,7 +406,7 @@ class Link extends Model\Document
      */
     public function getTitle()
     {
-        return $this->getProperty("navigation_title");
+        return $this->getProperty('navigation_title');
     }
 
     /**
@@ -416,7 +416,7 @@ class Link extends Model\Document
      */
     public function setTitle($title)
     {
-        $this->setProperty("navigation_title", "text", $title, false);
+        $this->setProperty('navigation_title', 'text', $title, false);
 
         return $this;
     }
@@ -430,7 +430,7 @@ class Link extends Model\Document
      */
     public function getAccesskey()
     {
-        return $this->getProperty("accesskey");
+        return $this->getProperty('accesskey');
     }
 
     /**
@@ -440,7 +440,7 @@ class Link extends Model\Document
      */
     public function setAccesskey($accesskey)
     {
-        $this->setProperty("accesskey", "text", $accesskey, false);
+        $this->setProperty('accesskey', 'text', $accesskey, false);
 
         return $this;
     }
@@ -454,7 +454,7 @@ class Link extends Model\Document
      */
     public function getRel()
     {
-        return $this->getProperty("navigation_relation");
+        return $this->getProperty('navigation_relation');
     }
 
     /**
@@ -464,7 +464,7 @@ class Link extends Model\Document
      */
     public function setRel($rel)
     {
-        $this->setProperty("navigation_relation", "text", $rel, false);
+        $this->setProperty('navigation_relation', 'text', $rel, false);
 
         return $this;
     }
@@ -478,7 +478,7 @@ class Link extends Model\Document
      */
     public function getTabindex()
     {
-        return $this->getProperty("tabindex");
+        return $this->getProperty('tabindex');
     }
 
     /**
@@ -488,7 +488,7 @@ class Link extends Model\Document
      */
     public function setTabindex($tabindex)
     {
-        $this->setProperty("navigation_tabindex", "text", $tabindex, false);
+        $this->setProperty('navigation_tabindex', 'text', $tabindex, false);
 
         return $this;
     }
@@ -500,13 +500,13 @@ class Link extends Model\Document
      */
     public function getHtml()
     {
-        $attributes = ["rel", "tabindex", "accesskey", "title", "name", "target"];
+        $attributes = ['rel', 'tabindex', 'accesskey', 'title', 'name', 'target'];
         $attribs = [];
         foreach ($attributes as $a) {
             $attribs[] = $a . '="' . $this->$a . '"';
         }
 
-        return '<a href="' . $this->getLink() . '" ' . implode(" ", $attribs) . '>' . htmlspecialchars($this->getProperty("navigation_name")) . '</a>';
+        return '<a href="' . $this->getLink() . '" ' . implode(' ', $attribs) . '>' . htmlspecialchars($this->getProperty('navigation_name')) . '</a>';
     }
 
     public function __sleep()
@@ -514,7 +514,7 @@ class Link extends Model\Document
         $finalVars = [];
         $parentVars = parent::__sleep();
 
-        $blockedVars = ["object"];
+        $blockedVars = ['object'];
 
         foreach ($parentVars as $key) {
             if (!in_array($key, $blockedVars)) {

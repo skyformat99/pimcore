@@ -37,7 +37,7 @@ class Persona extends Model\AbstractModel
     /**
      * @var string
      */
-    public $description = "";
+    public $description = '';
 
     /**
      * @var int
@@ -79,7 +79,7 @@ class Persona extends Model\AbstractModel
      */
     public static function fire($id)
     {
-        $targetingService = \Pimcore::getContainer()->get("pimcore.event_listener.frontend.targeting");
+        $targetingService = \Pimcore::getContainer()->get('pimcore.event_listener.frontend.targeting');
         $targetingService->addPersona($id);
     }
 

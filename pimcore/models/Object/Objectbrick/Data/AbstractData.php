@@ -133,9 +133,9 @@ class AbstractData extends Model\AbstractModel
         $parent = Object\Service::hasInheritableParentObject($this->getObject());
 
         if (!empty($parent)) {
-            $containerGetter = "get" . ucfirst($this->fieldname);
-            $brickGetter = "get" . ucfirst($this->getType());
-            $getter = "get" . ucfirst($key);
+            $containerGetter = 'get' . ucfirst($this->fieldname);
+            $brickGetter = 'get' . ucfirst($this->getType());
+            $getter = 'get' . ucfirst($key);
 
             if ($parent->$containerGetter()->$brickGetter()) {
                 return $parent->$containerGetter()->$brickGetter()->$getter();

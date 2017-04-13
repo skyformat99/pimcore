@@ -124,7 +124,7 @@ class Fieldcollection extends Model\AbstractModel implements \Iterator
                         $collection->setObject($object);
                         $collection->save($object);
                     } else {
-                        throw new \Exception("Fieldcollection of type " . $collection->getType() . " is not allowed in field: " . $this->getFieldname());
+                        throw new \Exception('Fieldcollection of type ' . $collection->getType() . ' is not allowed in field: ' . $this->getFieldname());
                     }
                 }
             }

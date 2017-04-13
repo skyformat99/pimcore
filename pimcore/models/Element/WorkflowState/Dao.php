@@ -33,10 +33,10 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function getByPrimary($cid, $ctype, $workflowId)
     {
-        $data = $this->db->fetchRow("SELECT * FROM element_workflow_state WHERE cid = ? AND ctype = ? AND workflowId = ?", [$cid, $ctype, $workflowId]);
+        $data = $this->db->fetchRow('SELECT * FROM element_workflow_state WHERE cid = ? AND ctype = ? AND workflowId = ?', [$cid, $ctype, $workflowId]);
 
-        if (!$data["cid"]) {
-            throw new \Exception("WorkflowStatus item with cid " . $cid . " and ctype " . $ctype . " not found");
+        if (!$data['cid']) {
+            throw new \Exception('WorkflowStatus item with cid ' . $cid . ' and ctype ' . $ctype . ' not found');
         }
         $this->assignVariablesToModel($data);
     }
@@ -54,12 +54,12 @@ class Dao extends Model\Dao\AbstractDao
 
         $data = [];
         foreach ($dataAttributes as $key => $value) {
-            if (in_array($key, $this->getValidTableColumns("element_workflow_state"))) {
+            if (in_array($key, $this->getValidTableColumns('element_workflow_state'))) {
                 $data[$key] = $value;
             }
         }
 
-        $this->db->insertOrUpdate("element_workflow_state", $data);
+        $this->db->insertOrUpdate('element_workflow_state', $data);
 
         return true;
     }
@@ -69,9 +69,9 @@ class Dao extends Model\Dao\AbstractDao
      */
     public function delete()
     {
-        $this->db->delete("element_workflow_state", [
-            "cid" => $this->model->getCid(),
-            "ctype" => $this->model->getCtype()
+        $this->db->delete('element_workflow_state', [
+            'cid' => $this->model->getCid(),
+            'ctype' => $this->model->getCtype()
         ]);
     }
 }

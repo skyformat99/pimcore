@@ -356,13 +356,13 @@ class HeadLink extends CacheBusterAware
                 if (isset($item->href)) {
                     $realFile = PIMCORE_WEB_ROOT . $item->href;
                     if (file_exists($realFile)) {
-                        $item->href = "/cache-buster-" . filemtime($realFile) . $item->href;
+                        $item->href = '/cache-buster-' . filemtime($realFile) . $item->href;
                     }
                 }
             }
 
             \Pimcore::getEventDispatcher()->dispatch(FrontendEvents::VIEW_HELPER_HEAD_LINK, new GenericEvent($this, [
-                "item" => $item
+                'item' => $item
             ]));
         }
     }

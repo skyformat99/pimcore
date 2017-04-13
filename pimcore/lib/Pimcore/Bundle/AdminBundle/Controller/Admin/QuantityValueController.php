@@ -36,43 +36,43 @@ class QuantityValueController extends AdminController
      */
     public function unitProxyAction(Request $request)
     {
-        if ($request->get("data")) {
-            if ($request->get("xaction") == "destroy") {
-                $data = json_decode($request->get("data"), true);
-                $id = $data["id"];
+        if ($request->get('data')) {
+            if ($request->get('xaction') == 'destroy') {
+                $data = json_decode($request->get('data'), true);
+                $id = $data['id'];
                 $unit = \Pimcore\Model\Object\QuantityValue\Unit::getById($id);
                 if (!empty($unit)) {
                     $unit->delete();
 
-                    return $this->json(["data" => [], "success" => true]);
+                    return $this->json(['data' => [], 'success' => true]);
                 } else {
-                    throw new \Exception("Unit with id " . $id . " not found.");
+                    throw new \Exception('Unit with id ' . $id . ' not found.');
                 }
-            } elseif ($request->get("xaction") == "update") {
-                $data = json_decode($request->get("data"), true);
+            } elseif ($request->get('xaction') == 'update') {
+                $data = json_decode($request->get('data'), true);
                 $unit = Unit::getById($data['id']);
                 if (!empty($unit)) {
                     $unit->setValues($data);
                     $unit->save();
 
-                    return $this->json(["data" => get_object_vars($unit), "success" => true]);
+                    return $this->json(['data' => get_object_vars($unit), 'success' => true]);
                 } else {
-                    throw new \Exception("Unit with id " . $data['id'] . " not found.");
+                    throw new \Exception('Unit with id ' . $data['id'] . ' not found.');
                 }
-            } elseif ($request->get("xaction") == "create") {
-                $data = json_decode($request->get("data"), true);
+            } elseif ($request->get('xaction') == 'create') {
+                $data = json_decode($request->get('data'), true);
                 unset($data['id']);
                 $unit = new Unit();
                 $unit->setValues($data);
                 $unit->save();
 
-                return $this->json(["data" => get_object_vars($unit), "success" => true]);
+                return $this->json(['data' => get_object_vars($unit), 'success' => true]);
             }
         } else {
             $list = new Unit\Listing();
 
-            $orderKey = "abbreviation";
-            $order = "asc";
+            $orderKey = 'abbreviation';
+            $order = 'asc';
 
             $allParams = array_merge($request->request->all(), $request->query->all());
             $sortingSettings = \Pimcore\Admin\Helper\QueryParams::extractSortingSettings($allParams);
@@ -86,20 +86,20 @@ class QuantityValueController extends AdminController
             $list->setOrder($order);
             $list->setOrderKey($orderKey);
 
-            $list->setLimit($request->get("limit"));
-            $list->setOffset($request->get("start"));
+            $list->setLimit($request->get('limit'));
+            $list->setOffset($request->get('start'));
 
-            $condition = "1 = 1";
-            if ($request->get("filter")) {
-                $filterString = $request->get("filter");
+            $condition = '1 = 1';
+            if ($request->get('filter')) {
+                $filterString = $request->get('filter');
                 $filters = json_decode($filterString);
                 $db = \Pimcore\Db::get();
                 foreach ($filters as $f) {
-                    if ($f->type == "string") {
-                        $condition .= " AND " . $db->quoteIdentifier($f->property) . " LIKE " . $db->quote("%" . $f->value . "%");
-                    } elseif ($f->type == "numeric") {
+                    if ($f->type == 'string') {
+                        $condition .= ' AND ' . $db->quoteIdentifier($f->property) . ' LIKE ' . $db->quote('%' . $f->value . '%');
+                    } elseif ($f->type == 'numeric') {
                         $operator = $this->getOperator($f->comparison);
-                        $condition .= " AND " . $db->quoteIdentifier($f->property) . " " . $operator . " " . $db->quote($f->value);
+                        $condition .= ' AND ' . $db->quoteIdentifier($f->property) . ' ' . $operator . ' ' . $db->quote($f->value);
                     }
                 }
                 $list->setCondition($condition);
@@ -111,7 +111,7 @@ class QuantityValueController extends AdminController
                 $units[] = get_object_vars($u);
             }
 
-            return $this->json(["data" => $units, "success" => true, "total" => $list->getTotalCount()]);
+            return $this->json(['data' => $units, 'success' => true, 'total' => $list->getTotalCount()]);
         }
     }
 
@@ -123,9 +123,9 @@ class QuantityValueController extends AdminController
     private function getOperator($comparison)
     {
         $mapper = [
-            "lt" => "<",
-            "gt" => ">",
-            "eq" => "="
+            'lt' => '<',
+            'gt' => '>',
+            'eq' => '='
         ];
 
         return $mapper[$comparison];
@@ -141,21 +141,21 @@ class QuantityValueController extends AdminController
     public function unitListAction(Request $request)
     {
         $list = new Unit\Listing();
-        $list->setOrderKey("abbreviation");
-        $list->setOrder("ASC");
-        if ($request->get("filter")) {
-            $array = explode(",", $request->get("filter"));
+        $list->setOrderKey('abbreviation');
+        $list->setOrder('ASC');
+        if ($request->get('filter')) {
+            $array = explode(',', $request->get('filter'));
             $quotedArray = [];
             $db = \Pimcore\Db::get();
             foreach ($array as $a) {
                 $quotedArray[] = $db->quote($a);
             }
-            $string = implode(",", $quotedArray);
-            $list->setCondition("id IN (" . $string . ")");
+            $string = implode(',', $quotedArray);
+            $list->setCondition('id IN (' . $string . ')');
         }
 
         $units = $list->getUnits();
 
-        return $this->json(["data" => $units, "success" => true, "total" => $list->getTotalCount()]);
+        return $this->json(['data' => $units, 'success' => true, 'total' => $list->getTotalCount()]);
     }
 }

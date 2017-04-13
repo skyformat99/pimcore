@@ -55,7 +55,7 @@ class AdminOrderController extends FrontendController
         // set language
         $user = $this->get('pimcore_admin.security.token_storage_user_resolver')->getUser();
         if ($user) {
-            $this->get("translator")->setLocale($user->getLanguage());
+            $this->get('translator')->setLocale($user->getLanguage());
             $event->getRequest()->setLocale($user->getLanguage());
         }
 
@@ -298,7 +298,7 @@ class AdminOrderController extends FrontendController
             $note->save();
 
             // redir
-            $url = $this->generateUrl("pimcore_ecommerce_backend_admin-order_detail", ['id' => $order->getId()]);
+            $url = $this->generateUrl('pimcore_ecommerce_backend_admin-order_detail', ['id' => $order->getId()]);
 
             return $this->redirect($url);
         }
@@ -326,7 +326,7 @@ class AdminOrderController extends FrontendController
             $note->save();
 
             // redir
-            $url = $this->generateUrl("pimcore_ecommerce_backend_admin-order_detail", ['id' => $order->getId()]);
+            $url = $this->generateUrl('pimcore_ecommerce_backend_admin-order_detail', ['id' => $order->getId()]);
 
             return $this->redirect($url);
         }
@@ -354,7 +354,7 @@ class AdminOrderController extends FrontendController
             $note->save();
 
             // redir
-            $url = $this->generateUrl("pimcore_ecommerce_backend_admin-order_detail", ['id' => $order->getId()]);
+            $url = $this->generateUrl('pimcore_ecommerce_backend_admin-order_detail', ['id' => $order->getId()]);
 
             return $this->redirect($url);
         }

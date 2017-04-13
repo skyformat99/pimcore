@@ -233,7 +233,7 @@ class Mime
     public static function detect($file, $filename = null)
     {
         if (!file_exists($file)) {
-            throw new \Exception("File " . $file . " doesn't exist");
+            throw new \Exception('File ' . $file . " doesn't exist");
         }
 
         if (!$filename) {
@@ -262,6 +262,6 @@ class Mime
         }
 
         // return default mime-type if we're unable to detect it
-        return "application/octet-stream";
+        return 'application/octet-stream';
     }
 }

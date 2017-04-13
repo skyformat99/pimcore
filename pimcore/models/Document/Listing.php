@@ -58,11 +58,11 @@ class Listing extends Model\Listing\AbstractListing implements \Zend_Paginator_A
      * @var array
      */
     public $validOrderKeys = [
-        "creationDate",
-        "modificationDate",
-        "id",
-        "key",
-        "index"
+        'creationDate',
+        'modificationDate',
+        'id',
+        'key',
+        'index'
     ];
 
     /**
@@ -140,10 +140,10 @@ class Listing extends Model\Listing\AbstractListing implements \Zend_Paginator_A
 
         if ($condition) {
             if (Document::doHideUnpublished() && !$this->getUnpublished()) {
-                $condition = " (" . $condition . ") AND published = 1";
+                $condition = ' (' . $condition . ') AND published = 1';
             }
         } elseif (Document::doHideUnpublished() && !$this->getUnpublished()) {
-            $condition = "published = 1";
+            $condition = 'published = 1';
         }
 
         return $condition;

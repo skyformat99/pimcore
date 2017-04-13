@@ -67,7 +67,7 @@ class Cache extends Helper
      */
     public function __invoke($name, $lifetime = null, $force = false)
     {
-        $this->key = "pimcore_viewcache_" . $name;
+        $this->key = 'pimcore_viewcache_' . $name;
         $this->force = $force;
 
         if (!$lifetime) {
@@ -108,9 +108,9 @@ class Cache extends Helper
         if ($this->captureEnabled[$this->key]) {
             $this->captureEnabled[$this->key] = false;
 
-            $tags = ["in_template"];
+            $tags = ['in_template'];
             if (!$this->lifetime) {
-                $tags[] = "output";
+                $tags[] = 'output';
             }
 
             $content = ob_get_clean();

@@ -110,7 +110,7 @@ trait Wrapper
                     if ($c) {
                         $c->setHardLinkSource($hardLink);
                         $c->setSourceDocument($sourceDocument);
-                        $c->setPath(preg_replace("@^" . preg_quote($hardLink->getSourceDocument()->getRealFullpath()) . "@", $hardLink->getRealFullpath(), $c->getRealPath()));
+                        $c->setPath(preg_replace('@^' . preg_quote($hardLink->getSourceDocument()->getRealFullpath()) . '@', $hardLink->getRealFullpath(), $c->getRealPath()));
 
                         $children[] = $c;
                     }
@@ -142,7 +142,7 @@ trait Wrapper
      */
     protected function raiseHardlinkError()
     {
-        throw new \Exception("Method no supported by hardlinked documents");
+        throw new \Exception('Method no supported by hardlinked documents');
     }
 
     /**

@@ -109,7 +109,7 @@ class Item
      */
     public function setValue($key, $value)
     {
-        $method = "set" . $key;
+        $method = 'set' . $key;
         if (method_exists($this, $method)) {
             $this->$method($value);
         }

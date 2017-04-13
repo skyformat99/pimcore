@@ -30,7 +30,7 @@ class Rule extends \Pimcore\Model\AbstractModel implements IRule
      */
     public static function getById($id)
     {
-        $cacheKey = Dao::TABLE_NAME . "_" . $id;
+        $cacheKey = Dao::TABLE_NAME . '_' . $id;
         try {
             $rule = Runtime::get($cacheKey);
         } catch (\Exception $e) {
@@ -105,7 +105,7 @@ class Rule extends \Pimcore\Model\AbstractModel implements IRule
      */
     public function setValue($key, $value)
     {
-        $method = "set" . $key;
+        $method = 'set' . $key;
         if (method_exists($this, $method)) {
             switch ($method) {
                 // localized fields

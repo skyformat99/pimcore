@@ -40,7 +40,7 @@ class Cse implements \Zend_Paginator_Adapter_Interface, \Zend_Paginator_AdapterA
         $list->setQuery($query);
 
         if (!empty($facet)) {
-            $list->setQuery($list->getQuery() . " more:" . $facet);
+            $list->setQuery($list->getQuery() . ' more:' . $facet);
         }
 
         return $list;
@@ -58,27 +58,27 @@ class Cse implements \Zend_Paginator_Adapter_Interface, \Zend_Paginator_AdapterA
             $search = new \Google_Service_Customsearch($client);
 
             // determine language
-            $language = \Pimcore::getContainer()->get("pimcore.locale")->findLocale();
+            $language = \Pimcore::getContainer()->get('pimcore.locale')->findLocale();
 
-            if (!array_key_exists("hl", $config) && !empty($language)) {
-                $config["hl"] = $language;
+            if (!array_key_exists('hl', $config) && !empty($language)) {
+                $config['hl'] = $language;
             }
 
-            if (!array_key_exists("lr", $config) && !empty($language)) {
-                $config["lr"] = "lang_" . $language;
+            if (!array_key_exists('lr', $config) && !empty($language)) {
+                $config['lr'] = 'lang_' . $language;
             }
 
             if ($query) {
                 if ($offset) {
-                    $config["start"] = $offset + 1;
+                    $config['start'] = $offset + 1;
                 }
                 if (empty($perPage)) {
                     $perPage = 10;
                 }
 
-                $config["num"] = $perPage;
+                $config['num'] = $perPage;
 
-                $cacheKey = "google_cse_" . md5($query . serialize($config));
+                $cacheKey = 'google_cse_' . md5($query . serialize($config));
 
                 // this is just a protection so that no query get's sent twice in a request (loops, ...)
                 if (\Pimcore\Cache\Runtime::isRegistered($cacheKey)) {
@@ -86,7 +86,7 @@ class Cse implements \Zend_Paginator_Adapter_Interface, \Zend_Paginator_AdapterA
                 } else {
                     if (!$result = Cache::load($cacheKey)) {
                         $result = $search->cse->listCse($query, $config);
-                        Cache::save($result, $cacheKey, ["google_cse"], 3600, 999);
+                        Cache::save($result, $cacheKey, ['google_cse'], 3600, 999);
                         \Pimcore\Cache\Runtime::set($cacheKey, $result);
                     }
                 }
@@ -98,7 +98,7 @@ class Cse implements \Zend_Paginator_Adapter_Interface, \Zend_Paginator_AdapterA
 
             return [];
         } else {
-            throw new \Exception("Google Simple API Key is not configured in System-Settings.");
+            throw new \Exception('Google Simple API Key is not configured in System-Settings.');
         }
     }
 
@@ -130,7 +130,7 @@ class Cse implements \Zend_Paginator_Adapter_Interface, \Zend_Paginator_AdapterA
     /**
      * @var string
      */
-    public $query = "";
+    public $query = '';
 
     /**
      * @var array
@@ -157,15 +157,15 @@ class Cse implements \Zend_Paginator_Adapter_Interface, \Zend_Paginator_AdapterA
      */
     public function readGoogleResponse($googleResponse)
     {
-        $googleResponse = $googleResponse["modelData"];
+        $googleResponse = $googleResponse['modelData'];
         $this->setRaw($googleResponse);
 
         // available factes
-        if (array_key_exists("context", $googleResponse) && is_array($googleResponse["context"])) {
-            if (array_key_exists("facets", $googleResponse["context"]) && is_array($googleResponse["context"]["facets"])) {
+        if (array_key_exists('context', $googleResponse) && is_array($googleResponse['context'])) {
+            if (array_key_exists('facets', $googleResponse['context']) && is_array($googleResponse['context']['facets'])) {
                 $facets = [];
-                foreach ($googleResponse["context"]["facets"] as $facet) {
-                    $facets[$facet[0]["label"]] = $facet[0]["anchor"];
+                foreach ($googleResponse['context']['facets'] as $facet) {
+                    $facets[$facet[0]['label']] = $facet[0]['anchor'];
                 }
                 $this->setFacets($facets);
             }
@@ -175,57 +175,57 @@ class Cse implements \Zend_Paginator_Adapter_Interface, \Zend_Paginator_AdapterA
         $items = [];
 
         // set promotions
-        if (array_key_exists("promotions", $googleResponse) && is_array($googleResponse["promotions"])) {
-            foreach ($googleResponse["promotions"] as $promo) {
-                $promo["type"] = "promotion";
-                $promo["formattedUrl"] = preg_replace("@^https?://@", "", $promo["link"]);
-                $promo["htmlFormattedUrl"] = $promo["formattedUrl"];
+        if (array_key_exists('promotions', $googleResponse) && is_array($googleResponse['promotions'])) {
+            foreach ($googleResponse['promotions'] as $promo) {
+                $promo['type'] = 'promotion';
+                $promo['formattedUrl'] = preg_replace('@^https?://@', '', $promo['link']);
+                $promo['htmlFormattedUrl'] = $promo['formattedUrl'];
 
                 $items[] = new Item($promo);
             }
         }
 
         // set search results
-        $total = intval($googleResponse["searchInformation"]["totalResults"]);
+        $total = intval($googleResponse['searchInformation']['totalResults']);
         if ($total > 100) {
             $total = 100;
         }
         $this->setTotal($total);
 
-        if (array_key_exists("items", $googleResponse) && is_array($googleResponse["items"])) {
-            foreach ($googleResponse["items"] as $item) {
+        if (array_key_exists('items', $googleResponse) && is_array($googleResponse['items'])) {
+            foreach ($googleResponse['items'] as $item) {
 
                 // check for relation to document or asset
                 // first check for an image
-                if (array_key_exists("pagemap", $item) && is_array($item["pagemap"])) {
-                    if (array_key_exists("cse_image", $item["pagemap"]) && is_array($item["pagemap"]["cse_image"])) {
-                        if ($item["pagemap"]["cse_image"][0]) {
+                if (array_key_exists('pagemap', $item) && is_array($item['pagemap'])) {
+                    if (array_key_exists('cse_image', $item['pagemap']) && is_array($item['pagemap']['cse_image'])) {
+                        if ($item['pagemap']['cse_image'][0]) {
                             // try to get the asset id
-                            if (preg_match("/thumb_([0-9]+)__/", $item["pagemap"]["cse_image"][0]["src"], $matches)) {
+                            if (preg_match('/thumb_([0-9]+)__/', $item['pagemap']['cse_image'][0]['src'], $matches)) {
                                 $test = $matches;
                                 if ($matches[1]) {
                                     if ($image = Model\Asset::getById($matches[1])) {
                                         if ($image instanceof Model\Asset\Image) {
-                                            $item["image"] = $image;
+                                            $item['image'] = $image;
                                         }
                                     }
                                 }
                             }
 
-                            if (!array_key_exists("image", $item)) {
-                                $item["image"] = $item["pagemap"]["cse_image"][0]["src"];
+                            if (!array_key_exists('image', $item)) {
+                                $item['image'] = $item['pagemap']['cse_image'][0]['src'];
                             }
                         }
                     }
                 }
 
                 // now a document
-                $urlParts = parse_url($item["link"]);
-                if ($document = Model\Document::getByPath($urlParts["path"])) {
-                    $item["document"] = $document;
+                $urlParts = parse_url($item['link']);
+                if ($document = Model\Document::getByPath($urlParts['path'])) {
+                    $item['document'] = $document;
                 }
 
-                $item["type"] = "searchresult";
+                $item['type'] = 'searchresult';
 
                 $items[] = new Item($item);
             }

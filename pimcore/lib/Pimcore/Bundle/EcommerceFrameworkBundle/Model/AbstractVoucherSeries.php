@@ -49,10 +49,10 @@ abstract class AbstractVoucherSeries extends \Pimcore\Model\Object\Concrete
     {
         $db = \Pimcore\Db::get();
 
-        $query = "
-            SELECT length, COUNT(*) AS count FROM " . \Pimcore\Bundle\EcommerceFrameworkBundle\VoucherService\Token\Dao::TABLE_NAME . "
+        $query = '
+            SELECT length, COUNT(*) AS count FROM ' . \Pimcore\Bundle\EcommerceFrameworkBundle\VoucherService\Token\Dao::TABLE_NAME . '
             WHERE voucherSeriesId = ?
-            GROUP BY length";
+            GROUP BY length';
 
         try {
             $lengths = $db->fetchAll($query, [$this->getId()]);

@@ -16,7 +16,7 @@
  */
 $workingDirectory = getcwd();
 chdir(__DIR__);
-include_once("../../../pimcore/cli/startup.php");
+include_once('../../../pimcore/cli/startup.php');
 chdir($workingDirectory);
 
 function processPHPContent($fileContent, $license)
@@ -25,14 +25,14 @@ function processPHPContent($fileContent, $license)
     $regex = '#^<\?php\s*\/\**\*\s*\**\s*Created by.*PhpStorm\.\s*\**\s*User[\s\S]*\*\/#U';
 
     if (preg_match($regex, $fileContent) === 1) {
-        $fileContent = preg_replace($regex, "<?php", $fileContent, 1);
+        $fileContent = preg_replace($regex, '<?php', $fileContent, 1);
     }
 
     //remove old license
     $regex = '#^<\?php\s*\/\**\*\s*\**\s*Pimcore[\s\S]*\*\/#U';
 
     if (preg_match($regex, $fileContent) === 1) {
-        $fileContent = preg_replace($regex, "<?php", $fileContent, 1);
+        $fileContent = preg_replace($regex, '<?php', $fileContent, 1);
     }
 
     //apply new license
@@ -52,14 +52,14 @@ function processTEXTContent($fileContent, $license)
     $regex = '#^\s*\/\**\*\s*\**\s*Created by JetBrains PhpStorm\.\s*\**\s*User[\s\S]*\*\/\s*#U';
 
     if (preg_match($regex, $fileContent) === 1) {
-        $fileContent = preg_replace($regex, "", $fileContent, 1);
+        $fileContent = preg_replace($regex, '', $fileContent, 1);
     }
 
     //remove old license
     $regex = '#^\s*\/\**\*\s*\**\s*Pimcore[\s\S]*\*\/#U';
 
     if (preg_match($regex, $fileContent) === 1) {
-        $fileContent = preg_replace($regex, "", $fileContent, 1);
+        $fileContent = preg_replace($regex, '', $fileContent, 1);
     }
 
     //apply new license
@@ -73,7 +73,7 @@ function processTEXTContent($fileContent, $license)
     return $fileContent;
 }
 
-$rootPath = "../";
+$rootPath = '../';
 $excludedDirectories = [
     '../install',
     '../Resources/public/img',
@@ -87,7 +87,7 @@ $excludedDirectories = [
 ];
 
 $license =
-"/**
+'/**
  * Pimcore
  *
  * This source file is available under two different licenses:
@@ -99,11 +99,11 @@ $license =
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
-";
+';
 
 $excludePatterns = [];
 foreach ($excludedDirectories as $dir) {
-    $excludePatterns[] = "(^" . str_replace('/', '\/', $dir) . ")";
+    $excludePatterns[] = '(^' . str_replace('/', '\/', $dir) . ')';
 }
 $excludePatterns_flattened = '/'. implode('|', $excludePatterns) .'/';
 echo $excludePatterns_flattened;
@@ -118,18 +118,18 @@ foreach ($iterator as $path) {
      * @var $path SplFileInfo
      */
     if (preg_match($excludePatterns_flattened, $path, $matches) === 1) {
-        print $path->__toString() . " -> exclude" . PHP_EOL;
+        print $path->__toString() . ' -> exclude' . PHP_EOL;
     } else {
-        print $path->__toString() . " -> include" . PHP_EOL;
+        print $path->__toString() . ' -> include' . PHP_EOL;
         if (!$path->isDir()) {
-            $files[$path->getExtension()][] = $path->getPath() . "/" . $path->getFilename();
+            $files[$path->getExtension()][] = $path->getPath() . '/' . $path->getFilename();
         }
     }
 }
 
 //php files
 foreach ($files['php'] as $file) {
-    echo "process file " . $file . "...";
+    echo 'process file ' . $file . '...';
     $fileContent = file_get_contents($file);
     $fileContent = processPHPContent($fileContent, $license);
 //    echo $fileContent; die();
@@ -139,7 +139,7 @@ foreach ($files['php'] as $file) {
 
 //css files
 foreach ($files['css'] as $file) {
-    echo "process file " . $file . "...";
+    echo 'process file ' . $file . '...';
     $fileContent = file_get_contents($file);
     $fileContent = processTEXTContent($fileContent, $license);
 //    echo $fileContent; die();
@@ -149,7 +149,7 @@ foreach ($files['css'] as $file) {
 
 //txt files
 foreach ($files['txt'] as $file) {
-    echo "process file " . $file . "...";
+    echo 'process file ' . $file . '...';
     $fileContent = file_get_contents($file);
     $fileContent = processTEXTContent($fileContent, $license);
 //    echo $fileContent; die();
@@ -159,7 +159,7 @@ foreach ($files['txt'] as $file) {
 
 //js files
 foreach ($files['js'] as $file) {
-    echo "process file " . $file . "...";
+    echo 'process file ' . $file . '...';
     $fileContent = file_get_contents($file);
     $fileContent = processTEXTContent($fileContent, $license);
 //    echo $fileContent; die();

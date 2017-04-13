@@ -23,7 +23,7 @@ class Dao extends \Pimcore\Model\Listing\Dao\AbstractDao
     {
         $items = [];
 
-        $cartCheckoutDataItems = $this->db->fetchAll("SELECT cartid, `key` FROM " . \Pimcore\Bundle\EcommerceFrameworkBundle\CartManager\CartCheckoutData\Dao::TABLE_NAME .
+        $cartCheckoutDataItems = $this->db->fetchAll('SELECT cartid, `key` FROM ' . \Pimcore\Bundle\EcommerceFrameworkBundle\CartManager\CartCheckoutData\Dao::TABLE_NAME .
                                                  $this->getCondition() . $this->getOrder() . $this->getOffsetLimit());
 
         foreach ($cartCheckoutDataItems as $item) {
@@ -36,8 +36,8 @@ class Dao extends \Pimcore\Model\Listing\Dao\AbstractDao
 
     public function getTotalCount()
     {
-        $amount = $this->db->fetchRow("SELECT COUNT(*) as amount FROM `" . \Pimcore\Bundle\EcommerceFrameworkBundle\CartManager\CartCheckoutData\Dao::TABLE_NAME . "`" . $this->getCondition());
+        $amount = $this->db->fetchRow('SELECT COUNT(*) as amount FROM `' . \Pimcore\Bundle\EcommerceFrameworkBundle\CartManager\CartCheckoutData\Dao::TABLE_NAME . '`' . $this->getCondition());
 
-        return $amount["amount"];
+        return $amount['amount'];
     }
 }

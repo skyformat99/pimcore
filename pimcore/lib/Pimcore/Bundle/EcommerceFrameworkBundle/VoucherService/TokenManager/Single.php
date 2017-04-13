@@ -34,9 +34,9 @@ class Single extends AbstractTokenManager implements IExportableTokenManager
     {
         parent::__construct($configuration);
         if ($configuration instanceof VoucherTokenTypeSingle) {
-            $this->template = "PimcoreEcommerceFrameworkBundle:Voucher:voucherCodeTabSingle.html.php";
+            $this->template = 'PimcoreEcommerceFrameworkBundle:Voucher:voucherCodeTabSingle.html.php';
         } else {
-            throw new InvalidConfigException("Invalid Configuration Class for type VoucherTokenTypeSingle.");
+            throw new InvalidConfigException('Invalid Configuration Class for type VoucherTokenTypeSingle.');
         }
     }
 
@@ -154,7 +154,7 @@ class Single extends AbstractTokenManager implements IExportableTokenManager
         $now = new \DateTime();
         $periodData = [];
         for ($i = $usagePeriod; $i > 0; $i--) {
-            $index = $now->format("Y-m-d");
+            $index = $now->format('Y-m-d');
             $periodData[$index] = isset($data[$index]) ? $data[$index] : 0;
             $now->modify('-1 day');
         }

@@ -232,7 +232,7 @@ class KeyGroupRelation extends Model\AbstractModel
     public static function getByGroupAndKeyId($groupId, $keyId)
     {
         $relation = new KeyGroupRelation\Listing();
-        $relation->setCondition("groupId = " . $relation->quote($groupId) . " and keyId = " . $relation->quote($keyId));
+        $relation->setCondition('groupId = ' . $relation->quote($groupId) . ' and keyId = ' . $relation->quote($keyId));
         $relation->setLimit(1);
         $relation = $relation->load();
         if ($relation) {

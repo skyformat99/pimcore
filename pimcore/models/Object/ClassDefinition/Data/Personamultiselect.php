@@ -27,20 +27,20 @@ class Personamultiselect extends Model\Object\ClassDefinition\Data\Multiselect
      *
      * @var string
      */
-    public $fieldtype = "personamultiselect";
+    public $fieldtype = 'personamultiselect';
 
     public function configureOptions()
     {
         $list = new Tool\Targeting\Persona\Listing();
-        $list->setOrder("asc");
-        $list->setOrderKey("name");
+        $list->setOrder('asc');
+        $list->setOrderKey('name');
         $personas = $list->load();
 
         $options = [];
         foreach ($personas as $persona) {
             $options[] = [
-                "value" => $persona->getId(),
-                "key" => $persona->getName()
+                'value' => $persona->getId(),
+                'key' => $persona->getName()
             ];
         }
 

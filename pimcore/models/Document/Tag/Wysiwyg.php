@@ -20,7 +20,7 @@ namespace Pimcore\Model\Document\Tag;
 use Pimcore\Model;
 use Pimcore\Tool\Text;
 
-include_once(PIMCORE_PATH . "/lib/simple_html_dom.php");
+include_once(PIMCORE_PATH . '/lib/simple_html_dom.php');
 
 /**
  * @method \Pimcore\Model\Document\Tag\Dao getDao()
@@ -41,7 +41,7 @@ class Wysiwyg extends Model\Document\Tag
      */
     public function getType()
     {
-        return "wysiwyg";
+        return 'wysiwyg';
     }
 
     /**
@@ -124,7 +124,7 @@ class Wysiwyg extends Model\Document\Tag
         if ($data->text === null or is_string($data->text)) {
             $this->text = $data->text;
         } else {
-            throw new \Exception("cannot get values from web service import - invalid data");
+            throw new \Exception('cannot get values from web service import - invalid data');
         }
     }
 
@@ -171,7 +171,7 @@ class Wysiwyg extends Model\Document\Tag
             return $this->text;
         }
 
-        $s = $html->find("a[pimcore_id],img[pimcore_id]");
+        $s = $html->find('a[pimcore_id],img[pimcore_id]');
 
         if ($s) {
             foreach ($s as $el) {

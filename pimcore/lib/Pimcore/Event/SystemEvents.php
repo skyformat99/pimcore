@@ -41,7 +41,7 @@ final class SystemEvents
      *
      * @var string
      */
-    const CONSOLE_INIT = "pimcore.system.console.init";
+    const CONSOLE_INIT = 'pimcore.system.console.init';
 
     /**
      * This event is fired on maintenance mode activation
@@ -50,7 +50,7 @@ final class SystemEvents
      *
      * @var string
      */
-    const MAINTENANCE_MODE_ACTIVATE = "pimcore.system.maintenance_mode.activate";
+    const MAINTENANCE_MODE_ACTIVATE = 'pimcore.system.maintenance_mode.activate';
 
     /**
      * This event is fired on maintenance mode deactivation
@@ -59,7 +59,7 @@ final class SystemEvents
      *
      * @var string
      */
-    const MAINTENANCE_MODE_DEACTIVATE = "pimcore.system.maintenance_mode.deactivate";
+    const MAINTENANCE_MODE_DEACTIVATE = 'pimcore.system.maintenance_mode.deactivate';
 
     /**
      * This event is fired on Full-Page Cache clear
@@ -68,7 +68,7 @@ final class SystemEvents
      *
      * @var string
      */
-    const CACHE_CLEAR_FULLPAGE_CACHE = "pimcore.system.cache.clearFullpageCache";
+    const CACHE_CLEAR_FULLPAGE_CACHE = 'pimcore.system.cache.clearFullpageCache';
 
     /**
      * This event is fired on Cache clear
@@ -77,7 +77,7 @@ final class SystemEvents
      *
      * @var string
      */
-    const CACHE_CLEAR = "pimcore.system.cache.clear";
+    const CACHE_CLEAR = 'pimcore.system.cache.clear';
 
     /**
      * This event is fired on Temporary Files clear
@@ -86,7 +86,7 @@ final class SystemEvents
      *
      * @var string
      */
-    const CACHE_CLEAR_TEMPORARY_FILES = "pimcore.system.cache.clearTemporaryFiles";
+    const CACHE_CLEAR_TEMPORARY_FILES = 'pimcore.system.cache.clearTemporaryFiles';
 
     /**
      * This event is fired on Temporary Files clear
@@ -95,5 +95,5 @@ final class SystemEvents
      *
      * @var string
      */
-    const SERVICE_PRE_GET_VALID_KEY = "pimcore.system.service.preGetValidKey";
+    const SERVICE_PRE_GET_VALID_KEY = 'pimcore.system.service.preGetValidKey';
 }

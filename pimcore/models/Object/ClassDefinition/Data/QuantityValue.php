@@ -26,7 +26,7 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $fieldtype = "quantityValue";
+    public $fieldtype = 'quantityValue';
 
     /**
      * @var float
@@ -54,8 +54,8 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
      * @var int
      */
     public $queryColumnType = [
-        "value" => "double",
-        "unit" => "bigint(20)"
+        'value' => 'double',
+        'unit' => 'bigint(20)'
     ];
 
     /**
@@ -64,8 +64,8 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
      * @var string
      */
     public $columnType = [
-        "value" => "double",
-        "unit" => "bigint(20)"
+        'value' => 'double',
+        'unit' => 'bigint(20)'
     ];
 
     /**
@@ -73,7 +73,7 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
      *
      * @var string
      */
-    public $phpdocType = "Pimcore\\Model\\Object\\Data\\QuantityValue";
+    public $phpdocType = 'Pimcore\\Model\\Object\\Data\\QuantityValue';
 
     /**
      * @return int
@@ -156,14 +156,14 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
     {
         if ($data instanceof \Pimcore\Model\Object\Data\QuantityValue) {
             return [
-                $this->getName() . "__value" => $data->getValue(),
-                $this->getName() . "__unit" => $data->getUnitId()
+                $this->getName() . '__value' => $data->getValue(),
+                $this->getName() . '__unit' => $data->getUnitId()
             ];
         }
 
         return [
-            $this->getName() . "__value" => null,
-            $this->getName() . "__unit" => null
+            $this->getName() . '__value' => null,
+            $this->getName() . '__unit' => null
         ];
     }
 
@@ -178,8 +178,8 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
      */
     public function getDataFromResource($data, $object = null, $params = [])
     {
-        if ($data[$this->getName() . "__value"] || $data[$this->getName() . "__unit"]) {
-            return new  \Pimcore\Model\Object\Data\QuantityValue($data[$this->getName() . "__value"], $data[$this->getName() . "__unit"]);
+        if ($data[$this->getName() . '__value'] || $data[$this->getName() . '__unit']) {
+            return new  \Pimcore\Model\Object\Data\QuantityValue($data[$this->getName() . '__value'], $data[$this->getName() . '__unit']);
         }
 
         return;
@@ -212,8 +212,8 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
     {
         if ($data instanceof  \Pimcore\Model\Object\Data\QuantityValue) {
             return [
-                "value" => $data->getValue(),
-                "unit" => $data->getUnitId()
+                'value' => $data->getValue(),
+                'unit' => $data->getUnitId()
             ];
         }
 
@@ -231,12 +231,12 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
      */
     public function getDataFromEditmode($data, $object = null, $params = [])
     {
-        if ($data["value"] || $data["unit"]) {
-            if (is_numeric($data["unit"])) {
-                if ($data["unit"] == -1 || $data['unit'] == null || empty($data['unit'])) {
-                    return new \Pimcore\Model\Object\Data\QuantityValue($data["value"], null);
+        if ($data['value'] || $data['unit']) {
+            if (is_numeric($data['unit'])) {
+                if ($data['unit'] == -1 || $data['unit'] == null || empty($data['unit'])) {
+                    return new \Pimcore\Model\Object\Data\QuantityValue($data['value'], null);
                 } else {
-                    return new \Pimcore\Model\Object\Data\QuantityValue($data["value"], $data["unit"]);
+                    return new \Pimcore\Model\Object\Data\QuantityValue($data['value'], $data['unit']);
                 }
             }
 
@@ -258,18 +258,18 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
     public function getVersionPreview($data, $object = null, $params = [])
     {
         if ($data instanceof \Pimcore\Model\Object\Data\QuantityValue) {
-            $unit = "";
+            $unit = '';
             if ($data->getUnitId()) {
                 $unitDefinition = Model\Object\QuantityValue\Unit::getById($data->getUnitId());
                 if ($unitDefinition) {
-                    $unit = " " . $unitDefinition->getAbbreviation();
+                    $unit = ' ' . $unitDefinition->getAbbreviation();
                 }
             }
 
             return $data->getValue() . $unit;
         }
 
-        return "";
+        return '';
     }
 
     /**
@@ -283,18 +283,18 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
     public function checkValidity($data, $omitMandatoryCheck = false)
     {
         if (!$omitMandatoryCheck && $this->getMandatory() && ($data === null || $data->getValue() === null)) {
-            throw new Model\Element\ValidationException("Empty mandatory field [ ".$this->getName()." ]");
+            throw new Model\Element\ValidationException('Empty mandatory field [ '.$this->getName().' ]');
         }
 
         if (!empty($data)) {
             $value = $data->getValue();
             if ((!empty($value) && !is_numeric($data->getValue()))) {
-                throw new Model\Element\ValidationException("Invalid dimension unit data " . $this->getName());
+                throw new Model\Element\ValidationException('Invalid dimension unit data ' . $this->getName());
             }
 
             if (!empty($data->getUnitId())) {
                 if (!is_numeric($data->getUnitId())) {
-                    throw new Model\Element\ValidationException("Unit id has to be empty or numeric " . $data->getUnitId());
+                    throw new Model\Element\ValidationException('Unit id has to be empty or numeric ' . $data->getUnitId());
                 }
             }
         }
@@ -313,9 +313,9 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
     public function getForCsvExport($object, $params = [])
     {
         $key = $this->getName();
-        $getter = "get".ucfirst($key);
+        $getter = 'get'.ucfirst($key);
         if ($object->$getter() instanceof \Pimcore\Model\Object\Data\QuantityValue) {
-            return $object->$getter()->getValue() . "_" . $object->$getter()->getUnitId();
+            return $object->$getter()->getValue() . '_' . $object->$getter()->getUnitId();
         } else {
             return null;
         }
@@ -332,11 +332,11 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
      */
     public function getFromCsvImport($importValue, $object = null, $params = [])
     {
-        $values = explode("_", $importValue);
+        $values = explode('_', $importValue);
 
         $value = null;
         if ($values[0] && $values[1]) {
-            $number = (float) str_replace(",", ".", $values[0]);
+            $number = (float) str_replace(',', '.', $values[0]);
             $value = new  \Pimcore\Model\Object\Data\QuantityValue($number, $values[1]);
         }
 
@@ -356,15 +356,15 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
     {
         if ($data instanceof  \Pimcore\Model\Object\Data\QuantityValue) {
             $unit = $data->getUnit();
-            $unitAbbreviation = "";
+            $unitAbbreviation = '';
 
             if ($unit instanceof Model\Object\QuantityValue\Unit) {
                 $unitAbbreviation = $unit->getAbbreviation();
             }
 
             return [
-                "value" => $data->getValue(),
-                "unit" => $unitAbbreviation
+                'value' => $data->getValue(),
+                'unit' => $unitAbbreviation
             ];
         }
 
@@ -385,9 +385,9 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
 
         if ($data instanceof \Pimcore\Model\Object\Data\QuantityValue) {
             return [
-                "value" => $data->getValue(),
-                "unit" => $data->getUnitId(),
-                "unitAbbreviation" => is_object($data->getUnit()) ? $data->getUnit()->getAbbreviation() : ""
+                'value' => $data->getValue(),
+                'unit' => $data->getUnitId(),
+                'unitAbbreviation' => is_object($data->getUnit()) ? $data->getUnit()->getAbbreviation() : ''
             ];
         } else {
             return null;
@@ -412,21 +412,21 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
             return null;
         } else {
             $value = (array) $value;
-            if ($value["value"] !== null && $value["unit"] !== null && $value["unitAbbreviation"] !== null) {
-                $unitId = $value["unit"];
+            if ($value['value'] !== null && $value['unit'] !== null && $value['unitAbbreviation'] !== null) {
+                $unitId = $value['unit'];
 
                 if ($idMapper) {
-                    $unitId = $idMapper->getMappedId("unit", $unitId);
+                    $unitId = $idMapper->getMappedId('unit', $unitId);
                 }
 
                 $unit = Model\Object\QuantityValue\Unit::getById($unitId);
-                if ($unit && $unit->getAbbreviation() == $value["unitAbbreviation"]) {
-                    return new \Pimcore\Model\Object\Data\QuantityValue($value["value"], $unitId);
+                if ($unit && $unit->getAbbreviation() == $value['unitAbbreviation']) {
+                    return new \Pimcore\Model\Object\Data\QuantityValue($value['value'], $unitId);
                 } else {
-                    throw new \Exception(get_class($this).": cannot get values from web service import - unit id and unit abbreviation do not match with local database");
+                    throw new \Exception(get_class($this).': cannot get values from web service import - unit id and unit abbreviation do not match with local database');
                 }
             } else {
-                throw new \Exception(get_class($this).": cannot get values from web service import - invalid data");
+                throw new \Exception(get_class($this).': cannot get values from web service import - invalid data');
             }
         }
     }
@@ -440,27 +440,27 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
      */
     public function marshal($value, $object = null, $params = [])
     {
-        if ($params["blockmode"] && $value instanceof Model\Object\Data\QuantityValue) {
+        if ($params['blockmode'] && $value instanceof Model\Object\Data\QuantityValue) {
             return [
-                "value" => $value->getValue(),
-                "value2" => $value->getUnitId()
+                'value' => $value->getValue(),
+                'value2' => $value->getUnitId()
             ];
-        } elseif ($params["simple"]) {
+        } elseif ($params['simple']) {
             if (is_array($value)) {
-                return [$value[$this->getName() . "__value"], $value[$this->getName() . "__unit"]];
+                return [$value[$this->getName() . '__value'], $value[$this->getName() . '__unit']];
             } else {
                 return null;
             }
         } else {
             if (is_array($value)) {
                 return [
-                    "value" => $value[$this->getName() . "__value"],
-                    "value2" => $value[$this->getName() . "__unit"]
+                    'value' => $value[$this->getName() . '__value'],
+                    'value2' => $value[$this->getName() . '__unit']
                 ];
             } else {
                 return [
-                    "value" => null,
-                    "value2" => null
+                    'value' => null,
+                    'value2' => null
                 ];
             }
         }
@@ -475,14 +475,14 @@ class QuantityValue extends Model\Object\ClassDefinition\Data
      */
     public function unmarshal($value, $object = null, $params = [])
     {
-        if ($params["blockmode"] && is_array($value)) {
-            return new Model\Object\Data\QuantityValue($value["value"], $value["value2"]);
-        } elseif ($params["simple"]) {
+        if ($params['blockmode'] && is_array($value)) {
+            return new Model\Object\Data\QuantityValue($value['value'], $value['value2']);
+        } elseif ($params['simple']) {
             return $value;
         } elseif (is_array($value)) {
             return [
-                $this->getName() . "__value" => $value["value"],
-                $this->getName() . "__unit" => $value["value2"],
+                $this->getName() . '__value' => $value['value'],
+                $this->getName() . '__unit' => $value['value2'],
 
             ];
         } else {

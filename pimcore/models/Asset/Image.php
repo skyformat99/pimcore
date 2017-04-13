@@ -28,13 +28,13 @@ class Image extends Model\Asset
     /**
      * @var string
      */
-    public $type = "image";
+    public $type = 'image';
 
     protected function update()
     {
 
         // only do this if the file exists and contains data
-        if ($this->getDataChanged() || !$this->getCustomSetting("imageDimensionsCalculated")) {
+        if ($this->getDataChanged() || !$this->getCustomSetting('imageDimensionsCalculated')) {
             try {
                 // save the current data into a tmp file to calculate the dimensions, otherwise updates wouldn't be updated
                 // because the file is written in parent::update();
@@ -42,18 +42,18 @@ class Image extends Model\Asset
                 $dimensions = $this->getDimensions($tmpFile, true);
                 unlink($tmpFile);
 
-                if ($dimensions && $dimensions["width"]) {
-                    $this->setCustomSetting("imageWidth", $dimensions["width"]);
-                    $this->setCustomSetting("imageHeight", $dimensions["height"]);
+                if ($dimensions && $dimensions['width']) {
+                    $this->setCustomSetting('imageWidth', $dimensions['width']);
+                    $this->setCustomSetting('imageHeight', $dimensions['height']);
                 }
             } catch (\Exception $e) {
-                Logger::error("Problem getting the dimensions of the image with ID " . $this->getId());
+                Logger::error('Problem getting the dimensions of the image with ID ' . $this->getId());
             }
 
             // this is to be downward compatible so that the controller can check if the dimensions are already calculated
             // and also to just do the calculation once, because the calculation can fail, an then the controller tries to
             // calculate the dimensions on every request an also will create a version, ...
-            $this->setCustomSetting("imageDimensionsCalculated", true);
+            $this->setCustomSetting('imageDimensionsCalculated', true);
         }
 
         parent::update();
@@ -70,7 +70,7 @@ class Image extends Model\Asset
                 // we need the @ in front of touch because of some stream wrapper (eg. s3) which don't support touch()
                 @touch($path, $this->getModificationDate());
             } catch (\Exception $e) {
-                Logger::error("Problem while creating system-thumbnails for image " . $this->getRealFullPath());
+                Logger::error('Problem while creating system-thumbnails for image ' . $this->getRealFullPath());
                 Logger::error($e);
             }
         }
@@ -91,7 +91,7 @@ class Image extends Model\Asset
      */
     public function clearThumbnail($name)
     {
-        $dir = $this->getImageThumbnailSavePath() . "/thumb__" . $name;
+        $dir = $this->getImageThumbnailSavePath() . '/thumb__' . $name;
         if (is_dir($dir)) {
             recursiveDelete($dir);
         }
@@ -152,14 +152,14 @@ class Image extends Model\Asset
     public function getFormat()
     {
         if ($this->getWidth() > $this->getHeight()) {
-            return "landscape";
+            return 'landscape';
         } elseif ($this->getWidth() == $this->getHeight()) {
-            return "square";
+            return 'square';
         } elseif ($this->getHeight() > $this->getWidth()) {
-            return "portrait";
+            return 'portrait';
         }
 
-        return "unknown";
+        return 'unknown';
     }
 
     /**
@@ -167,7 +167,7 @@ class Image extends Model\Asset
      */
     public function getRelativeFileSystemPath()
     {
-        return str_replace(PIMCORE_WEB_ROOT, "", $this->getFileSystemPath());
+        return str_replace(PIMCORE_WEB_ROOT, '', $this->getFileSystemPath());
     }
 
     /**
@@ -181,13 +181,13 @@ class Image extends Model\Asset
     public function getDimensions($path = null, $force = false)
     {
         if (!$force) {
-            $width = $this->getCustomSetting("imageWidth");
-            $height = $this->getCustomSetting("imageHeight");
+            $width = $this->getCustomSetting('imageWidth');
+            $height = $this->getCustomSetting('imageHeight');
 
             if ($width && $height) {
                 return [
-                    "width" => $width,
-                    "height" => $height
+                    'width' => $width,
+                    'height' => $height
                 ];
             }
         }
@@ -203,8 +203,8 @@ class Image extends Model\Asset
             $imageSize = getimagesize($path);
             if ($imageSize[0] && $imageSize[1]) {
                 $dimensions = [
-                    "width" => $imageSize[0],
-                    "height" => $imageSize[1]
+                    'width' => $imageSize[0],
+                    'height' => $imageSize[1]
                 ];
             }
         }
@@ -212,28 +212,28 @@ class Image extends Model\Asset
         if (!$dimensions) {
             $image = self::getImageTransformInstance();
 
-            $status = $image->load($path, ["preserveColor" => true]);
+            $status = $image->load($path, ['preserveColor' => true]);
             if ($status === false) {
                 return;
             }
 
             $dimensions = [
-                "width" => $image->getWidth(),
-                "height" => $image->getHeight()
+                'width' => $image->getWidth(),
+                'height' => $image->getHeight()
             ];
         }
 
         // EXIF orientation
-        if (function_exists("exif_read_data")) {
+        if (function_exists('exif_read_data')) {
             $exif = @exif_read_data($path);
             if (is_array($exif)) {
-                if (array_key_exists("Orientation", $exif)) {
-                    $orientation = intval($exif["Orientation"]);
+                if (array_key_exists('Orientation', $exif)) {
+                    $orientation = intval($exif['Orientation']);
                     if (in_array($orientation, [5, 6, 7, 8])) {
                         // flip height & width
                         $dimensions = [
-                            "width" => $dimensions["height"],
-                            "height" => $dimensions["width"]
+                            'width' => $dimensions['height'],
+                            'height' => $dimensions['width']
                         ];
                     }
                 }
@@ -250,7 +250,7 @@ class Image extends Model\Asset
     {
         $dimensions = $this->getDimensions();
 
-        return $dimensions["width"];
+        return $dimensions['width'];
     }
 
     /**
@@ -260,7 +260,7 @@ class Image extends Model\Asset
     {
         $dimensions = $this->getDimensions();
 
-        return $dimensions["height"];
+        return $dimensions['height'];
     }
 
     /**
@@ -357,7 +357,7 @@ class Image extends Model\Asset
     {
         $data = [];
 
-        if (function_exists("exif_read_data") && is_file($this->getFileSystemPath())) {
+        if (function_exists('exif_read_data') && is_file($this->getFileSystemPath())) {
             $supportedTypes = [IMAGETYPE_JPEG, IMAGETYPE_TIFF_II, IMAGETYPE_TIFF_MM];
 
             if (in_array(@exif_imagetype($this->getFileSystemPath()), $supportedTypes)) {

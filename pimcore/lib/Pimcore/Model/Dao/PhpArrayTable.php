@@ -35,7 +35,7 @@ abstract class PhpArrayTable implements DaoInterface
      */
     protected function setFile($name)
     {
-        $file = Config::locateConfigFile($name . ".php");
+        $file = Config::locateConfigFile($name . '.php');
         $this->db = PhpArrayFileTable::get($file);
     }
 }

@@ -27,7 +27,7 @@ class Dao extends Model\Dao\PhpArrayTable
     public function configure()
     {
         parent::configure();
-        $this->setFile("predefined-asset-metadata");
+        $this->setFile('predefined-asset-metadata');
     }
 
     /**
@@ -43,10 +43,10 @@ class Dao extends Model\Dao\PhpArrayTable
 
         $data = $this->db->getById($this->model->getId());
 
-        if (isset($data["id"])) {
+        if (isset($data['id'])) {
             $this->assignVariablesToModel($data);
         } else {
-            throw new \Exception("Predefined asset metadata with id: " . $this->model->getId() . " does not exist");
+            throw new \Exception('Predefined asset metadata with id: ' . $this->model->getId() . ' does not exist');
         }
     }
 
@@ -60,20 +60,20 @@ class Dao extends Model\Dao\PhpArrayTable
     {
         $data = $this->db->fetchAll(function ($row) use ($name, $language) {
             $return = true;
-            if ($name && $row["name"] != $name) {
+            if ($name && $row['name'] != $name) {
                 $return = false;
             }
-            if ($language && $row["language"] != $language) {
+            if ($language && $row['language'] != $language) {
                 $return = false;
             }
 
             return $return;
         });
 
-        if (count($data) && $data[0]["id"]) {
+        if (count($data) && $data[0]['id']) {
             $this->assignVariablesToModel($data[0]);
         } else {
-            throw new \Exception("Predefined asset metadata with name: " . $name . " and language: " . $language . " does not exist");
+            throw new \Exception('Predefined asset metadata with name: ' . $name . ' and language: ' . $language . ' does not exist');
         }
     }
 
@@ -91,8 +91,8 @@ class Dao extends Model\Dao\PhpArrayTable
         try {
             $dataRaw = get_object_vars($this->model);
             $data = [];
-            $allowedProperties = ["id", "name", "description", "language", "type", "data",
-                "targetSubtype", "config", "creationDate", "modificationDate"];
+            $allowedProperties = ['id', 'name', 'description', 'language', 'type', 'data',
+                'targetSubtype', 'config', 'creationDate', 'modificationDate'];
 
             foreach ($dataRaw as $key => $value) {
                 if (in_array($key, $allowedProperties)) {
